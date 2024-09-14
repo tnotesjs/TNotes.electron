@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css" />
+    <title>无边框窗口</title>
+  </head>
+  <body>
+    <!-- 令窗口的标题栏是可拖拽的区域 -->
+    <div class="title">这是自定义的窗口标题栏</div>
+    <!-- 窗口的内容区域不可拖拽 -->
+    <div class="content">Lorem ipsum dolor sit amet.</div>
+  </body>
+  <script>
+    // test title can be clicked
+    // // 通过 css 的方式来解决无边框窗口的拖拽问题，会导致点击事件失效。
+    // const title = document.querySelector('.title')
+    // title.addEventListener('click', () => {
+    //   console.log('title clicked')
+    // })
+    // // 点击内容区域，可以触发点击事件。
+    // const content = document.querySelector('.content')
+    // content.addEventListener('click', () => {
+    //   console.log('content clicked')
+    // })
+  </script>
+</html>
