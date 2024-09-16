@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Screen Capture App</title>
+</head>
+
+<body>
+  <h1>Screen Capture App</h1>
+  <script>
+    const fs = require('fs');
+    const screenshot = require('screenshot-desktop');
+    const sharp = require('sharp');
+    const { imageHash } = require('image-hash');
+
+    let count = 0;
+    let hashes = [];  // 用于存储已保存的图片哈希值
+
+    function calculateHammingDistance(hash1, hash2) {
+      let distance = 0;
+      for (let i = 0; i < hash1.length; i++) {
+        if (hash1[i] !== hash2[i]) {
+          distance++;
+        }
+      }
+      return distance;
+    }
+
+    window.hashes = hashes
+    window.calculateHammingDistance = calculateHammingDistance
+
+    function captureAndCrop(x, y, width, height) {
+      console.time('screenshot');
+      screenshot().then((img) => {
+        sharp(img)
+          .extract({ left: x, top: y, width: width, height: height }) // 设定裁剪区域
+          .toBuffer() // 转换为Buffer以便计算哈希
+          .then((buffer) => {
+            // 计算哈希值
+            imageHash({ data: buffer, format: 'png' }, 16, true, (error, data) => {
+              if (error) {
+                console.error('Error calculating hash:', error);
+                return;
+              }
+              // 检查是否为重复图片
+              if (hashes.includes(data)) {
+                console.log('Duplicate image found, not saving.');
+              } else {
+                hashes.push(data); // 保存新的哈希值
+                fs.writeFileSync(`cropped${count}.png`, buffer); // 保存新图片
+                console.log('New image saved.');
+              }
+            });
+          })
+          .catch((err) => {
+            console.error('Error processing image:', err);
+          });
+        count++;
+      }).catch((err) => {
+        console.error('Failed to capture screenshot:', err);
+      });
+      console.timeEnd('screenshot');
+    }
+
+    // 调用函数，传入 x, y 坐标以及需要裁剪的宽度和高度
+    const scale = 2;
+    const x = 1356 * scale;
+    const y = 629 * scale;
+    const width = 2127 * scale - x;
+    const height = 705 * scale - y;
+    const timer = setInterval(() => {
+      captureAndCrop(x, y, width, height);
+      if (count === 20) clearInterval(timer);
+    }, 1000);
+  </script>
+</body>
+
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+  <title>Screen Capture App</title>
+</head>
+
+<body>
+  <h1>Screen Capture App</h1>
+  <script>
+    let count = 0
+
+    const screenshot = require('screenshot-desktop');
+    const sharp = require('sharp');
+
+    function captureAndCrop(x, y, width, height) {
+      console.time('screenshot');
+      screenshot().then((img) => {
+        sharp(img)
+          .extract({ left: x, top: y, width: width, height: height }) // 设定裁剪区域
+          .toFile(`cropped${count}.png`) // 保存裁剪后的图片
+          .then(() => {
+            console.log('Cropped image saved.');
+            console.timeEnd('screenshot');
+          })
+          .catch((err) => {
+            console.error('Error processing image:', err);
+            console.timeEnd('screenshot');
+          });
+      }).catch((err) => {
+        console.error('Failed to capture screenshot:', err);
+        console.timeEnd('screenshot');
+      });
+    }
+
+    // 调用函数，传入 x, y 坐标以及需要裁剪的宽度和高度
+    const scale = 2
+    const x = 1356 * scale
+    const y = 629 * scale
+    const width = 2127 * scale - x
+    const height = 705 * scale - y
+    // captureAndCrop(0, 120, 100, 120); // 根据需要修改参数
+    const timer = setInterval(() => {
+      captureAndCrop(x, y, width, height);
+      count++
+      if (count === 20) clearInterval(timer)
+    }, 300);
+  </script>
+</body>
+
+</html> -->
