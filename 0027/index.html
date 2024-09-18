@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #drag1, #drag2 {
+        border: 1px solid;
+      }
+
+      #drag1 {
+        border-color: red;
+      }
+
+      #drag2 {
+        border-color: blue;
+      }
+    </style>
+    <title>【demo】原生文件拖 & 放</title>
+  </head>
+  <body>
+    <h1>startDrag test</h1>
+    <div draggable="true" id="drag1">drag-and-drop.md</div>
+    <img src="./drag-and-drop.png" alt="" draggable="true" id="drag2">
+    <script src="renderer.js"></script>
+  </body>
+</html>

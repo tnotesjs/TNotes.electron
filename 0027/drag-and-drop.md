@@ -1,0 +1,1 @@
+# File to test drag and drop
