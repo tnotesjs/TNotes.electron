@@ -1,0 +1,37 @@
+{
+  "name": "weread-helper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "electron .",
+    "generate-icon": "electron-icon-builder --input=./icon/icon.png --output=./build",
+    "build": "npm run generate-icon && electron-builder",
+    "build-win": "npm run generate-icon && electron-builder --win --x64"
+  },
+  "build": {
+    "files": [
+      "**/*",
+      "progressbar.min.js"
+    ],
+    "mac": {
+      "target": "zip",
+      "icon": "build/icons/mac/icon.icns"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icons/win/icon.ico"
+    },
+    "linux": {
+      "icon": "build/icons/png/"
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^29.2.0",
+    "electron-builder": "^24.13.3",
+    "electron-icon-builder": "^2.0.1"
+  }
+}
