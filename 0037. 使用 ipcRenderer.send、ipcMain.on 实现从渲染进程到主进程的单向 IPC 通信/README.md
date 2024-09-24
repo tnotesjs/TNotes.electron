@@ -1,0 +1,1 @@
+# 0037. 使用 ipcRenderer.send、ipcMain.on 实现从渲染进程到主进程的单向 IPC 通信
