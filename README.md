@@ -1,19 +1,22 @@
 # electron
 
+## 📝 electron 导读
+
+- 了解 electron 的核心概念：0001、0045
+- IPC 基础：
+  - 认识 IPC 相关模块：0046
+  - 渲染进程 -> 主进程：0037、0035
+  - 主进程 -> 渲染进程：0043
+  - 渲染进程 <-> 主进程：0038、0039、0036
+- IPC 进阶：
+  - 渲染进程 <-> 渲染进程：0042、0041、0040、0034
+  - MessageChannel：0004、0003
+
 ## 🔗 links
 
 - https://www.bilibili.com/video/BV1544219774 - bilibili - 视频播放链接。
 - https://github.com/Tdahuyou/electron - GitHub - electron 学习笔记。
 - https://www.yuque.com/huyouda/programming-public - yuque - 在线笔记 - 存储一些学习 electron 的相关资源。
-
-## 📝 electron 导读
-
-- electron 快速入门：
-  - 了解 electron 的核心概念：0001、0045
-  - IPC 基础：
-    - 渲染进程 -> 主进程：0037、0035
-    - 主进程 -> 渲染进程：
-    -
 
 ## 📝 Electron 相关资源
 
