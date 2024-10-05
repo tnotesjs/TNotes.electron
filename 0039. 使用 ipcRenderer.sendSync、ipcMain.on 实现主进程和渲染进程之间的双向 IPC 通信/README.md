@@ -1,61 +1,23 @@
 # 0039. 使用 ipcRenderer.sendSync、ipcMain.on 实现主进程和渲染进程之间的双向 IPC 通信
 
+- 视频：✅
+
 通过对比 `ipcRenderer.send`、`ipcRenderer.sendSync` 来熟悉 `sendSync` API 的一些特点和基本用法。
 
-# 流程图
+注意：ipcRenderer.sendSync 非必要，不建议使用。
 
-![](https://cdn.nlark.com/yuque/0/2023/jpeg/2331396/1684643460959-290c8544-0a4f-4c0f-836f-b7935c297453.jpeg)
+## 💻 demo
 
-# 视频
+**通信原理图**
 
-- [yuque](https://www.yuque.com/huyouda/electron/ez22kko5wgrkwdw4)
+![](md-imgs/2024-10-05-20-10-08.png)
 
-# 源码
+本文档通过对比 ipcRenderer.send、ipcRenderer.sendSync 这两种通信方法，简单介绍了有关 ipcRenderer.sendSync API 的一些特点和基本用法。
 
-## package.json
-
-```json
-{
-  "name": "sendsync-on",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "electron ."
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "electron": "^29.1.0"
-  }
-}
-```
-
-## index.html
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>24.03.02</title>
-  </head>
-
-  <body>
-    <h1>renderer process</h1>
-    <button id="btn1">send</button>
-    <button id="btn2">sendSync</button>
-    <script src="renderer.js"></script>
-  </body>
-</html>
-```
-
-## renderer.js
+**源码实现**
 
 ```javascript
+// renderer.js
 const {
   ipcRenderer
 } = require('electron')
@@ -82,9 +44,8 @@ btn2.onclick = () => {
 }
 ```
 
-## index.js
-
 ```javascript
+// index.js
 const {app, BrowserWindow, ipcMain} = require('electron')
 
 let win
@@ -132,13 +93,14 @@ app.on('ready', () => {
 })
 ```
 
-# 最终效果
+**最终效果**
 
 先点击 send 按钮，然后再点击 sendSync 按钮，最终结果如下。
 
-![image.png](https://cdn.nlark.com/yuque/0/2024/png/2331396/1709350161851-7bd266cd-f38d-49a5-b7b4-f68f61367a5a.png#averageHue=%23f2f2f2&clientId=u072e3cda-36b8-4&from=paste&height=246&id=u5a74b716&originHeight=492&originWidth=1600&originalType=binary&ratio=2&rotation=0&showTitle=false&size=103767&status=done&style=stroke&taskId=u4519e20a-2695-42bf-9acb-73e5e236e56&title=&width=800)
+![](md-imgs/2024-10-05-20-11-21.png)
 
 ```bash
+# 主进程日志
 主进程收到了来自渲染进程的 ipcRenderer.send 方法发送的消息 1 2 3
 主进程收到了来自渲染进程的 ipcRenderer.sendSync 方法发送的消息 1 2 3
 ```

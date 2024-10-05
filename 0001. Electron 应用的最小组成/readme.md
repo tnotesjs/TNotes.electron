@@ -1,8 +1,9 @@
 # 0001. Electron 应用的最小组成
 
+- 视频：✅
 - 认识 Electron 的最小组成
 - Electron 的入口文件
-- demo - 从 0 到 1 搭建一个 hello world 应用
+- 实现一个 demo - 从 0 到 1 搭建一个 hello world 应用
 
 知道 Electron 应用的最小组成，要求能够做到快速搭建一个简单的 Electron 学习环境，全程耗时控制在 1min ~ 3min（不算下载依赖耗时）实现一个小 demo，为接下来的 Electron 相关知识点的学习做准备。
 
@@ -12,9 +13,9 @@
 - index.js 主进程
 - index.html 渲染进程（非必需）
 
-## 🔗 链接
+## 🔗 links
 
-- https://nodejs.org/en 这是 NodeJS 官网，如果你的电脑没有安装 NodeJS 的话，需要到官网安装它。
+- https://nodejs.org/en - 这是 NodeJS 官网，如果你的电脑没有安装 NodeJS 的话，需要到官网安装它。
 
 ## 💡 导图
 

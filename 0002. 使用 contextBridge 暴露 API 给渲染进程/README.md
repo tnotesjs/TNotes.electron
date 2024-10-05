@@ -1,4 +1,3 @@
-
 # 0002. 使用 contextBridge 暴露 API 给渲染进程
 
 - `contextBridge` 的基本使用
@@ -7,9 +6,8 @@
 
 ## 🔗 链接
 
-https://www.electronjs.org/zh/docs/latest/api/context-bridge - contextBridge 模块，查看渲染进程模块 contextBridge 的相关描述。
-
-https://www.electronjs.org/zh/docs/latest/api/structures/web-preferences - WebPreferences Object，查看 WebPreferences 数据结构。
+- https://www.electronjs.org/zh/docs/latest/api/context-bridge - contextBridge 模块，查看渲染进程模块 contextBridge 的相关描述。
+- https://www.electronjs.org/zh/docs/latest/api/structures/web-preferences - WebPreferences Object，查看 WebPreferences 数据结构。
 
 ## 💻 示例
 
