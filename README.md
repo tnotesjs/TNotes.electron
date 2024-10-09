@@ -2,12 +2,10 @@
 
 ## 🔗 links
 
+- [TODO](./TODO.md) - **待办清单，记录代办事项。** - **根据知识点对笔记进行了分类，方便查找，可以作为目录参考。**
+- https://www.yuque.com/huyouda/programming-public - yuque - 在线笔记 - 存储一些笔记的静态资源。
 - https://www.bilibili.com/video/BV1544219774 - bilibili - 视频播放链接。
 - https://github.com/Tdahuyou/electron - GitHub - electron 学习笔记。
-- https://www.yuque.com/huyouda/programming-public - yuque - 在线笔记 - 存储一些学习 electron 的相关资源。
-- [TODO](./TODO.md)
-  - 待办清单
-  - 根据知识点对笔记进行了分类，方便查找，可以作为导读参考。
 
 ## 📝 Electron 相关资源
 
