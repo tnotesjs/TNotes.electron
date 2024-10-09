@@ -26,7 +26,7 @@ function getDirList(base_path) {
     if (stats.isDirectory()) {
       // 获取目录编号和完整目录名称
       const dir_num = dir_name.slice(0, 4); // 取前4个字符作为编号
-      DIR_MAP[dir_num] = dir_name;
+      DIR_MAP[dir_num] = `[${dir_name}](./${encodeURIComponent(dir_name)})`;
       unmatchedDirNumbers.add(dir_num); // 初始化未匹配集合
     }
   }
@@ -46,8 +46,8 @@ for (const key in DIR_MAP) {
     let newLine = line;
 
     // 匹配主项或子项
-    const match = line.match(/(\s*-\s*\[\s*x?\s*\]\s*)(\d{4})(.*)/);
-    if (match && match[2] === key) {
+    const match = line.match(/(\s*-\s*\[\s*x?\s*\]\s*)(\[?)(\d{4})(.*)/);
+    if (match && match[3] === key) {
       // 替换匹配到的行，并去掉数字后的所有文本
       newLine = `${match[1]}${value}`;
       // 从未匹配集合中移除已匹配的编号
