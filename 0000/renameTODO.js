@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const IGNORE_DIRS = ['md-imgs', '.git', '.vscode', '0000', '9999. temolate'];
+const IGNORE_DIRS = ['md-imgs', '.git', '.vscode', '0000', '9999. template'];
 const BASE_DIR = path.resolve(__dirname, '..');
 console.log(BASE_DIR);
 
