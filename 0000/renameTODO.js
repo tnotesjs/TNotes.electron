@@ -26,7 +26,7 @@ function getDirList(base_path) {
     if (stats.isDirectory()) {
       // 获取目录编号和完整目录名称
       const dir_num = dir_name.slice(0, 4); // 取前4个字符作为编号
-      DIR_MAP[dir_num] = `[${dir_name}](./${encodeURIComponent(dir_name)})`;
+      DIR_MAP[dir_num] = `[${dir_name}](./${encodeURIComponent(dir_name)}/README.md)`;
       unmatchedDirNumbers.add(dir_num); // 初始化未匹配集合
     }
   }
