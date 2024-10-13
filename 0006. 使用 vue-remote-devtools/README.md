@@ -1,5 +1,7 @@
 # 0006. 使用 vue-remote-devtools
 
+- [x] 视频
+
 ## 📝 summary
 
 - vue-remote-devtools 的基本使用
