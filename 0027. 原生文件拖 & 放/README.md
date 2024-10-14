@@ -16,7 +16,7 @@
 - https://www.electronjs.org/zh/docs/latest/tutorial/native-file-drag-drop
   - 查看官方示例 - 原生文件拖 & 放。
 
-## 📝 notes - 本文要实现一个什么样的效果
+## 📒 notes - 本文要实现一个什么样的效果
 
 - ![](md-imgs/2024-10-13-21-25-12.png)
   - 可以直接将窗口中的红框或蓝框中的内容，直接拖到系统桌面或者指定文件夹中。

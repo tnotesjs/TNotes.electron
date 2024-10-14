@@ -97,7 +97,7 @@ app.whenReady().then(() => {
     - ![](md-imgs/2024-10-13-21-36-38.png)
 - 该 demo 的做法是直接使用命令的方式来走，并将其配置到了包体描述文件 package.json 中。这部分的逻辑，其实也可以视作 nodejs 脚本，丢到一个 .js 文件中以便管理。
 
-## 📝 notes - electron, electron-builder, 和 electron-icon-builder 应该安装为开发依赖还是生产依赖呢？
+## 📒 notes - electron, electron-builder, 和 electron-icon-builder 应该安装为开发依赖还是生产依赖呢？
 
 - 答：开发依赖。
 - 因此，当你编写的应用如果需要出包的话，别忘了在安装的这些包的时候加上 --save-dev 参数，否则，出包的时候会报错。

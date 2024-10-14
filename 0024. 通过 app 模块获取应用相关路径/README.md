@@ -10,7 +10,7 @@
 - https://www.electronjs.org/zh/docs/latest/api/app#appgetpathname
   - 官方文档，查看接口 app.getPath 说明文档。
 
-## 📝 notes
+## 📒 notes
 
 `app.getPath(name)`，其中参数 `name` 是一个 string 类型，`name` 可以是以下这些值。
 

@@ -11,7 +11,7 @@
 - https://www.electronjs.org/zh/docs/latest/api/browser-window#winsetalwaysontopflag-level-relativelevel
   - 官方文档，查看 API `win.setAlwaysOnTop(flag[, level][, relativeLevel])` 的相关描述。
 
-## 📝 notes
+## 📒 notes
 
 - 做法 1：在 new BrowserWindow 的时候，丢一个配置项 `alwaysOnTop: true` 进去，暴力置顶。
 - 做法 2：通过 BrowserWindow 实例 win 的 `setAlwaysOnTop` 方法实现置顶，可以进行更细粒度的控制置顶的层级。

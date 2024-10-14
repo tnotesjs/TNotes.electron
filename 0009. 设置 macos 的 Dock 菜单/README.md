@@ -11,7 +11,7 @@
 - https://www.electronjs.org/zh/docs/latest/api/app#appdock-macos-%E5%8F%AA%E8%AF%BB
   - 查看有关 app.dock API 的相关内容。
 
-## 📝 notes
+## 📒 notes
 
 - Q：Dock 菜单是什么？
 - A：Dock 菜单，这是 macos 特有的。

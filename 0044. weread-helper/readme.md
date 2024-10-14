@@ -13,7 +13,7 @@
   - yuque--tools--微信读书。
   - 📂 可在工具分享 tools 中获取安装包。
 
-## 📝 notes - Quick Start
+## 📒 notes - Quick Start
 
 - `npm i`
 - `npm run dev` 启 dev 环境

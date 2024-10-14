@@ -222,7 +222,7 @@ app.on('window-all-closed', () => {
 - **最终效果**
   - ![](md-imgs/2024-10-13-21-18-23.png)
 
-## 📝 notes - 如何获取 VUE_DEVTOOLS_ID
+## 📒 notes - 如何获取 VUE_DEVTOOLS_ID
 
 去 **chrome 应用商店** 安装 **Vue.js devtools 插件**。假如你已经安装好了插件，可以在插件管理页面（`chrome://extensions/`）查看。
 
