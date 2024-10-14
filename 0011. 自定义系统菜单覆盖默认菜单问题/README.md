@@ -13,7 +13,7 @@
 - https://www.electronjs.org/docs/latest/api/menu#examples
   - An example of creating the application menu with the simple template API
 
-## 📝 notes - 菜单项冲突问题
+## 📒 notes - 菜单项冲突问题
 
 - 通过查看这部分内容，可以快速了解本文档要介绍的问题。
 - 下面介绍一下这个 demo 的最终效果，需要解决的问题是什么。
@@ -39,7 +39,7 @@ function createMenu() {
 
 ![](md-imgs/2024-10-06-01-33-22.png)
 
-## 📝 notes - 如何解决冲突问题
+## 📒 notes - 如何解决冲突问题
 
 - 原因很简单，因为系统自带的默认菜单被咱们指定的菜单给覆盖了。这其实就是该文档要介绍的点，如果咱们自定义的系统菜单覆盖了默认的菜单项，而默认的菜单项中的某些功能，恰好又正是我们需要的，要如何处理呢？
 - 这时候的解决办法也非常简单 —— **缺啥补啥**

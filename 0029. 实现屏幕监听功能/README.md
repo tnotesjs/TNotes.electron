@@ -18,7 +18,7 @@
   - Electron Github Issues，mandatory property missing from MediaTrackConstraints #27139。
   - 主要讨论了在使用 Electron 的 desktopCapturer API 与 TypeScript 时，由于 mandatory 属性不在 MediaTrackConstraints 类型中而引起的类型错误问题。
 
-## 📝 notes - `navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题
+## 📒 notes - `navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题
 
 > - https://github.com/electron/electron/issues/27139
 > - Electron Github Issues，mandatory property missing from MediaTrackConstraints #27139。

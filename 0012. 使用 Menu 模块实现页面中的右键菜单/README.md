@@ -13,7 +13,7 @@
 - https://www.electronjs.org/zh/docs/latest/api/menu-item
   - 查看【菜单项】MenuItem 类的相关说明。
 
-## 📝 notes
+## 📒 notes
 
 本节介绍如何如何使用 Menu 模块来创建一个右键菜单。这里提到的右键菜单，又称为上下文菜单，也就是你在一些应用程序的界面上，点击鼠标右键所弹出的内容。
 

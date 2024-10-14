@@ -19,7 +19,7 @@
 - https://www.yuque.com/huyouda/tools/0003#ghth2
   - `0003. WeRead 微信读书辅助脚本`
 
-## 📝 notes
+## 📒 notes
 
 - 【demo1】介绍了 macos 应用菜单第一项的问题 —— 始终显示应用程序的名称，我们配置的 label 不生效。
 - 【demo2】介绍了让我们配置的菜单项信息能够完整展示出来的一种解决方案 —— 对 macos 特殊处理，往菜单列表中 unshift 一项内容作为第一项。

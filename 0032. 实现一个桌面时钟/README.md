@@ -13,7 +13,7 @@
 - https://www.electronjs.org/zh/docs/latest/api/browser-window#winsetignoremouseeventsignore-options
   - win.setIgnoreMouseEvents
 
-## 📝 notes
+## 📒 notes
 
 - 这个 demo 主要用来练习不规则窗口的实现，有几点细节需要注意。
   - 窗口默认是矩形，如果用户点击的区域是矩形的非表盘区域，需要可以穿透下去点击到窗口后面的内容。鼠标穿透的效果，需要用到一个 API win.setIgnoreMouseEvents。

@@ -12,7 +12,7 @@
 - https://www.electronjs.org/zh/docs/latest/api/app#%E4%BA%8B%E4%BB%B6-window-all-closed
   - 官方文档，查看主进程的 app 模块上的 window-all-closed 事件的相关描述。
 
-## 📝 notes
+## 📒 notes
 
 - 我们知道在桌面端，macOS 和 Windows 有着特别多的操作差异性，比如在窗口管理上，Windows 用户习惯使用最大化、最小化和关闭窗口的按钮，而 macOS 用户则通常使用红、黄、绿色的按钮分别表示关闭、最小化和全屏。
 - 除此之外，在 macOS 中，即使所有窗口关闭了，应用仍然在底部的菜单栏中保持活动状态。因此，通常需要特殊处理以确保用户主动退出应用程序。而在其他平台（如 Windows 或 Linux）中，通常情况下关闭最后一个窗口也意味着退出应用程序是合理的行为。所以为了实现这个操作习惯，我们也可以增加一个情况判断。核心逻辑如下：

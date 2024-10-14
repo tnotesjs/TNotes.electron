@@ -4,7 +4,7 @@
 
 - 如何使用 web api 来实现 IPC 通信
 
-## 📝 notes
+## 📒 notes
 
 主进程有 MessageChannelMain 模块，渲染进程可以使用 Web API MessageChannel。
 
