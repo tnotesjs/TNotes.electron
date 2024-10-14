@@ -9,7 +9,7 @@ electron 学习笔记。
 - [TODO](./TODO.md)
   - **待办清单，记录代办事项。**
   - **根据知识点对笔记进行了分类，方便查找，可以作为目录参考。**
-- https://www.yuque.com/huyouda/programming-public
+- https://www.yuque.com/tdahuyou/notes
   - yuque 在线笔记
   - 存储一些笔记的静态资源。
 - https://www.bilibili.com/video/BV1544219774
