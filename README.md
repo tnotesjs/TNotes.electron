@@ -26,8 +26,7 @@ electron 学习笔记。
 
 ### Electron 相关书籍
 
-- 《Electron实战：入门、进阶与性能优化》
-  - yuque 上有 pdf 下载链接。
+- [《Electron实战：入门、进阶与性能优化》](0050.%20《Electron%20实战：入门、进阶与性能优化》/《Electron实战：入门、进阶与性能优化》.pdf)
 
 ### Electron 掘金小册
 
