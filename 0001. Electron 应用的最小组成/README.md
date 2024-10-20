@@ -1,6 +1,6 @@
 # 0001. Electron 应用的最小组成
 
-- 视频：✅
+- 视频：electron.0001
 - 认识 Electron 的最小组成
 - Electron 的入口文件
 - 实现一个 demo - 从 0 到 1 搭建一个 hello world 应用
@@ -174,9 +174,7 @@ touch index.html
 
 ![](md-imgs/2024-09-24-16-46-43.png)
 
-## 🤔 问题
-
-### 问：主进程加载的入口文件是？
+## 🤔 问：主进程加载的入口文件是？
 
 主进程就是 `package.json` 中的 main 字段标识的文件，它是整个程序的入口，也是 Electron 的主进程。
 

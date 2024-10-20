@@ -1,21 +1,17 @@
-# 0051. electron 在线学习资源 - 掘金小册
+# 0051. 掘金小册 - 《Electron 应用开发实践指南》
 
 ## 📝 summary
 
-- 记录了 electron 相关的学习资源 - 掘金小册 - 掘金上跟 electron 相关的一些小册。
+- 记录了 electron 相关的学习资源 - 掘金小册 - 《Electron 应用开发实践指南》
 - 对 rubick 做了一个简单的介绍。
 
 > [!NOTE]
 > 笔记中提到的这些小册并不是免费的。
 
-## 🔗 links - 掘金小册
+## 🔗 links
 
-- [推广链接](https://s.juejin.cn/ds/iBAwDAnG/)，《Electron + Vue 3 桌面应用开发》
-  - 《Electron + Vue 3 桌面应用开发》 这本小册的作者就是 electron.0050. 《Electron 实战：入门、进阶与性能优化》 这本书的作者“刘晓伦”。
 - [推广链接](https://s.juejin.cn/ds/iBAwjM5s/)，《Electron 应用开发实践指南》
   - 《Electron 应用开发实践指南》 这本小册的作者，是开源项目 rubick 的作者。
-- [推广链接](https://s.juejin.cn/ds/iBAwroHA/)，《Electron + React 从 0 到 1 实现简历平台实战》
-  - 《Electron + React 从 0 到 1 实现简历平台实战》 这一本还没购买，其它的都已经购买了，并阅读了一部分，也都还没读完，后续学习的时候会顺带着将相关的知识点整理到当前的笔记仓库中。
 
 > [!NOTE]
 > 如果有需要的话，可以通过上述推广链接下单支持一下（有几块钱的推广费）。感谢 🙏 🙏 🙏。

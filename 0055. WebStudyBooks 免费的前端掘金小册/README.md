@@ -1,0 +1,21 @@
+# 0055. WebStudyBooks 免费的前端掘金小册
+
+## 🔗 links
+
+- https://github.com/zhaoxinkun/WebStudyBooks
+  - GitHub WebStudyBooks
+  - 这是仓库原地址，存放了一系列作者网上买来的掘金小册压缩包。
+  - 仓库作者原话：这是掘金小册，基本都是完整版的，如果有不完整的希望体谅，我也是从别人哪里买的。
+  - ![](md-imgs/2024-10-21-03-44-15.png)
+- https://github.com/Tdahuyou/zhaoxinkun--WebStudyBooks
+  - GitHub WebStudyBooks
+  - forked from zhaoxinkun/WebStudyBooks
+  - 以防被删，先 fork 一份。
+
+## 📒 notes - 注意一些可能存在的问题
+
+- **不全**：仓库中记录的前端掘金小册是不完整的，从仓库的最新更新时间（1 年前）来看，这段时间掘金上也推出了新的小册，因此这段时间上架的小册在这里边应该是找不到的。
+- **滞后问题**：掘金上的一些小册是会不定期更新的，作者会不定期在小册下发布新的文章，这些压缩包的版本或许会有所滞后。
+  - 以《Electron + Vue3 桌面应用开发》为例：
+  - ![](md-imgs/2024-10-21-03-56-03.png)
+- **错误问题**：小册中可能会存在内容错误，购买小册的读者在掘金上阅读小册时，若发现错误，可能会在评论区提醒作者，然后作者修正错误，而仓库中的这些小册压缩包则不会更新，可能有些错误还没有被修正。
