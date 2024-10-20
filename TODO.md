@@ -1,5 +1,15 @@
+> [!NOTE]
+> 在 TODO.md 中，按照知识点对笔记内容做了简单的分组归类，可以根据需要选择性阅读，不建议按照编号顺序来阅读。
+> - [ ] 未打勾的，表示未完成的笔记。
+> - [x] 打勾的，表示已完成的笔记。
+
 - electron 书籍
   - [x] [0050. 《Electron 实战：入门、进阶与性能优化》](./0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README.md)
+- electron 在线学习资源
+  - [ ] [0051. electron 在线学习资源 - 掘金小册](./0051.%20electron%20%E5%9C%A8%E7%BA%BF%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%20-%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C/README.md)
+    - 小册还没读完，接下来学习的时候将相关的知识点整理到当前的笔记仓库中。
+- electron 都能用来开发什么类型的应用程序？
+  -  [x] [0052. Electron Showcase](./0052.%20Electron%20Showcase/README.md)
 - 了解 electron 的核心概念
   - [x] [0001. Electron 应用的最小组成](./0001.%20Electron%20%E5%BA%94%E7%94%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%84%E6%88%90/README.md)
   - [x] [0045. Electron 核心概念](./0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md)
