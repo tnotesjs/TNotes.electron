@@ -1,7 +1,7 @@
 # [0003. 比较消息端口 MessageChannel 和 ipcRenderer.invoke、ipcMain.handle 的性能](https://github.com/Tdahuyou/electron/tree/main/0003.%20%E6%AF%94%E8%BE%83%E6%B6%88%E6%81%AF%E7%AB%AF%E5%8F%A3%20MessageChannel%20%E5%92%8C%20ipcRenderer.invoke%E3%80%81ipcMain.handle%20%E7%9A%84%E6%80%A7%E8%83%BD)
 
-> [!NOTE]
-> - 视频：electron.0003
+- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
+  - electron.0003
 
 ## 📒 notes
 

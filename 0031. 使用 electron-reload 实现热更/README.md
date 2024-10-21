@@ -1,8 +1,7 @@
 # [0031. 使用 electron-reload 实现热更](https://github.com/Tdahuyou/electron/tree/main/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4)
 
-## 📝 summary
-
-- 如何使用 electron-reload 实现热更
+- 📝 summary
+  - 如何使用 electron-reload 实现热更
   - 使用 electron-reload 监听主进程和渲染进程内容的变更，一旦内容变化，就自动重启 electron。
   - 额，这功能确实有点儿用，不过感觉也是可有可无，因为手动启动的成本也不算太高。
 

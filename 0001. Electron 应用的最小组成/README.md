@@ -1,15 +1,14 @@
 # [0001. Electron 应用的最小组成](https://github.com/Tdahuyou/electron/tree/main/0001.%20Electron%20%E5%BA%94%E7%94%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%84%E6%88%90)
 
-> [!NOTE]
-> - 📺 video
->   - electron.0001
-> - 📝 summary
->   - 实现一个 demo - 从 0 到 1 搭建一个 hello world 应用
->     - 知道 Electron 应用的最小组成，要求能够做到快速搭建一个简单的 Electron 学习环境，全程耗时控制在 1min ~ 3min（不算下载依赖耗时）实现一个小 demo，为接下来的 Electron 相关知识点的学习做准备。
->   - 本节内容，主要就是仨文件：
->     - package.json 指定入口
->     - index.js 主进程
->     - index.html 渲染进程（非必需）
+- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
+  - electron.0001
+- 📝 summary
+  - 实现一个 demo - 从 0 到 1 搭建一个 hello world 应用
+    - 知道 Electron 应用的最小组成，要求能够做到快速搭建一个简单的 Electron 学习环境，全程耗时控制在 1min ~ 3min（不算下载依赖耗时）实现一个小 demo，为接下来的 Electron 相关知识点的学习做准备。
+  - 本节内容，主要就是仨文件：
+    - package.json 指定入口
+    - index.js 主进程
+    - index.html 渲染进程（非必需）
 
 ## 🔗 links
 

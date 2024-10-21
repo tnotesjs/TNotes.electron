@@ -1,8 +1,7 @@
 # [0052. Electron Showcase](https://github.com/Tdahuyou/electron/tree/main/0052.%20Electron%20Showcase)
 
-## 📝 summary
-
-介绍了一下 **Electron Showcase** 是什么。
+- 📝 summary
+  - 本节介绍了一下 **Electron Showcase** 是什么。
 
 ## 📒 notes - Electron Showcase 简介
 

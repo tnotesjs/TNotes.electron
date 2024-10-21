@@ -1,11 +1,9 @@
 # [0049. desktopCapturer 简介](https://github.com/Tdahuyou/electron/tree/main/0049.%20desktopCapturer%20%E7%AE%80%E4%BB%8B)
 
-## 📝 summary
-
-- desktopCapturer 是什么
-- desktopCapturer 的基本使用流程
-
-desktopCapturer 这是主进程中的一个模块，是一个用于处理桌面视频流（你可以理解为就是你眼睛看到的显示屏上的画面数据）的 API。
+- 📝 summary
+  - desktopCapturer 是什么
+  - desktopCapturer 的基本使用流程
+  - desktopCapturer 这是主进程中的一个模块，是一个用于处理桌面视频流（你可以理解为就是你眼睛看到的显示屏上的画面数据）的 API。
 
 ## 🔗 links
 

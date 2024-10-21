@@ -30,11 +30,12 @@ const path = require('path');
 // const { EOL } = require('os');
 
 const EOL = '\n';
-const SEPERATOR = `${EOL}${EOL}-------------------->分隔符<--------------------${EOL}${EOL}`; // genTopInfos.js 跟 updateTopInfos.js 保持一致
+const SEPERATOR = `${EOL}<!-- ====================>分隔符<==================== -->${EOL}`; // genTopInfos.js 跟 updateTopInfos.js 保持一致
 const SEPARATOR_LEVEL_2 = '## '; // !NOTE 这是二级标题的前缀 这个前缀在头部信息中不允许出现
 const IGNORE_DIRS = ['md-imgs', '.git', '.vscode', '0000', '9999. template'];
 const BASE_DIR = path.resolve(__dirname, '..');
 // console.log('BASE_DIR =>', BASE_DIR);
+const REPO_URL = 'https://github.com/Tdahuyou/electron/tree/main';
 
 const DIR_MAP = {};
 
@@ -48,7 +49,7 @@ function getDirList(base_path) {
     if (stats.isDirectory()) {
       DIR_MAP[
         path.resolve(BASE_DIR, dir_name, 'README.md')
-      ] = `# [${dir_name}](../${encodeURIComponent(dir_name)}/README.md)`;
+      ] = `###### [${dir_name}](../${encodeURIComponent(dir_name)}/README.md)、[github](${REPO_URL}/${encodeURIComponent(dir_name)})`;
     }
   }
 }
@@ -87,12 +88,11 @@ for (const key in DIR_MAP) {
     if (firstHeading2Index > 0) {
       topInfoLines = lines.slice(1, firstHeading2Index);
     } else {
-      // 如果没有找到二级标题，插入一个空行
-      topInfoLines.push('');
+      topInfoLines = lines.slice(1);
     }
 
     // 构建最终的顶部信息
-    const topInfo = `${val}${EOL}${EOL}\`\`\`markdown${EOL}${topInfoLines.join(EOL)}${EOL}\`\`\`${SEPERATOR}`;
+    const topInfo = `${val}${EOL}${topInfoLines.join(EOL)}${EOL}${SEPERATOR}`;
 
     // 添加到所有顶部信息数组
     allTopInfos.push(topInfo);

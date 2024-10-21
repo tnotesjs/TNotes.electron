@@ -12,18 +12,18 @@ const path = require('path');
 const EOL = '\n';
 const BASE_DIR = path.resolve(__dirname, '..');
 const TOP_INFOS_FILE_PATH = path.join(__dirname, 'topInfos.md');
-const SEPERATOR = `${EOL}${EOL}-------------------->分隔符<--------------------${EOL}${EOL}`; // genTopInfos.js 跟 updateTopInfos.js 保持一致
+const SEPERATOR = `${EOL}<!-- ====================>分隔符<==================== -->${EOL}`; // genTopInfos.js 跟 updateTopInfos.js 保持一致
 const SEPARATOR_LEVEL_2 = '## '; // !NOTE 这是二级标题的前缀 这个前缀在头部信息中不允许出现
 
 // 读取 topInfos.md 文件内容
 const TOP_INFOS_CONTENT = fs.readFileSync(TOP_INFOS_FILE_PATH, 'utf8');
 const TOP_INFOS_SECTIONS = TOP_INFOS_CONTENT.split(SEPERATOR); // 按照分隔符切割为多个部分
 
-console.log('TOP_INFOS_SECTIONS =>', TOP_INFOS_SECTIONS);
+// console.log('TOP_INFOS_SECTIONS =>', TOP_INFOS_SECTIONS);
 
 // 解析每个部分并更新对应的 README.md 文件
-TOP_INFOS_SECTIONS.forEach(section => {
-  console.log('section =>', section);
+TOP_INFOS_SECTIONS.forEach((section) => {
+  // console.log('section =>', section);
   if (section.trim() === '' || section === EOL) return; // 跳过空的部分
 
   const lines = section.split(EOL);
@@ -56,21 +56,24 @@ TOP_INFOS_SECTIONS.forEach(section => {
   }
 
   // 构建新的 README.md 内容
-  const newTopInfoLines = lines.slice(1).filter(line => !['```markdown', '```'].includes(line.trim()));
+  const newTopInfoLines = lines.slice(1).filter((line) => line.trim() !== '');
 
   // 更新 README.md 文件
   let updatedReadmeContent = '';
   if (firstHeading2Index > 0) {
     updatedReadmeContent = [
       linesInReadme[0], // 第一行标题保持不变
+      '',
       ...newTopInfoLines, // 更新头部信息
-      ...linesInReadme.slice(firstHeading2Index) // 其它信息保持不变
+      '',
+      ...linesInReadme.slice(firstHeading2Index), // 其它信息保持不变
     ].join(EOL);
   } else {
     updatedReadmeContent = [
-      linesInReadme[0], // 保留第一行标题
+      linesInReadme[0],
+      '',
       ...newTopInfoLines,
-      ...linesInReadme.slice(1)
+      '',
     ].join(EOL);
   }
 
