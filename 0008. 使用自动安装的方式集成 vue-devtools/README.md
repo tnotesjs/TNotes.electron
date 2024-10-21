@@ -3,6 +3,7 @@
 - 📝 summary
   - 如何根据插件 ID 自动下载 chrome 插件源码 `downloadChromeExtension.js`
   - 本文基于 electron-devtools-installer 中的下载 chrome 插件的逻辑，封装了一个 downloadChromeExtension.js 模块，在 electron.0007 的基础上，实现自动安装插件的功能。
+  - 其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。
 
 ## 🔗 links
 

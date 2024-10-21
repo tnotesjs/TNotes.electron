@@ -4,6 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
+const REPO_URL = 'https://github.com/Tdahuyou/electron/tree/main';
 const IGNORE_DIRS = ['md-imgs', '.git', '.vscode', '0000', '9999. template'];
 const BASE_DIR = path.resolve(__dirname, '..');
 console.log(BASE_DIR);
@@ -26,7 +27,7 @@ function getDirList(base_path) {
     if (stats.isDirectory()) {
       // 获取目录编号和完整目录名称
       const dir_num = dir_name.slice(0, 4); // 取前4个字符作为编号
-      DIR_MAP[dir_num] = `[${dir_name}](./${encodeURIComponent(dir_name)}/README.md)`;
+      DIR_MAP[dir_num] = `[${dir_name}](${REPO_URL}/${encodeURIComponent(dir_name)}/README.md) <!-- [${dir_name}](./${encodeURIComponent(dir_name)}/README.md) -->`;
       unmatchedDirNumbers.add(dir_num); // 初始化未匹配集合
     }
   }
