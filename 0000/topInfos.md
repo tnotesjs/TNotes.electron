@@ -3,9 +3,8 @@
 ```markdown
 
 > [!NOTE]
-> - 视频：
->   - electron.0001
-> - 知识点：
+> - 视频：electron.0001
+> - 知识点
 >   - Electron 的最小组成
 >   - Electron 的入口文件
 
@@ -18,8 +17,8 @@
 ```markdown
 
 > [!NOTE]
-> - `contextBridge` 的基本使用
-> 学会在开启 `contextIsolation` 的情况下，使用 `contextBridge` 来给渲染进程暴露 Electron API，使用系统的原生能力。
+> - 知识点
+>   - `contextBridge` 的基本使用
 
 ```
 
@@ -30,7 +29,8 @@
 ```markdown
 
 > [!NOTE]
-> - 视频：electron.0003
+> - 视频
+>   - electron.0003
 
 ```
 
