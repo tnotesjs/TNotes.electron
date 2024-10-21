@@ -1,4 +1,4 @@
-# 0014. 使用 BrowserView 加载外部资源
+# [0014. 使用 BrowserView 加载外部资源](https://github.com/Tdahuyou/electron/tree/main/0014.%20%E4%BD%BF%E7%94%A8%20BrowserView%20%E5%8A%A0%E8%BD%BD%E5%A4%96%E9%83%A8%E8%B5%84%E6%BA%90)
 
 - [x] 视频
 

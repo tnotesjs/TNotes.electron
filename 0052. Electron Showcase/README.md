@@ -1,4 +1,4 @@
-# 0052. Electron Showcase
+# [0052. Electron Showcase](https://github.com/Tdahuyou/electron/tree/main/0052.%20Electron%20Showcase)
 
 ## 📝 summary
 

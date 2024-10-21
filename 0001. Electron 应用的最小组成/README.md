@@ -1,33 +1,36 @@
-# 0001. Electron 应用的最小组成
+# [0001. Electron 应用的最小组成](https://github.com/Tdahuyou/electron/tree/main/0001.%20Electron%20%E5%BA%94%E7%94%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%84%E6%88%90)
 
-- 视频：electron.0001
-- 认识 Electron 的最小组成
-- Electron 的入口文件
+> [!NOTE]
+> - 视频：
+>   - electron.0001
+> - 知识点：
+>   - Electron 的最小组成
+>   - Electron 的入口文件
+
+## 📝 summary
+
 - 实现一个 demo - 从 0 到 1 搭建一个 hello world 应用
-
-知道 Electron 应用的最小组成，要求能够做到快速搭建一个简单的 Electron 学习环境，全程耗时控制在 1min ~ 3min（不算下载依赖耗时）实现一个小 demo，为接下来的 Electron 相关知识点的学习做准备。
-
-本节内容，主要就是仨文件：
-
-- package.json 指定入口
-- index.js 主进程
-- index.html 渲染进程（非必需）
+  - 知道 Electron 应用的最小组成，要求能够做到快速搭建一个简单的 Electron 学习环境，全程耗时控制在 1min ~ 3min（不算下载依赖耗时）实现一个小 demo，为接下来的 Electron 相关知识点的学习做准备。
+- 本节内容，主要就是仨文件：
+  - package.json 指定入口
+  - index.js 主进程
+  - index.html 渲染进程（非必需）
 
 ## 🔗 links
 
 - https://nodejs.org/en - 这是 NodeJS 官网，如果你的电脑没有安装 NodeJS 的话，需要到官网安装它。
 
-## 💡 导图
+## 📒 notes - electron 应用的最小组成
 
 ![](md-imgs/2024-09-24-16-47-53.png)
 
-## 📝 最终效果展示
+## 📒 notes - 最终效果展示
 
 本节需要实现的 demo 效果非常简单 —— 启动 Electron 应用并在页面上渲染出 `Hello World`。
 
 ![](md-imgs/2024-09-24-16-46-17.png)
 
-## 💻 实现步骤
+## 💻 demo - 实现步骤
 
 ### 安装 Node.js 和 npm
 下面，我们来过一下具体的实现步骤。要初始化 Electron 学习环境，需要先安装 Node.js 和 npm。你可以通过 `npm -v`、`node -v` 来查看是否装好了这俩玩意儿。

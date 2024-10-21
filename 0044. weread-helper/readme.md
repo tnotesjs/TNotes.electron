@@ -1,4 +1,4 @@
-# 0044. weread-helper
+# [0044. weread-helper](https://github.com/Tdahuyou/electron/tree/main/0044.%20weread-helper)
 
 ## 📝 summary
 

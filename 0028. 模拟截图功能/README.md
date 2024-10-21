@@ -1,4 +1,4 @@
-# 0028. 模拟截图功能
+# [0028. 模拟截图功能](https://github.com/Tdahuyou/electron/tree/main/0028.%20%E6%A8%A1%E6%8B%9F%E6%88%AA%E5%9B%BE%E5%8A%9F%E8%83%BD)
 
 ## 📝 summary
 

@@ -1,4 +1,4 @@
-# 0006. 使用 vue-remote-devtools
+# [0006. 使用 vue-remote-devtools](https://github.com/Tdahuyou/electron/tree/main/0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools)
 
 - [x] 视频
 
