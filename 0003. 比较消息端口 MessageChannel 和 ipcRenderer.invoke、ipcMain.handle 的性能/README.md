@@ -2,23 +2,21 @@
 
 - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
   - electron.0003
+- 📝 summary
+  - 本文通过一个 Electron 应用示例对比了 `MessageChannel` 和 `ipcRenderer.invoke`/`ipcMain.handle` 两种 IPC 通信方式的性能，结果显示在单向通信中两者差异不大，但在双向通信中 `MessageChannel` 的性能明显优于 `ipcRenderer.invoke`。
 
 ## 📒 notes
 
-这篇文档写了一个 demo 来比较两种 IPC 通信方式的性能差异。
-
-该 demo 仅仅作为一个参考，实际需求往往会更加复杂，比如通信过程中会携带大量数据。本 demo 的测试用例比较简单，仅仅是传递一个写死的字符串。
-
-建议先读源码，再看视频的后半段测试结果演示。从最终表现出来的结果来看，单向通信几乎没差，但如果是双向通信的话，MessageChannel 比 invoke 快了 3～5 倍。
+- 这篇文档写了一个 demo 来比较两种 IPC 通信方式的性能差异。
+- 该 demo 仅仅作为一个参考，实际需求往往会更加复杂，比如通信过程中会携带大量数据。本 demo 的测试用例比较简单，仅仅是传递一个写死的字符串。
+- 建议先读源码，再看视频的后半段测试结果演示。从最终表现出来的结果来看，单向通信几乎没差，但如果是双向通信的话，MessageChannel 比 invoke 快了 3～5 倍。
 
 ## 💻 demo
 
-**先说结论**
-
-- 单向：用哪个都行，差异不大。
-- 双向：使用消息端口的性能会更好。
-
-如果有短时间内多次在主进程和渲染进程之间互相通信的情况，可以优先考虑使用消息端口的方式来跑。
+- **先说结论**
+  - 单向：用哪个都行，差异不大。
+  - 双向：使用消息端口的性能会更好。
+- 如果有短时间内多次在主进程和渲染进程之间互相通信的情况，可以优先考虑使用消息端口的方式来跑。
 
 **源码实现**
 
@@ -149,6 +147,5 @@ document.getElementById('btn3').addEventListener('click', testInvoke_2)
 document.getElementById('btn4').addEventListener('click', testMessageChannel_2)
 ```
 
-**最终结果**
-
-见视频……
+- **最终结果**
+  - 见视频……

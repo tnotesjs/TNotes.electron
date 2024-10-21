@@ -49,7 +49,7 @@ function getDirList(base_path) {
     if (stats.isDirectory()) {
       DIR_MAP[
         path.resolve(BASE_DIR, dir_name, 'README.md')
-      ] = `###### [${dir_name}](../${encodeURIComponent(dir_name)}/README.md)、[github](${REPO_URL}/${encodeURIComponent(dir_name)})`;
+      ] = `### [${dir_name}](../${encodeURIComponent(dir_name)}/README.md) <!-- [github](${REPO_URL}/${encodeURIComponent(dir_name)}) -->`;
     }
   }
 }
