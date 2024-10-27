@@ -1,1 +1,87 @@
+# 忽略视频｜音频文件
+*.mp3
+*.mp4
+
+# 忽略所有操作系统生成的文件
+.DS_Store
+Thumbs.db
+
+# 忽略编辑器和IDE生成的临时文件
+*.swp
+*.swo
+*.bak
+*~
+.vscode/
+.idea/
+
+# 忽略日志文件、数据库文件、缓存等
+logs/
+*.log
+*.sqlite3
+*.db
+cache/
+*.cache
+
+# 忽略Node.js相关文件
 node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnp
+.pnp.js
+
+# 忽略Python环境相关文件
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.env
+.venv/
+venv/
+env/
+
+# 忽略Java编译输出
+*.class
+target/
+out/
+
+# 忽略Maven/Ivy仓库
+.m2/
+.ivy2/
+
+# 忽略Gradle构建系统产生的文件
+.gradle/
+build/
+.gradle/*
+
+# 忽略Docker容器和镜像
+.dockerenv
+.Dockerfile
+.dockerignore
+
+# 忽略用户特定设置
+config.json
+settings.json
+credentials.json
+
+# 忽略敏感信息文件
+.env.local
+.env.*.local
+
+# 忽略OSX中的锁文件
+*.lock
+
+# 忽略自动生成的文档
+docs/api-docs/
+doc/api-docs/
+
+# 忽略测试覆盖率报告
+coverage/
+.nyc_output/
+
+# 忽略其他工具生成的文件
+dist/
+temp/
+tmp/
+*.min.js
+*.min.css
+*.map
