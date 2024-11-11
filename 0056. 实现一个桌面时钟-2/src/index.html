@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time</title>
+    <style>
+      /* 设置窗口的拖拽区域 */
+      body {
+        -webkit-app-region: drag;
+        user-select: none;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        background: url(./week.jpeg);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      #time {
+        text-align: center;
+        /* width: 80%; */
+
+        color: white;
+        text-shadow: 0 2px 6px rgb(0 0 0 / 16%);
+      }
+
+      #date,
+      #day {
+        font-size: calc(6vw);
+        margin: 0;
+      }
+
+      #current-time {
+        font-size: calc(8vw);
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="time">
+      <p id="date"></p>
+      <p id="day"></p>
+      <p id="current-time"></p>
+    </div>
+    <script src="./renderer.js"></script>
+  </body>
+</html>
