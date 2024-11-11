@@ -3,7 +3,7 @@ const path = require('path')
 
 const createWindow = () => {
     const win = new BrowserWindow({
-        opacity: 0.88, // 设置窗口透明度
+        // opacity: 0.88, // 设置窗口透明度
         resizable: true,
         frame: false, // 隐藏窗口默认的边框
         titleBarStyle: 'hidden', // 隐藏默认标题栏，使窗口可以被拖拽
