@@ -17,7 +17,7 @@ const createWindow = () => {
 
     win.loadFile(path.resolve(__dirname, './index.html'))
 
-    win.setAlwaysOnTop(true, 'pop-up-menu') // 设置窗口置顶
+    // win.setAlwaysOnTop(true, 'pop-up-menu') // 设置窗口置顶
 }
 
 app.whenReady().then(createWindow)
