@@ -1,7 +1,6 @@
 # [0007. 使用手动安装的方式集成 vue-devtools](https://github.com/Tdahuyou/electron/tree/main/0007.%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E7%9A%84%E6%96%B9%E5%BC%8F%E9%9B%86%E6%88%90%20vue-devtools)
 
-- 📝 summary
-  - 如何通过 session 模块在 Electron 工程中集成 vue-devtools
+- 如何通过 session 模块在 Electron 工程中集成 vue-devtools
 
 ## 🔗 links
 

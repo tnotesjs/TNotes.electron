@@ -1,8 +1,7 @@
 # [0016. 适配 Windows 和 macOS 上的窗口交互行为](https://github.com/Tdahuyou/electron/tree/main/0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA)
 
-- 📝 summary
-  - 理解 Windows 和 macOS 的桌面应用，在窗口交互行为上的一些差异。
-  - 处理逻辑很简单，重点在于理解两种系统中窗口交互的一些差异点。
+- 理解 Windows 和 macOS 的桌面应用，在窗口交互行为上的一些差异。
+- 处理逻辑很简单，重点在于理解两种系统中窗口交互的一些差异点。
 
 ## 🔗 links
 

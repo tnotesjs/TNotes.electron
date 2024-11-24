@@ -1,17 +1,16 @@
 # [0045. Electron 核心概念](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5)
 
-- 📝 summary
-  - 主进程是什么
-  - 渲染进程是什么
-  - 主进程和渲染进程之间的差异
-  - electron 的渲染进程（Web 页面）和我们传统的在浏览器端开发的 Web 页面有何区别
-  - 上下文隔离 contextIsolation 是什么
-  - 如何开启 contextIsolation 配置
-  - 为什么建议始终开启 contextIsolation 配置
-  - 上下文桥接 contextBridge 是什么
-  - contextBridge 用来解决什么问题
-  - 如何使用 contextBridge API 来给渲染进程暴露方法
-  - 需要对 Electron 中的主进程和渲染进程有个初步的认知，在后续的学习中，Electron 的主进程和渲染进程将会是学习的重点内容。“Electron 的主进程”、“Electron 的渲染进程”这两组字眼，在接下来的学习中，会不断地被提及。本文档中提及的内容，仅仅是做一个初步的简单介绍罢了，通过多撸代码，慢慢加深对它们的理解。
+- 主进程是什么
+- 渲染进程是什么
+- 主进程和渲染进程之间的差异
+- electron 的渲染进程（Web 页面）和我们传统的在浏览器端开发的 Web 页面有何区别
+- 上下文隔离 contextIsolation 是什么
+- 如何开启 contextIsolation 配置
+- 为什么建议始终开启 contextIsolation 配置
+- 上下文桥接 contextBridge 是什么
+- contextBridge 用来解决什么问题
+- 如何使用 contextBridge API 来给渲染进程暴露方法
+- 需要对 Electron 中的主进程和渲染进程有个初步的认知，在后续的学习中，Electron 的主进程和渲染进程将会是学习的重点内容。“Electron 的主进程”、“Electron 的渲染进程”这两组字眼，在接下来的学习中，会不断地被提及。本文档中提及的内容，仅仅是做一个初步的简单介绍罢了，通过多撸代码，慢慢加深对它们的理解。
 
 ## 🔗 链接
 

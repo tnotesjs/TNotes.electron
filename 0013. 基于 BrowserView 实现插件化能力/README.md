@@ -1,10 +1,8 @@
 # [0013. 基于 BrowserView 实现插件化能力](https://github.com/Tdahuyou/electron/tree/main/0013.%20%E5%9F%BA%E4%BA%8E%20BrowserView%20%E5%AE%9E%E7%8E%B0%E6%8F%92%E4%BB%B6%E5%8C%96%E8%83%BD%E5%8A%9B)
 
 - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
-  - electron.0013
-- 📝 summary
-  - 基于 BrowserView 实现插件化能力
-  - 该 demo 模拟了使用 BrowserView 模块来加载第三方资源并注入 preload 脚本，使其具备原生能力。
+- 基于 BrowserView 实现插件化能力
+- 该 demo 模拟了使用 BrowserView 模块来加载第三方资源并注入 preload 脚本，使其具备原生能力。
 
 ## 🔗 links
 

@@ -1,10 +1,8 @@
 # 9998. electron 笔记仓库介绍
 
-- 📝 summary
-  - 该仓库存放的是个人的 electron 学习笔记。
-  - 文档中记录了一些 electron 相关的链接，以及个人记录学习笔记的流程。
-- ⏰ todos
-  - electron 相关的掘金小册还没读完，接下来学习的时候将相关的知识点整理到当前的笔记仓库中。
+- 该仓库存放的是个人的 electron 学习笔记。
+- 文档中记录了一些 electron 相关的链接，以及个人记录学习笔记的流程。
+- ⏰ TODO - electron 相关的掘金小册还没读完，接下来学习的时候将相关的知识点整理到当前的笔记仓库中。
 - 🔗 links
   - https://tdahuyou.github.io/notes/
     - 汇总个人写的一些笔记内容，以便查阅。
