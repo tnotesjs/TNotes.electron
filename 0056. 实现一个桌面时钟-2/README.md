@@ -1,5 +1,8 @@
 # [0056. 实现一个桌面时钟-2](https://github.com/Tdahuyou/electron/tree/main/0056.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F-2)
 
+<!-- region:toc -->
+<!-- endregion:toc -->
+## 📝 Summary
 - 从 0 到 1 实现一个简易的桌面时钟应用。
 - 一共没几行代码，直接看 src 下边的源码即可。
 - 在 0032 也练习了一个桌面时钟的应用，0032 是一个桌面时钟摆件，展示效果是以钟表形式来呈现的。

@@ -1,56 +1,57 @@
-<!-- toc:start -->
-- [Electron](https://github.com/Tdahuyou/electron/tree/main/README.md#electron)
-  - [Electron 笔记仓库介绍](https://github.com/Tdahuyou/electron/tree/main/README.md#electron-笔记仓库介绍)
-  - [electron 学习资源](https://github.com/Tdahuyou/electron/tree/main/README.md#electron-学习资源)
-    - [electron 书籍](https://github.com/Tdahuyou/electron/tree/main/README.md#electron-书籍)
-    - [electron 掘金小册](https://github.com/Tdahuyou/electron/tree/main/README.md#electron-掘金小册)
-  - [认识 electron](https://github.com/Tdahuyou/electron/tree/main/README.md#认识-electron)
-    - [electron 都能用来开发什么类型的应用程序？](https://github.com/Tdahuyou/electron/tree/main/README.md#electron-都能用来开发什么类型的应用程序？)
-    - [了解 electron 的核心概念](https://github.com/Tdahuyou/electron/tree/main/README.md#了解-electron-的核心概念)
-  - [打通主进程和渲染进程](https://github.com/Tdahuyou/electron/tree/main/README.md#打通主进程和渲染进程)
-    - [上下文桥接 contextBridge](https://github.com/Tdahuyou/electron/tree/main/README.md#上下文桥接-contextbridge)
-    - [IPC 基础](https://github.com/Tdahuyou/electron/tree/main/README.md#ipc-基础)
-      - [认识 IPC 相关模块](https://github.com/Tdahuyou/electron/tree/main/README.md#认识-ipc-相关模块)
-      - [渲染进程 -> 主进程](https://github.com/Tdahuyou/electron/tree/main/README.md#渲染进程-->-主进程)
-      - [主进程 -> 渲染进程](https://github.com/Tdahuyou/electron/tree/main/README.md#主进程-->-渲染进程)
-      - [渲染进程 <-> 主进程](https://github.com/Tdahuyou/electron/tree/main/README.md#渲染进程-<->-主进程)
-    - [IPC 进阶](https://github.com/Tdahuyou/electron/tree/main/README.md#ipc-进阶)
-      - [渲染进程 <-> 渲染进程](https://github.com/Tdahuyou/electron/tree/main/README.md#渲染进程-<->-渲染进程)
-      - [MessageChannel](https://github.com/Tdahuyou/electron/tree/main/README.md#messagechannel)
-  - [窗口](https://github.com/Tdahuyou/electron/tree/main/README.md#窗口)
-    - [不同系统的窗口行为兼容适配](https://github.com/Tdahuyou/electron/tree/main/README.md#不同系统的窗口行为兼容适配)
-    - [窗口首次加载的白屏问题](https://github.com/Tdahuyou/electron/tree/main/README.md#窗口首次加载的白屏问题)
-    - [无边框窗口](https://github.com/Tdahuyou/electron/tree/main/README.md#无边框窗口)
-    - [窗口层级](https://github.com/Tdahuyou/electron/tree/main/README.md#窗口层级)
-  - [菜单](https://github.com/Tdahuyou/electron/tree/main/README.md#菜单)
-    - [不同系统的菜单适配](https://github.com/Tdahuyou/electron/tree/main/README.md#不同系统的菜单适配)
-    - [页面右键菜单](https://github.com/Tdahuyou/electron/tree/main/README.md#页面右键菜单)
-    - [Dock 菜单](https://github.com/Tdahuyou/electron/tree/main/README.md#dock-菜单)
-    - [自定义菜单](https://github.com/Tdahuyou/electron/tree/main/README.md#自定义菜单)
-    - [Tray 菜单](https://github.com/Tdahuyou/electron/tree/main/README.md#tray-菜单)
-  - [app](https://github.com/Tdahuyou/electron/tree/main/README.md#app)
-    - [路径](https://github.com/Tdahuyou/electron/tree/main/README.md#路径)
-  - [快捷键](https://github.com/Tdahuyou/electron/tree/main/README.md#快捷键)
-    - [页面级别](https://github.com/Tdahuyou/electron/tree/main/README.md#页面级别)
-    - [全局级别](https://github.com/Tdahuyou/electron/tree/main/README.md#全局级别)
-  - [剪切板](https://github.com/Tdahuyou/electron/tree/main/README.md#剪切板)
-  - [系统通知](https://github.com/Tdahuyou/electron/tree/main/README.md#系统通知)
-  - [桌面视频流](https://github.com/Tdahuyou/electron/tree/main/README.md#桌面视频流)
-  - [插件化](https://github.com/Tdahuyou/electron/tree/main/README.md#插件化)
-    - [集成浏览器插件（其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。）](https://github.com/Tdahuyou/electron/tree/main/README.md#集成浏览器插件（其它第三方插件的集成方案基本都类似，集成-vue-调试工具-vue-devtools-的示例可以作为一个参考。）)
-  - [其它功能](https://github.com/Tdahuyou/electron/tree/main/README.md#其它功能)
-    - [webContents startDrag 原生文件拖放](https://github.com/Tdahuyou/electron/tree/main/README.md#webcontents-startdrag-原生文件拖放)
-  - [第三方库](https://github.com/Tdahuyou/electron/tree/main/README.md#第三方库)
-    - [electron-reload](https://github.com/Tdahuyou/electron/tree/main/README.md#electron-reload)
-    - [electron-builder](https://github.com/Tdahuyou/electron/tree/main/README.md#electron-builder)
-  - [项目练习](https://github.com/Tdahuyou/electron/tree/main/README.md#项目练习)
-    - [桌面时钟](https://github.com/Tdahuyou/electron/tree/main/README.md#桌面时钟)
-    - [微信读书助手](https://github.com/Tdahuyou/electron/tree/main/README.md#微信读书助手)
-    - [自动定时截图工具](https://github.com/Tdahuyou/electron/tree/main/README.md#自动定时截图工具)
-<!-- toc:end -->
 # Electron
 
-## Electron 笔记仓库介绍
+<!-- region:toc -->
+- [Electron](#electron)
+  - [Electron 笔记仓库介绍](#electron-笔记仓库介绍)
+  - [electron 学习资源](#electron-学习资源)
+    - [electron 书籍](#electron-书籍)
+    - [electron 掘金小册](#electron-掘金小册)
+  - [认识 electron](#认识-electron)
+    - [electron 都能用来开发什么类型的应用程序？](#electron-都能用来开发什么类型的应用程序？)
+    - [了解 electron 的核心概念](#了解-electron-的核心概念)
+  - [打通主进程和渲染进程](#打通主进程和渲染进程)
+    - [上下文桥接 contextBridge](#上下文桥接-contextbridge)
+    - [IPC 基础](#ipc-基础)
+      - [认识 IPC 相关模块](#认识-ipc-相关模块)
+      - [渲染进程 -> 主进程](#渲染进程-->-主进程)
+      - [主进程 -> 渲染进程](#主进程-->-渲染进程)
+      - [渲染进程 <-> 主进程](#渲染进程-<->-主进程)
+    - [IPC 进阶](#ipc-进阶)
+      - [渲染进程 <-> 渲染进程](#渲染进程-<->-渲染进程)
+      - [MessageChannel](#messagechannel)
+  - [窗口](#窗口)
+    - [不同系统的窗口行为兼容适配](#不同系统的窗口行为兼容适配)
+    - [窗口首次加载的白屏问题](#窗口首次加载的白屏问题)
+    - [无边框窗口](#无边框窗口)
+    - [窗口层级](#窗口层级)
+  - [菜单](#菜单)
+    - [不同系统的菜单适配](#不同系统的菜单适配)
+    - [页面右键菜单](#页面右键菜单)
+    - [Dock 菜单](#dock-菜单)
+    - [自定义菜单](#自定义菜单)
+    - [Tray 菜单](#tray-菜单)
+  - [app](#app)
+    - [路径](#路径)
+  - [快捷键](#快捷键)
+    - [页面级别](#页面级别)
+    - [全局级别](#全局级别)
+  - [剪切板](#剪切板)
+  - [系统通知](#系统通知)
+  - [桌面视频流](#桌面视频流)
+  - [插件化](#插件化)
+    - [集成浏览器插件（其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。）](#集成浏览器插件（其它第三方插件的集成方案基本都类似，集成-vue-调试工具-vue-devtools-的示例可以作为一个参考。）)
+  - [其它功能](#其它功能)
+    - [webContents startDrag 原生文件拖放](#webcontents-startdrag-原生文件拖放)
+  - [第三方库](#第三方库)
+    - [electron-reload](#electron-reload)
+    - [electron-builder](#electron-builder)
+  - [项目练习](#项目练习)
+    - [桌面时钟](#桌面时钟)
+    - [微信读书助手](#微信读书助手)
+    - [自动定时截图工具](#自动定时截图工具)
+<!-- endregion:toc -->
+
+## 1. Electron 笔记仓库介绍
 
 - [ ] [9998. electron 笔记仓库介绍](https://github.com/Tdahuyou/electron/tree/main/9998.%20electron%20%E7%AC%94%E8%AE%B0%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/README.md) <!-- [locale](./9998.%20electron%20%E7%AC%94%E8%AE%B0%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/README.md) -->  
   - 该仓库存放的是个人的 electron 学习笔记。
@@ -68,9 +69,9 @@
       - Github electron 项目源码仓库。
   
 
-## electron 学习资源
+## 2. electron 学习资源
 
-### electron 书籍
+### 2.1. electron 书籍
 
 - [ ] [0050. 《Electron 实战：入门、进阶与性能优化》](https://github.com/Tdahuyou/electron/tree/main/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README.md) <!-- [locale](./0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README.md) -->  
   - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
@@ -79,7 +80,7 @@
     - ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/md-imgs%2F2024-10-20-01-17-04.png)
   
 
-### electron 掘金小册
+### 2.2. electron 掘金小册
 
 - [ ] [0051. 掘金小册 - 《Electron 应用开发实践指南》](https://github.com/Tdahuyou/electron/tree/main/0051.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E3%80%8B/README.md) <!-- [locale](./0051.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E3%80%8B/README.md) -->  
   - 记录了 electron 相关的学习资源 - 掘金小册 - 《Electron 应用开发实践指南》
@@ -99,15 +100,15 @@
   - 介绍了阅读这些内容可能存在的一些问题。
   
 
-## 认识 electron
+## 3. 认识 electron
 
-### electron 都能用来开发什么类型的应用程序？
+### 3.1. electron 都能用来开发什么类型的应用程序？
 
 - [ ] [0052. Electron Showcase](https://github.com/Tdahuyou/electron/tree/main/0052.%20Electron%20Showcase/README.md) <!-- [locale](./0052.%20Electron%20Showcase/README.md) -->  
   - 本节介绍了一下 **Electron Showcase** 是什么。
   
 
-### 了解 electron 的核心概念
+### 3.2. 了解 electron 的核心概念
 
 - [ ] [0001. Electron 应用的最小组成](https://github.com/Tdahuyou/electron/tree/main/0001.%20Electron%20%E5%BA%94%E7%94%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%84%E6%88%90/README.md) <!-- [locale](./0001.%20Electron%20%E5%BA%94%E7%94%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%84%E6%88%90/README.md) -->  
   - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
@@ -133,17 +134,17 @@
   - 需要对 Electron 中的主进程和渲染进程有个初步的认知，在后续的学习中，Electron 的主进程和渲染进程将会是学习的重点内容。“Electron 的主进程”、“Electron 的渲染进程”这两组字眼，在接下来的学习中，会不断地被提及。本文档中提及的内容，仅仅是做一个初步的简单介绍罢了，通过多撸代码，慢慢加深对它们的理解。
   
 
-## 打通主进程和渲染进程
+## 4. 打通主进程和渲染进程
 
-### 上下文桥接 contextBridge
+### 4.1. 上下文桥接 contextBridge
 
 - [ ] [0002. 使用 contextBridge 暴露 API 给渲染进程](https://github.com/Tdahuyou/electron/tree/main/0002.%20%E4%BD%BF%E7%94%A8%20contextBridge%20%E6%9A%B4%E9%9C%B2%20API%20%E7%BB%99%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B/README.md) <!-- [locale](./0002.%20%E4%BD%BF%E7%94%A8%20contextBridge%20%E6%9A%B4%E9%9C%B2%20API%20%E7%BB%99%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B/README.md) -->  
     - 学会在开启 `contextIsolation` 的情况下，使用 `contextBridge` 来给渲染进程暴露 Electron API，使用系统的原生能力。
   
 
-### IPC 基础
+### 4.2. IPC 基础
 
-#### 认识 IPC 相关模块
+#### 4.2.1. 认识 IPC 相关模块
 
 - [ ] [0046. 认识 IPC 相关模块](https://github.com/Tdahuyou/electron/tree/main/0046.%20%E8%AE%A4%E8%AF%86%20IPC%20%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%9D%97/README.md) <!-- [locale](./0046.%20%E8%AE%A4%E8%AF%86%20IPC%20%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%9D%97/README.md) -->  
   - 把官方教程中提到的 IPC 通信模式刷一遍
@@ -152,7 +153,7 @@
   - invoke 比 send 好在哪
   
 
-#### 渲染进程 -> 主进程
+#### 4.2.2. 渲染进程 -> 主进程
 
 - [ ] [0037. 使用 ipcRenderer.send、ipcMain.on 实现从渲染进程到主进程的单向 IPC 通信](https://github.com/Tdahuyou/electron/tree/main/0037.%20%E4%BD%BF%E7%94%A8%20ipcRenderer.send%E3%80%81ipcMain.on%20%E5%AE%9E%E7%8E%B0%E4%BB%8E%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E5%88%B0%E4%B8%BB%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8D%95%E5%90%91%20IPC%20%E9%80%9A%E4%BF%A1/README.md) <!-- [locale](./0037.%20%E4%BD%BF%E7%94%A8%20ipcRenderer.send%E3%80%81ipcMain.on%20%E5%AE%9E%E7%8E%B0%E4%BB%8E%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E5%88%B0%E4%B8%BB%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8D%95%E5%90%91%20IPC%20%E9%80%9A%E4%BF%A1/README.md) -->  
   - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
@@ -162,13 +163,13 @@
   - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
   
 
-#### 主进程 -> 渲染进程
+#### 4.2.3. 主进程 -> 渲染进程
 
 - [ ] [0043. 主进程通过 BrowserWindow 实例的 webContents.send 方法主动给指定的渲染进程发消息](https://github.com/Tdahuyou/electron/tree/main/0043.%20%E4%B8%BB%E8%BF%9B%E7%A8%8B%E9%80%9A%E8%BF%87%20BrowserWindow%20%E5%AE%9E%E4%BE%8B%E7%9A%84%20webContents.send%20%E6%96%B9%E6%B3%95%E4%B8%BB%E5%8A%A8%E7%BB%99%E6%8C%87%E5%AE%9A%E7%9A%84%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E5%8F%91%E6%B6%88%E6%81%AF/README.md) <!-- [locale](./0043.%20%E4%B8%BB%E8%BF%9B%E7%A8%8B%E9%80%9A%E8%BF%87%20BrowserWindow%20%E5%AE%9E%E4%BE%8B%E7%9A%84%20webContents.send%20%E6%96%B9%E6%B3%95%E4%B8%BB%E5%8A%A8%E7%BB%99%E6%8C%87%E5%AE%9A%E7%9A%84%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E5%8F%91%E6%B6%88%E6%81%AF/README.md) -->  
   - 直接看 demo
   
 
-#### 渲染进程 <-> 主进程
+#### 4.2.4. 渲染进程 <-> 主进程
 
 - [ ] [0038. 使用 ipcRenderer.send、ipcMain.on 实现主进程和渲染进程之间的双向 IPC 通信](https://github.com/Tdahuyou/electron/tree/main/0038.%20%E4%BD%BF%E7%94%A8%20ipcRenderer.send%E3%80%81ipcMain.on%20%E5%AE%9E%E7%8E%B0%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8F%8C%E5%90%91%20IPC%20%E9%80%9A%E4%BF%A1/README.md) <!-- [locale](./0038.%20%E4%BD%BF%E7%94%A8%20ipcRenderer.send%E3%80%81ipcMain.on%20%E5%AE%9E%E7%8E%B0%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8F%8C%E5%90%91%20IPC%20%E9%80%9A%E4%BF%A1/README.md) -->  
   - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
@@ -185,9 +186,9 @@
   - 本文介绍的这种通信方式，是官方推荐的做法，也是目前比较主流的写法。
   
 
-### IPC 进阶
+### 4.3. IPC 进阶
 
-#### 渲染进程 <-> 渲染进程
+#### 4.3.1. 渲染进程 <-> 渲染进程
 
 - [ ] [0047. 分析渲染进程之间的通信](https://github.com/Tdahuyou/electron/tree/main/0047.%20%E5%88%86%E6%9E%90%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/README.md) <!-- [locale](./0047.%20%E5%88%86%E6%9E%90%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/README.md) -->  
   - 主进程转发消息
@@ -228,7 +229,7 @@
   ```
   
 
-#### MessageChannel
+#### 4.3.2. MessageChannel
 
 - [ ] [0004. 使用 web api MessageChannel 实现主进程和渲染进程之间的互相通信](https://github.com/Tdahuyou/electron/tree/main/0004.%20%E4%BD%BF%E7%94%A8%20web%20api%20MessageChannel%20%E5%AE%9E%E7%8E%B0%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%92%E7%9B%B8%E9%80%9A%E4%BF%A1/README.md) <!-- [locale](./0004.%20%E4%BD%BF%E7%94%A8%20web%20api%20MessageChannel%20%E5%AE%9E%E7%8E%B0%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%92%E7%9B%B8%E9%80%9A%E4%BF%A1/README.md) -->  
   - 介绍如何使用 web api 来实现 IPC 通信
@@ -239,16 +240,16 @@
     - 本文通过一个 Electron 应用示例对比了 `MessageChannel` 和 `ipcRenderer.invoke`/`ipcMain.handle` 两种 IPC 通信方式的性能，结果显示在单向通信中两者差异不大，但在双向通信中 `MessageChannel` 的性能明显优于 `ipcRenderer.invoke`。
   
 
-## 窗口
+## 5. 窗口
 
-### 不同系统的窗口行为兼容适配
+### 5.1. 不同系统的窗口行为兼容适配
 
 - [ ] [0016. 适配 Windows 和 macOS 上的窗口交互行为](https://github.com/Tdahuyou/electron/tree/main/0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README.md) <!-- [locale](./0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README.md) -->  
   - 理解 Windows 和 macOS 的桌面应用，在窗口交互行为上的一些差异。
   - 处理逻辑很简单，重点在于理解两种系统中窗口交互的一些差异点。
   
 
-### 窗口首次加载的白屏问题
+### 5.2. 窗口首次加载的白屏问题
 
 - [ ] [0015. 等 ready-to-show 事件触发后再显示窗口以解决窗口白屏问题](https://github.com/Tdahuyou/electron/tree/main/0015.%20%E7%AD%89%20ready-to-show%20%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E5%90%8E%E5%86%8D%E6%98%BE%E7%A4%BA%E7%AA%97%E5%8F%A3%E4%BB%A5%E8%A7%A3%E5%86%B3%E7%AA%97%E5%8F%A3%E7%99%BD%E5%B1%8F%E9%97%AE%E9%A2%98/README.md) <!-- [locale](./0015.%20%E7%AD%89%20ready-to-show%20%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E5%90%8E%E5%86%8D%E6%98%BE%E7%A4%BA%E7%AA%97%E5%8F%A3%E4%BB%A5%E8%A7%A3%E5%86%B3%E7%AA%97%E5%8F%A3%E7%99%BD%E5%B1%8F%E9%97%AE%E9%A2%98/README.md) -->  
   - 白屏问题是很经典的一个常见问题，处理方案：
@@ -257,7 +258,7 @@
     - 等一切就绪再 show【本文介绍的方法】
   
 
-### 无边框窗口
+### 5.3. 无边框窗口
 
 - [ ] [0048. 认识无边框窗口](https://github.com/Tdahuyou/electron/tree/main/0048.%20%E8%AE%A4%E8%AF%86%E6%97%A0%E8%BE%B9%E6%A1%86%E7%AA%97%E5%8F%A3/README.md) <!-- [locale](./0048.%20%E8%AE%A4%E8%AF%86%E6%97%A0%E8%BE%B9%E6%A1%86%E7%AA%97%E5%8F%A3/README.md) -->  
   - 如何创建一个无边框窗口
@@ -278,7 +279,7 @@
   - 只需要调整 BrowserWindow 的配置即可实现在 macos 中隐藏窗口标题栏但是不隐藏交通灯，并且可以微调交通灯的位置。
   
 
-### 窗口层级
+### 5.4. 窗口层级
 
 - [ ] [0017. 窗口置顶](https://github.com/Tdahuyou/electron/tree/main/0017.%20%E7%AA%97%E5%8F%A3%E7%BD%AE%E9%A1%B6/README.md) <!-- [locale](./0017.%20%E7%AA%97%E5%8F%A3%E7%BD%AE%E9%A1%B6/README.md) -->  
   - 本文介绍了两种使窗口置顶的方式，以及它们之间的一些区别。
@@ -286,9 +287,9 @@
   - 这些做法之间的区别是什么
   
 
-## 菜单
+## 6. 菜单
 
-### 不同系统的菜单适配
+### 6.1. 不同系统的菜单适配
 
 - [ ] [0010. macos 应用菜单第一项的问题](https://github.com/Tdahuyou/electron/tree/main/0010.%20macos%20%E5%BA%94%E7%94%A8%E8%8F%9C%E5%8D%95%E7%AC%AC%E4%B8%80%E9%A1%B9%E7%9A%84%E9%97%AE%E9%A2%98/README.md) <!-- [locale](./0010.%20macos%20%E5%BA%94%E7%94%A8%E8%8F%9C%E5%8D%95%E7%AC%AC%E4%B8%80%E9%A1%B9%E7%9A%84%E9%97%AE%E9%A2%98/README.md) -->  
   - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
@@ -296,69 +297,69 @@
   - 如何解决 macos 应用菜单第一项的有什么问题【demo2】
   
 
-### 页面右键菜单
+### 6.2. 页面右键菜单
 
 - [ ] [0012. 使用 Menu 模块实现页面中的右键菜单](https://github.com/Tdahuyou/electron/tree/main/0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/README.md) <!-- [locale](./0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/README.md) -->  
   - 在页面上创建右键菜单，这是桌面端应用中很常见的一个功能点。本文的介绍了如何使用 Menu 模块来创建一个右键菜单。
   
 
-### Dock 菜单
+### 6.3. Dock 菜单
 
 - [ ] [0009. 设置 macos 的 Dock 菜单](https://github.com/Tdahuyou/electron/tree/main/0009.%20%E8%AE%BE%E7%BD%AE%20macos%20%E7%9A%84%20Dock%20%E8%8F%9C%E5%8D%95/README.md) <!-- [locale](./0009.%20%E8%AE%BE%E7%BD%AE%20macos%20%E7%9A%84%20Dock%20%E8%8F%9C%E5%8D%95/README.md) -->  
   - 如何通过 Menu 模块来创建 macos 上的 Dock 菜单
   
 
-### 自定义菜单
+### 6.4. 自定义菜单
 
 - [ ] [0011. 自定义系统菜单覆盖默认菜单问题](https://github.com/Tdahuyou/electron/tree/main/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README.md) <!-- [locale](./0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README.md) -->  
   - 自定义系统菜单和默认菜单的冲突问题是什么
   - 如何解决冲突问题
   
 
-### Tray 菜单
+### 6.5. Tray 菜单
 
 - [ ] [0025. 创建 macos 应用托盘（Tray）](https://github.com/Tdahuyou/electron/tree/main/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README.md) <!-- [locale](./0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README.md) -->  
   - 如何创建托盘 Tray 菜单
   
 
-## app
+## 7. app
 
-### 路径
+### 7.1. 路径
 
 - [ ] [0024. 通过 app 模块获取应用相关路径](https://github.com/Tdahuyou/electron/tree/main/0024.%20%E9%80%9A%E8%BF%87%20app%20%E6%A8%A1%E5%9D%97%E8%8E%B7%E5%8F%96%E5%BA%94%E7%94%A8%E7%9B%B8%E5%85%B3%E8%B7%AF%E5%BE%84/README.md) <!-- [locale](./0024.%20%E9%80%9A%E8%BF%87%20app%20%E6%A8%A1%E5%9D%97%E8%8E%B7%E5%8F%96%E5%BA%94%E7%94%A8%E7%9B%B8%E5%85%B3%E8%B7%AF%E5%BE%84/README.md) -->  
   - `app.getPath(name)` 的基本使用
   - 本文介绍了通过 app 模块中的 app.getPath 方法来获取应用程序的相关路径。其中很多路径在都是很重要的，不要再使用 nodejs 去组装这些路径信息了，现尝试到 app.getPath 中找找看有没有现成的。
   
 
-## 快捷键
+## 8. 快捷键
 
-### 页面级别
+### 8.1. 页面级别
 
 - [ ] [0023. 页面级别的快捷键](https://github.com/Tdahuyou/electron/tree/main/0023.%20%E9%A1%B5%E9%9D%A2%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/README.md) <!-- [locale](./0023.%20%E9%A1%B5%E9%9D%A2%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/README.md) -->  
   - 一个很简单的 demo，介绍如何实现页面级别的快捷方式。
   
 
-### 全局级别
+### 8.2. 全局级别
 
 - [ ] [0022. 全局级别的快捷键](https://github.com/Tdahuyou/electron/tree/main/0022.%20%E5%85%A8%E5%B1%80%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/README.md) <!-- [locale](./0022.%20%E5%85%A8%E5%B1%80%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/README.md) -->  
   - 如何注册全局（系统）级别的快捷方式
   
 
-## 剪切板
+## 9. 剪切板
 
 - [ ] [0021. 使用 clipboard 模块向系统剪切板中读写文本](https://github.com/Tdahuyou/electron/tree/main/0021.%20%E4%BD%BF%E7%94%A8%20clipboard%20%E6%A8%A1%E5%9D%97%E5%90%91%E7%B3%BB%E7%BB%9F%E5%89%AA%E5%88%87%E6%9D%BF%E4%B8%AD%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC/README.md) <!-- [locale](./0021.%20%E4%BD%BF%E7%94%A8%20clipboard%20%E6%A8%A1%E5%9D%97%E5%90%91%E7%B3%BB%E7%BB%9F%E5%89%AA%E5%88%87%E6%9D%BF%E4%B8%AD%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC/README.md) -->  
   - 该笔记 clipboard 基本使用
   - clipboard 是一个很常用也狠使用的模块，用于读写系统的剪切板。这篇文档介绍它的基本使用，实现剪切板的读写操作。
   
 
-## 系统通知
+## 10. 系统通知
 
 - [ ] [0026. 使用 Notification 模块弹出系统消息](https://github.com/Tdahuyou/electron/tree/main/0026.%20%E4%BD%BF%E7%94%A8%20Notification%20%E6%A8%A1%E5%9D%97%E5%BC%B9%E5%87%BA%E7%B3%BB%E7%BB%9F%E6%B6%88%E6%81%AF/README.md) <!-- [locale](./0026.%20%E4%BD%BF%E7%94%A8%20Notification%20%E6%A8%A1%E5%9D%97%E5%BC%B9%E5%87%BA%E7%B3%BB%E7%BB%9F%E6%B6%88%E6%81%AF/README.md) -->  
   - 如何使用 Notification 弹出系统通知
   - 这个 demo 使用 electron 的内置模块 Notification 实现了一个简单的 demo，最终效果仅仅是将系统消息给展示出来，没有加其它多余的交互逻辑。
   
 
-## 桌面视频流
+## 11. 桌面视频流
 
 - [ ] [0029. 实现屏幕监听功能](https://github.com/Tdahuyou/electron/tree/main/0029.%20%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E7%9B%91%E5%90%AC%E5%8A%9F%E8%83%BD/README.md) <!-- [locale](./0029.%20%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E7%9B%91%E5%90%AC%E5%8A%9F%E8%83%BD/README.md) -->  
   - 这是参照官方示例实现一个屏幕实时监听的 demo。
@@ -377,7 +378,7 @@
   - desktopCapturer 这是主进程中的一个模块，是一个用于处理桌面视频流（你可以理解为就是你眼睛看到的显示屏上的画面数据）的 API。
   
 
-## 插件化
+## 12. 插件化
 
 - [ ] [0014. 使用 BrowserView 加载外部资源](https://github.com/Tdahuyou/electron/tree/main/0014.%20%E4%BD%BF%E7%94%A8%20BrowserView%20%E5%8A%A0%E8%BD%BD%E5%A4%96%E9%83%A8%E8%B5%84%E6%BA%90/README.md) <!-- [locale](./0014.%20%E4%BD%BF%E7%94%A8%20BrowserView%20%E5%8A%A0%E8%BD%BD%E5%A4%96%E9%83%A8%E8%B5%84%E6%BA%90/README.md) -->  
   - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
@@ -392,7 +393,7 @@
   - 该 demo 模拟了使用 BrowserView 模块来加载第三方资源并注入 preload 脚本，使其具备原生能力。
   
 
-### 集成浏览器插件（其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。）
+### 12.1. 集成浏览器插件（其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。）
 
 - [ ] [0006. 使用 vue-remote-devtools](https://github.com/Tdahuyou/electron/tree/main/0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools/README.md) <!-- [locale](./0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools/README.md) -->  
   - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
@@ -416,9 +417,9 @@
   - 其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。
   
 
-## 其它功能
+## 13. 其它功能
 
-### webContents startDrag 原生文件拖放
+### 13.1. webContents startDrag 原生文件拖放
 
 - [ ] [0027. 原生文件拖 & 放](https://github.com/Tdahuyou/electron/tree/main/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE/README.md) <!-- [locale](./0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE/README.md) -->  
   - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
@@ -428,9 +429,9 @@
   - ⏰ TODO - 视频重录，把狗子替换为 week。
   
 
-## 第三方库
+## 14. 第三方库
 
-### electron-reload
+### 14.1. electron-reload
 
 - [ ] [0031. 使用 electron-reload 实现热更](https://github.com/Tdahuyou/electron/tree/main/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4/README.md) <!-- [locale](./0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4/README.md) -->  
   - 如何使用 electron-reload 实现热更
@@ -438,16 +439,16 @@
   - 额，这功能确实有点儿用，不过感觉也是可有可无，因为手动启动的成本也不算太高。
   
 
-### electron-builder
+### 14.2. electron-builder
 
 - [ ] [0030. 使用 electron-icon-builder、electron-builder 解决应用打包后的图标问题](https://github.com/Tdahuyou/electron/tree/main/0030.%20%E4%BD%BF%E7%94%A8%20electron-icon-builder%E3%80%81electron-builder%20%E8%A7%A3%E5%86%B3%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E5%9B%BE%E6%A0%87%E9%97%AE%E9%A2%98/README.md) <!-- [locale](./0030.%20%E4%BD%BF%E7%94%A8%20electron-icon-builder%E3%80%81electron-builder%20%E8%A7%A3%E5%86%B3%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E5%9B%BE%E6%A0%87%E9%97%AE%E9%A2%98/README.md) -->  
   - 使用 electron-icon-builder 处理应用图标
   - 使用 electron-builder 出包
   
 
-## 项目练习
+## 15. 项目练习
 
-### 桌面时钟
+### 15.1. 桌面时钟
 
 - [ ] [0032. 实现一个桌面时钟](https://github.com/Tdahuyou/electron/tree/main/0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F/README.md) <!-- [locale](./0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F/README.md) -->  
   - 手写一个简单的桌面时钟摆件
@@ -461,13 +462,13 @@
   - 在 0032 也练习了一个桌面时钟的应用，0032 是一个桌面时钟摆件，展示效果是以钟表形式来呈现的。
   
 
-### 微信读书助手
+### 15.2. 微信读书助手
 
 - [ ] [0044. weread-helper](https://github.com/Tdahuyou/electron/tree/main/0044.%20weread-helper/README.md) <!-- [locale](./0044.%20weread-helper/README.md) -->  
   - 套壳了微信读书的网页版，并注入了一些自定义脚本。
   
 
-### 自动定时截图工具
+### 15.3. 自动定时截图工具
 
 - [ ] [0033. ScreenCaptureApp](https://github.com/Tdahuyou/electron/tree/main/0033.%20ScreenCaptureApp/README.md) <!-- [locale](./0033.%20ScreenCaptureApp/README.md) -->  
   - demo - 自动截图程序

@@ -1,5 +1,8 @@
 # [0005. 使用 electron-devtools-installer 安装 vue-devtools](https://github.com/Tdahuyou/electron/tree/main/0005.%20%E4%BD%BF%E7%94%A8%20electron-devtools-installer%20%E5%AE%89%E8%A3%85%20vue-devtools)
 
+<!-- region:toc -->
+<!-- endregion:toc -->
+## 📝 Summary
 - 按照官方提供的示例试了一下，最终结果是：**没能安装成功**。
 - 如果不是自己写的测试用例有误，那就是 electron-devtools-installer 这个包过时了。
 
