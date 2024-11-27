@@ -2,28 +2,23 @@
 
 <!-- region:toc -->
 - [1. 📝 summary](#1--summary)
-- [2. 📺 bilibili](#2--bilibili)
-- [3. 🔗 links](#3--links)
-- [4. 💻 demo](#4--demo)
+- [2. 🔗 links](#2--links)
+- [3. 💻 demo](#3--demo)
 <!-- endregion:toc -->
 ## 1. 📝 summary
 
+- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 创建无边框窗口 frame: false
 - 无边框窗口的特点
 
-## 2. 📺 bilibili
-
-- https://www.bilibili.com/video/BV1544219774
-  - electron.0018
-
-## 3. 🔗 links
+## 2. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/window-customization
   - 官方文档，自定义窗口，查看官方文档中对于如何创建【自定义窗口】的描述。
 - https://www.electronjs.org/docs/latest/api/structures/browser-window-options
   - 官方文档，查看创建 BrowserWindow 实例的相关配置项 options。
 
-## 4. 💻 demo
+## 3. 💻 demo
 
 ```js
 // index.js

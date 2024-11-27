@@ -2,22 +2,20 @@
 
 <!-- region:toc -->
 - [1. 📝 summary](#1--summary)
-- [2. 📺 bilibili](#2--bilibili)
-- [3. 🔗 links](#3--links)
-- [4. 💻 demo](#4--demo)
+- [2. 🔗 links](#2--links)
+- [3. 💻 demo](#3--demo)
 <!-- endregion:toc -->
 ## 1. 📝 summary
-- 通过 css 来解决无边框的窗口的拖拽问题
-## 2. 📺 bilibili
 
-- https://www.bilibili.com/video/BV1544219774
-  - electron.0019
-## 3. 🔗 links
+- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
+- 通过 css 来解决无边框的窗口的拖拽问题
+
+## 2. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/window-customization#%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%AF%E6%8B%96%E5%8A%A8%E5%8C%BA%E5%9F%9F
   - 官方文档，设置自定义可拖动区域，这是官方文档中对无边框窗口的一些介绍。
 
-## 4. 💻 demo
+## 3. 💻 demo
 
 ```js
 // index.js
