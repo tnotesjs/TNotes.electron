@@ -3,7 +3,7 @@
 <!-- region:toc -->
 - [1. 📝 Summary](#1--summary)
 - [2. 🔗 links](#2--links)
-- [3. 📒 notes](#3--notes)
+- [3. 📒 Dock 菜单是什么](#3--dock-菜单是什么)
 - [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
 ## 1. 📝 Summary
@@ -16,7 +16,7 @@
 - https://www.electronjs.org/zh/docs/latest/api/app#appdock-macos-%E5%8F%AA%E8%AF%BB
   - 查看有关 app.dock API 的相关内容。
 
-## 3. 📒 notes
+## 3. 📒 Dock 菜单是什么
 
 - Q：Dock 菜单是什么？
 - A：Dock 菜单，这是 macos 特有的。

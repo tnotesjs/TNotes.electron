@@ -3,7 +3,7 @@
 <!-- region:toc -->
 - [1. 📝 Summary](#1--summary)
 - [2. 🔗 links](#2--links)
-- [3. 📒 notes](#3--notes)
+- [3. 📒](#3-)
 - [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
 ## 1. 📝 Summary
@@ -14,7 +14,7 @@
 - https://www.electronjs.org/zh/docs/latest/api/global-shortcut
   - Electron，查看 globalShortcut 模块的相关描述。
 
-## 3. 📒 notes
+## 3. 📒
 
 - 全局级别的快捷键，也称系统级别的快捷键，这玩意儿在很多桌面应用程序中多多少少都会有一些。对于一些常用的操作和交互行为，绑定好快捷键，还是蛮必要的。
 - globalShortcut 是一个主进程中的模块，其作用是 在应用程序没有键盘焦点时，监听键盘事件。

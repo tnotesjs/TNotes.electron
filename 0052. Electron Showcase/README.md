@@ -2,12 +2,12 @@
 
 <!-- region:toc -->
 - [1. 📝 Summary](#1--summary)
-- [2. 📒 notes - Electron Showcase 简介](#2--notes---electron-showcase-简介)
+- [2. 📒Electron Showcase 简介](#2-electron-showcase-简介)
 <!-- endregion:toc -->
 ## 1. 📝 Summary
 - 本节介绍了一下 **Electron Showcase** 是什么。
 
-## 2. 📒 notes - Electron Showcase 简介
+## 2. 📒Electron Showcase 简介
 
 - https://www.electronjs.org/apps
   - 这是 Electron Showcase 链接，也是 Electron 官方提供的一个站点，记录了一些使用 Electron 开发的应用程序。一些比较知名的 Electron 应用：

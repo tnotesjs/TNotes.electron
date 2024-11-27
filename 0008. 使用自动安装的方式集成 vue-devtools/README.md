@@ -4,7 +4,7 @@
 - [1. 📝 Summary](#1--summary)
 - [2. 🔗 links](#2--links)
 - [3. 💻 demo](#3--demo)
-- [4. 📒 notes - 如何获取 VUE_DEVTOOLS_ID](#4--notes---如何获取-vue_devtools_id)
+- [4. 📒 如何获取 VUE_DEVTOOLS_ID](#4--如何获取-vue_devtools_id)
 <!-- endregion:toc -->
 ## 1. 📝 Summary
 - 如何根据插件 ID 自动下载 chrome 插件源码 `downloadChromeExtension.js`
@@ -228,7 +228,7 @@ app.on('window-all-closed', () => {
 - **最终效果**
   - ![](md-imgs/2024-10-13-21-18-23.png)
 
-## 4. 📒 notes - 如何获取 VUE_DEVTOOLS_ID
+## 4. 📒 如何获取 VUE_DEVTOOLS_ID
 
 去 **chrome 应用商店** 安装 **Vue.js devtools 插件**。假如你已经安装好了插件，可以在插件管理页面（`chrome://extensions/`）查看。
 

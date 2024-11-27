@@ -3,7 +3,7 @@
 <!-- region:toc -->
 - [1. 📝 Summary](#1--summary)
 - [2. 🔗 links](#2--links)
-- [3. 📒 notes](#3--notes)
+- [3. 📒](#3-)
 - [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
 ## 1. 📝 Summary
@@ -16,7 +16,7 @@
   - 这是 Electron 的官方文档，在版本更新中的一些 Breaking Changes 截断式的更新（也就是不兼容的更新）。
   - 文中提到 v28 版本的更新中提到 ipcRenderer.sendTo() 方法已经被移除了，取而代之的是 MessageChannel。
 
-## 3. 📒 notes
+## 3. 📒
 
 介绍了两个渲染进程之间实现互相通信的一种方式 —— 通过主进程获取另一个渲染进程的 ID 来实现两个渲染进程之间的通信。
 - 本文介绍的这种通信方式需要依赖 ipcRenderer 模块中的 ipcRenderer.sendTo方法，这个方法在 Electron 的 v28 版本中已经被丢弃了，如果要使用这种通信方案的话，需要注意 Electron 的版本问题。

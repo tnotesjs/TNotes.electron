@@ -3,8 +3,8 @@
 <!-- region:toc -->
 - [1. 📝 Summary](#1--summary)
 - [2. 🔗 links](#2--links)
-- [3. 📒 notes - 核心模块概述](#3--notes---核心模块概述)
-- [4. 📒 notes - 托盘图标](#4--notes---托盘图标)
+- [3. 📒核心模块概述](#3-核心模块概述)
+- [4. 📒托盘图标](#4-托盘图标)
 - [5. 💻 demo](#5--demo)
 - [6. 🤔 问：Tray 是 macOS 特有的吗？](#6--问tray-是-macos-特有的吗)
 <!-- endregion:toc -->
@@ -18,14 +18,14 @@
 - https://www.electronjs.org/zh/docs/latest/api/native-image
   - Electron，nativeImage 模块可以用于处理 Tray 的图标问题。
 
-## 3. 📒 notes - 核心模块概述
+## 3. 📒核心模块概述
 
 - 本节 demo 涉及到的几个核心模块：
   - Tray（创建托盘）
   - Menu（托盘菜单项的创建）
   - nativeImage（处理 Tray 图标的问题）
 
-## 4. 📒 notes - 托盘图标
+## 4. 📒托盘图标
 
 - 托盘的图标可以是任意尺寸的图片，不需要劳烦美工大大或者自己去找工具调节图片尺寸，可以使用本地的 nativeImage 模块来自定义尺寸。
 

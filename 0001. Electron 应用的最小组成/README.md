@@ -3,8 +3,8 @@
 <!-- region:toc -->
 - [1. 📝 Summary](#1--summary)
 - [2. 🔗 links](#2--links)
-- [3. 📒 notes - electron 应用的最小组成](#3--notes---electron-应用的最小组成)
-- [4. 📒 notes - 最终效果展示](#4--notes---最终效果展示)
+- [3. 📒 electron 应用的最小组成](#3--electron-应用的最小组成)
+- [4. 📒 最终效果展示](#4--最终效果展示)
 - [5. 💻 demo - 实现步骤](#5--demo---实现步骤)
   - [5.1. 安装 Node.js 和 npm](#51-安装-nodejs-和-npm)
   - [5.2. 安装 Electron](#52-安装-electron)
@@ -27,11 +27,11 @@
 
 - https://nodejs.org/en - 这是 NodeJS 官网，如果你的电脑没有安装 NodeJS 的话，需要到官网安装它。
 
-## 3. 📒 notes - electron 应用的最小组成
+## 3. 📒 electron 应用的最小组成
 
 ![](md-imgs/2024-09-24-16-47-53.png)
 
-## 4. 📒 notes - 最终效果展示
+## 4. 📒 最终效果展示
 
 本节需要实现的 demo 效果非常简单 —— 启动 Electron 应用并在页面上渲染出 `Hello World`。
 

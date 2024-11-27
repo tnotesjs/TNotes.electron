@@ -3,7 +3,7 @@
 <!-- region:toc -->
 - [1. 📝 Summary](#1--summary)
 - [2. 🔗 links](#2--links)
-- [3. 📒 notes](#3--notes)
+- [3. 📒](#3-)
 - [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
 ## 1. 📝 Summary
@@ -18,7 +18,7 @@
 - https://www.electronjs.org/zh/docs/latest/api/menu-item
   - 查看【菜单项】MenuItem 类的相关说明。
 
-## 3. 📒 notes
+## 3. 📒
 
 本节介绍如何如何使用 Menu 模块来创建一个右键菜单。这里提到的右键菜单，又称为上下文菜单，也就是你在一些应用程序的界面上，点击鼠标右键所弹出的内容。
 

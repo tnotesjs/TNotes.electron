@@ -3,8 +3,8 @@
 <!-- region:toc -->
 - [1. 📝 Summary](#1--summary)
 - [2. 🔗 links](#2--links)
-- [3. 📒 notes - desktopCapturer 是什么](#3--notes---desktopcapturer-是什么)
-- [4. 📒 notes - desktopCapturer 的基本使用流程](#4--notes---desktopcapturer-的基本使用流程)
+- [3. 📒desktopCapturer 是什么](#3-desktopcapturer-是什么)
+- [4. 📒desktopCapturer 的基本使用流程](#4-desktopcapturer-的基本使用流程)
 <!-- endregion:toc -->
 ## 1. 📝 Summary
 - desktopCapturer 是什么
@@ -18,12 +18,12 @@
 - https://www.electronjs.org/zh/docs/latest/api/structures/desktop-capturer-source
   - 查看 DesktopCapturerSource 对象结构详情，desktopCapturer 的返回值类型是 `Promise<DesktopCapturerSource[]>`。
 
-## 3. 📒 notes - desktopCapturer 是什么
+## 3. 📒desktopCapturer 是什么
 
 - Electron 的 desktopCapturer 模块允许开发者 **捕获应用所运行的操作系统的屏幕或单独窗口的视频流**。这个 API 是 **专为在 Electron 应用中捕获屏幕视频或截图而设计的**，非常适合开发需要 **屏幕分享、视频录制或截图功能** 的桌面应用。
 - desktopCapturer 可以捕获 **整个屏幕** 或 **特定应用窗口** 的媒体。开发者可以指定捕获特定的屏幕或窗口，甚至是 **多个屏幕和窗口**。捕获的结果是一个 **视频流**，可以用于录制视频或实时屏幕分享。desktopCapturer 可以用于视频流捕获，也可以 **通过视频流帧获取截图**。
 
-## 4. 📒 notes - desktopCapturer 的基本使用流程
+## 4. 📒desktopCapturer 的基本使用流程
 
 使用 `desktopCapturer` 模块通常包括以下步骤：
 
