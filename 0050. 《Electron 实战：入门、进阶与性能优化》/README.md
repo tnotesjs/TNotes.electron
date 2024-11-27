@@ -3,7 +3,9 @@
 <!-- region:toc -->
 - [1. 📝 Summary](#1--summary)
 <!-- endregion:toc -->
+
 ## 1. 📝 Summary
+
 - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 该笔记存放了 [《Electron 实战：入门、进阶与性能优化》](《Electron实战：入门、进阶与性能优化》.pdf) 这本书的 pdf 版本。
 - 这本书还没读完，记得读了其中的一小部分，现在（24.10）electron 已经升级到 v33 了，书中的版本记得应该是蛮低的，在阅读的时候需要注意一下版本。书中（20.05）的版本是 8 左右。差了 25 个大版本，变化的内容还是挺多的。
