@@ -3,7 +3,7 @@
 <!-- region:toc -->
 - [1. 📝 summary](#1--summary)
 - [2. 🔗 links](#2--links)
-- [3. 📒`navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题](#3-`navigatormediadevicesgetusermedia()`-的-video-配置结构问题)
+- [3. 📒`navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题](#3-navigatormediadevicesgetusermedia()-的-video-配置结构问题)
 - [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
 ## 1. 📝 summary
