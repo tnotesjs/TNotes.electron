@@ -1,10 +1,10 @@
 # [0052. Electron Showcase](https://github.com/Tdahuyou/electron/tree/main/0052.%20Electron%20Showcase)
 
 <!-- region:toc -->
-- [1. 📝 Summary](#1--summary)
+- [1. 📝 summary](#1--summary)
 - [2. 📒Electron Showcase 简介](#2-electron-showcase-简介)
 <!-- endregion:toc -->
-## 1. 📝 Summary
+## 1. 📝 summary
 - 本节介绍了一下 **Electron Showcase** 是什么。
 
 ## 2. 📒Electron Showcase 简介

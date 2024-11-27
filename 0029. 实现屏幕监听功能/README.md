@@ -1,12 +1,12 @@
 # [0029. 实现屏幕监听功能](https://github.com/Tdahuyou/electron/tree/main/0029.%20%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E7%9B%91%E5%90%AC%E5%8A%9F%E8%83%BD)
 
 <!-- region:toc -->
-- [1. 📝 Summary](#1--summary)
+- [1. 📝 summary](#1--summary)
 - [2. 🔗 links](#2--links)
 - [3. 📒`navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题](#3-`navigatormediadevicesgetusermedia()`-的-video-配置结构问题)
 - [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
-## 1. 📝 Summary
+## 1. 📝 summary
 - 这是参照官方示例实现一个屏幕实时监听的 demo。
 
 ## 2. 🔗 links

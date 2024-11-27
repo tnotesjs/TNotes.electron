@@ -1,7 +1,7 @@
 # [0045. Electron 核心概念](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5)
 
 <!-- region:toc -->
-- [1. 📝 Summary](#1--summary)
+- [1. 📝 summary](#1--summary)
 - [2. 🔗 链接](#2--链接)
 - [3. 💡 导图](#3--导图)
 - [4. 📝 Electron 架构](#4--electron-架构)
@@ -27,7 +27,7 @@
 - [13. 🤔 问：主进程向渲染进程发消息，是向页面发吗？](#13--问主进程向渲染进程发消息是向页面发吗)
 - [14. 🤔 问：为什么要使用 `contextBridge`](#14--问为什么要使用-`contextbridge`)
 <!-- endregion:toc -->
-## 1. 📝 Summary
+## 1. 📝 summary
 - 主进程是什么
 - 渲染进程是什么
 - 主进程和渲染进程之间的差异

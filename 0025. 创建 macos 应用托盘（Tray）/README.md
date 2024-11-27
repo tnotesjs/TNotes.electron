@@ -1,14 +1,14 @@
 # [0025. 创建 macos 应用托盘（Tray）](https://github.com/Tdahuyou/electron/tree/main/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89)
 
 <!-- region:toc -->
-- [1. 📝 Summary](#1--summary)
+- [1. 📝 summary](#1--summary)
 - [2. 🔗 links](#2--links)
 - [3. 📒核心模块概述](#3-核心模块概述)
 - [4. 📒托盘图标](#4-托盘图标)
 - [5. 💻 demo](#5--demo)
 - [6. 🤔 问：Tray 是 macOS 特有的吗？](#6--问tray-是-macos-特有的吗)
 <!-- endregion:toc -->
-## 1. 📝 Summary
+## 1. 📝 summary
 - 如何创建托盘 Tray 菜单
 
 ## 2. 🔗 links

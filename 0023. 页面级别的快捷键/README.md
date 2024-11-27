@@ -1,12 +1,12 @@
 # [0023. 页面级别的快捷键](https://github.com/Tdahuyou/electron/tree/main/0023.%20%E9%A1%B5%E9%9D%A2%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE)
 
 <!-- region:toc -->
-- [1. 📝 Summary](#1--summary)
+- [1. 📝 summary](#1--summary)
 - [2. 🔗 links](#2--links)
 - [3. 📒](#3-)
 - [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
-## 1. 📝 Summary
+## 1. 📝 summary
 - 一个很简单的 demo，介绍如何实现页面级别的快捷方式。
 
 ## 2. 🔗 links

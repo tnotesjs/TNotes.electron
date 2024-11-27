@@ -1,19 +1,24 @@
 # [0003. 比较消息端口 MessageChannel 和 ipcRenderer.invoke、ipcMain.handle 的性能](https://github.com/Tdahuyou/electron/tree/main/0003.%20%E6%AF%94%E8%BE%83%E6%B6%88%E6%81%AF%E7%AB%AF%E5%8F%A3%20MessageChannel%20%E5%92%8C%20ipcRenderer.invoke%E3%80%81ipcMain.handle%20%E7%9A%84%E6%80%A7%E8%83%BD)
 
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 <!-- region:toc -->
-- [1. 📝 Summary](#1--summary)
-- [2. 💻 demo](#2--demo)
+- [1. 📝 summary](#1--summary)
+- [2. 📺 bilibili](#2--bilibili)
+- [3. 💻 demo](#3--demo)
 <!-- endregion:toc -->
 
-## 1. 📝 Summary
+## 1. 📝 summary
 
 - 本文通过一个 Electron 应用示例对比了 `MessageChannel` 和 `ipcRenderer.invoke`/`ipcMain.handle` 两种 IPC 通信方式的性能，结果显示在单向通信中两者差异不大，但在双向通信中 `MessageChannel` 的性能明显优于 `ipcRenderer.invoke`。
 - 这篇文档写了一个 demo 来比较两种 IPC 通信方式的性能差异。
 - 该 demo 仅仅作为一个参考，实际需求往往会更加复杂，比如通信过程中会携带大量数据。本 demo 的测试用例比较简单，仅仅是传递一个写死的字符串。
 - 建议先读源码，再看视频的后半段测试结果演示。从最终表现出来的结果来看，单向通信几乎没差，但如果是双向通信的话，MessageChannel 比 invoke 快了 3～5 倍。
 
-## 2. 💻 demo
+## 2. 📺 bilibili
+
+- https://www.bilibili.com/video/BV1544219774
+  - electron.0003
+
+## 3. 💻 demo
 
 - **先说结论**
   - 单向：用哪个都行，差异不大。

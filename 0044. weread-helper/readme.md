@@ -1,11 +1,11 @@
 # [0044. weread-helper](https://github.com/Tdahuyou/electron/tree/main/0044.%20weread-helper)
 
 <!-- region:toc -->
-- [1. 📝 Summary](#1--summary)
+- [1. 📝 summary](#1--summary)
 - [2. 🔗 links](#2--links)
 - [3. 📒Quick Start](#3-quick-start)
 <!-- endregion:toc -->
-## 1. 📝 Summary
+## 1. 📝 summary
 - 套壳了微信读书的网页版，并注入了一些自定义脚本。
 
 ## 2. 🔗 links

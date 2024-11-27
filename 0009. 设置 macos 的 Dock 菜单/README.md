@@ -1,12 +1,12 @@
 # [0009. 设置 macos 的 Dock 菜单](https://github.com/Tdahuyou/electron/tree/main/0009.%20%E8%AE%BE%E7%BD%AE%20macos%20%E7%9A%84%20Dock%20%E8%8F%9C%E5%8D%95)
 
 <!-- region:toc -->
-- [1. 📝 Summary](#1--summary)
+- [1. 📝 summary](#1--summary)
 - [2. 🔗 links](#2--links)
 - [3. 📒 Dock 菜单是什么](#3--dock-菜单是什么)
 - [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
-## 1. 📝 Summary
+## 1. 📝 summary
 - 如何通过 Menu 模块来创建 macos 上的 Dock 菜单
 
 ## 2. 🔗 links

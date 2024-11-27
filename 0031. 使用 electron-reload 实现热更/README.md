@@ -1,23 +1,29 @@
 # [0031. 使用 electron-reload 实现热更](https://github.com/Tdahuyou/electron/tree/main/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4)
 
 <!-- region:toc -->
-- [1. 📝 Summary](#1--summary)
-- [2. 🔗 links](#2--links)
-- [3. 💻 demo](#3--demo)
+- [1. 📝 summary](#1--summary)
+- [2. 📺 bilibili](#2--bilibili)
+- [3. 🔗 links](#3--links)
+- [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
-## 1. 📝 Summary
+## 1. 📝 summary
 - 如何使用 electron-reload 实现热更
 - 使用 electron-reload 监听主进程和渲染进程内容的变更，一旦内容变化，就自动重启 electron。
 - 额，这功能确实有点儿用，不过感觉也是可有可无，因为手动启动的成本也不算太高。
 
-## 2. 🔗 links
+## 2. 📺 bilibili
+
+- https://www.bilibili.com/video/BV1544219774
+  - electron.0031
+  
+## 3. 🔗 links
 
 - https://github.com/yan-foto/electron-reload#readme
   - 开源库 electron-reload 的 github 首页，在线查看这个库的基本使用说明。
 
 > TODO：看了眼仓库源码，貌似量也不多，可以找时间看看实现原理。
 
-## 3. 💻 demo
+## 4. 💻 demo
 
 
 ```json

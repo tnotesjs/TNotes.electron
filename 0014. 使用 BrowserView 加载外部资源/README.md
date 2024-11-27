@@ -1,24 +1,34 @@
 # [0014. 使用 BrowserView 加载外部资源](https://github.com/Tdahuyou/electron/tree/main/0014.%20%E4%BD%BF%E7%94%A8%20BrowserView%20%E5%8A%A0%E8%BD%BD%E5%A4%96%E9%83%A8%E8%B5%84%E6%BA%90)
 
 <!-- region:toc -->
-- [1. 📝 Summary](#1--summary)
-- [2. 🔗 links](#2--links)
-- [3. 💻 demo](#3--demo)
+- [1. 📝 summary](#1--summary)
+- [2. 📺 bilibili](#2--bilibili)
+- [3. ⏰ TODO 为啥 BrowserView 被废弃掉了](#3--todo-为啥-browserview-被废弃掉了)
+- [4. 🔗 links](#4--links)
+- [5. 💻 demo](#5--demo)
 <!-- endregion:toc -->
-## 1. 📝 Summary
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
+## 1. 📝 summary
+
 - 如何使用 BrowserView 加载外部资源
 - 这个 demo 使用 BrowserView 模块来加载第三方资源（掘金主页）到渲染进程的页面上。
-- ⏰ TODO - 注意，最新版的 Electron，已经将 BrowserView 这个 API 被标注为 Deprecated。这个稍微注意下，找时间看看是啥情况，为啥 BrowserView 被废弃掉了。
 
-## 2. 🔗 links
+## 2. 📺 bilibili
+
+- https://www.bilibili.com/video/BV1544219774
+  - electron.0014
+
+## 3. ⏰ TODO 为啥 BrowserView 被废弃掉了
+
+- 注意，最新版的 Electron，已经将 BrowserView 这个 API 被标注为 Deprecated。这个稍微注意下，找时间看看是啥情况，为啥 BrowserView 被废弃掉了。
+
+## 4. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/api/browser-view
   - Electron，查看有关 BrowserView 模块的相关描述。
 - https://www.electronjs.org/zh/docs/latest/api/browser-window#winsetbrowserviewbrowserview-experimental-deprecated
   - 查看 win.setBrowserView(browserView) 接口说明文档。注意：这 API 已经不再被推荐使用了。
 
-## 3. 💻 demo
+## 5. 💻 demo
 
 ```js
 // index.js

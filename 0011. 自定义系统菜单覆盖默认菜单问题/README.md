@@ -1,7 +1,7 @@
 # [0011. 自定义系统菜单覆盖默认菜单问题](https://github.com/Tdahuyou/electron/tree/main/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98)
 
 <!-- region:toc -->
-- [1. 📝 Summary](#1--summary)
+- [1. 📝 summary](#1--summary)
 - [2. 🔗 links](#2--links)
 - [3. 📒菜单项冲突问题](#3-菜单项冲突问题)
 - [4. 📒如何解决冲突问题](#4-如何解决冲突问题)
@@ -9,7 +9,7 @@
 - [6. 💻 demo2 - 使用预设的 role 来快速配置菜单项](#6--demo2---使用预设的-role-来快速配置菜单项)
 - [7. 🤔 问：role 是什么？](#7--问role-是什么)
 <!-- endregion:toc -->
-## 1. 📝 Summary
+## 1. 📝 summary
 - 自定义系统菜单和默认菜单的冲突问题是什么
 - 如何解决冲突问题
 

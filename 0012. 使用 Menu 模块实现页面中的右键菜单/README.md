@@ -1,13 +1,14 @@
 # [0012. 使用 Menu 模块实现页面中的右键菜单](https://github.com/Tdahuyou/electron/tree/main/0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95)
 
 <!-- region:toc -->
-- [1. 📝 Summary](#1--summary)
+- [1. 📝 summary](#1--summary)
 - [2. 🔗 links](#2--links)
-- [3. 📒](#3-)
-- [4. 💻 demo](#4--demo)
+- [3. 💻 demo](#3--demo)
 <!-- endregion:toc -->
-## 1. 📝 Summary
+## 1. 📝 summary
 - 在页面上创建右键菜单，这是桌面端应用中很常见的一个功能点。本文的介绍了如何使用 Menu 模块来创建一个右键菜单。
+- 本节介绍如何如何使用 Menu 模块来创建一个右键菜单。这里提到的右键菜单，又称为上下文菜单，也就是你在一些应用程序的界面上，点击鼠标右键所弹出的内容。
+- ![](md-imgs/2024-10-06-01-24-36.png)
 
 ## 2. 🔗 links
 
@@ -18,13 +19,8 @@
 - https://www.electronjs.org/zh/docs/latest/api/menu-item
   - 查看【菜单项】MenuItem 类的相关说明。
 
-## 3. 📒
 
-本节介绍如何如何使用 Menu 模块来创建一个右键菜单。这里提到的右键菜单，又称为上下文菜单，也就是你在一些应用程序的界面上，点击鼠标右键所弹出的内容。
-
-![](md-imgs/2024-10-06-01-24-36.png)
-
-## 4. 💻 demo
+## 3. 💻 demo
 
 ```js
 // index.js
