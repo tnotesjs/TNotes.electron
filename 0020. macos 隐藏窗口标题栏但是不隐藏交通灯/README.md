@@ -1,11 +1,13 @@
 # [0020. macos 隐藏窗口标题栏但是不隐藏交通灯](https://github.com/Tdahuyou/electron/tree/main/0020.%20macos%20%E9%9A%90%E8%97%8F%E7%AA%97%E5%8F%A3%E6%A0%87%E9%A2%98%E6%A0%8F%E4%BD%86%E6%98%AF%E4%B8%8D%E9%9A%90%E8%97%8F%E4%BA%A4%E9%80%9A%E7%81%AF)
 
 <!-- region:toc -->
+- [1. 📝 Summary](#1--summary)
+- [2. 💻 demo](#2--demo)
 <!-- endregion:toc -->
-## 📝 Summary
+## 1. 📝 Summary
 - 只需要调整 BrowserWindow 的配置即可实现在 macos 中隐藏窗口标题栏但是不隐藏交通灯，并且可以微调交通灯的位置。
 
-## 💻 demo
+## 2. 💻 demo
 
 ```js
 // index.js

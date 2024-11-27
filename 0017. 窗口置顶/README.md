@@ -1,23 +1,27 @@
 # [0017. 窗口置顶](https://github.com/Tdahuyou/electron/tree/main/0017.%20%E7%AA%97%E5%8F%A3%E7%BD%AE%E9%A1%B6)
 
 <!-- region:toc -->
+- [1. 📝 Summary](#1--summary)
+- [2. 🔗 links](#2--links)
+- [3. 📒 notes](#3--notes)
+- [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
-## 📝 Summary
+## 1. 📝 Summary
 - 本文介绍了两种使窗口置顶的方式，以及它们之间的一些区别。
 - 有哪些做法可以实现窗口置顶
 - 这些做法之间的区别是什么
 
-## 🔗 links
+## 2. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/api/browser-window#winsetalwaysontopflag-level-relativelevel
   - 官方文档，查看 API `win.setAlwaysOnTop(flag[, level][, relativeLevel])` 的相关描述。
 
-## 📒 notes
+## 3. 📒 notes
 
 - 做法 1：在 new BrowserWindow 的时候，丢一个配置项 `alwaysOnTop: true` 进去，暴力置顶。
 - 做法 2：通过 BrowserWindow 实例 win 的 `setAlwaysOnTop` 方法实现置顶，可以进行更细粒度的控制置顶的层级。
 
-## 💻 demo
+## 4. 💻 demo
 
 ```js
 // index.js

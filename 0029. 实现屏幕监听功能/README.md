@@ -1,11 +1,15 @@
 # [0029. 实现屏幕监听功能](https://github.com/Tdahuyou/electron/tree/main/0029.%20%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E7%9B%91%E5%90%AC%E5%8A%9F%E8%83%BD)
 
 <!-- region:toc -->
+- [1. 📝 Summary](#1--summary)
+- [2. 🔗 links](#2--links)
+- [3. 📒 notes - `navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题](#3--notes---`navigatormediadevicesgetusermedia()`-的-video-配置结构问题)
+- [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
-## 📝 Summary
+## 1. 📝 Summary
 - 这是参照官方示例实现一个屏幕实时监听的 demo。
 
-## 🔗 links
+## 2. 🔗 links
 
 - https://www.electronjs.org/docs/latest/api/desktop-capturer
   - Electron，查看主进程的 desktopCapturer API 的相关描述。
@@ -19,7 +23,7 @@
   - Electron Github Issues，mandatory property missing from MediaTrackConstraints #27139。
   - 主要讨论了在使用 Electron 的 desktopCapturer API 与 TypeScript 时，由于 mandatory 属性不在 MediaTrackConstraints 类型中而引起的类型错误问题。
 
-## 📒 notes - `navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题
+## 3. 📒 notes - `navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题
 
 > - https://github.com/electron/electron/issues/27139
 > - Electron Github Issues，mandatory property missing from MediaTrackConstraints #27139。
@@ -66,7 +70,7 @@ interface MediaTrackConstraintSet {
 // 如果是用 TS 写的项目，在打包时出现了类型错误，可以暴力处理 - 手动去改类型，或者直接断言类型。
 ```
 
-## 💻 demo
+## 4. 💻 demo
 
 ```js
 // index.js

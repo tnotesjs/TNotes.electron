@@ -1,21 +1,24 @@
 # [0015. 等 ready-to-show 事件触发后再显示窗口以解决窗口白屏问题](https://github.com/Tdahuyou/electron/tree/main/0015.%20%E7%AD%89%20ready-to-show%20%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E5%90%8E%E5%86%8D%E6%98%BE%E7%A4%BA%E7%AA%97%E5%8F%A3%E4%BB%A5%E8%A7%A3%E5%86%B3%E7%AA%97%E5%8F%A3%E7%99%BD%E5%B1%8F%E9%97%AE%E9%A2%98)
 
 <!-- region:toc -->
+- [1. 📝 Summary](#1--summary)
+- [2. 🔗 links](#2--links)
+- [3. 💻 demo](#3--demo)
 <!-- endregion:toc -->
-## 📝 Summary
+## 1. 📝 Summary
 - 白屏问题是很经典的一个常见问题，处理方案：
   - 优先展示主题色的全屏背景
   - 使用骨架屏
   - 等一切就绪再 show【本文介绍的方法】
 
-## 🔗 links
+## 2. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/api/browser-window#%E4%BC%98%E9%9B%85%E5%9C%B0%E6%98%BE%E7%A4%BA%E7%AA%97%E5%8F%A3
   - 使用 ready-to-show 事件实现优雅地显示窗口，解决闪屏的问题。
 - https://www.electronjs.org/zh/docs/latest/api/browser-window#%E4%BA%8B%E4%BB%B6-ready-to-show
   - 查看有关 ready-to-show 事件的描述。
 
-## 💻 demo
+## 3. 💻 demo
 
 ```js
 // index.js

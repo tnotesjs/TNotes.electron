@@ -1,26 +1,30 @@
 # [0032. 实现一个桌面时钟](https://github.com/Tdahuyou/electron/tree/main/0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F)
 
 <!-- region:toc -->
+- [1. 📝 Summary](#1--summary)
+- [2. 🔗 links](#2--links)
+- [3. 📒 notes](#3--notes)
+- [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
-## 📝 Summary
+## 1. 📝 Summary
 - 手写一个简单的桌面时钟摆件
 - 最终效果：
   - ![](md-imgs/2024-10-13-21-41-11.png)
 
-## 🔗 links
+## 2. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/window-customization#%E5%88%9B%E5%BB%BA%E7%82%B9%E5%87%BB%E7%A9%BF%E9%80%8F%E7%AA%97%E5%8F%A3
   - Electron，示例，创建点击穿透窗口。
 - https://www.electronjs.org/zh/docs/latest/api/browser-window#winsetignoremouseeventsignore-options
   - win.setIgnoreMouseEvents
 
-## 📒 notes
+## 3. 📒 notes
 
 - 这个 demo 主要用来练习不规则窗口的实现，有几点细节需要注意。
   - 窗口默认是矩形，如果用户点击的区域是矩形的非表盘区域，需要可以穿透下去点击到窗口后面的内容。鼠标穿透的效果，需要用到一个 API win.setIgnoreMouseEvents。
   - 窗口的拖动问题除了使用 JS 来解决，还可以考虑使用 JS + CSS 来解决。
 
-## 💻 demo
+## 4. 💻 demo
 
 ```js
 // index.js

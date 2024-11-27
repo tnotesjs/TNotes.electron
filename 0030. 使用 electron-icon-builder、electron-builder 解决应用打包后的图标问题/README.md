@@ -1,12 +1,15 @@
 # [0030. 使用 electron-icon-builder、electron-builder 解决应用打包后的图标问题](https://github.com/Tdahuyou/electron/tree/main/0030.%20%E4%BD%BF%E7%94%A8%20electron-icon-builder%E3%80%81electron-builder%20%E8%A7%A3%E5%86%B3%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E5%9B%BE%E6%A0%87%E9%97%AE%E9%A2%98)
 
 <!-- region:toc -->
+- [1. 📝 Summary](#1--summary)
+- [2. 💻 demo](#2--demo)
+- [3. 📒 notes - electron, electron-builder, 和 electron-icon-builder 应该安装为开发依赖还是生产依赖呢？](#3--notes---electron,-electron-builder,-和-electron-icon-builder-应该安装为开发依赖还是生产依赖呢)
 <!-- endregion:toc -->
-## 📝 Summary
+## 1. 📝 Summary
 - 使用 electron-icon-builder 处理应用图标
 - 使用 electron-builder 出包
 
-## 💻 demo
+## 2. 💻 demo
 
 - 需要事前准备一张 .png 图片，比如你可以随便截一张你的头像来测试。
 
@@ -98,7 +101,7 @@ app.whenReady().then(() => {
     - ![](md-imgs/2024-10-13-21-36-38.png)
 - 该 demo 的做法是直接使用命令的方式来走，并将其配置到了包体描述文件 package.json 中。这部分的逻辑，其实也可以视作 nodejs 脚本，丢到一个 .js 文件中以便管理。
 
-## 📒 notes - electron, electron-builder, 和 electron-icon-builder 应该安装为开发依赖还是生产依赖呢？
+## 3. 📒 notes - electron, electron-builder, 和 electron-icon-builder 应该安装为开发依赖还是生产依赖呢？
 
 - 答：开发依赖。
 - 因此，当你编写的应用如果需要出包的话，别忘了在安装的这些包的时候加上 --save-dev 参数，否则，出包的时候会报错。

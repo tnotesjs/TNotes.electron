@@ -1,18 +1,22 @@
 # [0009. 设置 macos 的 Dock 菜单](https://github.com/Tdahuyou/electron/tree/main/0009.%20%E8%AE%BE%E7%BD%AE%20macos%20%E7%9A%84%20Dock%20%E8%8F%9C%E5%8D%95)
 
 <!-- region:toc -->
+- [1. 📝 Summary](#1--summary)
+- [2. 🔗 links](#2--links)
+- [3. 📒 notes](#3--notes)
+- [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
-## 📝 Summary
+## 1. 📝 Summary
 - 如何通过 Menu 模块来创建 macos 上的 Dock 菜单
 
-## 🔗 links
+## 2. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/macos-dock
   - Electron，介绍了 macos 上的 Dock 菜单的相关内容。
 - https://www.electronjs.org/zh/docs/latest/api/app#appdock-macos-%E5%8F%AA%E8%AF%BB
   - 查看有关 app.dock API 的相关内容。
 
-## 📒 notes
+## 3. 📒 notes
 
 - Q：Dock 菜单是什么？
 - A：Dock 菜单，这是 macos 特有的。
@@ -21,7 +25,7 @@
 
 - 比如上图中框选出来的 vscode 图标，这其实就是一个 Dock 菜单项。
 
-## 💻 demo
+## 4. 💻 demo
 
 ```js
 // index.js

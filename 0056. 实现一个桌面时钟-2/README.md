@@ -1,13 +1,19 @@
 # [0056. 实现一个桌面时钟-2](https://github.com/Tdahuyou/electron/tree/main/0056.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F-2)
 
 <!-- region:toc -->
+- [1. 📝 Summary](#1--summary)
+- [2. 📒 notes - demo 的功能](#2--notes---demo-的功能)
+- [3. 📒 notes - 编写这个 demo 的初衷](#3--notes---编写这个-demo-的初衷)
+- [4. 📒 notes - 启动命令 `npm start`](#4--notes---启动命令-`npm-start`)
+- [5. 📒 notes - 出包命令 `npm run build`](#5--notes---出包命令-`npm-run-build`)
+- [6. 📒 notes - 图标背景色 `#9feaf9`](#6--notes---图标背景色-`#9feaf9`)
 <!-- endregion:toc -->
-## 📝 Summary
+## 1. 📝 Summary
 - 从 0 到 1 实现一个简易的桌面时钟应用。
 - 一共没几行代码，直接看 src 下边的源码即可。
 - 在 0032 也练习了一个桌面时钟的应用，0032 是一个桌面时钟摆件，展示效果是以钟表形式来呈现的。
 
-## 📒 notes - demo 的功能
+## 2. 📒 notes - demo 的功能
 
 - 可自定义背景图（`src/week.jpeg` 目前放的是我家的猫）
 - 可自定义透明度（`src/main.js` 直接修改 `opacity: 0.88` 来自定义透明度）
@@ -16,16 +22,16 @@
 - 时间字体具备响应式 - 随着窗口尺寸变化而变化（`src/index.html` 更多和页面样式相关的内容，可以直接修改这里边的 style）
 - ……其他更多功能（可以学习更多的前端技术栈来扩展 demo 的功能）
 
-## 📒 notes - 编写这个 demo 的初衷
+## 3. 📒 notes - 编写这个 demo 的初衷
 
 - 录制一些分享视频的时候，开头习惯性地会读一些当前的时间，没找到在 macOS 上展示当前时间的好方案，于是使用 electron 写了一个建议版的桌面时钟 demo。
 
-## 📒 notes - 启动命令 `npm start`
+## 4. 📒 notes - 启动命令 `npm start`
 
 - 启动后看到的效果：
   - ![](md-imgs/2024-11-11-15-08-32.png)
 
-## 📒 notes - 出包命令 `npm run build`
+## 5. 📒 notes - 出包命令 `npm run build`
 
 ```shell
 npm run build
@@ -99,7 +105,7 @@ Renamed 1024.png to 1024x1024.png
   - 完成安装之后，会在桌面上自动生成该应用的快捷方式。
   - ![](md-imgs/2024-11-11-15-14-06.png)
 
-## 📒 notes - 图标背景色 `#9feaf9`
+## 6. 📒 notes - 图标背景色 `#9feaf9`
 
 - `#9feaf9` 这个背景色是从当前（2024年11月11日15:15:26）的 Electron 官方文档中吸过来的主题色。
 - ![](md-imgs/2024-11-11-15-16-34.png)
