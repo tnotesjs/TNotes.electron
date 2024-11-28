@@ -1,15 +1,15 @@
 # [9997. bilibili 视频播放链接](https://github.com/Tdahuyou/electron/tree/main/9997.%20bilibili%20%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%93%BE%E6%8E%A5)
 
 <!-- region:toc -->
-- [1. 🔗 links](#1--links)
-- [2. 📒 内容及更新说明](#2--内容及更新说明)
+- [1. 🔗 bilibili 视频播放链接](#1--bilibili-视频播放链接)
+- [2. 📒 视频内容及更新说明](#2--视频内容及更新说明)
 <!-- endregion:toc -->
 
-## 1. 🔗 links
+## 1. 🔗 bilibili 视频播放链接
 
 - https://www.bilibili.com/video/BV1544219774
 
-## 2. 📒 内容及更新说明
+## 2. 📒 视频内容及更新说明
 
 - **根据编号定位**：B 站上仅录制了一小部分的视频，可以根据编号来定位笔记和视频。
 - **不定期更新**：结合实际情况，会不定期更新笔记和视频。

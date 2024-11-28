@@ -2,12 +2,13 @@
 
 <!-- region:toc -->
 - [1. 📝 summary](#1--summary)
-- [2. 🔗 links](#2--links)
+- [2. 🔗 个人推广链接](#2--个人推广链接)
 <!-- endregion:toc -->
 ## 1. 📝 summary
+
 - 记录了 electron 相关的学习资源 - 掘金小册 - 《Electron + Vue 3 桌面应用开发》
 
-## 2. 🔗 links
+## 2. 🔗 个人推广链接
 
 - [推广链接](https://s.juejin.cn/ds/iBAwDAnG/)，《Electron + Vue 3 桌面应用开发》
   - 《Electron + Vue 3 桌面应用开发》 这本小册的作者就是 electron.0050. 《Electron 实战：入门、进阶与性能优化》 这本书的作者“刘晓伦”。
