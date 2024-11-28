@@ -158,3 +158,5 @@ document.getElementById('btn').addEventListener('click', () => {
 点击【窗口 3】的按钮，所有窗口的 `<h1>` 的内容都变为 3。
 
 ![](md-imgs/2024-10-05-22-24-22.png)
+
+

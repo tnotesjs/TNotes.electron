@@ -77,3 +77,4 @@ app.whenReady().then(createWindow)
 
 - ![](md-imgs/2024-10-06-00-38-45.png)
 - ![](md-imgs/2024-10-06-00-38-50.png)
+

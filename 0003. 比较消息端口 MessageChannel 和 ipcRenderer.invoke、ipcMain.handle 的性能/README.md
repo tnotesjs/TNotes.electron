@@ -151,3 +151,4 @@ document.getElementById('btn4').addEventListener('click', testMessageChannel_2)
 
 - **最终结果**
   - 见视频……
+

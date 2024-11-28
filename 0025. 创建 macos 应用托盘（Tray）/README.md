@@ -86,3 +86,4 @@ app.whenReady().then(() => {
 ## 6. 🤔 问：Tray 是 macOS 特有的吗？
 
 - 答：Tray 菜单并非 macos 特有的，在 windows 上也有这玩意儿。
+

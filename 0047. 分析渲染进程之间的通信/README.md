@@ -76,3 +76,5 @@ sequenceDiagram
 
 - 使用 **Electron 中的消息端口** 来实现两个渲染进程之间的通信。
 - electron.0040 该笔记中的 demo 介绍了这种方式实现的详细步骤。
+
+

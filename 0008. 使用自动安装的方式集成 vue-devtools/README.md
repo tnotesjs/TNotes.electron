@@ -237,3 +237,4 @@ app.on('window-all-closed', () => {
 其实在插件安装的界面，URL 的末尾就是这个插件的 ID。
 
 ![](md-imgs/2024-10-13-21-20-19.png)
+

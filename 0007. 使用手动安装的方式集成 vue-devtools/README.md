@@ -99,3 +99,5 @@ app.on('window-all-closed', () => {
 成功在 chrome devtools 中看到了 Vue 面板，这意味着已经成功地将 vue-devtools 集成进来了。
 
 ![](md-imgs/2024-10-13-21-07-49.png)
+
+

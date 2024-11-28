@@ -48,3 +48,5 @@ app.on('ready', () => {
 在主进程中找到需要与之通信的那个渲染进程（可以理解为 BrowserWindow 实例），通过 BrowserWindow 实例的 webContents.send 方法主动给指定的渲染进程发消息。实现从主进程到渲染进程的单向通信。
 
 ![](md-imgs/2024-10-05-20-03-43.png)
+
+

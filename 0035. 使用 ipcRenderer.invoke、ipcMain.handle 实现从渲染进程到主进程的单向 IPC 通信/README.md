@@ -64,3 +64,4 @@ app.on('ready', () => {
 渲染进程通过 `ipcRenderer.invoke` 方法向主进程发送消息，主进程通过 `ipcMain.handle` 方法监听来自渲染进程的消息。实现从渲染进程到主进程的单向通信。
 
 ![](md-imgs/2024-10-05-19-56-42.png)
+

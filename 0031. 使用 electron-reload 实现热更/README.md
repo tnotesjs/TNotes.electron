@@ -74,3 +74,4 @@ app.whenReady().then(() => {
     - 这种热更的机制不仅仅限于主进程的变更，就此 demo 而言，对于渲染进程 index.html 也是有效的。
     - 比如，可以将 hello world 改成 Hello World，修改完之后保存，页面内容会自动更新。此时并不会重新起一个 electron 应用，而是基于已有的应用来更新的，效果类似于 ctrl r 强行刷新一下窗口。
     - ![](md-imgs/2024-10-13-21-32-10.png)
+

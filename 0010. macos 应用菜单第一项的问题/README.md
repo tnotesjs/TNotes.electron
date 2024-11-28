@@ -147,3 +147,5 @@ app.on('ready', () => {
 如果你明确指定了 productName，那么会读取 productName 字段的信息。
 
 ![](md-imgs/2024-10-06-01-21-53.png)
+
+

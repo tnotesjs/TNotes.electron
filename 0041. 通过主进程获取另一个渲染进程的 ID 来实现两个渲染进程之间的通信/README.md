@@ -134,3 +134,4 @@ ipcRenderer.on('renderer1-to-renderer2', (e, a, b) => {
   console.log('参数为：', a, b)
 })
 ```
+

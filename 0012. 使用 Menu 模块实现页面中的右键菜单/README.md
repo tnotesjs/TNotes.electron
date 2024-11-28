@@ -102,3 +102,5 @@ ipcRenderer.on('context-menu-command', (e, command) => {
 
 ![](md-imgs/2024-10-06-01-25-52.png)
 
+
+

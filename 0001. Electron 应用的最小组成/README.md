@@ -190,3 +190,5 @@ touch index.html
 主进程就是 `package.json` 中的 main 字段标识的文件，它是整个程序的入口，也是 Electron 的主进程。
 
 通过 `npm init -y` 生成的默认 `package.json` 文件中的 main 字段的值为 `index.js`。
+
+

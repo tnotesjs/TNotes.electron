@@ -6,7 +6,8 @@
 - [3. 💻 demo](#3--demo)
 <!-- endregion:toc -->
 ## 1. 📝 summary
-  - 学会在开启 `contextIsolation` 的情况下，使用 `contextBridge` 来给渲染进程暴露 Electron API，使用系统的原生能力。
+
+- 学会在开启 `contextIsolation` 的情况下，使用 `contextBridge` 来给渲染进程暴露 Electron API，使用系统的原生能力。
 
 ## 2. 🔗 links
 
@@ -91,4 +92,6 @@ if (process.contextIsolated) {
 点击页面上的按钮【Show Notification】后，会在桌面右上角弹出提示窗。
 
 这个提示 Notification 是系统级别的，只能在主进程访问此 API。示例通过上下文桥接的方式，将 API 的调用暴露给渲染进程，并绑定鼠标点击事件，当页面上的按钮被点击之后，触发消息通知。
+
+
 

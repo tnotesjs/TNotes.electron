@@ -149,3 +149,4 @@ document.getElementById('drag2').ondragstart = (event) => {
 ```
 
 - `event.preventDefault()` 当你拖动一个元素时，浏览器通常会执行默认的拖拽操作，比如显示拖动中的预览图像或在文件拖动过程中显示文件名。通过调用 `event.preventDefault()`，你可以防止这些默认操作，并自定义拖拽行为。
+

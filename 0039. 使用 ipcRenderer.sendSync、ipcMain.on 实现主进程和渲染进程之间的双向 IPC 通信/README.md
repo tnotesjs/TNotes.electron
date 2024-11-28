@@ -108,3 +108,5 @@ app.on('ready', () => {
 主进程收到了来自渲染进程的 ipcRenderer.sendSync 方法发送的消息 1 2 3
 ```
 
+
+

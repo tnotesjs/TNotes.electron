@@ -117,3 +117,4 @@ dom_clock.addEventListener('mouseleave', _ => ipcRenderer.send('setIgnoreMouseEv
 - `dom_clock.addEventListener('mouseenter', fn)`、`dom_clock.addEventListener('mouseleave', fn)` 解决窗口的鼠标穿透问题。
 - 最终效果：
 - ![](md-imgs/2024-10-13-21-41-11.png)
+

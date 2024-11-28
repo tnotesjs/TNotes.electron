@@ -72,3 +72,4 @@ app.whenReady().then(() => {
 右键底部 Dock 栏中的应用图标，会弹出配置好的 Dock 菜单项。
 
 ![](md-imgs/2024-10-06-01-28-09.png)
+
