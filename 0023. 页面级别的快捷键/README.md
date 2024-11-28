@@ -3,22 +3,20 @@
 <!-- region:toc -->
 - [1. 📝 summary](#1--summary)
 - [2. 🔗 links](#2--links)
-- [3. 📒](#3-)
-- [4. 💻 demo](#4--demo)
+- [3. 💻 demo](#3--demo)
 <!-- endregion:toc -->
+
 ## 1. 📝 summary
-- 一个很简单的 demo，介绍如何实现页面级别的快捷方式。
+
+- 本节通过一个很简单的 demo，介绍如何实现页面级别的快捷方式。
+- 全局快捷键可以使用 Electron 提供的模块 globalShortcut 来实现，这是一个主进程模块。但是，就文档中要求的页面级别的快捷方式，完全可以使用原生的 Web API `window.onkeydown = function(e) { ... }` 来实现。
 
 ## 2. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/api/global-shortcut
   - Electron，查看 globalShortcut 模块的相关内容。
 
-## 3. 📒
-
-全局快捷键可以使用 Electron 提供的模块 globalShortcut 来实现，这是一个主进程模块。但是，就文档中要求的页面级别的快捷方式，完全可以使用原生的 Web API `window.onkeydown = function(e) { ... }` 来实现。
-
-## 4. 💻 demo
+## 3. 💻 demo
 
 ```html
 <!-- index.html -->

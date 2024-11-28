@@ -3,10 +3,12 @@
 <!-- region:toc -->
 - [1. 📝 summary](#1--summary)
 - [2. 🔗 links](#2--links)
-- [3. 📒](#3-)
+- [3. 📒 `app.getPath(name)`](#3--appgetpath(name))
 - [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
+
 ## 1. 📝 summary
+
 - `app.getPath(name)` 的基本使用
 - 本文介绍了通过 app 模块中的 app.getPath 方法来获取应用程序的相关路径。其中很多路径在都是很重要的，不要再使用 nodejs 去组装这些路径信息了，现尝试到 app.getPath 中找找看有没有现成的。
 
@@ -15,7 +17,7 @@
 - https://www.electronjs.org/zh/docs/latest/api/app#appgetpathname
   - 官方文档，查看接口 app.getPath 说明文档。
 
-## 3. 📒
+## 3. 📒 `app.getPath(name)`
 
 `app.getPath(name)`，其中参数 `name` 是一个 string 类型，`name` 可以是以下这些值。
 
