@@ -56,26 +56,39 @@
 ## 1. electron 笔记内容简介
 
 - [ ] [9998. electron 笔记仓库介绍](https://github.com/Tdahuyou/electron/tree/main/9998.%20electron%20%E7%AC%94%E8%AE%B0%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/README.md) <!-- [locale](./9998.%20electron%20%E7%AC%94%E8%AE%B0%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/README.md) -->  
-  - [1. 📝 summary](https://github.com/Tdahuyou/electron/tree/main/9998.%20electron%20%E7%AC%94%E8%AE%B0%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/README.md#1--summary)
-  - [2. 🔗 links](https://github.com/Tdahuyou/electron/tree/main/9998.%20electron%20%E7%AC%94%E8%AE%B0%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/README.md#2--links)
+  - 该仓库 https://github.com/Tdahuyou/electron 存放的是个人的 electron 学习笔记，有需要的可自行 clone。
+  - https://tdahuyou.github.io/notes/
+    - 这是个人的笔记博客，汇总个人写的一些笔记内容，以便查阅。
+  
+  
+  
 
 - [ ] [9997. bilibili 视频播放链接](https://github.com/Tdahuyou/electron/tree/main/9997.%20bilibili%20%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%93%BE%E6%8E%A5/README.md) <!-- [locale](./9997.%20bilibili%20%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%93%BE%E6%8E%A5/README.md) -->  
-  - [1. 🔗 bilibili 视频播放链接](https://github.com/Tdahuyou/electron/tree/main/9997.%20bilibili%20%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%93%BE%E6%8E%A5/README.md#1--bilibili-视频播放链接)
-  - [2. 📒 视频内容及更新说明](https://github.com/Tdahuyou/electron/tree/main/9997.%20bilibili%20%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%93%BE%E6%8E%A5/README.md#2--视频内容及更新说明)
+  - https://www.bilibili.com/video/BV1544219774
+    - bilibili 视频播放链接
+  - 视频内容及更新说明
+    - **根据编号定位**：B 站上仅录制了一小部分的视频，可以根据编号来定位笔记和视频。
+    - **不定期更新**：结合实际情况，会不定期更新笔记和视频。
+    - **内容**：视频内容主要是展示一些 demo 效果，并附带简单的说明，大部分视频的时长均在 10min 左右，在查看具体笔记时若有疑问，可查阅视频作为一个参考。
   
 
 ## 2. electron 概述
 
 - [ ] [9995. electron 源码仓库](https://github.com/Tdahuyou/electron/tree/main/9995.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README.md) <!-- [locale](./9995.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README.md) -->  
-  - [1. 🔗 Github electron 项目源码仓库l链接](https://github.com/Tdahuyou/electron/tree/main/9995.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README.md#1--github-electron-项目源码仓库l链接)
-  - [2. ⏰ 学习 electron 源码](https://github.com/Tdahuyou/electron/tree/main/9995.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README.md#2--学习-electron-源码)
+  - https://github.com/electron/electron
+    - Github electron 项目源码仓库链接
+  - ⏰ 学习 electron 源码
   
 
 - [ ] [9996. electron 官方文档](https://github.com/Tdahuyou/electron/tree/main/9996.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md) <!-- [locale](./9996.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md) -->  
-  - [1. 🔗 links](https://github.com/Tdahuyou/electron/tree/main/9996.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md#1--links)
-  - [2. ⏰ 记录查阅官方文档的经验](https://github.com/Tdahuyou/electron/tree/main/9996.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md#2--记录查阅官方文档的经验)
-  - [3. ⏰ 官方文档内容概述](https://github.com/Tdahuyou/electron/tree/main/9996.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md#3--官方文档内容概述)
-  - [4. ⏰ 官方文档基本结构介绍](https://github.com/Tdahuyou/electron/tree/main/9996.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md#4--官方文档基本结构介绍)
+  - https://www.electronjs.org/
+    - 这是 Electron 的官网链接，可以说是除了源码之外最权威的 Electron 内容了。官网有中文版，翻译得非常友好。
+    - ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/9996.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/md-imgs%2F2024-10-05-19-22-00.png)
+  - ⏰ 记录查阅官方文档的经验
+  - ⏰ 官方文档内容概述
+  - ⏰ 官方文档基本结构介绍
+  
+  
   
 
 ## 3. electron 的一些学习资源
@@ -83,7 +96,12 @@
 ### 3.1. electron 书籍
 
 - [ ] [0050. 《Electron 实战：入门、进阶与性能优化》](https://github.com/Tdahuyou/electron/tree/main/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README.md) <!-- [locale](./0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README.md) -->  
-  - [1. 📝 summary](https://github.com/Tdahuyou/electron/tree/main/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README.md#1--summary)
+  - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
+  - 该笔记存放了 [《Electron 实战：入门、进阶与性能优化》](https://github.com/Tdahuyou/electron/tree/main/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/%E3%80%8AElectron%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B.pdf) 这本书的 pdf 版本。
+  - 这本书还没读完，记得读了其中的一小部分，现在（24.10）electron 已经升级到 v33 了，书中的版本记得应该是蛮低的，在阅读的时候需要注意一下版本。书中（20.05）的版本是 8 左右。差了 25 个大版本，变化的内容还是挺多的。
+    - ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/md-imgs%2F2024-10-20-01-17-04.png)
+  
+  
   
 
 ### 3.2. electron 掘金小册
@@ -439,8 +457,7 @@
 
 ### 13.1. 集成浏览器插件
 
-其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。
-
+- 其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。
 - [ ] [0006. 使用 vue-remote-devtools](https://github.com/Tdahuyou/electron/tree/main/0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools/README.md) <!-- [locale](./0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools/README.md) -->  
   - [1. 📝 summary](https://github.com/Tdahuyou/electron/tree/main/0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools/README.md#1--summary)
   - [2. 🔗 links](https://github.com/Tdahuyou/electron/tree/main/0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools/README.md#2--links)
@@ -621,7 +638,12 @@
   - [3. 💻 demo2](https://github.com/Tdahuyou/electron/tree/main/0042.%20%E9%80%9A%E8%BF%87%E4%B8%BB%E8%BF%9B%E7%A8%8B%E8%BD%AC%E5%8F%91%E6%B6%88%E6%81%AF%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E4%BA%92%E7%9B%B8%E9%80%9A%E4%BF%A1/README.md#3--demo2)
 
 - [ ] [0050. 《Electron 实战：入门、进阶与性能优化》](https://github.com/Tdahuyou/electron/tree/main/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README.md) <!-- [locale](./0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README.md) -->  
-  - [1. 📝 summary](https://github.com/Tdahuyou/electron/tree/main/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README.md#1--summary)
+  - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
+  - 该笔记存放了 [《Electron 实战：入门、进阶与性能优化》](https://github.com/Tdahuyou/electron/tree/main/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/%E3%80%8AElectron%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B.pdf) 这本书的 pdf 版本。
+  - 这本书还没读完，记得读了其中的一小部分，现在（24.10）electron 已经升级到 v33 了，书中的版本记得应该是蛮低的，在阅读的时候需要注意一下版本。书中（20.05）的版本是 8 左右。差了 25 个大版本，变化的内容还是挺多的。
+    - ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/md-imgs%2F2024-10-20-01-17-04.png)
+  
+  
   
 
 - [ ] [0056. 实现一个桌面时钟-2](https://github.com/Tdahuyou/electron/tree/main/0056.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F-2/README.md) <!-- [locale](./0056.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F-2/README.md) -->  
