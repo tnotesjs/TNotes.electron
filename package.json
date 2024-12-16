@@ -1,8 +1,16 @@
 {
-    "scripts": {
-        "merge": "      node ./node_modules/tnotes   --mergeREADME         --repoName=electron",
-        "update": "     node ./node_modules/tnotes   --updateREADME        --repoName=electron",
-        "distribute": " node ./node_modules/tnotes   --distributeREADME    --repoName=electron",
-        "sync": "       node ./node_modules/tnotes   --syncREADME          --repoName=electron"
-    }
+  "scripts": {
+    "merge": "      node ./node_modules/tnotes   --mergeREADME         --repoName=electron",
+    "update": "     node ./node_modules/tnotes   --updateREADME        --repoName=electron",
+    "distribute": " node ./node_modules/tnotes   --distributeREADME    --repoName=electron",
+    "sync": "       node ./node_modules/tnotes   --syncREADME          --repoName=electron"
+  },
+  "tnotesConfig": {
+    "ignoreDirs": [
+      "md-imgs",
+      ".git",
+      ".vscode",
+      "9999. templates"
+    ]
+  }
 }
