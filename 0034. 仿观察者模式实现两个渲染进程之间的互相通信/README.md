@@ -1,12 +1,10 @@
 # [0034. 仿观察者模式实现两个渲染进程之间的互相通信](https://github.com/Tdahuyou/electron/tree/main/0034.%20%E4%BB%BF%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%92%E7%9B%B8%E9%80%9A%E4%BF%A1)
 
 <!-- region:toc -->
-- [1. 📝 summary](#1--summary)
-- [2. 🔗 links](#2--links)
-- [3. 💡 导图](#3--导图)
-- [4. 💻 demo](#4--demo)
+- [1. 🔗 links](#1--links)
+- [2. 💡 导图](#2--导图)
+- [3. 💻 demo](#3--demo)
 <!-- endregion:toc -->
-## 1. 📝 summary
 - 理解事件注册流程
 - 理解事件触发流程
 - 原理简述
@@ -18,12 +16,12 @@ messageChannelRecord['action'] = [ e.sender.id ]
 // Electron.BrowserWindow.id 是 number 类型
 ```
 
-## 2. 🔗 links
+## 1. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/api/browser-window#browserwindowfromidid
   - 查看官方文档对 BrowserWindow.fromId(id) 此 API 的描述。
 
-## 3. 💡 导图
+## 2. 💡 导图
 
 仿观察者模式，实现两个渲染进程之间的互相通信。记录了“观察者模式”下，注册环节和触发环节的流程。
 
@@ -31,7 +29,7 @@ messageChannelRecord['action'] = [ e.sender.id ]
 
 ![](md-imgs/2024-10-05-22-21-12.png)
 
-## 4. 💻 demo
+## 3. 💻 demo
 
 仿观察者设计模式，实现两个渲染进程之间的互相通信。
 
@@ -155,5 +153,7 @@ document.getElementById('btn').addEventListener('click', () => {
 点击【窗口 3】的按钮，所有窗口的 `<h1>` 的内容都变为 3。
 
 ![](md-imgs/2024-10-05-22-24-22.png)
+
+
 
 

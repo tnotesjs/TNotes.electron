@@ -1,40 +1,37 @@
 # [0046. 认识 IPC 相关模块](https://github.com/Tdahuyou/electron/tree/main/0046.%20%E8%AE%A4%E8%AF%86%20IPC%20%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%9D%97)
 
 <!-- region:toc -->
-- [1. 📝 summary](#1--summary)
-- [2. 🔗 links](#2--links)
-- [3. 💡 导图](#3--导图)
-- [4. 📒 electron doc - 进程间通信教程](#4--electron-doc---进程间通信教程)
-- [5. 📒 send vs. sendSync](#5--send-vs-sendsync)
-  - [5.1. send、sendSync 是什么](#51-sendsendsync-是什么)
-  - [5.2. 同步 vs. 异步](#52-同步-vs-异步)
-  - [5.3. 返回值](#53-返回值)
-  - [5.4. 看看官方建议](#54-看看官方建议)
-- [6. 📒 send vs. invoke](#6--send-vs-invoke)
-  - [6.1. 先给出结论](#61-先给出结论)
-  - [6.2. 场景 - 双向通信](#62-场景---双向通信)
-  - [6.3. 场景 - 单向通信](#63-场景---单向通信)
-- [7. 🤔 问：使用 send 来实现单向通信能减少开销提高性能？](#7--问使用-send-来实现单向通信能减少开销提高性能)
+- [1. 🔗 links](#1--links)
+- [2. 💡 导图](#2--导图)
+- [3. 📒 electron doc - 进程间通信教程](#3--electron-doc---进程间通信教程)
+- [4. 📒 send vs. sendSync](#4--send-vs-sendsync)
+  - [4.1. send、sendSync 是什么](#41-sendsendsync-是什么)
+  - [4.2. 同步 vs. 异步](#42-同步-vs-异步)
+  - [4.3. 返回值](#43-返回值)
+  - [4.4. 看看官方建议](#44-看看官方建议)
+- [5. 📒 send vs. invoke](#5--send-vs-invoke)
+  - [5.1. 先给出结论](#51-先给出结论)
+  - [5.2. 场景 - 双向通信](#52-场景---双向通信)
+  - [5.3. 场景 - 单向通信](#53-场景---单向通信)
+- [6. 🤔 问：使用 send 来实现单向通信能减少开销提高性能？](#6--问使用-send-来实现单向通信能减少开销提高性能)
 <!-- endregion:toc -->
-## 1. 📝 summary
-
 - 把官方教程中提到的 IPC 通信模式刷一遍
 - 认识用于实现 IPC 通信的模块 ipcMain、ipcRenderer
 - send 和 sendSync 之间的一些差异（这俩 API “已过时”）
 - invoke 比 send 好在哪
 
-## 2. 🔗 links
+## 1. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/ipc
   - 这是官方提供的 IPC 通信教程。
 - https://www.electronjs.org/docs/latest/tutorial/ipc#note-legacy-approaches
   - 官方建议 - 推荐使用 invoke 的说明。
 
-## 3. 💡 导图
+## 2. 💡 导图
 
 ![](md-imgs/2024-10-05-22-33-26.png)
 
-## 4. 📒 electron doc - 进程间通信教程
+## 3. 📒 electron doc - 进程间通信教程
 
 > from: https://www.electronjs.org/zh/docs/latest/tutorial/ipc
 
@@ -50,17 +47,17 @@
 
 ![](md-imgs/2024-10-05-22-35-18.png)
 
-## 5. 📒 send vs. sendSync
+## 4. 📒 send vs. sendSync
 
 ipcRenderer.send 和 ipcRenderer.sendSync 这俩 API，可以认为它们已经过时了，重点掌握好 ipcRenderer.invoke 即可。
 
-### 5.1. send、sendSync 是什么
+### 4.1. send、sendSync 是什么
 
 这里所说的 send 是指 ipcRenderer.send，sendSync 是指 ipcRenderer.sendSync。
 
 ipcRenderer.send 和 ipcRenderer.sendSync 它们都是 Electron 的 ipcRenderer 模块中用于发送消息到主进程的方法。但是它们在发送消息的方式上有一些差异，其中最明显的差异就是 send 是异步的，sendSync 是同步的。
 
-### 5.2. 同步 vs. 异步
+### 4.2. 同步 vs. 异步
 
 下面，我们从“同步”、“异步”的角度来对比两者之间的差异。
 
@@ -74,7 +71,7 @@ ipcRenderer.sendSync 是一个 **同步** 方法，它 **会阻塞渲染进程**
 
 这里顺带着提一嘴，Electron 中的 remote 模块不推荐使用的原因之一也是因为它底层的执行逻辑是同步的，玩不好很可能导致程序卡死。
 
-### 5.3. 返回值
+### 4.3. 返回值
 
 **Q：如果从返回值的角度来看，它们两者之间又有何区别呢？**
 
@@ -90,7 +87,7 @@ ipcRenderer.sendSync 的返回值是主进程处理结果，因为它会等待�
 
 其实上述说法是没错的，不过现在有比 send 更优的选择 —— invoke，所以说是“过时”的结论。
 
-### 5.4. 看看官方建议
+### 4.4. 看看官方建议
 
 上述提到的结论真的“过时”了？这时候可以让我们来看看官方建议。
 
@@ -98,9 +95,9 @@ ipcRenderer.sendSync 的返回值是主进程处理结果，因为它会等待�
 
 简言之就是，**如果我们开发的应用所使用的 Electron 的版本高于 v7，那么推荐使用新版的 API ipcRenderer.invoke 来实现渲染进程到主进程之间的通信。放弃使用传统的 ipcRenderer.send、ipcRenderer.sendSync。**
 
-## 6. 📒 send vs. invoke
+## 5. 📒 send vs. invoke
 
-### 6.1. 先给出结论
+### 5.1. 先给出结论
 
 - ipcRenderer.invoke 新版 API
 - ipcRenderer.invoke 仍健在
@@ -115,7 +112,7 @@ ipcRenderer.sendSync 的返回值是主进程处理结果，因为它会等待�
   - invoke 能做的，send 也都能做
 - 从使用体验来看 invoke > send。针对一些常见的通信场景，比如双向通信，invoke 写起来比 send 更舒服。
 
-### 6.2. 场景 - 双向通信
+### 5.2. 场景 - 双向通信
 
 假设我们需要实现这样一种通信的场景：
 
@@ -132,13 +129,13 @@ send 更麻烦。因为需要绑定俩事件：
 
 从上面描述的场景来看，显然没有必要使用 send。
 
-### 6.3. 场景 - 单向通信
+### 5.3. 场景 - 单向通信
 
 如果仅仅是渲染进程发起请求，不需要管主进程的响应，也就是单向通信，send 和 invoke 又有何区别呢？
 
 答案是，**几乎没有区别**。
 
-## 7. 🤔 问：使用 send 来实现单向通信能减少开销提高性能？
+## 6. 🤔 问：使用 send 来实现单向通信能减少开销提高性能？
 
 这是一位网友提的问题，由于缺乏论据，并且也没在官方文档找到支持这种说法的点，因此暂且认为这种说法是不成立的。
 
@@ -153,6 +150,8 @@ send 更麻烦。因为需要绑定俩事件：
 > 看到消息后会尽快去回复。
 
 ![](md-imgs/2024-10-05-22-46-44.png)
+
+
 
 
 

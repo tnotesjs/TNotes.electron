@@ -1,17 +1,15 @@
 # [0008. 使用自动安装的方式集成 vue-devtools](https://github.com/Tdahuyou/electron/tree/main/0008.%20%E4%BD%BF%E7%94%A8%E8%87%AA%E5%8A%A8%E5%AE%89%E8%A3%85%E7%9A%84%E6%96%B9%E5%BC%8F%E9%9B%86%E6%88%90%20vue-devtools)
 
 <!-- region:toc -->
-- [1. 📝 summary](#1--summary)
-- [2. 🔗 links](#2--links)
-- [3. 💻 demo](#3--demo)
-- [4. 📒 如何获取 VUE_DEVTOOLS_ID](#4--如何获取-vue_devtools_id)
+- [1. 🔗 links](#1--links)
+- [2. 💻 demo](#2--demo)
+- [3. 📒 如何获取 VUE_DEVTOOLS_ID](#3--如何获取-vue_devtools_id)
 <!-- endregion:toc -->
-## 1. 📝 summary
 - 如何根据插件 ID 自动下载 chrome 插件源码 `downloadChromeExtension.js`
 - 本文基于 electron-devtools-installer 中的下载 chrome 插件的逻辑，封装了一个 downloadChromeExtension.js 模块，在 electron.0007 的基础上，实现自动安装插件的功能。
 - 其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。
 
-## 2. 🔗 links
+## 1. 🔗 links
 
 - https://www.npmjs.com/package/electron-devtools-installer
   - electron-devtools-installer
@@ -23,7 +21,7 @@
 - https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd
   - chrome extension - vue.js devtools
 
-## 3. 💻 demo
+## 2. 💻 demo
 
 ```json
 // package.json
@@ -228,7 +226,7 @@ app.on('window-all-closed', () => {
 - **最终效果**
   - ![](md-imgs/2024-10-13-21-18-23.png)
 
-## 4. 📒 如何获取 VUE_DEVTOOLS_ID
+## 3. 📒 如何获取 VUE_DEVTOOLS_ID
 
 去 **chrome 应用商店** 安装 **Vue.js devtools 插件**。假如你已经安装好了插件，可以在插件管理页面（`chrome://extensions/`）查看。
 
@@ -237,4 +235,6 @@ app.on('window-all-closed', () => {
 其实在插件安装的界面，URL 的末尾就是这个插件的 ID。
 
 ![](md-imgs/2024-10-13-21-20-19.png)
+
+
 

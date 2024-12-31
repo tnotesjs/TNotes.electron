@@ -1,17 +1,13 @@
 # [0004. 使用 web api MessageChannel 实现主进程和渲染进程之间的互相通信](https://github.com/Tdahuyou/electron/tree/main/0004.%20%E4%BD%BF%E7%94%A8%20web%20api%20MessageChannel%20%E5%AE%9E%E7%8E%B0%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%92%E7%9B%B8%E9%80%9A%E4%BF%A1)
 
 <!-- region:toc -->
-- [1. 📝 summary](#1--summary)
-- [2. 💻 demo](#2--demo)
+- [1. 💻 demo](#1--demo)
 <!-- endregion:toc -->
-
-## 1. 📝 summary
-
 - 介绍如何使用 web api 来实现 IPC 通信
 - 主进程有 MessageChannelMain 模块，渲染进程可以使用 Web API MessageChannel。
 - 用哪个模块都可以实现通信的效果，差异是通信的端口是在主进程生产还是在渲染进程生产。
 
-## 2. 💻 demo
+## 1. 💻 demo
 
 ```js
 // index.js
@@ -83,6 +79,8 @@ document.getElementById('btn').addEventListener('click', () => {
 3. 主进程再给渲染进程回复一条消息【我收到你的消息了，周末出来玩呗～】
 
 ![](md-imgs/2024-10-05-22-26-48.png)
+
+
 
 
 

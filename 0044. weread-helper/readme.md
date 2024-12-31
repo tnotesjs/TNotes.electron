@@ -1,14 +1,12 @@
 # [0044. weread-helper](https://github.com/Tdahuyou/electron/tree/main/0044.%20weread-helper)
 
 <!-- region:toc -->
-- [1. 📝 summary](#1--summary)
-- [2. 🔗 links](#2--links)
-- [3. 📒Quick Start](#3-quick-start)
+- [1. 🔗 links](#1--links)
+- [2. 📒Quick Start](#2-quick-start)
 <!-- endregion:toc -->
-## 1. 📝 summary
 - 套壳了微信读书的网页版，并注入了一些自定义脚本。
 
-## 2. 🔗 links
+## 1. 🔗 links
 
 - https://www.bilibili.com/video/BV1sZ421p7fW/
   - bilibili--微信读书桌面版。
@@ -17,9 +15,11 @@
   - yuque--tools--微信读书。
   - 📂 可在工具分享 tools 中获取安装包。
 
-## 3. 📒Quick Start
+## 2. 📒Quick Start
 
 - `npm i`
 - `npm run dev` 启 dev 环境
 - `npm run build` 出包
+
+
 

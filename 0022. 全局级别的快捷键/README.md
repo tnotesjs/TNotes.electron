@@ -1,24 +1,21 @@
 # [0022. 全局级别的快捷键](https://github.com/Tdahuyou/electron/tree/main/0022.%20%E5%85%A8%E5%B1%80%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE)
 
 <!-- region:toc -->
-- [1. 📝 summary](#1--summary)
-- [2. 🔗 globalShortcut](#2--globalshortcut)
-- [3. 💻 demo](#3--demo)
+- [1. 🔗 globalShortcut](#1--globalshortcut)
+- [2. 💻 demo](#2--demo)
 <!-- endregion:toc -->
-## 1. 📝 summary
-
 - 学习如何注册全局（系统）级别的快捷方式
 - 全局级别的快捷键，也称系统级别的快捷键，这玩意儿在很多桌面应用程序中多多少少都会有一些。对于一些常用的操作和交互行为，绑定好快捷键，还是蛮必要的。
 - globalShortcut 是一个主进程中的模块，其作用是 在应用程序没有键盘焦点时，监听键盘事件。
 - Q：什么叫“应用程序没有键盘焦点”？
 - A：就是你当前鼠标点击的位置并非该应用，焦点不在这个应用身上。
 
-## 2. 🔗 globalShortcut
+## 1. 🔗 globalShortcut
 
 - https://www.electronjs.org/zh/docs/latest/api/global-shortcut
   - Electron，查看 globalShortcut 模块的相关描述。
 
-## 3. 💻 demo
+## 2. 💻 demo
 
 ```js
 // index.js
@@ -73,4 +70,6 @@ app.on('will-quit', function () {
 - 按下 `ctrl + e` 即可触发系统弹框。
   - ![](md-imgs/2024-10-06-01-53-48.png)
 - 需要注意的是，这个 demo 并没有实际的窗口，但是这并不妨碍全局快捷键的注册。
+
+
 

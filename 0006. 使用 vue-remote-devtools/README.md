@@ -1,18 +1,15 @@
 # [0006. 使用 vue-remote-devtools](https://github.com/Tdahuyou/electron/tree/main/0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools)
 
 <!-- region:toc -->
-- [1. 📝 summary](#1--summary)
-- [2. 🔗 links](#2--links)
-- [3. 💻 demo](#3--demo)
+- [1. 🔗 links](#1--links)
+- [2. 💻 demo](#2--demo)
 <!-- endregion:toc -->
-## 1. 📝 summary
-
 - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 介绍 vue-remote-devtools 的基本使用
 - 本文介绍如何让基于 Electron 搭建的 Vue 工程，能够远程地使用 Vue 调试工具。本节介绍的其实是一个通用的法子，那些在非浏览器环境下搭建的 Vue 工程，如果想要使用 vue-devtools 的能力，都可以参考文中提到的这种方式。
 - 其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。
 
-## 2. 🔗 links
+## 1. 🔗 links
 
 - https://github.com/vuejs/devtools/tree/main/packages/shell-electron#vue-remote-devtools
   - 这是 vuejs 的 GitHub 仓库中的一篇文档，介绍了使用 vue-remote-devtools 来实现远程调试的方案。
@@ -21,7 +18,7 @@
 - https://github.com/vuejs/devtools-next
   - 这是 Vue DevTools Next 在 GitHub 上的仓库链接。
 
-## 3. 💻 demo
+## 2. 💻 demo
 
 ```json
 // package.json
@@ -119,5 +116,7 @@ $ npm run dev
 ![](md-imgs/2024-10-13-21-04-33.png)
 
 左边是我们的项目，右边是我们本地的调试工具，它们是两个互相独立的应用。但我们可以在调试工具中在线调试我们的项目。
+
+
 
 

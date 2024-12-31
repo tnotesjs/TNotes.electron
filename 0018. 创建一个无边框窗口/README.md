@@ -1,24 +1,21 @@
 # [0018. 创建一个无边框窗口](https://github.com/Tdahuyou/electron/tree/main/0018.%20%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%97%A0%E8%BE%B9%E6%A1%86%E7%AA%97%E5%8F%A3)
 
 <!-- region:toc -->
-- [1. 📝 summary](#1--summary)
-- [2. 🔗 links](#2--links)
-- [3. 💻 demo](#3--demo)
+- [1. 🔗 links](#1--links)
+- [2. 💻 demo](#2--demo)
 <!-- endregion:toc -->
-## 1. 📝 summary
-
 - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 创建无边框窗口 frame: false
 - 无边框窗口的特点
 
-## 2. 🔗 links
+## 1. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/window-customization
   - 官方文档，自定义窗口，查看官方文档中对于如何创建【自定义窗口】的描述。
 - https://www.electronjs.org/docs/latest/api/structures/browser-window-options
   - 官方文档，查看创建 BrowserWindow 实例的相关配置项 options。
 
-## 3. 💻 demo
+## 2. 💻 demo
 
 ```js
 // index.js
@@ -77,4 +74,6 @@ app.whenReady().then(createWindow)
 
 - ![](md-imgs/2024-10-06-00-38-45.png)
 - ![](md-imgs/2024-10-06-00-38-50.png)
+
+
 

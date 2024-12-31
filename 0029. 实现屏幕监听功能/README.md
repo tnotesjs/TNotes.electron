@@ -1,15 +1,13 @@
 # [0029. 实现屏幕监听功能](https://github.com/Tdahuyou/electron/tree/main/0029.%20%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E7%9B%91%E5%90%AC%E5%8A%9F%E8%83%BD)
 
 <!-- region:toc -->
-- [1. 📝 summary](#1--summary)
-- [2. 🔗 links](#2--links)
-- [3. 📒`navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题](#3-navigatormediadevicesgetusermedia()-的-video-配置结构问题)
-- [4. 💻 demo](#4--demo)
+- [1. 🔗 links](#1--links)
+- [2. 📒`navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题](#2-navigatormediadevicesgetusermedia()-的-video-配置结构问题)
+- [3. 💻 demo](#3--demo)
 <!-- endregion:toc -->
-## 1. 📝 summary
 - 这是参照官方示例实现一个屏幕实时监听的 demo。
 
-## 2. 🔗 links
+## 1. 🔗 links
 
 - https://www.electronjs.org/docs/latest/api/desktop-capturer
   - Electron，查看主进程的 desktopCapturer API 的相关描述。
@@ -23,7 +21,7 @@
   - Electron Github Issues，mandatory property missing from MediaTrackConstraints #27139。
   - 主要讨论了在使用 Electron 的 desktopCapturer API 与 TypeScript 时，由于 mandatory 属性不在 MediaTrackConstraints 类型中而引起的类型错误问题。
 
-## 3. 📒`navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题
+## 2. 📒`navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题
 
 > - https://github.com/electron/electron/issues/27139
 > - Electron Github Issues，mandatory property missing from MediaTrackConstraints #27139。
@@ -70,7 +68,7 @@ interface MediaTrackConstraintSet {
 // 如果是用 TS 写的项目，在打包时出现了类型错误，可以暴力处理 - 手动去改类型，或者直接断言类型。
 ```
 
-## 4. 💻 demo
+## 3. 💻 demo
 
 ```js
 // index.js
@@ -205,5 +203,7 @@ if (process.contextIsolated) {
 - 下面是在屏幕 B 上的渲染进程窗口，在这个窗口上可以实时监听屏幕 A 上的内容。
   - ![](md-imgs/2024-10-07-22-31-23.png)
 - 如果 B 是另一位用户的电脑屏幕，那么这就基本实现了远程控制工具的一小部分功能。当然，现在的画面监控，仅仅是在本地实现的，并且也没有加入任何交互（远程控制）逻辑。
+
+
 
 

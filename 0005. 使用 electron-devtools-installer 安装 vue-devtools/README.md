@@ -1,20 +1,18 @@
 # [0005. 使用 electron-devtools-installer 安装 vue-devtools](https://github.com/Tdahuyou/electron/tree/main/0005.%20%E4%BD%BF%E7%94%A8%20electron-devtools-installer%20%E5%AE%89%E8%A3%85%20vue-devtools)
 
 <!-- region:toc -->
-- [1. 📝 summary](#1--summary)
-- [2. 🔗 links](#2--links)
-- [3. 💻 demo](#3--demo)
+- [1. 🔗 links](#1--links)
+- [2. 💻 demo](#2--demo)
 <!-- endregion:toc -->
-## 1. 📝 summary
 - 按照官方提供的示例试了一下，最终结果是：**没能安装成功**。
 - 如果不是自己写的测试用例有误，那就是 electron-devtools-installer 这个包过时了。
 
-## 2. 🔗 links
+## 1. 🔗 links
 
 - https://www.npmjs.com/package/electron-devtools-installer
   - npm，electron-devtools-installer
 
-## 3. 💻 demo
+## 2. 💻 demo
 
 ```js
 // index.js
@@ -81,6 +79,8 @@ app.whenReady().then(() => {
 `electron-devtools-installer` 这个包可能是存在一些兼容性问题，最近一次更新已是 3 年前了，在目前最新版本的 electron 中不可用。
 
 ![](md-imgs/2024-10-13-21-10-33.png)
+
+
 
 
 

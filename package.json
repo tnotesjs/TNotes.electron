@@ -11,6 +11,9 @@
       ".git",
       ".vscode",
       "9999. templates"
+    ],
+    "doneNoteIds": [
+      "0001"
     ]
   }
 }
