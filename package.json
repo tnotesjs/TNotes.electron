@@ -1,9 +1,10 @@
 {
   "scripts": {
-    "merge": "      node ./node_modules/tnotes   --mergeREADME         --repoName=electron",
-    "update": "     node ./node_modules/tnotes   --updateREADME        --repoName=electron",
-    "distribute": " node ./node_modules/tnotes   --distributeREADME    --repoName=electron",
-    "sync": "       node ./node_modules/tnotes   --syncREADME          --repoName=electron"
+    "merge": "           node ./node_modules/tnotes   --mergeREADME         --repoName=electron",
+    "update": "          node ./node_modules/tnotes   --updateREADME        --repoName=electron",
+    "distribute": "      node ./node_modules/tnotes   --distributeREADME    --repoName=electron",
+    "sync": "            node ./node_modules/tnotes   --syncREADME          --repoName=electron",
+    "docs:publish": "    node ./node_modules/tnotes/scripts/docs-publish.js"
   },
   "tnotesConfig": {
     "ignoreDirs": [
