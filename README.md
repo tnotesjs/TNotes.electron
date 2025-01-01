@@ -1,7 +1,7 @@
-# Electron
+# electron
 
 <!-- region:toc -->
-- [Electron](#electron)
+- [electron](#electron)
   - [1. electron 笔记内容简介](#1-electron-笔记内容简介)
   - [2. electron 概述](#2-electron-概述)
   - [3. electron 的一些学习资源](#3-electron-的一些学习资源)
