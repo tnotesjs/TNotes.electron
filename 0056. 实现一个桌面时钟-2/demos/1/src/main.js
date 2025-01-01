@@ -8,6 +8,7 @@ const createWindow = () => {
         frame: false, // 隐藏窗口默认的边框
         titleBarStyle: 'hidden', // 隐藏默认标题栏，使窗口可以被拖拽
         menuBarVisible: false, // 隐藏菜单栏
+        alwaysOnTop: true,
 
         webPreferences: {
             nodeIntegration: true,
