@@ -1,6 +1,7 @@
 # [0022. 全局级别的快捷键](https://github.com/Tdahuyou/electron/tree/main/0022.%20%E5%85%A8%E5%B1%80%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE)
 
 <!-- region:toc -->
+
 - [1. 🔗 globalShortcut](#1--globalshortcut)
 - [2. 💻 demo](#2--demo-11)
 <!-- endregion:toc -->

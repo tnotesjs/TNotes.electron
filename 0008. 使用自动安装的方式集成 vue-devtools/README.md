@@ -1,6 +1,7 @@
 # [0008. 使用自动安装的方式集成 vue-devtools](https://github.com/Tdahuyou/electron/tree/main/0008.%20%E4%BD%BF%E7%94%A8%E8%87%AA%E5%8A%A8%E5%AE%89%E8%A3%85%E7%9A%84%E6%96%B9%E5%BC%8F%E9%9B%86%E6%88%90%20vue-devtools)
 
 <!-- region:toc -->
+
 - [1. 🔗 links](#1--links-5)
 - [2. 💻 demo](#2--demo-4)
 - [3. 📒 如何获取 VUE_DEVTOOLS_ID](#3--如何获取-vue_devtools_id)
