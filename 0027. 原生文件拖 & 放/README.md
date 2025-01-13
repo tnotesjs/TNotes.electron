@@ -1,9 +1,9 @@
 # [0027. 原生文件拖 & 放](https://github.com/Tdahuyou/electron/tree/main/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE)
 
 <!-- region:toc -->
-- [1. 🔗 links](#1--links)
+- [1. 🔗 links](#1--links-21)
 - [2. 📒本文要实现一个什么样的效果](#2-本文要实现一个什么样的效果)
-- [3. 💻 demo](#3--demo)
+- [3. 💻 demo](#3--demo-4)
 <!-- endregion:toc -->
 - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 原生文件拖 & 放是什么

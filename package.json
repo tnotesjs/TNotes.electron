@@ -1,20 +1,325 @@
 {
   "scripts": {
-    "merge": "           node ./node_modules/tnotes   --mergeREADME         --repoName=electron",
-    "update": "          node ./node_modules/tnotes   --updateREADME        --repoName=electron",
     "distribute": "      node ./node_modules/tnotes   --distributeREADME    --repoName=electron",
+    "docs:publish": "    node ./node_modules/tnotes/scripts/docs-publish.js",
+    "merge": "           node ./node_modules/tnotes   --mergeREADME         --repoName=electron",
     "sync": "            node ./node_modules/tnotes   --syncREADME          --repoName=electron",
-    "docs:publish": "    node ./node_modules/tnotes/scripts/docs-publish.js"
+    "update": "          node ./node_modules/tnotes   --updateREADME        --repoName=electron"
   },
   "tnotesConfig": {
-    "ignoreDirs": [
-      "md-imgs",
-      ".git",
-      ".vscode",
-      "9999. templates"
-    ],
-    "doneNoteIds": [
-      "0001"
-    ]
+    "dirList": {
+      ".git": {
+        "ignore": true
+      },
+      ".vscode": {
+        "ignore": true
+      },
+      "0001": {
+        "bilibili": [],
+        "done": true,
+        "ignore": false
+      },
+      "0002": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0003": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0004": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0005": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0006": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0007": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0008": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0009": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0010": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0011": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0012": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0013": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0014": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0015": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0016": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0017": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0018": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0019": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0020": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0021": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0022": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0023": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0024": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0025": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0026": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0027": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0028": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0029": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0030": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0031": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0032": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0033": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0034": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0035": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0036": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0037": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0038": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0039": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0040": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0041": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0042": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0043": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0044": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0045": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0046": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0047": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0048": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0049": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0050": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0051": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0052": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0053": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0054": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0055": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0056": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0057": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0058": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0059": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0060": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "assets": {
+        "ignore": true
+      },
+      "md-imgs": {
+        "ignore": true
+      }
+    }
   }
 }

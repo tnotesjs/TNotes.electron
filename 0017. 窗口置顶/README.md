@@ -1,8 +1,8 @@
 # [0017. 窗口置顶](https://github.com/Tdahuyou/electron/tree/main/0017.%20%E7%AA%97%E5%8F%A3%E7%BD%AE%E9%A1%B6)
 
 <!-- region:toc -->
-- [1. 🔗 links](#1--links)
-- [2. 💻 demo](#2--demo)
+- [1. 🔗 links](#1--links-13)
+- [2. 💻 demo](#2--demo-7)
 <!-- endregion:toc -->
 - 本文介绍了两种使窗口置顶的方式，以及它们之间的一些区别。
 - 做法 1：在 new BrowserWindow 的时候，丢一个配置项 `alwaysOnTop: true` 进去，暴力置顶。

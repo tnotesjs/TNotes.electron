@@ -1,8 +1,8 @@
 # [0046. 认识 IPC 相关模块](https://github.com/Tdahuyou/electron/tree/main/0046.%20%E8%AE%A4%E8%AF%86%20IPC%20%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%9D%97)
 
 <!-- region:toc -->
-- [1. 🔗 links](#1--links)
-- [2. 💡 导图](#2--导图)
+- [1. 🔗 links](#1--links-30)
+- [2. 💡 导图](#2--导图-2)
 - [3. 📒 electron doc - 进程间通信教程](#3--electron-doc---进程间通信教程)
 - [4. 📒 send vs. sendSync](#4--send-vs-sendsync)
   - [4.1. send、sendSync 是什么](#41-sendsendsync-是什么)

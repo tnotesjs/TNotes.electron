@@ -1,8 +1,8 @@
 # [0006. 使用 vue-remote-devtools](https://github.com/Tdahuyou/electron/tree/main/0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools)
 
 <!-- region:toc -->
-- [1. 🔗 links](#1--links)
-- [2. 💻 demo](#2--demo)
+- [1. 🔗 links](#1--links-3)
+- [2. 💻 demo](#2--demo-2)
 <!-- endregion:toc -->
 - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 介绍 vue-remote-devtools 的基本使用

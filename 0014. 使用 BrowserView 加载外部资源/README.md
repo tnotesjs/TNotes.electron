@@ -3,7 +3,7 @@
 <!-- region:toc -->
 - [1. ⏰ TODO 为啥 BrowserView 被废弃掉了](#1--todo-为啥-browserview-被废弃掉了)
 - [2. 🔗 links](#2--links)
-- [3. 💻 demo](#3--demo)
+- [3. 💻 demo](#3--demo-1)
 <!-- endregion:toc -->
 - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 如何使用 BrowserView 加载外部资源

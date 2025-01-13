@@ -1,8 +1,8 @@
 # [0023. 页面级别的快捷键](https://github.com/Tdahuyou/electron/tree/main/0023.%20%E9%A1%B5%E9%9D%A2%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE)
 
 <!-- region:toc -->
-- [1. 🔗 links](#1--links)
-- [2. 💻 demo](#2--demo)
+- [1. 🔗 links](#1--links-17)
+- [2. 💻 demo](#2--demo-12)
 <!-- endregion:toc -->
 - 本节通过一个很简单的 demo，介绍如何实现页面级别的快捷方式。
 - 全局快捷键可以使用 Electron 提供的模块 globalShortcut 来实现，这是一个主进程模块。但是，就文档中要求的页面级别的快捷方式，完全可以使用原生的 Web API `window.onkeydown = function(e) { ... }` 来实现。

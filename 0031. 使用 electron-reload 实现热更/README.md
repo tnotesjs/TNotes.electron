@@ -1,8 +1,8 @@
 # [0031. 使用 electron-reload 实现热更](https://github.com/Tdahuyou/electron/tree/main/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4)
 
 <!-- region:toc -->
-- [1. 🔗 links](#1--links)
-- [2. 💻 demo](#2--demo)
+- [1. 🔗 links](#1--links-24)
+- [2. 💻 demo](#2--demo-15)
 <!-- endregion:toc -->
 - [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 如何使用 electron-reload 实现热更
