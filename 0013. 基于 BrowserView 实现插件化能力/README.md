@@ -5,7 +5,6 @@
 - [1. 🔗 links](#1--links-10)
 - [2. 💻 demo - BrowserView 实现插件化](#2--demo---browserview-实现插件化)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 基于 BrowserView 实现插件化能力
 - 该 demo 模拟了使用 BrowserView 模块来加载第三方资源并注入 preload 脚本，使其具备原生能力。
 
@@ -162,6 +161,8 @@ if (process.contextIsolated) {
 点击按钮【Show Notification】将会弹出系统消息。
 
 ![](md-imgs/2024-10-07-22-44-08.png)
+
+
 
 
 

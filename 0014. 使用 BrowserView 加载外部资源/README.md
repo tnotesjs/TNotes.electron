@@ -6,7 +6,6 @@
 - [2. 🔗 links](#2--links)
 - [3. 💻 demo](#3--demo-1)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 如何使用 BrowserView 加载外部资源
 - 这个 demo 使用 BrowserView 模块来加载第三方资源（掘金主页）到渲染进程的页面上。
 
@@ -65,6 +64,8 @@ app.whenReady().then(() => {
 在我们本地的 index.html 渲染进程中，嵌入了一个 https://juejin.cn/ 窗口。
 
 ![](md-imgs/2024-10-07-22-39-51.png)
+
+
 
 
 

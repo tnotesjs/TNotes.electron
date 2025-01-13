@@ -6,7 +6,6 @@
 - [2. 📒本文要实现一个什么样的效果](#2-本文要实现一个什么样的效果)
 - [3. 💻 demo](#3--demo-4)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 原生文件拖 & 放是什么
 - 如何实现原生文件拖 & 放效果
   - 从视频的 0:50～2:30 开始展示最终的效果，可以从这开始看，快速了解下本节要实现的效果。
@@ -147,6 +146,8 @@ document.getElementById('drag2').ondragstart = (event) => {
 ```
 
 - `event.preventDefault()` 当你拖动一个元素时，浏览器通常会执行默认的拖拽操作，比如显示拖动中的预览图像或在文件拖动过程中显示文件名。通过调用 `event.preventDefault()`，你可以防止这些默认操作，并自定义拖拽行为。
+
+
 
 
 

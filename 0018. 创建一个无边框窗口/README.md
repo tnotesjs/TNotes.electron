@@ -5,7 +5,6 @@
 - [1. 🔗 links](#1--links-14)
 - [2. 💻 demo](#2--demo-8)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 创建无边框窗口 frame: false
 - 无边框窗口的特点
 
@@ -75,6 +74,8 @@ app.whenReady().then(createWindow)
 
 - ![](md-imgs/2024-10-06-00-38-45.png)
 - ![](md-imgs/2024-10-06-00-38-50.png)
+
+
 
 
 

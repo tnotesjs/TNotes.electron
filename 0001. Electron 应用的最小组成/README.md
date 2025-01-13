@@ -1,7 +1,7 @@
 # [0001. Electron 应用的最小组成](https://github.com/Tdahuyou/electron/tree/main/0001.%20Electron%20%E5%BA%94%E7%94%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%84%E6%88%90)
 
 <!-- region:toc -->
-- [bilibili.electron.0001.1](https://www.bilibili.com/video/BV1544219774)、[bilibili.electron.0001.2](https://www.bilibili.com/video/BV1544219774)、[bilibili.electron.0001.3](https://www.bilibili.com/video/BV1544219774)
+- [bilibili.electron.0001.1](https://www.bilibili.com/video/BV1544219774)
 - [1. 🔗 links](#1--links)
 - [2. 📒 electron 应用的最小组成](#2--electron-应用的最小组成)
 - [3. 📒 最终效果展示](#3--最终效果展示)
@@ -14,7 +14,6 @@
   - [4.6. 启动 Electron 应用](#46-启动-electron-应用)
 - [5. 🤔 问：主进程加载的入口文件是？](#5--问主进程加载的入口文件是)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 实现一个 demo - 从 0 到 1 搭建一个 hello world 应用
   - 知道 Electron 应用的最小组成，要求能够做到快速搭建一个简单的 Electron 学习环境，全程耗时控制在 1min ~ 3min（不算下载依赖耗时）实现一个小 demo，为接下来的 Electron 相关知识点的学习做准备。
 - 本节内容，主要就是仨文件：
@@ -188,6 +187,8 @@ touch index.html
 主进程就是 `package.json` 中的 main 字段标识的文件，它是整个程序的入口，也是 Electron 的主进程。
 
 通过 `npm init -y` 生成的默认 `package.json` 文件中的 main 字段的值为 `index.js`。
+
+
 
 
 

@@ -4,7 +4,6 @@
 - [bilibili.electron.0037.1](https://www.bilibili.com/video/BV1544219774)
 - [1. 💻 demo](#1--demo-5)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 
 ## 1. 💻 demo
 
@@ -69,6 +68,8 @@ app.on('ready', () => {
 渲染进程使用 ipcRenderer.send 发送消息给主进程，主进程通过 ipcMain.on 对渲染进程发送过来的消息进行监听，实现【渲染进程】到【主进程】的【单向 IPC 通信】。
 
 ![](md-imgs/2024-10-05-19-52-58.png)
+
+
 
 
 

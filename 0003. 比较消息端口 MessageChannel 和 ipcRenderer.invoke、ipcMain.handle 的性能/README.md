@@ -4,7 +4,6 @@
 - [bilibili.electron.0003.1](https://www.bilibili.com/video/BV1544219774)
 - [1. 💻 demo - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle](#1--demo---messagechannel-vs-ipcrendererinvokeipcmainhandle)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 本文通过一个 Electron 应用示例对比了 `MessageChannel` 和 `ipcRenderer.invoke`/`ipcMain.handle` 两种 IPC 通信方式的性能，结果显示在单向通信中两者差异不大，但在双向通信中 `MessageChannel` 的性能明显优于 `ipcRenderer.invoke`。
 - 这篇文档写了一个 demo 来比较两种 IPC 通信方式的性能差异。
 - 该 demo 仅仅作为一个参考，实际需求往往会更加复杂，比如通信过程中会携带大量数据。本 demo 的测试用例比较简单，仅仅是传递一个写死的字符串。
@@ -148,6 +147,8 @@ document.getElementById('btn4').addEventListener('click', testMessageChannel_2)
 
 - **最终结果**
   - 见视频……
+
+
 
 
 

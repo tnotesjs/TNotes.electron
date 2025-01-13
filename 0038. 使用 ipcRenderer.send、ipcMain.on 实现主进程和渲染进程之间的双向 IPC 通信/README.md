@@ -4,7 +4,6 @@
 - [bilibili.electron.0038.1](https://www.bilibili.com/video/BV1544219774)
 - [1. 💻 demo](#1--demo-6)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 
 ## 1. 💻 demo
 
@@ -81,6 +80,8 @@ app.on('ready', () => {
 # 主进程日志
 receive message from renderer process 1 2 3
 ```
+
+
 
 
 

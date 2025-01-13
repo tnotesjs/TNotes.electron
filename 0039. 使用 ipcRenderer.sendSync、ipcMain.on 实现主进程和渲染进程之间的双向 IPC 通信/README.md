@@ -4,7 +4,6 @@
 - [bilibili.electron.0039.1](https://www.bilibili.com/video/BV1544219774)
 - [1. 💻 demo](#1--demo-7)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 通过对比 `ipcRenderer.send`、`ipcRenderer.sendSync` 来熟悉 `sendSync` API 的一些特点和基本用法。
 - 注意：ipcRenderer.sendSync 非必要，不建议使用。
 
@@ -106,6 +105,8 @@ app.on('ready', () => {
 主进程收到了来自渲染进程的 ipcRenderer.send 方法发送的消息 1 2 3
 主进程收到了来自渲染进程的 ipcRenderer.sendSync 方法发送的消息 1 2 3
 ```
+
+
 
 
 

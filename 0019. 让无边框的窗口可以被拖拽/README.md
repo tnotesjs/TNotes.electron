@@ -5,7 +5,6 @@
 - [1. 🔗 links](#1--links-15)
 - [2. 💻 demo](#2--demo-9)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 通过 css 来解决无边框的窗口的拖拽问题
 
 ## 1. 🔗 links
@@ -94,6 +93,8 @@ content.addEventListener('click', () => {
 点击蓝底的标题栏区域，可以拖动窗口。
 
 ![](md-imgs/2024-10-06-00-44-01.png)
+
+
 
 
 

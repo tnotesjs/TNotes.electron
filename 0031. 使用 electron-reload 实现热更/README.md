@@ -5,7 +5,6 @@
 - [1. 🔗 links](#1--links-24)
 - [2. 💻 demo](#2--demo-15)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 如何使用 electron-reload 实现热更
 - 使用 electron-reload 监听主进程和渲染进程内容的变更，一旦内容变化，就自动重启 electron。
 - 额，这功能确实有点儿用，不过感觉也是可有可无，因为手动启动的成本也不算太高。
@@ -72,6 +71,8 @@ app.whenReady().then(() => {
     - 这种热更的机制不仅仅限于主进程的变更，就此 demo 而言，对于渲染进程 index.html 也是有效的。
     - 比如，可以将 hello world 改成 Hello World，修改完之后保存，页面内容会自动更新。此时并不会重新起一个 electron 应用，而是基于已有的应用来更新的，效果类似于 ctrl r 强行刷新一下窗口。
     - ![](md-imgs/2024-10-13-21-32-10.png)
+
+
 
 
 

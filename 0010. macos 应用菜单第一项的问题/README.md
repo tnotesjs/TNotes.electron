@@ -7,7 +7,6 @@
 - [3. 💻 demo2](#3--demo2)
 - [4. 🤔 问：在 macos 中，第一项菜单的名称如何自定义呢？](#4--问在-macos-中第一项菜单的名称如何自定义呢)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - macos 应用菜单第一项的有什么问题【demo1】
 - 如何解决 macos 应用菜单第一项的有什么问题【demo2】
 - 【demo1】介绍了 macos 应用菜单第一项的问题 —— 始终显示应用程序的名称，我们配置的 label 不生效。
@@ -144,6 +143,8 @@ app.on('ready', () => {
 如果你明确指定了 productName，那么会读取 productName 字段的信息。
 
 ![](md-imgs/2024-10-06-01-21-53.png)
+
+
 
 
 

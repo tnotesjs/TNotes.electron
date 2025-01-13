@@ -5,7 +5,6 @@
 - [1. 🔗 links](#1--links-27)
 - [2. 💻 demo](#2--demo-16)
 <!-- endregion:toc -->
-- [📺 bilibili](https://www.bilibili.com/video/BV1544219774)
 - 如何使用 MessagePort 来实现两个渲染进程之间的相互通信
 
 ## 1. 🔗 links
@@ -79,6 +78,8 @@ ipcRenderer.on('port', e => {
 ![](md-imgs/2024-10-05-22-16-04.png)
 
 ![](md-imgs/2024-10-05-22-16-08.png)
+
+
 
 
 
