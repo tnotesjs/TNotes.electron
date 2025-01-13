@@ -1,7 +1,6 @@
 # [0056. 实现一个桌面时钟-2](https://github.com/Tdahuyou/electron/tree/main/0056.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F-2)
 
 <!-- region:toc -->
-
 - [1. 📒 demo 功能简介](#1--demo-功能简介)
 - [2. 📒 编写这个 demo 的初衷](#2--编写这个-demo-的初衷)
 - [3. 📒 启动 `npm start` 和出包 `npm run build`](#3--启动-npm-start-和出包-npm-run-build)

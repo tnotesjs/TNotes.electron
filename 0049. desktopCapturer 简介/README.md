@@ -1,7 +1,6 @@
 # [0049. desktopCapturer 简介](https://github.com/Tdahuyou/electron/tree/main/0049.%20desktopCapturer%20%E7%AE%80%E4%BB%8B)
 
 <!-- region:toc -->
-
 - [1. 🔗 desktopCapturer 相关链接](#1--desktopcapturer-相关链接)
 - [2. 📒 desktopCapturer 是什么](#2--desktopcapturer-是什么)
 - [3. 📒 desktopCapturer 的基本使用流程](#3--desktopcapturer-的基本使用流程)
