@@ -1,8 +1,9 @@
 # [0001. Electron 应用的最小组成](https://github.com/Tdahuyou/electron/tree/main/0001.%20Electron%20%E5%BA%94%E7%94%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%84%E6%88%90)
 
-<BilibiliOutsidePlayer id="BV1544219774" />
-<BilibiliOutsidePlayer id="BV1544219774" />
 <!-- region:toc -->
+<BilibiliOutsidePlayer id="BV1544219774" />
+
+
 - [bilibili.electron.0001.1](https://www.bilibili.com/video/BV1544219774)
 - [1. 🔗 links](#1--links)
 - [2. 📒 electron 应用的最小组成](#2--electron-应用的最小组成)
@@ -189,6 +190,8 @@ touch index.html
 主进程就是 `package.json` 中的 main 字段标识的文件，它是整个程序的入口，也是 Electron 的主进程。
 
 通过 `npm init -y` 生成的默认 `package.json` 文件中的 main 字段的值为 `index.js`。
+
+
 
 
 

@@ -1,8 +1,9 @@
 # [0003. 比较消息端口 MessageChannel 和 ipcRenderer.invoke、ipcMain.handle 的性能](https://github.com/Tdahuyou/electron/tree/main/0003.%20%E6%AF%94%E8%BE%83%E6%B6%88%E6%81%AF%E7%AB%AF%E5%8F%A3%20MessageChannel%20%E5%92%8C%20ipcRenderer.invoke%E3%80%81ipcMain.handle%20%E7%9A%84%E6%80%A7%E8%83%BD)
 
-<BilibiliOutsidePlayer id="BV1544219774" />
-<BilibiliOutsidePlayer id="BV1544219774" />
 <!-- region:toc -->
+<BilibiliOutsidePlayer id="BV1544219774" />
+
+
 - [bilibili.electron.0003.1](https://www.bilibili.com/video/BV1544219774)
 - [1. 💻 demo - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle](#1--demo---messagechannel-vs-ipcrendererinvokeipcmainhandle)
 <!-- endregion:toc -->
@@ -149,6 +150,8 @@ document.getElementById('btn4').addEventListener('click', testMessageChannel_2)
 
 - **最终结果**
   - 见视频……
+
+
 
 
 

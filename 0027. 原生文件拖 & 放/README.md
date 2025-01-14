@@ -1,8 +1,9 @@
 # [0027. 原生文件拖 & 放](https://github.com/Tdahuyou/electron/tree/main/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE)
 
-<BilibiliOutsidePlayer id="BV1544219774" />
-<BilibiliOutsidePlayer id="BV1544219774" />
 <!-- region:toc -->
+<BilibiliOutsidePlayer id="BV1544219774" />
+
+
 - [bilibili.electron.0027.1](https://www.bilibili.com/video/BV1544219774)
 - [1. 🔗 links](#1--links)
 - [2. 📒本文要实现一个什么样的效果](#2-本文要实现一个什么样的效果)
@@ -148,6 +149,8 @@ document.getElementById('drag2').ondragstart = (event) => {
 ```
 
 - `event.preventDefault()` 当你拖动一个元素时，浏览器通常会执行默认的拖拽操作，比如显示拖动中的预览图像或在文件拖动过程中显示文件名。通过调用 `event.preventDefault()`，你可以防止这些默认操作，并自定义拖拽行为。
+
+
 
 
 

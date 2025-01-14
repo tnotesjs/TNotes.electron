@@ -1,8 +1,9 @@
 # [0006. 使用 vue-remote-devtools](https://github.com/Tdahuyou/electron/tree/main/0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools)
 
-<BilibiliOutsidePlayer id="BV1544219774" />
-<BilibiliOutsidePlayer id="BV1544219774" />
 <!-- region:toc -->
+<BilibiliOutsidePlayer id="BV1544219774" />
+
+
 - [bilibili.electron.0006.1](https://www.bilibili.com/video/BV1544219774)
 - [1. 🔗 links](#1--links)
 - [2. 💻 demo](#2--demo)
@@ -118,6 +119,8 @@ $ npm run dev
 ![](md-imgs/2024-10-13-21-04-33.png)
 
 左边是我们的项目，右边是我们本地的调试工具，它们是两个互相独立的应用。但我们可以在调试工具中在线调试我们的项目。
+
+
 
 
 

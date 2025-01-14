@@ -1,8 +1,9 @@
 # [0014. 使用 BrowserView 加载外部资源](https://github.com/Tdahuyou/electron/tree/main/0014.%20%E4%BD%BF%E7%94%A8%20BrowserView%20%E5%8A%A0%E8%BD%BD%E5%A4%96%E9%83%A8%E8%B5%84%E6%BA%90)
 
-<BilibiliOutsidePlayer id="BV1544219774" />
-<BilibiliOutsidePlayer id="BV1544219774" />
 <!-- region:toc -->
+<BilibiliOutsidePlayer id="BV1544219774" />
+
+
 - [bilibili.electron.0014.1](https://www.bilibili.com/video/BV1544219774)
 - [1. ⏰ TODO 为啥 BrowserView 被废弃掉了](#1--todo-为啥-browserview-被废弃掉了)
 - [2. 🔗 links](#2--links)
@@ -66,6 +67,8 @@ app.whenReady().then(() => {
 在我们本地的 index.html 渲染进程中，嵌入了一个 https://juejin.cn/ 窗口。
 
 ![](md-imgs/2024-10-07-22-39-51.png)
+
+
 
 
 
