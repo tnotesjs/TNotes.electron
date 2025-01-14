@@ -2,7 +2,7 @@
 
 <!-- region:toc -->
 - [bilibili.electron.0013.1](https://www.bilibili.com/video/BV1544219774)
-- [1. 🔗 links](#1--links-10)
+- [1. 🔗 links](#1--links)
 - [2. 💻 demo - BrowserView 实现插件化](#2--demo---browserview-实现插件化)
 <!-- endregion:toc -->
 - 基于 BrowserView 实现插件化能力

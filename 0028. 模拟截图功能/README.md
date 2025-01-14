@@ -1,8 +1,8 @@
 # [0028. 模拟截图功能](https://github.com/Tdahuyou/electron/tree/main/0028.%20%E6%A8%A1%E6%8B%9F%E6%88%AA%E5%9B%BE%E5%8A%9F%E8%83%BD)
 
 <!-- region:toc -->
-- [1. 🔗 links](#1--links-22)
-- [2. 💻 demo](#2--demo-14)
+- [1. 🔗 links](#1--links)
+- [2. 💻 demo](#2--demo)
 <!-- endregion:toc -->
 - 使用 Electron 并结合传统的前端技术来实现一个截图应用
 - 这篇文档是作者 [mowuu](https://github.com/muwoo) 使用 Electron 内置模块结合前端技术 canvas 写的一个截图工具示例。

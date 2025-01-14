@@ -2,8 +2,8 @@
 
 <!-- region:toc -->
 - [bilibili.electron.0031.1](https://www.bilibili.com/video/BV1544219774)
-- [1. 🔗 links](#1--links-24)
-- [2. 💻 demo](#2--demo-15)
+- [1. 🔗 links](#1--links)
+- [2. 💻 demo](#2--demo)
 <!-- endregion:toc -->
 - 如何使用 electron-reload 实现热更
 - 使用 electron-reload 监听主进程和渲染进程内容的变更，一旦内容变化，就自动重启 electron。

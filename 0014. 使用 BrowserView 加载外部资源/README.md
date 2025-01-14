@@ -4,7 +4,7 @@
 - [bilibili.electron.0014.1](https://www.bilibili.com/video/BV1544219774)
 - [1. ⏰ TODO 为啥 BrowserView 被废弃掉了](#1--todo-为啥-browserview-被废弃掉了)
 - [2. 🔗 links](#2--links)
-- [3. 💻 demo](#3--demo-1)
+- [3. 💻 demo](#3--demo)
 <!-- endregion:toc -->
 - 如何使用 BrowserView 加载外部资源
 - 这个 demo 使用 BrowserView 模块来加载第三方资源（掘金主页）到渲染进程的页面上。

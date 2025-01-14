@@ -2,8 +2,8 @@
 
 <!-- region:toc -->
 - [bilibili.electron.0018.1](https://www.bilibili.com/video/BV1544219774)
-- [1. 🔗 links](#1--links-14)
-- [2. 💻 demo](#2--demo-8)
+- [1. 🔗 links](#1--links)
+- [2. 💻 demo](#2--demo)
 <!-- endregion:toc -->
 - 创建无边框窗口 frame: false
 - 无边框窗口的特点

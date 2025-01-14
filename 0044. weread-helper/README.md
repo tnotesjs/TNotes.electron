@@ -1,7 +1,7 @@
 # [0044. weread-helper](https://github.com/Tdahuyou/electron/tree/main/0044.%20weread-helper)
 
 <!-- region:toc -->
-- [1. 🔗 links](#1--links-29)
+- [1. 🔗 links](#1--links)
 - [2. 📒Quick Start](#2-quick-start)
 <!-- endregion:toc -->
 - 套壳了微信读书的网页版，并注入了一些自定义脚本。

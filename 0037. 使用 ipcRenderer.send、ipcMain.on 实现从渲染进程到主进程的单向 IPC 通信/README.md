@@ -2,7 +2,7 @@
 
 <!-- region:toc -->
 - [bilibili.electron.0037.1](https://www.bilibili.com/video/BV1544219774)
-- [1. 💻 demo](#1--demo-5)
+- [1. 💻 demo](#1--demo)
 <!-- endregion:toc -->
 
 ## 1. 💻 demo

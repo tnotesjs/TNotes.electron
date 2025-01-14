@@ -2,8 +2,8 @@
 
 <!-- region:toc -->
 - [bilibili.electron.0041.1](https://www.bilibili.com/video/BV1544219774)
-- [1. 🔗 links](#1--links-28)
-- [2. 💻 demo](#2--demo-17)
+- [1. 🔗 links](#1--links)
+- [2. 💻 demo](#2--demo)
 <!-- endregion:toc -->
 - 本文介绍了两个渲染进程之间实现互相通信的一种方式 —— 通过主进程获取另一个渲染进程的 ID 来实现两个渲染进程之间的通信。
 - 本文介绍的这种通信方式需要依赖 ipcRenderer 模块中的 ipcRenderer.sendTo方法，这个方法在 Electron 的 v28 版本中已经被丢弃了，如果要使用这种通信方案的话，需要注意 Electron 的版本问题。

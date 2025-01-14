@@ -2,8 +2,8 @@
 
 <!-- region:toc -->
 - [bilibili.electron.0040.1](https://www.bilibili.com/video/BV1544219774)
-- [1. 🔗 links](#1--links-27)
-- [2. 💻 demo](#2--demo-16)
+- [1. 🔗 links](#1--links)
+- [2. 💻 demo](#2--demo)
 <!-- endregion:toc -->
 - 如何使用 MessagePort 来实现两个渲染进程之间的相互通信
 

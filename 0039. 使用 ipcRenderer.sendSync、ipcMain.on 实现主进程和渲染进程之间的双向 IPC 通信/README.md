@@ -2,7 +2,7 @@
 
 <!-- region:toc -->
 - [bilibili.electron.0039.1](https://www.bilibili.com/video/BV1544219774)
-- [1. 💻 demo](#1--demo-7)
+- [1. 💻 demo](#1--demo)
 <!-- endregion:toc -->
 - 通过对比 `ipcRenderer.send`、`ipcRenderer.sendSync` 来熟悉 `sendSync` API 的一些特点和基本用法。
 - 注意：ipcRenderer.sendSync 非必要，不建议使用。

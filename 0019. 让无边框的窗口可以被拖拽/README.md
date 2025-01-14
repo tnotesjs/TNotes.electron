@@ -2,8 +2,8 @@
 
 <!-- region:toc -->
 - [bilibili.electron.0019.1](https://www.bilibili.com/video/BV1544219774)
-- [1. 🔗 links](#1--links-15)
-- [2. 💻 demo](#2--demo-9)
+- [1. 🔗 links](#1--links)
+- [2. 💻 demo](#2--demo)
 <!-- endregion:toc -->
 - 通过 css 来解决无边框的窗口的拖拽问题
 
