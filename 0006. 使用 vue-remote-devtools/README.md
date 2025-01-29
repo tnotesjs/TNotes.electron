@@ -1,7 +1,6 @@
 # [0006. 使用 vue-remote-devtools](https://github.com/Tdahuyou/electron/tree/main/0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools)
 
 <!-- region:toc -->
-<BilibiliOutsidePlayer id="BV1544219774" />
 
 
 - [bilibili.electron.0006.1](https://www.bilibili.com/video/BV1544219774)

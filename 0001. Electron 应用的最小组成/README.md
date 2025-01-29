@@ -1,7 +1,6 @@
 # [0001. Electron 应用的最小组成](https://github.com/Tdahuyou/electron/tree/main/0001.%20Electron%20%E5%BA%94%E7%94%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%84%E6%88%90)
 
 <!-- region:toc -->
-<BilibiliOutsidePlayer id="BV1544219774" />
 
 
 - [bilibili.electron.0001.1](https://www.bilibili.com/video/BV1544219774)
