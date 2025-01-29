@@ -34,11 +34,13 @@ app.whenReady().then(() => {
 
 **最终效果**
 
-![](md-imgs/2024-10-06-00-49-26.png)
+![](assets/2024-10-06-00-49-26.png)
 
 - 一共两个窗口，一个使用 API win.setAlwaysOnTop 实现置顶，一个使用配置项 alwaysOnTop 实现置顶。
   - 前者 win.setAlwaysOnTop 可以实现更细粒度的配置，比如可以让窗口位于 macos 的 Dock 栏之上显示。
   - 后者 alwaysOnTop 配置的置顶效果虽然可以位于其他窗口之上显示，但是它默认会在 Dock 之下显示，如果想要让窗口位于 Dock 之上显示，将无法通过这个配置项来解决。
+
+
 
 
 

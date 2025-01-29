@@ -65,7 +65,9 @@ app.whenReady().then(() => {
 
 在我们本地的 index.html 渲染进程中，嵌入了一个 https://juejin.cn/ 窗口。
 
-![](md-imgs/2024-10-07-22-39-51.png)
+![](assets/2024-10-07-22-39-51.png)
+
+
 
 
 

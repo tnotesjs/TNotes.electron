@@ -11,7 +11,7 @@
 
 **通信原理图**
 
-![](md-imgs/2024-10-05-20-06-30.png)
+![](assets/2024-10-05-20-06-30.png)
 
 **源码实现**
 
@@ -76,12 +76,14 @@ app.on('ready', () => {
 
 渲染进程通过 `ipcRenderer.send` 方法给主进程发消息，主进程通过 `ipcMain.on` 方法监听来自渲染进程的消息。主进程收到消息之后，通过 `win.webContents.send`、`e.senderer.send`、`e.replay` 其中一个方法给渲染进程回复消息，渲染进程通过 `ipcRenderer.on` 来接受来自主进程的消息。
 
-![](md-imgs/2024-10-05-20-07-53.png)
+![](assets/2024-10-05-20-07-53.png)
 
 ```bash
 # 主进程日志
 receive message from renderer process 1 2 3
 ```
+
+
 
 
 

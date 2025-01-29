@@ -48,11 +48,13 @@ app.whenReady().then(createWindow)
 
 - 没有配置 `trafficLightPosition` 的情况下显示的效果。
 
-![](md-imgs/2024-10-06-00-46-09.png)
+![](assets/2024-10-06-00-46-09.png)
 
 - `trafficLightPosition: { x: 12, y: 12 }` 交通灯偏移后的效果。
 
-![](md-imgs/2024-10-06-00-46-30.png)
+![](assets/2024-10-06-00-46-30.png)
+
+
 
 
 

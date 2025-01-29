@@ -78,7 +78,9 @@ document.getElementById('btn').addEventListener('click', () => {
 2. 主进程将收到一条消息【Hello, World!】
 3. 主进程再给渲染进程回复一条消息【我收到你的消息了，周末出来玩呗～】
 
-![](md-imgs/2024-10-05-22-26-48.png)
+![](assets/2024-10-05-22-26-48.png)
+
+
 
 
 

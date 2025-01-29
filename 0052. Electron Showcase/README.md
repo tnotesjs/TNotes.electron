@@ -15,7 +15,9 @@
     - https://1password.com/zh-tw - 1Password
     - 等等
   - 通过这个 Electron Showcase 站点，可以快速查阅那些使用 Electron 开发的桌面应用程序。
-  - ![](md-imgs/2024-10-05-19-25-19.png)
+  - ![](assets/2024-10-05-19-25-19.png)
+
+
 
 
 

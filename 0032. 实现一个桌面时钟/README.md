@@ -7,7 +7,7 @@
 <!-- endregion:toc -->
 - 手写一个简单的桌面时钟摆件
 - 最终效果：
-  - ![](md-imgs/2024-10-13-21-41-11.png)
+  - ![](assets/2024-10-13-21-41-11.png)
 
 ## 1. 🔗 links
 
@@ -56,7 +56,7 @@ ipcMain.on('setIgnoreMouseEvent', (e, ...args) => {
 })
 ```
 
-- ![](md-imgs/2024-10-13-21-42-59.png)
+- ![](assets/2024-10-13-21-42-59.png)
 - `setIgnoreMouseEvent` 这部分逻辑，主要是用于实现这样一个效果 —— 点击矩形窗口的非圆表盘区域，让鼠标可以穿透下去，点到位于窗口后边的内容。
 
 ```js
@@ -114,7 +114,9 @@ dom_clock.addEventListener('mouseleave', _ => ipcRenderer.send('setIgnoreMouseEv
 - `window.moveTo` 解决窗口的拖动问题。
 - `dom_clock.addEventListener('mouseenter', fn)`、`dom_clock.addEventListener('mouseleave', fn)` 解决窗口的鼠标穿透问题。
 - 最终效果：
-- ![](md-imgs/2024-10-13-21-41-11.png)
+- ![](assets/2024-10-13-21-41-11.png)
+
+
 
 
 

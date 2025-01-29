@@ -74,11 +74,13 @@ app.whenReady().then(() => {
 
 程序启动后，打印了 `Added Extension:  Vue.js devtools`，但是并没有在 devtools 中看到 vue-devtools 面板。
 
-![](md-imgs/2024-10-13-21-10-15.png)
+![](assets/2024-10-13-21-10-15.png)
 
 `electron-devtools-installer` 这个包可能是存在一些兼容性问题，最近一次更新已是 3 年前了，在目前最新版本的 electron 中不可用。
 
-![](md-imgs/2024-10-13-21-10-33.png)
+![](assets/2024-10-13-21-10-33.png)
+
+
 
 
 

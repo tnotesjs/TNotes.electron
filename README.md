@@ -64,6 +64,8 @@
   
   
   
+  
+  
 
 - [ ] [0059. bilibili 视频播放链接](https://github.com/Tdahuyou/electron/tree/main/0059.%20bilibili%20%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%93%BE%E6%8E%A5/README.md) <!-- [locale](./0059.%20bilibili%20%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%93%BE%E6%8E%A5/README.md) -->  
   - https://www.bilibili.com/video/BV1544219774
@@ -72,6 +74,8 @@
     - **根据编号定位**：B 站上仅录制了一小部分的视频，可以根据编号来定位笔记和视频。
     - **不定期更新**：结合实际情况，会不定期更新笔记和视频。
     - **内容**：视频内容主要是展示一些 demo 效果，并附带简单的说明，大部分视频的时长均在 10min 左右，在查看具体笔记时若有疑问，可查阅视频作为一个参考。
+  
+  
   
   
   
@@ -93,14 +97,18 @@
   
   
   
+  
+  
 
 - [ ] [0058. electron 官方文档](https://github.com/Tdahuyou/electron/tree/main/0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md) <!-- [locale](./0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md) -->  
   - https://www.electronjs.org/
     - 这是 Electron 的官网链接，可以说是除了源码之外最权威的 Electron 内容了。官网有中文版，翻译得非常友好。
-    - ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/md-imgs%2F2024-10-05-19-22-00.png)
+    - ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/assets%2F2024-10-05-19-22-00.png)
   - ⏰ 记录查阅官方文档的经验
   - ⏰ 官方文档内容概述
   - ⏰ 官方文档基本结构介绍
+  
+  
   
   
   
@@ -339,7 +347,7 @@
   - 本文介绍的这种通信方式需要依赖 ipcRenderer 模块中的 ipcRenderer.sendTo方法，这个方法在 Electron 的 v28 版本中已经被丢弃了，如果要使用这种通信方案的话，需要注意 Electron 的版本问题。
   - 这种方式在最新版的 Electron 中已经被淘汰了。
   
-  ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/0041.%20%E9%80%9A%E8%BF%87%E4%B8%BB%E8%BF%9B%E7%A8%8B%E8%8E%B7%E5%8F%96%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E7%9A%84%20ID%20%E6%9D%A5%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/md-imgs%2F2024-10-05-22-05-41.png)
+  ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/0041.%20%E9%80%9A%E8%BF%87%E4%B8%BB%E8%BF%9B%E7%A8%8B%E8%8E%B7%E5%8F%96%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E7%9A%84%20ID%20%E6%9D%A5%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/assets%2F2024-10-05-22-05-41.png)
   
 
 - [ ] [0040. 使用 MessagePort 实现两个渲染进程之间的互相通信](https://github.com/Tdahuyou/electron/tree/main/0040.%20%E4%BD%BF%E7%94%A8%20MessagePort%20%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%92%E7%9B%B8%E9%80%9A%E4%BF%A1/README.md) <!-- [locale](./0040.%20%E4%BD%BF%E7%94%A8%20MessagePort%20%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%92%E7%9B%B8%E9%80%9A%E4%BF%A1/README.md) -->  
@@ -494,7 +502,7 @@
   - [2. 💻 demo](https://github.com/Tdahuyou/electron/tree/main/0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/README.md#2--demo)
   - 在页面上创建右键菜单，这是桌面端应用中很常见的一个功能点。本文的介绍了如何使用 Menu 模块来创建一个右键菜单。
   - 本节介绍如何如何使用 Menu 模块来创建一个右键菜单。这里提到的右键菜单，又称为上下文菜单，也就是你在一些应用程序的界面上，点击鼠标右键所弹出的内容。
-  - ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/md-imgs%2F2024-10-06-01-24-36.png)
+  - ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/assets%2F2024-10-06-01-24-36.png)
   
 
 ### 7.3. Dock 菜单
@@ -719,7 +727,7 @@
   - [3. 💻 demo](https://github.com/Tdahuyou/electron/tree/main/0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F/README.md#3--demo)
   - 手写一个简单的桌面时钟摆件
   - 最终效果：
-    - ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F/md-imgs%2F2024-10-13-21-41-11.png)
+    - ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F/assets%2F2024-10-13-21-41-11.png)
   
 
 - [ ] [0056. 实现一个桌面时钟-2](https://github.com/Tdahuyou/electron/tree/main/0056.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F-2/README.md) <!-- [locale](./0056.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F-2/README.md) -->  
@@ -751,6 +759,8 @@
     - 定时截图
     - 定区域截图
     - ORC 识别（识别字幕，去重）
+  
+  
   
   
   

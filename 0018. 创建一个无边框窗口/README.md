@@ -74,8 +74,10 @@ app.whenReady().then(createWindow)
 
 **最终效果**
 
-- ![](md-imgs/2024-10-06-00-38-45.png)
-- ![](md-imgs/2024-10-06-00-38-50.png)
+- ![](assets/2024-10-06-00-38-45.png)
+- ![](assets/2024-10-06-00-38-50.png)
+
+
 
 
 

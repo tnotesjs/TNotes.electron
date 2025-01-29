@@ -158,11 +158,13 @@ if (process.contextIsolated) {
 
 **最终效果**
 
-![](md-imgs/2024-10-07-22-43-58.png)
+![](assets/2024-10-07-22-43-58.png)
 
 点击按钮【Show Notification】将会弹出系统消息。
 
-![](md-imgs/2024-10-07-22-44-08.png)
+![](assets/2024-10-07-22-44-08.png)
+
+
 
 
 

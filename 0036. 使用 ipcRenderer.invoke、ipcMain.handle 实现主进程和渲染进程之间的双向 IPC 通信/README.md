@@ -59,13 +59,15 @@ app.on('ready', () => {
 
 **最终效果**
 
-![](md-imgs/2024-10-05-20-18-59.png)
+![](assets/2024-10-05-20-18-59.png)
 
 ```bash
 # 主进程日志
 invoke-message1 1 2 3
 invoke-message2 4 5 6
 ```
+
+
 
 
 

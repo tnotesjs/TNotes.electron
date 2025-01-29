@@ -13,7 +13,7 @@
     - 如何添加扩展工具
     - 如何删除扩展工具
   - 以下 DevTools 扩展程序已经通过测试，可以在 Electron 中正常工作。
-    - ![](md-imgs/2024-10-13-21-06-36.png)
+    - ![](assets/2024-10-13-21-06-36.png)
 - https://www.electronjs.org/zh/docs/latest/api/session#sesloadextensionpath-options
   - Electron，查看 session.defaultSession.loadExtension 这个接口的相关说明。
 - https://github.com/vuejs/devtools
@@ -96,7 +96,9 @@ app.on('window-all-closed', () => {
 
 成功在 chrome devtools 中看到了 Vue 面板，这意味着已经成功地将 vue-devtools 集成进来了。
 
-![](md-imgs/2024-10-13-21-07-49.png)
+![](assets/2024-10-13-21-07-49.png)
+
+
 
 
 
