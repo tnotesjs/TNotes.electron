@@ -342,15 +342,10 @@
       },
       "0059": {
         "bilibili": [],
-        "done": false,
+        "done": true,
         "ignore": false
       },
       "0060": {
-        "bilibili": [],
-        "done": false,
-        "ignore": false
-      },
-      "0061": {
         "bilibili": [],
         "done": true,
         "ignore": false

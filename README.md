@@ -2,7 +2,7 @@
 
 <!-- region:toc -->
 - [electron](#electron)
-  - [1. electron 笔记内容简介](#1-electron-笔记内容简介)
+  - [1. 笔记内容简介](#1-笔记内容简介)
   - [2. electron 概述](#2-electron-概述)
   - [3. electron 的一些学习资源](#3-electron-的一些学习资源)
     - [3.1. electron 书籍](#31-electron-书籍)
@@ -50,38 +50,21 @@
     - [16.1. 桌面时钟](#161-桌面时钟)
     - [16.2. 微信读书助手](#162-微信读书助手)
     - [16.3. 自动定时截图工具](#163-自动定时截图工具)
-  - [17. 📺 bilibili](#17--bilibili)
 <!-- endregion:toc -->
 
-## 1. electron 笔记内容简介
+## 1. 笔记内容简介
 
-- [ ] [0060. electron 笔记仓库介绍](https://github.com/Tdahuyou/electron/tree/main/0060.%20electron%20%E7%AC%94%E8%AE%B0%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/README.md) <!-- [locale](./0060.%20electron%20%E7%AC%94%E8%AE%B0%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/README.md) -->  
-  - 该仓库 https://github.com/Tdahuyou/electron 存放的是个人的 electron 学习笔记，有需要的可自行 clone。
+- [x] [0060. electron 笔记仓库介绍](https://github.com/Tdahuyou/electron/tree/main/0060.%20electron%20%E7%AC%94%E8%AE%B0%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/README.md) <!-- [locale](./0060.%20electron%20%E7%AC%94%E8%AE%B0%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/README.md) -->  
+  - https://github.com/Tdahuyou/electron
+    - 该仓库存放的是个人的 electron 学习笔记，有需要的可自行 clone。
   - https://tdahuyou.github.io/notes/
-    - 这是个人的笔记博客，汇总个人写的一些笔记内容，以便查阅。
-  
-  
-  
-  
-  
-  
+    - TNotes 是个人的笔记博客，汇总个人写的一些笔记内容，以便查阅。
   
 
-- [ ] [0059. bilibili 视频播放链接](https://github.com/Tdahuyou/electron/tree/main/0059.%20bilibili%20%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%93%BE%E6%8E%A5/README.md) <!-- [locale](./0059.%20bilibili%20%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%93%BE%E6%8E%A5/README.md) -->  
-  - https://www.bilibili.com/video/BV1544219774
-    - bilibili 视频播放链接
-  - 视频内容及更新说明
-    - **根据编号定位**：B 站上仅录制了一小部分的视频，可以根据编号来定位笔记和视频。
-    - **不定期更新**：结合实际情况，会不定期更新笔记和视频。
-    - **内容**：视频内容主要是展示一些 demo 效果，并附带简单的说明，大部分视频的时长均在 10min 左右，在查看具体笔记时若有疑问，可查阅视频作为一个参考。
-  
-  
-  
-  
-  
-  
-  
-  
+- [x] [0059. bilibili](https://github.com/Tdahuyou/electron/tree/main/0059.%20bilibili/README.md) <!-- [locale](./0059.%20bilibili/README.md) -->  
+  - [1. 🔗 视频播放链接](https://github.com/Tdahuyou/electron/tree/main/0059.%20bilibili/README.md#1--视频播放链接)
+  - [2. 🔍 查看已经录制了视频的笔记](https://github.com/Tdahuyou/electron/tree/main/0059.%20bilibili/README.md#2--查看已经录制了视频的笔记)
+  - [3. 📒 视频内容及更新说明](https://github.com/Tdahuyou/electron/tree/main/0059.%20bilibili/README.md#3--视频内容及更新说明)
   
 
 ## 2. electron 概述
@@ -766,11 +749,4 @@
   
   
   
-  
-
-## 17. 📺 bilibili
-
-
-- [x] [0061. electron bilibili 视频列表](https://github.com/Tdahuyou/electron/tree/main/0061.%20electron%20bilibili%20%E8%A7%86%E9%A2%91%E5%88%97%E8%A1%A8/README.md) <!-- [locale](./0061.%20electron%20bilibili%20%E8%A7%86%E9%A2%91%E5%88%97%E8%A1%A8/README.md) -->  
-  - [1. 📺 bilibili](https://github.com/Tdahuyou/electron/tree/main/0061.%20electron%20bilibili%20%E8%A7%86%E9%A2%91%E5%88%97%E8%A1%A8/README.md#1--bilibili)
   
