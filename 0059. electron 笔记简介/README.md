@@ -1,17 +1,23 @@
-# [0059. bilibili](https://github.com/Tdahuyou/electron/tree/main/0059.%20bilibili)
+# [0059. electron 笔记简介](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B)
 
 <!-- region:toc -->
-- [1. 🔗 视频播放链接](#1--视频播放链接)
-- [2. 🔍 查看已经录制了视频的笔记](#2--查看已经录制了视频的笔记)
-- [3. 📒 视频内容及更新说明](#3--视频内容及更新说明)
+- [1. 🔗 electron 笔记仓库 - github](#1--electron-笔记仓库---github)
+- [2. 🔗 B 站视频播放链接](#2--b-站视频播放链接)
+- [3. 🔍 查看已经录制了视频的笔记](#3--查看已经录制了视频的笔记)
+- [4. 📒 视频内容及更新说明](#4--视频内容及更新说明)
 <!-- endregion:toc -->
 
-## 1. 🔗 视频播放链接
+## 1. 🔗 electron 笔记仓库 - github
+
+- https://github.com/Tdahuyou/electron
+- 该仓库存放的是个人的 electron 学习笔记，有需要的可自行 clone。
+
+## 2. 🔗 B 站视频播放链接
 
 - https://www.bilibili.com/video/BV1544219774
-  - bilibili 视频播放链接
+- bilibili 视频播放链接
 
-## 2. 🔍 查看已经录制了视频的笔记
+## 3. 🔍 查看已经录制了视频的笔记
 
 下面这些是已经录制了视频的内容：
 
@@ -37,7 +43,7 @@
 | ✅     | 0050. 《Electron 实战：入门、进阶与性能优化》                                       |
 | ✅     | 0056. 实现一个桌面时钟-2                                                            |
 
-## 3. 📒 视频内容及更新说明
+## 4. 📒 视频内容及更新说明
 
 - **根据编号定位**：B 站上仅录制了一小部分的视频，可以根据编号来定位笔记和视频。
 - **不定期更新**：结合实际情况，会不定期更新笔记和视频。

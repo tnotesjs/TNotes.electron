@@ -3,7 +3,7 @@
 <!-- region:toc -->
 - [electron](#electron)
   - [1. 笔记内容简介](#1-笔记内容简介)
-  - [2. electron 概述](#2-electron-概述)
+  - [2. 官方提供的相关内容](#2-官方提供的相关内容)
   - [3. electron 的一些学习资源](#3-electron-的一些学习资源)
     - [3.1. electron 书籍](#31-electron-书籍)
     - [3.2. electron 掘金小册](#32-electron-掘金小册)
@@ -53,34 +53,21 @@
 <!-- endregion:toc -->
 
 ## 1. 笔记内容简介
-
-- [x] [0060. electron 笔记仓库介绍](https://github.com/Tdahuyou/electron/tree/main/0060.%20electron%20%E7%AC%94%E8%AE%B0%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/README.md) <!-- [locale](./0060.%20electron%20%E7%AC%94%E8%AE%B0%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/README.md) -->  
-  - https://github.com/Tdahuyou/electron
-    - 该仓库存放的是个人的 electron 学习笔记，有需要的可自行 clone。
-  - https://tdahuyou.github.io/notes/
-    - TNotes 是个人的笔记博客，汇总个人写的一些笔记内容，以便查阅。
   
 
-- [x] [0059. bilibili](https://github.com/Tdahuyou/electron/tree/main/0059.%20bilibili/README.md) <!-- [locale](./0059.%20bilibili/README.md) -->  
-  - [1. 🔗 视频播放链接](https://github.com/Tdahuyou/electron/tree/main/0059.%20bilibili/README.md#1--视频播放链接)
-  - [2. 🔍 查看已经录制了视频的笔记](https://github.com/Tdahuyou/electron/tree/main/0059.%20bilibili/README.md#2--查看已经录制了视频的笔记)
-  - [3. 📒 视频内容及更新说明](https://github.com/Tdahuyou/electron/tree/main/0059.%20bilibili/README.md#3--视频内容及更新说明)
+- [x] [0059. electron 笔记简介](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md) <!-- [locale](./0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md) -->  
+  - [1. 🔗 electron 笔记仓库 - github](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md#1--electron-笔记仓库---github)
+  - [2. 🔗 B 站视频播放链接](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md#2--b-站视频播放链接)
+  - [3. 🔍 查看已经录制了视频的笔记](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md#3--查看已经录制了视频的笔记)
+  - [4. 📒 视频内容及更新说明](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md#4--视频内容及更新说明)
   
 
-## 2. electron 概述
+## 2. 官方提供的相关内容
 
 - [ ] [0057. electron 源码仓库](https://github.com/Tdahuyou/electron/tree/main/0057.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README.md) <!-- [locale](./0057.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README.md) -->  
   - https://github.com/electron/electron
     - Github electron 项目源码仓库链接
-  - ⏰ 学习 electron 源码
-  
-  
-  
-  
-  
-  
-  
-  
+    - ⏰ 学习 electron 源码
   
 
 - [ ] [0058. electron 官方文档](https://github.com/Tdahuyou/electron/tree/main/0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md) <!-- [locale](./0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md) -->  
@@ -90,13 +77,6 @@
   - ⏰ 记录查阅官方文档的经验
   - ⏰ 官方文档内容概述
   - ⏰ 官方文档基本结构介绍
-  
-  
-  
-  
-  
-  
-  
   
   
 
@@ -141,8 +121,8 @@
 
 ### 4.1. electron 都能用来开发什么类型的应用程序？
 
-- [ ] [0052. Electron Showcase](https://github.com/Tdahuyou/electron/tree/main/0052.%20Electron%20Showcase/README.md) <!-- [locale](./0052.%20Electron%20Showcase/README.md) -->  
-  - [1. 📒Electron Showcase 简介](https://github.com/Tdahuyou/electron/tree/main/0052.%20Electron%20Showcase/README.md#1-electron-showcase-简介)
+- [ ] [0052. 通过 Electron Showcase 了解 electron 都能用来开发什么类型的应用程序](https://github.com/Tdahuyou/electron/tree/main/0052.%20%E9%80%9A%E8%BF%87%20Electron%20Showcase%20%E4%BA%86%E8%A7%A3%20electron%20%E9%83%BD%E8%83%BD%E7%94%A8%E6%9D%A5%E5%BC%80%E5%8F%91%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/README.md) <!-- [locale](./0052.%20%E9%80%9A%E8%BF%87%20Electron%20Showcase%20%E4%BA%86%E8%A7%A3%20electron%20%E9%83%BD%E8%83%BD%E7%94%A8%E6%9D%A5%E5%BC%80%E5%8F%91%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/README.md) -->  
+  - [1. 📒Electron Showcase 简介](https://github.com/Tdahuyou/electron/tree/main/0052.%20%E9%80%9A%E8%BF%87%20Electron%20Showcase%20%E4%BA%86%E8%A7%A3%20electron%20%E9%83%BD%E8%83%BD%E7%94%A8%E6%9D%A5%E5%BC%80%E5%8F%91%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/README.md#1-electron-showcase-简介)
   - 本节介绍了一下 **Electron Showcase** 是什么。
   
 

@@ -1,4 +1,4 @@
-# [0052. Electron Showcase](https://github.com/Tdahuyou/electron/tree/main/0052.%20Electron%20Showcase)
+# [0052. 通过 Electron Showcase 了解 electron 都能用来开发什么类型的应用程序](https://github.com/Tdahuyou/electron/tree/main/0052.%20%E9%80%9A%E8%BF%87%20Electron%20Showcase%20%E4%BA%86%E8%A7%A3%20electron%20%E9%83%BD%E8%83%BD%E7%94%A8%E6%9D%A5%E5%BC%80%E5%8F%91%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F)
 
 <!-- region:toc -->
 - [1. 📒Electron Showcase 简介](#1-electron-showcase-简介)

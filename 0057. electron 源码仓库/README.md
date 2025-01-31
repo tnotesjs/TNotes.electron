@@ -2,12 +2,4 @@
 
 - https://github.com/electron/electron
   - Github electron 项目源码仓库链接
-- ⏰ 学习 electron 源码
-
-
-
-
-
-
-
-
+  - ⏰ 学习 electron 源码
