@@ -3,7 +3,7 @@
 <!-- region:toc -->
 
 
-- [bilibili.electron.0001.1](https://www.bilibili.com/video/BV1544219774)
+- [bilibili.electron.0001.1](https://www.bilibili.com/video/BV1kBFyeREXv)
 - [1. 🔗 links](#1--links)
 - [2. 📒 electron 应用的最小组成](#2--electron-应用的最小组成)
 - [3. 📒 最终效果展示](#3--最终效果展示)

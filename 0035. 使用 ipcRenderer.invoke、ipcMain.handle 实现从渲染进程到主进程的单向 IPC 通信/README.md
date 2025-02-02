@@ -3,7 +3,7 @@
 <!-- region:toc -->
 
 
-- [bilibili.electron.0035.1](https://www.bilibili.com/video/BV1544219774)
+- [bilibili.electron.0035.1](https://www.bilibili.com/video/BV1CBFyedE6q)
 - [1. 💻 demo](#1--demo)
 <!-- endregion:toc -->
 

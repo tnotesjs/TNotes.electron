@@ -3,7 +3,7 @@
 <!-- region:toc -->
 
 
-- [bilibili.electron.0014.1](https://www.bilibili.com/video/BV1544219774)
+- [bilibili.electron.0014.1](https://www.bilibili.com/video/BV1ABFyedEXi)
 - [1. ⏰ TODO 为啥 BrowserView 被废弃掉了](#1--todo-为啥-browserview-被废弃掉了)
 - [2. 🔗 links](#2--links)
 - [3. 💻 demo](#3--demo)

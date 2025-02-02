@@ -3,7 +3,7 @@
 <!-- region:toc -->
 
 
-- [bilibili.electron.0003.1](https://www.bilibili.com/video/BV1544219774)
+- [bilibili.electron.0003.1](https://www.bilibili.com/video/BV1CBFyeREWg)
 - [1. 💻 demo - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle](#1--demo---messagechannel-vs-ipcrendererinvokeipcmainhandle)
 <!-- endregion:toc -->
 - 本文通过一个 Electron 应用示例对比了 `MessageChannel` 和 `ipcRenderer.invoke`/`ipcMain.handle` 两种 IPC 通信方式的性能，结果显示在单向通信中两者差异不大，但在双向通信中 `MessageChannel` 的性能明显优于 `ipcRenderer.invoke`。
