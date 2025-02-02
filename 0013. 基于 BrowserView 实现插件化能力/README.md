@@ -1,23 +1,29 @@
 # [0013. 基于 BrowserView 实现插件化能力](https://github.com/Tdahuyou/electron/tree/main/0013.%20%E5%9F%BA%E4%BA%8E%20BrowserView%20%E5%AE%9E%E7%8E%B0%E6%8F%92%E4%BB%B6%E5%8C%96%E8%83%BD%E5%8A%9B)
 
+
 <!-- region:toc -->
 
 
 - [bilibili.electron.0013.1](https://www.bilibili.com/video/BV1ABFyedEna)
-- [1. 🔗 links](#1--links)
-- [2. 💻 demo - BrowserView 实现插件化](#2--demo---browserview-实现插件化)
+- [1. 📺 视频](#1--视频)
+- [2. 🔗 links](#2--links)
+- [3. 💻 demo - BrowserView 实现插件化](#3--demo---browserview-实现插件化)
 <!-- endregion:toc -->
 - 基于 BrowserView 实现插件化能力
 - 该 demo 模拟了使用 BrowserView 模块来加载第三方资源并注入 preload 脚本，使其具备原生能力。
 
-## 1. 🔗 links
+## 1. 📺 视频
+
+<BilibiliOutsidePlayer id="BV1ABFyedEna" />
+
+## 2. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/api/browser-view
   - Electron，查看有关 BrowserView 模块的相关描述。
 - https://www.electronjs.org/zh/docs/latest/api/notification
   - Electron，查看主进程的 Notification 模块的相关说明。
 
-## 2. 💻 demo - BrowserView 实现插件化
+## 3. 💻 demo - BrowserView 实现插件化
 
 ```bash
 # 目录结构
@@ -163,6 +169,8 @@ if (process.contextIsolated) {
 点击按钮【Show Notification】将会弹出系统消息。
 
 ![](assets/2024-10-07-22-44-08.png)
+
+
 
 
 

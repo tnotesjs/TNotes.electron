@@ -1,32 +1,38 @@
 # [0027. 原生文件拖 & 放](https://github.com/Tdahuyou/electron/tree/main/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE)
 
+
 <!-- region:toc -->
 
 
 - [bilibili.electron.0027.1](https://www.bilibili.com/video/BV1kBFyeREQy)
-- [1. 🔗 links](#1--links)
-- [2. 📒本文要实现一个什么样的效果](#2-本文要实现一个什么样的效果)
-- [3. 💻 demo](#3--demo)
+- [1. 📺 视频](#1--视频)
+- [2. 🔗 links](#2--links)
+- [3. 📒本文要实现一个什么样的效果](#3-本文要实现一个什么样的效果)
+- [4. 💻 demo](#4--demo)
 <!-- endregion:toc -->
 - 原生文件拖 & 放是什么
 - 如何实现原生文件拖 & 放效果
   - 从视频的 0:50～2:30 开始展示最终的效果，可以从这开始看，快速了解下本节要实现的效果。
 
-## 1. 🔗 links
+## 1. 📺 视频
+
+<BilibiliOutsidePlayer id="BV1kBFyeREQy" />
+
+## 2. 🔗 links
 
 - https://www.electronjs.org/zh/docs/latest/api/web-contents#contentsstartdragitem
   - 查看官方文档对于 API - contents.startDrag(item) 的介绍。
 - https://www.electronjs.org/zh/docs/latest/tutorial/native-file-drag-drop
   - 查看官方示例 - 原生文件拖 & 放。
 
-## 2. 📒本文要实现一个什么样的效果
+## 3. 📒本文要实现一个什么样的效果
 
 - ![](assets/2024-10-13-21-25-12.png)
   - 可以直接将窗口中的红框或蓝框中的内容，直接拖到系统桌面或者指定文件夹中。
   - 从视频的 `0:50～2:30` 开始展示最终的效果，可以从这开始看，快速了解下本节要实现的效果。
   - 这是一个很实用的一个功能点，在做一些效率工具的时候可以考虑加上这个功能点。
 
-## 3. 💻 demo
+## 4. 💻 demo
 
 ```bash
 # 目录结构
@@ -148,6 +154,8 @@ document.getElementById('drag2').ondragstart = (event) => {
 ```
 
 - `event.preventDefault()` 当你拖动一个元素时，浏览器通常会执行默认的拖拽操作，比如显示拖动中的预览图像或在文件拖动过程中显示文件名。通过调用 `event.preventDefault()`，你可以防止这些默认操作，并自定义拖拽行为。
+
+
 
 
 

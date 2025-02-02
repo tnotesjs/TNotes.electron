@@ -4,7 +4,7 @@
 
 
 - [bilibili.electron.0001.1](https://www.bilibili.com/video/BV1kBFyeREXv)
-- [1. 📺 bilibili](#1--bilibili)
+- [1. 📺 视频](#1--视频)
 - [2. 🔗 links](#2--links)
 - [3. 📒 electron 应用的最小组成](#3--electron-应用的最小组成)
 - [4. 📒 最终效果展示](#4--最终效果展示)
@@ -24,7 +24,7 @@
   - index.js 主进程
   - index.html 渲染进程（非必需）
 
-## 1. 📺 bilibili
+## 1. 📺 视频
 
 <BilibiliOutsidePlayer id="BV1kBFyeREXv" />
 
@@ -194,6 +194,8 @@ touch index.html
 主进程就是 `package.json` 中的 main 字段标识的文件，它是整个程序的入口，也是 Electron 的主进程。
 
 通过 `npm init -y` 生成的默认 `package.json` 文件中的 main 字段的值为 `index.js`。
+
+
 
 
 
