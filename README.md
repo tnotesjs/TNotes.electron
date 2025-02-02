@@ -57,9 +57,8 @@
 
 - [x] [0059. electron 笔记简介](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md) <!-- [locale](./0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md) -->  
   - [1. 🔗 electron 笔记仓库 - github](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md#1--electron-笔记仓库---github)
-  - [2. 🔗 B 站视频播放链接](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md#2--b-站视频播放链接)
-  - [3. 🔍 查看已经录制了视频的笔记](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md#3--查看已经录制了视频的笔记)
-  - [4. 📒 视频内容及更新说明](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md#4--视频内容及更新说明)
+  - [2. 🔗 B 站视频](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md#2--b-站视频)
+  - [3. 📒 视频内容及更新说明](https://github.com/Tdahuyou/electron/tree/main/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README.md#3--视频内容及更新说明)
   
 
 ## 2. 官方提供的相关内容
