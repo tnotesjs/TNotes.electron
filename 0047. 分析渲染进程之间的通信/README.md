@@ -20,6 +20,13 @@
 
 ## 2. 📒 错误做法 ❌
 
+123
+
+```mermaid
+flowchart TD
+  Start --> Stop
+```
+
 ```mermaid
 sequenceDiagram
       participant renderer1
