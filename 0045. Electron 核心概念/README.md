@@ -7,8 +7,8 @@
   - [3.1. 数量差异](#31-数量差异)
   - [3.2. 作用差异](#32-作用差异)
   - [3.3. 模块差异](#33-模块差异)
-- [4. 📝 认识 contextBridge](#4--认识-contextbridge)
-- [5. 📝 contextBridge 上下文桥接](#5--contextbridge-上下文桥接)
+- [4. 📝 认识 contextIsolation 上下文隔离](#4--认识-contextisolation-上下文隔离)
+- [5. 📝 认识 contextBridge 上下文桥接](#5--认识-contextbridge-上下文桥接)
 - [6. 🤔 问：渲染进程中的 remote 模块是？](#6--问渲染进程中的-remote-模块是)
 - [7. 🤔 问：Electron 中的渲染进程也是网页，那么它和我们在浏览器中开发的网页有何区别？](#7--问electron-中的渲染进程也是网页那么它和我们在浏览器中开发的网页有何区别)
 - [8. 🤔 问：IPC 通信是什么？](#8--问ipc-通信是什么)
@@ -109,7 +109,7 @@
   - 以上的分类并不是绝对的，某些模块可能在主进程和渲染进程中的功能并不完全相同，或者在不同的环境或版本中能够访问的 API 可能有所不同。
   - 在实际使用时，我们应该参考 Electron 的官方文档以获取最准确的信息。
 
-## 4. 📝 认识 contextBridge
+## 4. 📝 认识 contextIsolation 上下文隔离
 
 - **`contextIsolation` 是什么**
   - `contextIsolation` 翻译过来的含义是“上下文 `context` 隔离 `isolation`”。
@@ -145,11 +145,12 @@ let win = new BrowserWindow({
 // 2. 指定预加载脚本路径可以确保预加载脚本和页面内容在隔离的环境中执行
 ```
 
-## 5. 📝 contextBridge 上下文桥接
+## 5. 📝 认识 contextBridge 上下文桥接
 
 - 对比 `contextIsolation`、`contextBridge`
   - `contextIsolation`、`contextBridge` 这俩玩意儿主要作用都是处理安全方面的问题。前者将环境给完全隔离，后者在完全隔离的环境中去接通一些 API 的访问权限。
 - **`contextBridge` 是什么**
+  - `contextBridge` 翻译过来的含义是“上下文 `context` 桥（接） `bridge`”。
   - `contextBridge` 是 Electron 中的一个 API，它 **用于在开启了 `contextIsolation` 的情况下，安全地在渲染进程的预加载脚本和网页内容之间共享资源和数据**。
 - **认识 `contextBridge` 出现的原因**
   - 由于 `contextIsolation` 会创建一个隔离的 JavaScript 上下文环境，直接在网页内容中访问 Node.js 功能和 Electron API 将不再可能。
