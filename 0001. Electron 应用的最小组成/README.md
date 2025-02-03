@@ -34,7 +34,58 @@
 
 ## 3. 📒 electron 应用的最小组成
 
-![](assets/2024-09-24-16-47-53.png)
+::: code-group
+
+```js 【1】index.js(主进程)
+const { app, BrowserWindow } = require('electron')
+
+function createWindow () {
+  // 创建浏览器窗口
+  const win = new BrowserWindow()
+
+  // 加载应用的 index.html
+  win.loadFile('index.html')
+}
+
+// 当 Electron 完成初始化并准备好创建浏览器窗口时调用此方法
+app.whenReady().then(() => {
+  createWindow()
+})
+```
+
+```html 【2】index.html(渲染进程)
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>initialize-electron-learning-environment</title>
+</head>
+<body>
+  <h1>Hello, World!</h1>
+</body>
+</html>
+```
+
+```json 【3】package.json(包体描述文件)
+{
+  "name": "my-electron-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^29.0.1"
+  }
+}
+```
+
+:::
 
 ## 4. 📒 最终效果展示
 
