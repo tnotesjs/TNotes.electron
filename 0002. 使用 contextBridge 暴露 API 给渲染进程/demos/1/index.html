@@ -9,6 +9,7 @@
     <button id="btn">Show Notification</button>
 
     <script>
+      console.log('window.TdahuyouPlugin:', window.TdahuyouPlugin)
       document.getElementById('btn').addEventListener('click', () => {
         TdahuyouPlugin.showNotification({ title: '提示的标题', body: '提示的内容' })
       })
