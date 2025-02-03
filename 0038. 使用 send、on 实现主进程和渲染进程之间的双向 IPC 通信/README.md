@@ -60,10 +60,10 @@ function handleIPC() {
     // 3. 主进程处理完相应任务后，给渲染进程响应一个结果，主动给渲染进程发 'message-from-main' 消息。
     
     // A.
-    // [!code highlight] win.webContents.send('message-from-main', sum)
+    // win.webContents.send('message-from-main', sum)
     
     // B.
-    // [!code highlight] event.sender.send('message-from-main', sum)
+    // event.sender.send('message-from-main', sum)
 
     // C.
     event.reply('message-from-main', sum) // [!code highlight]
