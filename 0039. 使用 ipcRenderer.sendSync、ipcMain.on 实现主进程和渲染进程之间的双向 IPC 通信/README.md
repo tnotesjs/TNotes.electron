@@ -49,20 +49,20 @@ const {
 
 btn1.onclick = () => {
   // ipcRenderer.send 是异步的，之后的输出语句会立即打印。
-  const res = ipcRenderer.send('send-message', 1, 2, 3)
+  const res = ipcRenderer.send('send-message', 1, 2, 3) // [!code highlight]
 
   console.log('ipcRenderer.send 方法收到的返回结果：')
   console.log(res) // => undefined
 }
 
-ipcRenderer.on('message-from-main', (_, res) => {
+ipcRenderer.on('message-from-main', (_, res) => { // [!code highlight]
   console.log('receive message from main process')
   console.log(res) // => 6
 })
 
 btn2.onclick = () => {
   // ipcRenderer.sendSync 是同步的，会阻塞程序的执行，等主进行处理完任务之后，才会继续往下执行。
-  const res = ipcRenderer.sendSync('sendSync-message', 1, 2, 3)
+  const res = ipcRenderer.sendSync('sendSync-message', 1, 2, 3) // [!code highlight]
 
   console.log('收到了主进程的消息 event.returnValue:')
   console.log(res) // => 6
@@ -86,7 +86,7 @@ function createWindow() {
 const sleep = (duration) => new Promise((resolve) => setTimeout(resolve, duration))
 
 function handleIPC() {
-  ipcMain.on('send-message', async (event, ...args) => {
+  ipcMain.on('send-message', async (event, ...args) => { // [!code highlight]
 
     // 睡个 3s，渲染进程不会等。
     await sleep(3000)
@@ -95,10 +95,10 @@ function handleIPC() {
 
     const sum = args.reduce((a, b) => a + b, 0)
 
-    event.reply('message-from-main', sum)
+    event.reply('message-from-main', sum) // [!code highlight]
   })
 
-  ipcMain.on('sendSync-message', async (event, ...args) => {
+  ipcMain.on('sendSync-message', async (event, ...args) => { // [!code highlight]
 
     // 睡个 3s，渲染进程会等。
     await sleep(3000)
@@ -107,7 +107,7 @@ function handleIPC() {
 
     const sum = args.reduce((a, b) => a + b, 0)
 
-    event.returnValue = sum
+    event.returnValue = sum // [!code highlight]
   })
 }
 
