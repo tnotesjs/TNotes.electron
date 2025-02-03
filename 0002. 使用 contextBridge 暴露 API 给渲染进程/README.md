@@ -17,8 +17,8 @@ let win
 function createWindow() {
   win = new BrowserWindow({
     webPreferences: {
-      preload: join(__dirname, 'preload.js'), // [!code highlight]
       // contextIsolation: true, // 这里可以省略 contextIsolation 字段，因为它的默认值就是 true。 // [!code highlight]
+      preload: join(__dirname, 'preload.js'), // [!code highlight]
     },
   })
 
