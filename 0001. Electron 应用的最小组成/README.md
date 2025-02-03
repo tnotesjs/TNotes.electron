@@ -36,7 +36,7 @@
 
 ::: code-group
 
-```js 【1 主进程】index.js
+```js [【1】index.js(主进程)]
 const { app, BrowserWindow } = require('electron')
 
 function createWindow () {
@@ -53,7 +53,7 @@ app.whenReady().then(() => {
 })
 ```
 
-```html 【2 渲染进程】index.html
+```html [【2】index.html(渲染进程)]
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,7 +66,7 @@ app.whenReady().then(() => {
 </html>
 ```
 
-```json 【3 包体描述文件】package.json
+```json [【3】package.json(包体描述文件)]
 {
   "name": "my-electron-app",
   "version": "1.0.0",
