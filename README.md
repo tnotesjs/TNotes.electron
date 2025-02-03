@@ -54,24 +54,24 @@
 
 ### 1.1. 官方内容
 
-- [ ] [0057. electron 源码仓库](https://github.com/Tdahuyou/electron/tree/main/0057.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README.md) <!-- [locale](./0057.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README.md) -->  
+- [x] [0057. electron 源码仓库](https://github.com/Tdahuyou/electron/tree/main/0057.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README.md) <!-- [locale](./0057.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README.md) -->  
   - https://github.com/electron/electron
-    - Github electron 项目源码仓库链接
-    - ⏰ 学习 electron 源码
+  - 这是 Github electron 项目源码仓库链接
+  - ⏰ TODO
+    - 学习 electron 源码
   
   
   
 
-- [ ] [0058. electron 官方文档](https://github.com/Tdahuyou/electron/tree/main/0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md) <!-- [locale](./0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md) -->  
+- [x] [0058. electron 官方文档](https://github.com/Tdahuyou/electron/tree/main/0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md) <!-- [locale](./0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md) -->  
   - https://www.electronjs.org/
-    - 这是 Electron 的官网链接，可以说是除了源码之外最权威的 Electron 内容了。官网有中文版，翻译得非常友好。
+    - 这是 Electron 的官网链接，可以说是除了源码之外最权威的 Electron 内容了。
+    - 官网有中文版，翻译得非常友好。
     - ![](https://raw.githubusercontent.com/Tdahuyou/electron/main/0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/assets%2F2024-10-05-19-22-00.png)
-  - ⏰ 记录查阅官方文档的经验
-  - ⏰ 官方文档内容概述
-  - ⏰ 官方文档基本结构介绍
-  
-  
-  
+  - ⏰ TODO
+    - ⏰ 记录查阅官方文档的经验
+    - ⏰ 官方文档内容概述
+    - ⏰ 官方文档基本结构介绍
   
 
 ### 1.2. 学习资源
