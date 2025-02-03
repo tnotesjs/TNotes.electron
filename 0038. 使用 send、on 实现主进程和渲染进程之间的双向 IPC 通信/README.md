@@ -58,9 +58,9 @@ function handleIPC() {
     const sum = args.reduce((a, b) => a + b, 0)
 
     // 3. 主进程处理完相应任务后，给渲染进程响应一个结果，主动给渲染进程发 'message-from-main' 消息。
-    // win.webContents.send('message-from-main', sum) // A // [!code highlight]
-    // event.sender.send('message-from-main', sum) // B // [!code highlight]
-    event.reply('message-from-main', sum) // C // [!code highlight]
+    // win.webContents.send('message-from-main', sum) // A /* [!code highlight] */
+    // event.sender.send('message-from-main', sum) // B /* [!code highlight] */
+    event.reply('message-from-main', sum) // C /* [!code highlight] */
 
     // console.log(win.webContents === event.sender) // true
     // console.log(win.webContents.send === event.sender.send) // true
