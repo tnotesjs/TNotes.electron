@@ -142,41 +142,22 @@
   
 
 - [ ] [0045. Electron 核心概念](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md) <!-- [locale](./0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md) -->  
-  - [1. 🔗 链接](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#1--链接)
-  - [2. 💡 导图](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#2--导图)
-  - [3. 📝 Electron 架构](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#3--electron-架构)
-  - [4. 📝 主进程 vs. 渲染进程](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#4--主进程-vs-渲染进程)
-    - [4.1. 数量差异](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#41-数量差异)
-    - [4.2. 作用差异](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#42-作用差异)
-    - [4.3. 模块差异](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#43-模块差异)
-  - [5. 📝 contextBridge](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#5--contextbridge)
-    - [5.1. `contextIsolation` 是什么](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#51-contextisolation-是什么)
-    - [5.2. `contextIsolation` 工作原理](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#52-contextisolation-工作原理)
-    - [5.3. 为什么要使用 `contextIsolation`](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#53-为什么要使用-contextisolation)
-    - [5.4. 如何配置 `contextIsolation`](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#54-如何配置-contextisolation)
-    - [5.5. 小结](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#55-小结)
-  - [6. 📝 contextBridge 上下文桥接](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#6--contextbridge-上下文桥接)
-    - [6.1. `contextBridge` 是什么](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#61-contextbridge-是什么)
-    - [6.2. `contextBridge` 工作原理](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#62-contextbridge-工作原理)
-    - [6.3. `contextBridge` 基本使用](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#63-contextbridge-基本使用)
-  - [7. 🤔 问：渲染进程中的 remote 模块是？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#7--问渲染进程中的-remote-模块是)
-  - [8. 🤔 问：Electron 中的渲染进程也是网页，那么它和我们在浏览器中开发的网页有何区别？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#8--问electron-中的渲染进程也是网页那么它和我们在浏览器中开发的网页有何区别)
-  - [9. 🤔 问：IPC 通信是什么？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#9--问ipc-通信是什么)
-  - [10. 🤔 问：为什么需要 IPC 通信呢？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#10--问为什么需要-ipc-通信呢)
-  - [11. 🤔 问：为什么 Electron 要将主进程和渲染进程分开呢？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#11--问为什么-electron-要将主进程和渲染进程分开呢)
-  - [12. 🤔 问：主进程向渲染进程发消息，是向页面发吗？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#12--问主进程向渲染进程发消息是向页面发吗)
-  - [13. 🤔 问：为什么要使用 `contextBridge`](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#13--问为什么要使用-contextbridge)
-  - 主进程是什么
-  - 渲染进程是什么
-  - 主进程和渲染进程之间的差异
-  - electron 的渲染进程（Web 页面）和我们传统的在浏览器端开发的 Web 页面有何区别
-  - 上下文隔离 contextIsolation 是什么
-  - 如何开启 contextIsolation 配置
-  - 为什么建议始终开启 contextIsolation 配置
-  - 上下文桥接 contextBridge 是什么
-  - contextBridge 用来解决什么问题
-  - 如何使用 contextBridge API 来给渲染进程暴露方法
-  - 需要对 Electron 中的主进程和渲染进程有个初步的认知，在后续的学习中，Electron 的主进程和渲染进程将会是学习的重点内容。“Electron 的主进程”、“Electron 的渲染进程”这两组字眼，在接下来的学习中，会不断地被提及。本文档中提及的内容，仅仅是做一个初步的简单介绍罢了，通过多撸代码，慢慢加深对它们的理解。
+  - [1. 📝 本节内容概述](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#1--本节内容概述)
+  - [2. 📝 认识 Electron 基本架构](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#2--认识-electron-基本架构)
+  - [3. 📝 主进程 vs. 渲染进程](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#3--主进程-vs-渲染进程)
+    - [3.1. 数量差异](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#31-数量差异)
+    - [3.2. 作用差异](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#32-作用差异)
+    - [3.3. 模块差异](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#33-模块差异)
+  - [4. 📝 认识 contextBridge](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#4--认识-contextbridge)
+  - [5. 📝 contextBridge 上下文桥接](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#5--contextbridge-上下文桥接)
+  - [6. 🤔 问：渲染进程中的 remote 模块是？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#6--问渲染进程中的-remote-模块是)
+  - [7. 🤔 问：Electron 中的渲染进程也是网页，那么它和我们在浏览器中开发的网页有何区别？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#7--问electron-中的渲染进程也是网页那么它和我们在浏览器中开发的网页有何区别)
+  - [8. 🤔 问：IPC 通信是什么？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#8--问ipc-通信是什么)
+  - [9. 🤔 问：为什么需要 IPC 通信呢？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#9--问为什么需要-ipc-通信呢)
+  - [10. 🤔 问：为什么 Electron 要将主进程和渲染进程分开呢？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#10--问为什么-electron-要将主进程和渲染进程分开呢)
+  - [11. 🤔 问：主进程向渲染进程发消息，是向页面发吗？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#11--问主进程向渲染进程发消息是向页面发吗)
+  - [12. 💼 面试题：谈谈为什么要使用 `contextBridge`？](https://github.com/Tdahuyou/electron/tree/main/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#12--面试题谈谈为什么要使用-contextbridge)
+  - 本节主要介绍 electron 中的部分核心概念 —— 主进程、渲染进程、上下文隔离、上下文桥接、remote 模块、IPC 通信等。
   
 
 ## 3. IPC
