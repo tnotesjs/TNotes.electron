@@ -34,12 +34,12 @@ const { ipcRenderer } = require('electron')
 
 // 单向（请求）
 btn1.onclick = () => {
-  ipcRenderer.invoke('invoke-message1', 1, 2, 3)
+  ipcRenderer.invoke('invoke-message1', 1, 2, 3) // [!code highlight]
 }
 
 // 双向（请求 + 响应）
 btn2.onclick = async () => {
-  const res = await ipcRenderer.invoke('invoke-message2', 4, 5, 6)
+  const res = await ipcRenderer.invoke('invoke-message2', 4, 5, 6) // [!code highlight]
   console.log('ipcRenderer.invoke 方法收到的返回结果：', res)
 }
 ```
@@ -60,13 +60,13 @@ function createWindow() {
 }
 
 function handleIPC() {
-  ipcMain.handle('invoke-message1', (_, ...args) => {
+  ipcMain.handle('invoke-message1', (_, ...args) => { // [!code highlight]
     console.log('invoke-message1', ...args)
   })
 
-  ipcMain.handle('invoke-message2', (_, ...args) => {
+  ipcMain.handle('invoke-message2', (_, ...args) => { // [!code highlight]
     console.log('invoke-message2', ...args)
-    return args.reduce((a, b) => a + b, 0)
+    return args.reduce((a, b) => a + b, 0) // [!code highlight]
   })
 }
 
