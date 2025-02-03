@@ -5,17 +5,18 @@
 
 - [bilibili.electron.0037.1](https://www.bilibili.com/video/BV1CBFyeRErb)
 - [1. 📺 视频](#1--视频)
-- [2. 💻 demo](#2--demo)
+- [2. 💻 demos.1 - 使用 ipcRenderer.send、ipcMain.on 实现从渲染进程到主进程的单向 IPC 通信](#2--demos1---使用-ipcrenderersendipcmainon-实现从渲染进程到主进程的单向-ipc-通信)
 <!-- endregion:toc -->
 
 ## 1. 📺 视频
 
 <BilibiliOutsidePlayer id="BV1CBFyeRErb" />
 
-## 2. 💻 demo
+## 2. 💻 demos.1 - 使用 ipcRenderer.send、ipcMain.on 实现从渲染进程到主进程的单向 IPC 通信
 
-```js
-// index.js
+::: code-group
+
+```js [index.js]
 const { app, BrowserWindow, ipcMain } = require('electron')
 
 let win
@@ -46,8 +47,7 @@ app.on('ready', () => {
 })
 ```
 
-```html
-<!-- index.html -->
+```html [index.html]
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,19 +70,8 @@ app.on('ready', () => {
 </html>
 ```
 
-**最终效果**
+:::
 
-渲染进程使用 ipcRenderer.send 发送消息给主进程，主进程通过 ipcMain.on 对渲染进程发送过来的消息进行监听，实现【渲染进程】到【主进程】的【单向 IPC 通信】。
-
-![](assets/2024-10-05-19-52-58.png)
-
-
-
-
-
-
-
-
-
-
-
+- **最终效果**
+  - 渲染进程使用 ipcRenderer.send 发送消息给主进程，主进程通过 ipcMain.on 对渲染进程发送过来的消息进行监听，实现【渲染进程】到【主进程】的【单向 IPC 通信】。
+  - ![](assets/2024-10-05-19-52-58.png)
