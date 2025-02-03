@@ -71,7 +71,7 @@ app.whenReady().then(() => {
   "name": "my-electron-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js", // !code highlight
+  "main": "index.js", // [!code highlight]
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "electron ."
