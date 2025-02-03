@@ -1,15 +1,35 @@
 # [0036. 使用 ipcRenderer.invoke、ipcMain.handle 实现主进程和渲染进程之间的双向 IPC 通信](https://github.com/Tdahuyou/electron/tree/main/0036.%20%E4%BD%BF%E7%94%A8%20ipcRenderer.invoke%E3%80%81ipcMain.handle%20%E5%AE%9E%E7%8E%B0%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8F%8C%E5%90%91%20IPC%20%E9%80%9A%E4%BF%A1)
 
 <!-- region:toc -->
-- [1. 💻 demo](#1--demo)
+- [1. 💻 demos.1 - 使用 ipcRenderer.invoke、ipcMain.handle 实现主进程和渲染进程之间的双向 IPC 通信](#1--demos1---使用-ipcrendererinvokeipcmainhandle-实现主进程和渲染进程之间的双向-ipc-通信)
 <!-- endregion:toc -->
-- 渲染进程通过 ipcRenderer.invoke 给主进程发送消息，可以通过 await 来等待主进程响应，并获取到主进程的处理结果。主进程通过 ipcMain.handle 来接受来自渲染进程的消息，通过 return xxx 的写法给渲染进程响应处理结果。以此来实现从渲染进程到主进程的双向通信。
 - 本文介绍的这种通信方式，是官方推荐的做法，也是目前比较主流的写法。
+- 渲染进程通过 `ipcRenderer.invoke` 给主进程发送消息，可以通过 `await` 来等待主进程响应，并获取到主进程的处理结果。主进程通过 `ipcMain.handle` 来接受来自渲染进程的消息，通过 `return xxx` 的写法给渲染进程响应处理结果，以此来实现从渲染进程到主进程的双向通信。
 
-## 1. 💻 demo
+## 1. 💻 demos.1 - 使用 ipcRenderer.invoke、ipcMain.handle 实现主进程和渲染进程之间的双向 IPC 通信
 
-```js
-// renderer.js
+::: code-group
+
+```html [index.html]
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>24.03.02</title>
+  </head>
+
+  <body>
+    <h1>renderer process</h1>
+    <button id="btn1">请求</button>
+    <button id="btn2">请求 + 响应</button>
+    <script src="renderer.js"></script>
+  </body>
+</html>
+```
+
+```js [renderer.js]
 const { ipcRenderer } = require('electron')
 
 // 单向（请求）
@@ -25,8 +45,7 @@ btn2.onclick = async () => {
 ```
 
 
-```js
-// index.js
+```js [index.js]
 const {app, BrowserWindow, ipcMain} = require('electron')
 
 let win
@@ -57,12 +76,13 @@ app.on('ready', () => {
 })
 ```
 
-**最终效果**
+:::
 
-![](assets/2024-10-05-20-18-59.png)
+- **最终效果**
+  - ![](assets/2024-10-05-20-18-59.png)
+- 主进程日志
 
 ```bash
-# 主进程日志
 invoke-message1 1 2 3
 invoke-message2 4 5 6
 ```
