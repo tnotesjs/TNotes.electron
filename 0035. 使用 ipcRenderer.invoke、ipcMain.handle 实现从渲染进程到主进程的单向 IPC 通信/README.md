@@ -6,17 +6,18 @@
 
 - [bilibili.electron.0035.1](https://www.bilibili.com/video/BV1CBFyedE6q)
 - [1. 📺 视频](#1--视频)
-- [2. 💻 demo](#2--demo)
+- [2. 💻 demos.1 - 使用 ipcRenderer.invoke、ipcMain.handle 实现从渲染进程到主进程的单向 IPC 通信](#2--demos1---使用-ipcrendererinvokeipcmainhandle-实现从渲染进程到主进程的单向-ipc-通信)
 <!-- endregion:toc -->
 
 ## 1. 📺 视频
 
 <BilibiliOutsidePlayer id="BV1CBFyedE6q" />
 
-## 2. 💻 demo
+## 2. 💻 demos.1 - 使用 ipcRenderer.invoke、ipcMain.handle 实现从渲染进程到主进程的单向 IPC 通信
 
-```js
-// renderer.js
+::: code-group
+
+```js [renderer.js]
 const { ipcRenderer } = require('electron')
 const now = () => new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })
 
@@ -29,8 +30,7 @@ btn.onclick = async () => {
 }
 ```
 
-```js
-// index.js
+```js [index.js]
 const { app, BrowserWindow, ipcMain } = require('electron')
 
 let win
@@ -64,19 +64,8 @@ app.on('ready', () => {
 })
 ```
 
-**最终效果**
+:::
 
-渲染进程通过 `ipcRenderer.invoke` 方法向主进程发送消息，主进程通过 `ipcMain.handle` 方法监听来自渲染进程的消息。实现从渲染进程到主进程的单向通信。
-
-![](assets/2024-10-05-19-56-42.png)
-
-
-
-
-
-
-
-
-
-
-
+- **最终效果**
+  - 渲染进程通过 `ipcRenderer.invoke` 方法向主进程发送消息，主进程通过 `ipcMain.handle` 方法监听来自渲染进程的消息。实现从渲染进程到主进程的单向通信。
+  - ![](assets/2025-02-03-19-57-09.png)
