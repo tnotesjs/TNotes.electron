@@ -1,34 +1,29 @@
 # [0003. 比较消息端口 MessageChannel 和 ipcRenderer.invoke、ipcMain.handle 的性能](https://github.com/Tdahuyou/electron/tree/main/0003.%20%E6%AF%94%E8%BE%83%E6%B6%88%E6%81%AF%E7%AB%AF%E5%8F%A3%20MessageChannel%20%E5%92%8C%20ipcRenderer.invoke%E3%80%81ipcMain.handle%20%E7%9A%84%E6%80%A7%E8%83%BD)
 
-
-
 <!-- region:toc -->
 
 
 - [bilibili.electron.0003.1](https://www.bilibili.com/video/BV1CBFyeREWg)
 - [1. 📺 视频](#1--视频)
-- [2. 💻 demo - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle](#2--demo---messagechannel-vs-ipcrendererinvokeipcmainhandle)
+- [2. 💻 demos.1 - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle](#2--demos1---messagechannel-vs-ipcrendererinvokeipcmainhandle)
 <!-- endregion:toc -->
-- 本文通过一个 Electron 应用示例对比了 `MessageChannel` 和 `ipcRenderer.invoke`/`ipcMain.handle` 两种 IPC 通信方式的性能，结果显示在单向通信中两者差异不大，但在双向通信中 `MessageChannel` 的性能明显优于 `ipcRenderer.invoke`。
-- 这篇文档写了一个 demo 来比较两种 IPC 通信方式的性能差异。
-- 该 demo 仅仅作为一个参考，实际需求往往会更加复杂，比如通信过程中会携带大量数据。本 demo 的测试用例比较简单，仅仅是传递一个写死的字符串。
-- 建议先读源码，再看视频的后半段测试结果演示。从最终表现出来的结果来看，单向通信几乎没差，但如果是双向通信的话，MessageChannel 比 invoke 快了 3～5 倍。
+- 本文通过一个 Electron 应用示例对比了 `MessageChannel` 和 `ipcRenderer.invoke`/`ipcMain.handle` 两种 IPC 通信方式的性能差异。
 
 ## 1. 📺 视频
 
 <BilibiliOutsidePlayer id="BV1CBFyeREWg" />
 
-## 2. 💻 demo - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle
+## 2. 💻 demos.1 - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle
 
 - **先说结论**
-  - 单向：用哪个都行，差异不大。
-  - 双向：使用消息端口的性能会更好。
-- 如果有短时间内多次在主进程和渲染进程之间互相通信的情况，可以优先考虑使用消息端口的方式来跑。
+  - 单向通信：两者差异不大
+  - 双向通信：`MessageChannel` 的性能明显优于 `ipcRenderer.invoke`，MessageChannel 比 invoke 快了 3～5 倍。
+    - 如果有短时间内多次在主进程和渲染进程之间互相通信的情况，可以优先考虑使用消息端口的方式来跑。
+- 该 demo 仅仅作为一个参考，实际需求往往会更加复杂，比如通信过程中会携带大量数据。本 demo 的测试用例比较简单，仅仅是传递一个写死的字符串。
 
-**源码实现**
+::: code-group
 
-```js
-// index.js
+```js [index.js]
 // 主进程
 const { ipcMain, app, BrowserWindow, MessageChannelMain } = require('electron')
 
@@ -43,6 +38,8 @@ app.whenReady().then(() => {
   win.webContents.openDevTools()
   win.loadFile('./index.html')
 
+
+
   // #region 消息端口
   const { port1, port2 } = new MessageChannelMain()
 
@@ -53,8 +50,11 @@ app.whenReady().then(() => {
     console.count(`主进程收到了 message port 消息${data}`)
     port2.postMessage({ data: 'port2 response from main' })
   })
+  // port2.start() 这一步别忘了，否则消息端口将无法正常接收消息。
   port2.start()
   // #endregion 消息端口
+
+
 
   // #region invoke、handle
   ipcMain.handle('invoke', async (event, message) => {
@@ -65,10 +65,9 @@ app.whenReady().then(() => {
 })
 ```
 
-`port2.start()` 这一步别忘了，否则消息端口将无法正常接收消息。
 
-```html
-<!-- index.html -->
+
+```html [index.html]
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -91,8 +90,7 @@ app.whenReady().then(() => {
 ```
 
 
-```js
-// renderer.js
+```js [renderer.js]
 const { ipcRenderer } = require('electron')
 
 let port1
@@ -154,16 +152,4 @@ document.getElementById('btn3').addEventListener('click', testInvoke_2)
 document.getElementById('btn4').addEventListener('click', testMessageChannel_2)
 ```
 
-- **最终结果**
-  - 见视频……
-
-
-
-
-
-
-
-
-
-
-
+:::
