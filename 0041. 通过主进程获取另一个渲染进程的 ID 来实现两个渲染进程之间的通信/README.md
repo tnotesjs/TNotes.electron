@@ -6,47 +6,28 @@
 
 - [bilibili.electron.0041.1](https://www.bilibili.com/video/BV1CBFyeREsn)
 - [1. 📺 视频](#1--视频)
-- [2. 🔗 links](#2--links)
-- [3. 💻 demo](#3--demo)
+- [2. 🔍 查看 electron 官方文档 -> breaking-changes](#2--查看-electron-官方文档---breaking-changes)
+- [3. 💻 demos.1 - 通过主进程获取另一个渲染进程的 ID 来实现两个渲染进程之间的通信](#3--demos1---通过主进程获取另一个渲染进程的-id-来实现两个渲染进程之间的通信)
 <!-- endregion:toc -->
 - 本文介绍了两个渲染进程之间实现互相通信的一种方式 —— 通过主进程获取另一个渲染进程的 ID 来实现两个渲染进程之间的通信。
-- 本文介绍的这种通信方式需要依赖 ipcRenderer 模块中的 ipcRenderer.sendTo方法，这个方法在 Electron 的 v28 版本中已经被丢弃了，如果要使用这种通信方案的话，需要注意 Electron 的版本问题。
-- 这种方式在最新版的 Electron 中已经被淘汰了。
-
-![](assets/2024-10-05-22-05-41.png)
 
 ## 1. 📺 视频
 
 <BilibiliOutsidePlayer id="BV1CBFyeREsn" />
 
-## 2. 🔗 links
+## 2. 🔍 查看 electron 官方文档 -> breaking-changes
 
 - https://www.electronjs.org/zh/docs/latest/breaking-changes#%E5%B7%B2%E7%A7%BB%E9%99%A4-ipcrenderersendto
   - Electron--文档--引用--重大变更。
-  - 这是 Electron 的官方文档，在版本更新中的一些 Breaking Changes 截断式的更新（也就是不兼容的更新）。
-  - 文中提到 v28 版本的更新中提到 ipcRenderer.sendTo() 方法已经被移除了，取而代之的是 MessageChannel。
+  - 这是 Electron 的官方文档，在版本更新中的一些 Breaking Changes 截断式的更新（就是不兼容的重大更新）。
+  - 文中提到 v28 版本的更新中提到 `ipcRenderer.sendTo()` 方法已经被移除了，取而代之的是 `MessageChannel`。
+- **注意版本**
+  - 本文介绍的这种通信方式需要依赖 ipcRenderer 模块中的 `ipcRenderer.sendTo` 方法，这个方法在 Electron 的 v28 版本中已经被丢弃了，如果要使用这种通信方案的话，需要注意 Electron 的版本问题，这种方式在最新版的 Electron 中已经被淘汰了。
+  - ![](assets/2025-02-04-10-25-21.png)
 
-## 3. 💻 demo
+## 3. 💻 demos.1 - 通过主进程获取另一个渲染进程的 ID 来实现两个渲染进程之间的通信
 
-**【最终效果】**
-
-使用窗口 1 给窗口 2 发消息。
-
-![](assets/2024-10-05-22-08-27.png)
-
-![](assets/2024-10-05-22-08-36.png)
-
-使用窗口 2 给窗口 1 发消息。
-
-![](assets/2024-10-05-22-08-48.png)
-
-![](assets/2024-10-05-22-08-53.png)
-
-**源码实现**
-
-package.json 内容如下。
-
-```json
+```json [package.json]
 {
   "name": "get-other-renderer-id-by-main-process",
   "version": "1.0.0",
@@ -59,19 +40,12 @@ package.json 内容如下。
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^27.3.4"
+    "electron": "^27.3.4" // [!code highlight]
   }
 }
 ```
 
-> ⚠️ 注意 Electron 的版本要低于 v28
->
-> `"electron": "^27.3.4"`
->
-> 要实现该文档中的效果，涉及到一个核心 API ipcRenderer.sendTo，而这个 API 在 Electron v28 版本中已经被 remove 掉了。
-
-```js
-// index.js
+```js [index.js]
 const { ipcMain, app, BrowserWindow } = require('electron')
 
 let win1, win2
@@ -103,8 +77,7 @@ app.on('ready', () => {
 })
 ```
 
-```js
-// renderer1.js
+```js [renderer1.js]
 const { ipcRenderer } = require('electron')
 
 btn.addEventListener('click', async () => {
@@ -120,8 +93,7 @@ ipcRenderer.on('renderer2-to-renderer1', (e, a, b) => {
 })
 ```
 
-```js
-// renderer2.js
+```js [renderer2.js]
 const { ipcRenderer } = require('electron')
 
 btn.addEventListener('click', async () => {
@@ -138,12 +110,10 @@ ipcRenderer.on('renderer1-to-renderer2', (e, a, b) => {
 ```
 
 
-
-
-
-
-
-
-
-
-
+- **【最终效果】**
+- 使用窗口 1 给窗口 2 发消息。
+  - ![](assets/2024-10-05-22-08-27.png)
+  - ![](assets/2024-10-05-22-08-36.png)
+- 使用窗口 2 给窗口 1 发消息。
+  - ![](assets/2024-10-05-22-08-48.png)
+  - ![](assets/2024-10-05-22-08-53.png)
