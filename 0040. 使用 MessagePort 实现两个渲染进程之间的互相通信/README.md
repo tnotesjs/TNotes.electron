@@ -51,9 +51,9 @@ app.whenReady().then(async () => {
   win2.loadFile('./index2.html')
 
   // 建立通道，当 webContents 准备就绪后，使用 postMessage 向每个 webContents 发送一个端口。
-  const { port1, port2 } = new MessageChannelMain()
-  win1.once('ready-to-show', _ => win1.webContents.postMessage('port', null, [port1]))
-  win2.once('ready-to-show', _ => win2.webContents.postMessage('port', null, [port2]))
+  const { port1, port2 } = new MessageChannelMain() // [!code highlight]
+  win1.once('ready-to-show', _ => win1.webContents.postMessage('port', null, [port1])) // [!code highlight]
+  win2.once('ready-to-show', _ => win2.webContents.postMessage('port', null, [port2])) // [!code highlight]
 })
 ```
 
@@ -64,9 +64,9 @@ const { ipcRenderer } = require('electron')
 let electronMessagePort
 ipcRenderer.on('port', e => {
   console.log('win1 ready-to-show')
-  electronMessagePort = e.ports[0]
-  document.getElementById('btn').addEventListener('click', _ => electronMessagePort.postMessage('你好 ～ 我是窗口 1'))
-  electronMessagePort.onmessage = msg => console.log('【收到了窗口 2 的消息】', msg)
+  electronMessagePort = e.ports[0] // [!code highlight]
+  document.getElementById('btn').addEventListener('click', _ => electronMessagePort.postMessage('你好 ～ 我是窗口 1')) // [!code highlight]
+  electronMessagePort.onmessage = msg => console.log('【收到了窗口 2 的消息】', msg) // [!code highlight]
 })
 ```
 
@@ -77,9 +77,9 @@ const { ipcRenderer } = require('electron')
 let electronMessagePort
 ipcRenderer.on('port', e => {
   console.log('win2 ready-to-show')
-  electronMessagePort = e.ports[0]
-  document.getElementById('btn').addEventListener('click', _ => electronMessagePort.postMessage('你好 ～ 我是窗口 2'))
-  electronMessagePort.onmessage = msg => console.log('【收到了窗口 1 的消息】', msg)
+  electronMessagePort = e.ports[0] // [!code highlight]
+  document.getElementById('btn').addEventListener('click', _ => electronMessagePort.postMessage('你好 ～ 我是窗口 2')) // [!code highlight]
+  electronMessagePort.onmessage = msg => console.log('【收到了窗口 1 的消息】', msg) // [!code highlight]
 })
 ```
 
