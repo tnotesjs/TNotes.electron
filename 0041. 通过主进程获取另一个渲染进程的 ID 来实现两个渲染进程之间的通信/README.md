@@ -27,6 +27,8 @@
 
 ## 3. 💻 demos.1 - 通过主进程获取另一个渲染进程的 ID 来实现两个渲染进程之间的通信
 
+::: code-group
+
 ```json [package.json]
 {
   "name": "get-other-renderer-id-by-main-process",
@@ -109,6 +111,7 @@ ipcRenderer.on('renderer1-to-renderer2', (e, a, b) => {
 })
 ```
 
+:::
 
 - **【最终效果】**
 - 使用窗口 1 给窗口 2 发消息。
