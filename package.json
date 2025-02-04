@@ -257,7 +257,7 @@
           "BV1PBFyedEjE",
           "BV1kBFyeREX9"
         ],
-        "done": false,
+        "done": true,
         "ignore": false
       },
       "0043": {
@@ -282,7 +282,7 @@
       },
       "0047": {
         "bilibili": [],
-        "done": true,
+        "done": false,
         "ignore": false
       },
       "0048": {
