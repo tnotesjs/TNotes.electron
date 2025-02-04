@@ -69,8 +69,8 @@ function createWindows() {
 }
 
 function handleIPC() {
-  ipcMain.handle('get-win2-id', _ => win2.webContents.id)
-  ipcMain.handle('get-win1-id', _ => win1.webContents.id)
+  ipcMain.handle('get-win2-id', _ => win2.webContents.id) // [!code highlight]
+  ipcMain.handle('get-win1-id', _ => win1.webContents.id) // [!code highlight]
 }
 
 app.on('ready', () => {
@@ -83,9 +83,9 @@ app.on('ready', () => {
 const { ipcRenderer } = require('electron')
 
 btn.addEventListener('click', async () => {
-  const win2ID = await ipcRenderer.invoke('get-win2-id')
+  const win2ID = await ipcRenderer.invoke('get-win2-id') // [!code highlight]
   console.log('获取到「窗口2」的id：', win2ID, '并给它发送消息')
-  ipcRenderer.sendTo(win2ID, 'renderer1-to-renderer2', 1, 2)
+  ipcRenderer.sendTo(win2ID, 'renderer1-to-renderer2', 1, 2) // [!code highlight]
 })
 
 ipcRenderer.on('renderer2-to-renderer1', (e, a, b) => {
@@ -99,9 +99,9 @@ ipcRenderer.on('renderer2-to-renderer1', (e, a, b) => {
 const { ipcRenderer } = require('electron')
 
 btn.addEventListener('click', async () => {
-  const win1ID = await ipcRenderer.invoke('get-win1-id')
+  const win1ID = await ipcRenderer.invoke('get-win1-id') // [!code highlight]
   console.log('获取到「窗口1」的id：', win1ID, '并给它发送消息')
-  ipcRenderer.sendTo(win1ID, 'renderer2-to-renderer1', 3, 4)
+  ipcRenderer.sendTo(win1ID, 'renderer2-to-renderer1', 3, 4) // [!code highlight]
 })
 
 ipcRenderer.on('renderer1-to-renderer2', (e, a, b) => {
