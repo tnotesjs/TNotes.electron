@@ -22,15 +22,15 @@ messageChannelRecord['action'] = [ e.sender.id ]
 // Electron.BrowserWindow.id 是 number 类型
 ```
 
-- 仿观察者模式，实现两个渲染进程之间的互相通信。记录了“观察者模式”下，注册环节和触发环节的流程。
-- ![](assets/2024-10-05-22-21-01.png)
-- ![](assets/2024-10-05-22-21-12.png)
+- 注册环节基本流程：
+  - ![](assets/2024-10-05-22-21-01.png)
+- 触发环节基本流程：
+  - ![](assets/2024-10-05-22-21-12.png)
 
 ## 3. 💻 demos.1 - 仿观察者模式实现两个渲染进程之间的互相通信
 
-> 开始是想要直接在主进程中使用 nodejs 的 EventEmitter 模块来实现一个事件总线的效果，但测试时才意识到函数没法直接作为 IPC 的参数来传递，渲染进程的 func 还得放在渲染进程。于是想到通过让主进程来维护一张“事件 <-> 渲染进程 ID”的表，来模拟观察者模式实现通信。
->
-> 这个 demo 并不完善，并没有加上移除事件的方法，仅仅是加了注册事件和触发事件的逻辑。
+> - 开始是想要直接在主进程中使用 nodejs 的 EventEmitter 模块来实现一个事件总线的效果，但测试时才意识到函数没法直接作为 IPC 的参数来传递，渲染进程的 func 还得放在渲染进程。于是想到通过让主进程来维护一张“事件 <-> 渲染进程 ID”的表，来模拟观察者模式实现通信。
+> - 这个 demo 并不完善，并没有加上移除事件的方法，仅仅是加了注册事件和触发事件的逻辑。
 
 ::: code-group
 
@@ -54,10 +54,12 @@ function createWindow(filePath) {
 
 function handleIPC () {
   ipcMain.handle('registerChannelEvent', (e, channel) => {
-    // 注意：
+    // 【注意】区分 win.webContents.id 和 win.id
     // e.senderer.id 是 win.webContents.id
     // BrowserWindow.fromWebContents(e.sender).id 是 win.id
     // 通过 BrowserWindow.fromId(ID) 来查询 BrowserWindow 实例，所需的 ID 是 win.id
+
+    // 记录注册了 channel 事件的渲染进程的 win.id
     if (messageChannelRecord[channel]) {
       messageChannelRecord[channel].push(BrowserWindow.fromWebContents(e.sender).id)
     } else {
@@ -67,12 +69,17 @@ function handleIPC () {
   })
 
   ipcMain.handle('emitterChannelEvent', (e, channel, data) => {
-    console.log(BrowserWindow.getAllWindows().map(win => ({ winId: win.id, webContentsId: win.webContents.id })))
+    // console.log(BrowserWindow.getAllWindows().map(win => ({ winId: win.id, webContentsId: win.webContents.id })))
+
+    // 检查记录表 messageChannelRecord 中是否存在 channel 事件
     if (messageChannelRecord[channel]) {
+      // 逐个通知注册了 channel 事件的渲染进程
       messageChannelRecord[channel].forEach(id => {
-        let win = BrowserWindow.fromId(id)
+        // 前面记录的 win.id 的作用主要是在这一步用于查询 BrowserWindow 实例（🤔 貌似也可以直接在 messageChannelRecord 中存储 BrowserWindow 实例，这样好像还能省略掉查询的开销，不过会导致存储开销增大。）
+        let win = BrowserWindow.fromId(id) // [!code highlight]
         if (win) {
-          win.webContents.send(channel, data)
+          // 通知注册了 channel 事件的渲染进程
+          win.webContents.send(channel, data) // [!code highlight]
         }
       })
     }
@@ -99,7 +106,7 @@ ipcRenderer.on('action', (e, data) => {
 ipcRenderer.invoke('registerChannelEvent', 'action')
 
 document.getElementById('btn').addEventListener('click', () => {
-  ipcRenderer.invoke('emitterChannelEvent', 'action', 1)
+  ipcRenderer.invoke('emitterChannelEvent', 'action', 1) // [!code highlight]
 })
 ```
 
@@ -113,7 +120,7 @@ ipcRenderer.on('action', (e, data) => {
 ipcRenderer.invoke('registerChannelEvent', 'action')
 
 document.getElementById('btn').addEventListener('click', () => {
-  ipcRenderer.invoke('emitterChannelEvent', 'action', 2)
+  ipcRenderer.invoke('emitterChannelEvent', 'action', 2) // [!code highlight]
 })
 ```
 
@@ -127,7 +134,7 @@ ipcRenderer.on('action', (e, data) => {
 ipcRenderer.invoke('registerChannelEvent', 'action')
 
 document.getElementById('btn').addEventListener('click', () => {
-  ipcRenderer.invoke('emitterChannelEvent', 'action', 3)
+  ipcRenderer.invoke('emitterChannelEvent', 'action', 3) // [!code highlight]
 })
 ```
 
