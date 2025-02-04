@@ -35,17 +35,17 @@ app.whenReady().then(() => {
   createWindow()
 })
 
-ipcMain.on('port', (event) => {
+ipcMain.on('port', (event) => { // [!code highlight]
   // 拿到渲染进程给我传递过来的 port2
   const port = event.ports[0]
 
-  port.on('message', (event) => {
+  port.on('message', (event) => { // [!code highlight]
     console.log('渲染进程给我传递过来的信息为：', event.data)
-    port.postMessage('我收到你的消息了，周末出来玩呗～')
+    port.postMessage('我收到你的消息了，周末出来玩呗～') // [!code highlight]
   })
 
   // 开启这个端口 - 这意味着两者之间可以进行通信了
-  port.start()
+  port.start() // [!code highlight]
 })
 ```
 
@@ -60,16 +60,16 @@ const { port1, port2 } = new MessageChannel() // https://www.electronjs.org/zh/d
  * @param {any} args 传递的参数，要传递给主进程的消息内容
  * @param {MessagePort[]} transferList 传递的 MessagePort 端口的数组
  */
-ipcRenderer.postMessage('port', null, [port2])
+ipcRenderer.postMessage('port', null, [port2]) // [!code highlight]
 
 // 监听 port1 的消息
-port1.onmessage = (event) => {
+port1.onmessage = (event) => { // [!code highlight]
   console.log('主进程给我传递过来的信息为：', event.data)
 }
 
 document.getElementById('btn').addEventListener('click', () => {
   // 向主进程发消息
-  port1.postMessage('Hello, World!')
+  port1.postMessage('Hello, World!') // [!code highlight]
 })
 ```
 
