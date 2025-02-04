@@ -302,11 +302,9 @@
 ### 4.1. 不同系统的窗口行为兼容适配
 
 - [ ] [0016. 适配 Windows 和 macOS 上的窗口交互行为](https://github.com/Tdahuyou/electron/tree/main/0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README.md) <!-- [locale](./0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README.md) -->  
-  - [1. 🔗 links](https://github.com/Tdahuyou/electron/tree/main/0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README.md#1--links)
-  - [2. 📒 macos 上特有的 window-all-closed、activate 事件](https://github.com/Tdahuyou/electron/tree/main/0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README.md#2--macos-上特有的-window-all-closedactivate-事件)
-  - [3. 💻 demo](https://github.com/Tdahuyou/electron/tree/main/0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README.md#3--demo)
-  - 理解 Windows 和 macOS 的桌面应用，在窗口交互行为上的一些差异。
-  - 处理逻辑很简单，重点在于理解两种系统中窗口交互的一些差异点。
+  - [1. 🔍 官方文档 - 查看主进程的 app 模块上的 activate、window-all-closed 事件的相关描述](https://github.com/Tdahuyou/electron/tree/main/0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README.md#1--官方文档---查看主进程的-app-模块上的-activatewindow-all-closed-事件的相关描述)
+  - [2. 💻 demos.1 - 适配 Windows 和 macOS 上的窗口交互行为](https://github.com/Tdahuyou/electron/tree/main/0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README.md#2--demos1---适配-windows-和-macos-上的窗口交互行为)
+  - 适配 Windows 和 macOS 上的窗口交互行为的处理逻辑很简单，重点在于理解两种系统中窗口交互的一些差异点。
   
 
 ### 4.2. 窗口首次加载的白屏问题
