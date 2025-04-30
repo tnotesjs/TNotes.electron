@@ -1,0 +1,19 @@
+/* .vitepress/theme/custom.css */
+:root {
+  --vp-c-brand-1: #646cff;
+  --vp-c-brand-2: #747bff;
+}
+
+/* hide default last updated */
+.last-updated {
+    display: none;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.VPDoc.has-aside .content-container {
+  /* ! 修复 Discussions 两个主题 noborder light、noborder dark 的边框渲染不完整的问题 */
+  padding: 0 2px !important;
+}
