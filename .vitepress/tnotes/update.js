@@ -295,7 +295,8 @@ class ReadmeUpdater {
         (line) =>
           !line.includes(this.tocStartTag) &&
           !line.includes(this.tocEndTag) &&
-          line.trim() !== ''
+          line.trim() !== '' &&
+          line.trim() !== this.EOL
       )
       // console.log('topInfoLines:', topInfoLines);
 
@@ -499,33 +500,31 @@ class ReadmeUpdater {
     const toc = generateToc(titles, this.EOL)
     // console.log('toc =>', toc)
 
-    let bilibiliUrl = ''
+    let bilibiliTOCItems = []
     // let BilibiliOutsidePlayerCompStr = '';
     if (!isHome) {
       const notesConfig = this.notesInfo.configMap[id]
       if (notesConfig && notesConfig.bilibili.length > 0) {
-        bilibiliUrl = notesConfig.bilibili
-          .map(
-            (bvid, i) =>
-              `[bilibili.${this.repoName}.${id}.${i + 1}](${
-                BILIBILI_VIDEO_BASE_URL + bvid
-              })`
-          )
-          .join('、')
-        bilibiliUrl = `- ${bilibiliUrl}`
+        bilibiliTOCItems = notesConfig.bilibili.map(
+          (bvid, i) =>
+            `  - [bilibili.${this.repoName}.${id}.${i + 1}](${
+              BILIBILI_VIDEO_BASE_URL + bvid
+            })`
+        )
         // BilibiliOutsidePlayerCompStr = notesConfig.bilibili.map((bvid, i) => `<BilibiliOutsidePlayer id="${bvid}" />`).join(this.EOL);
       }
     }
-    // console.log('bilibiliUrl =>', bilibiliUrl);
+    // console.log('bilibiliItems =>', bilibiliItems)
 
-    if (bilibiliUrl) {
+    if (bilibiliTOCItems.length > 0) {
       lines.splice(
         startLineIdx + 1,
         endLineIdx - startLineIdx - 1,
         // BilibiliOutsidePlayerCompStr,
-        this.EOL,
-        bilibiliUrl,
-        ...toc.split(this.EOL)
+        '',
+        `- [📺 bilibili 👉 TNotes 合集](https://space.bilibili.com/407241004)`,
+        ...bilibiliTOCItems,
+        ...toc.replace(new RegExp(`^${this.EOL}`), '').split(this.EOL)
       )
     } else {
       lines.splice(
@@ -546,7 +545,7 @@ class ReadmeUpdater {
           return ' '.repeat((level - baseLevel) * 2) + `- [${text}](#${anchor})`
         })
         .join(EOL)
-      // !添加换行符 - 适配 prettier 格式化
+      // !在 TOC 区域 <!-- region:toc --> ... <!-- endregion:toc --> 前后添加换行符 - 适配 prettier 格式化
       return `${EOL}${toc}${EOL}`
     }
 
@@ -734,6 +733,7 @@ class ReadmeUpdater {
     this.getNotesInfo()
     this.homeReadme.contents = fs.readFileSync(this.homeReadme.path, 'utf8')
     this.homeReadme.lines = this.resetHomeTopInfos()
+    // console.log(this.homeReadme.lines)
     this.setHomeTopInfos()
 
     // console.log(this.notes.ids, this.homeReadme.ids);

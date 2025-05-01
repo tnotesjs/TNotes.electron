@@ -22,7 +22,11 @@ import {
 import sidebar from '../sidebar.json'
 import TN_HMR_Plugin from './plugins/hmr'
 
-const IGNORE_LIST = ['./README.md', ...ignore_dirs.map((dir) => `**/${dir}/**`)]
+const IGNORE_LIST = [
+  './README.md',
+  './MERGED_README.md',
+  ...ignore_dirs.map((dir) => `**/${dir}/**`),
+]
 const slugger = new GithubSlugger()
 
 const github_page_url =
