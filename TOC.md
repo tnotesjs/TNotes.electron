@@ -3,10 +3,11 @@
 
 ## 1. 写在前面
 
-- [ ] [0059. electron 笔记简介](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README)
-  - [1. 🔗 electron 笔记仓库 - github](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#1--electron-笔记仓库---github)
-  - [2. 🔗 B 站视频](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#2--b-站视频)
-  - [3. 📒 视频内容及更新说明](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#3--视频内容及更新说明)
+- [x] [0059. electron 笔记简介](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README)
+  - [1. 📝 概述](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#1--概述)
+  - [2. 🔗 electron 笔记仓库 - github](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#2--electron-笔记仓库---github)
+  - [3. 🔗 B 站视频](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#3--b-站视频)
+  - [4. 📒 视频内容及更新说明](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#4--视频内容及更新说明)
 
 ### 1.1. 官方内容
 

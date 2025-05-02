@@ -15,7 +15,6 @@ import {
   ignore_dirs,
   menuItems,
   NEW_NOTES_README_MD_TEMPLATE,
-  NEW_NOTES_TNOTES_JSON_TEMPLATE,
   NOTES_DIR,
   NOTES_TOC_END_TAG,
   NOTES_TOC_START_TAG,
@@ -31,6 +30,7 @@ import {
   sidebar_isCollapsed,
   rootDocsSrcDir,
   ROOT_DIR,
+  getNewNotesTnotesJsonTemplate,
 } from './constants.js'
 import { genHierarchicalSidebar } from './utils/index.js'
 
@@ -149,7 +149,7 @@ class ReadmeUpdater {
         )
         fs.writeFileSync(
           notesConfigPath,
-          NEW_NOTES_TNOTES_JSON_TEMPLATE,
+          getNewNotesTnotesJsonTemplate(),
           'utf8'
         )
         console.log(`${notesDirName} 笔记不存在，已完成初始化。`)
@@ -159,7 +159,7 @@ class ReadmeUpdater {
       if (fs.existsSync(notesConfigPath)) {
         let notesConfig = JSON.parse(fs.readFileSync(notesConfigPath, 'utf8'))
         notesConfig = {
-          ...JSON.parse(NEW_NOTES_TNOTES_JSON_TEMPLATE),
+          ...getNewNotesTnotesJsonTemplate(false),
           ...notesConfig,
         }
         fs.writeFileSync(
@@ -170,7 +170,7 @@ class ReadmeUpdater {
       } else {
         fs.writeFileSync(
           notesConfigPath,
-          JSON.stringify(JSON.parse(NEW_NOTES_TNOTES_JSON_TEMPLATE), null, 2),
+          getNewNotesTnotesJsonTemplate(),
           'utf8'
         )
       }

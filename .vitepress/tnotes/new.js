@@ -7,7 +7,7 @@ import {
   NOTES_DIR,
   ignore_dirs,
   NEW_NOTES_README_MD_TEMPLATE,
-  NEW_NOTES_TNOTES_JSON_TEMPLATE,
+  getNewNotesTnotesJsonTemplate,
   REPO_NOTES_URL,
   ROOT_README_PATH,
 } from './constants.js'
@@ -65,7 +65,7 @@ function newNotes() {
 
   fs.writeFileSync(
     path.join(newNoteDirPath, '.tnotes.json'),
-    NEW_NOTES_TNOTES_JSON_TEMPLATE
+    getNewNotesTnotesJsonTemplate()
   )
 
   // 打印 README.md 的绝对路径，并对路径进行编码以便快速跳转

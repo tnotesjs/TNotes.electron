@@ -18,7 +18,7 @@ import {
   __dirname,
   author,
   NEW_NOTES_README_MD_TEMPLATE,
-  NEW_NOTES_TNOTES_JSON_TEMPLATE,
+  getNewNotesTnotesJsonTemplate,
   repoName,
 } from './constants.js'
 
@@ -44,6 +44,6 @@ for (let id = START_NUM; id <= END_NUM; id++) {
   )
   fs.writeFileSync(
     path.resolve(__dirname, dirName, '.tnotes.json'),
-    NEW_NOTES_TNOTES_JSON_TEMPLATE
+    getNewNotesTnotesJsonTemplate()
   )
 }

@@ -99,9 +99,20 @@ export const NEW_NOTES_README_MD_TEMPLATE = `
 /**
  * 新增笔记 .tnotes.json 模板
  */
-export const NEW_NOTES_TNOTES_JSON_TEMPLATE = `{
-  "bilibili": [],
-  "done": false,
-  "enableDiscussions": false,
-  "id": "${uuidv4()}"
-}`
+const NEW_NOTES_TNOTES_JSON_TEMPLATE = {
+  bilibili: [],
+  done: false,
+  enableDiscussions: false,
+}
+
+export const getNewNotesTnotesJsonTemplate = (needToString = true) => {
+  const temp = {
+    ...NEW_NOTES_TNOTES_JSON_TEMPLATE,
+    id: uuidv4(),
+  }
+  if (needToString) {
+    return JSON.stringify(temp, null, 2)
+  } else {
+    return temp
+  }
+}
