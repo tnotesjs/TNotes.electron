@@ -1,55 +1,45 @@
 # electron
 
 
-## 1. 写在前面
+## 1. TNotes.electron 笔记简介
 
-- [x] [0059. electron 笔记简介](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README)
-  - [1. 📝 概述](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#1--概述)
-  - [2. 🔗 electron 笔记仓库 - github](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#2--electron-笔记仓库---github)
-  - [3. 🔗 B 站视频](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#3--b-站视频)
-  - [4. 📒 视频内容及更新说明](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#4--视频内容及更新说明)
+- [x] [0059. TNotes.electron 笔记简介](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20TNotes.electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README)
+  - [1. 📝 概述](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20TNotes.electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#1--概述)
+  - [2. 🔗 electron 笔记仓库](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20TNotes.electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#2--electron-笔记仓库)
+  - [3. 🔗 B 站视频](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20TNotes.electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#3--b-站视频)
+  - [4. 📒 视频内容及更新说明](https://tdahuyou.github.io/TNotes.electron/notes/0059.%20TNotes.electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B/README#4--视频内容及更新说明)
 
-### 1.1. 官方内容
+## 2. Electron 学习资源
 
-- [ ] [0057. electron 源码仓库](https://tdahuyou.github.io/TNotes.electron/notes/0057.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README)
-  - https://github.com/electron/electron
-  - 这是 Github electron 项目源码仓库链接
-  - ⏰ TODO
-    - 学习 electron 源码
-- [ ] [0058. electron 官方文档](https://tdahuyou.github.io/TNotes.electron/notes/0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README)
-  - https://www.electronjs.org/
-    - 这是 Electron 的官网链接，可以说是除了源码之外最权威的 Electron 内容了。
-    - 官网有中文版，翻译得非常友好。
-    - ![](https://github.com/Tdahuyou/TNotes.electron/blob/main/notes/0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/assets/2024-10-05-19-22-00.png?raw=true)
-  - ⏰ TODO
-    - ⏰ 记录查阅官方文档的经验
-    - ⏰ 官方文档内容概述
-    - ⏰ 官方文档基本结构介绍
-
-### 1.2. 学习资源
-
-- [ ] [0050. 《Electron 实战：入门、进阶与性能优化》](https://tdahuyou.github.io/TNotes.electron/notes/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README)
-  - [1. 📝 备注](https://tdahuyou.github.io/TNotes.electron/notes/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README#1--备注)
-- [ ] [0051. 掘金小册 - 《Electron 应用开发实践指南》](https://tdahuyou.github.io/TNotes.electron/notes/0051.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E3%80%8B/README)
-  - [1. 🔗 个人推广链接](https://tdahuyou.github.io/TNotes.electron/notes/0051.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E3%80%8B/README#1--个人推广链接)
-  - [2. 🔗 rubick](https://tdahuyou.github.io/TNotes.electron/notes/0051.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E3%80%8B/README#2--rubick)
+- [x] [0057. electron 源码仓库](https://tdahuyou.github.io/TNotes.electron/notes/0057.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README)
+  - [1. 📝 概述](https://tdahuyou.github.io/TNotes.electron/notes/0057.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README#1--概述)
+  - [2. 🔗 electron 源码仓库](https://tdahuyou.github.io/TNotes.electron/notes/0057.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README#2--electron-源码仓库)
+  - [3. 🔗 deepwiki - 借助 AI 来阅读项目源码](https://tdahuyou.github.io/TNotes.electron/notes/0057.%20electron%20%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93/README#3--deepwiki---借助-ai-来阅读项目源码)
+- [x] [0058. electron 官方文档](https://tdahuyou.github.io/TNotes.electron/notes/0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README)
+  - [1. 📝 概述](https://tdahuyou.github.io/TNotes.electron/notes/0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README#1--概述)
+  - [2. 🔗 Electron 官方文档链接](https://tdahuyou.github.io/TNotes.electron/notes/0058.%20electron%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README#2--electron-官方文档链接)
+- [x] [0050. 《Electron 实战：入门、进阶与性能优化》](https://tdahuyou.github.io/TNotes.electron/notes/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README)
+  - [1. 📝 概述](https://tdahuyou.github.io/TNotes.electron/notes/0050.%20%E3%80%8AElectron%20%E5%AE%9E%E6%88%98%EF%BC%9A%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E3%80%8B/README#1--概述)
+- [x] [0051. 掘金小册 - 《Electron 应用开发实践指南》](https://tdahuyou.github.io/TNotes.electron/notes/0051.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E3%80%8B/README)
+  - [1. 📝 概述](https://tdahuyou.github.io/TNotes.electron/notes/0051.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E3%80%8B/README#1--概述)
+  - [2. 📒 小册目录](https://tdahuyou.github.io/TNotes.electron/notes/0051.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E3%80%8B/README#2--小册目录)
   - [3. 📒 rubick 简介](https://tdahuyou.github.io/TNotes.electron/notes/0051.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E3%80%8B/README#3--rubick-简介)
-  - 《Electron 应用开发实践指南》 这本小册的作者，是开源项目 [rubick](https://github.com/rubickCenter/rubick) 的作者。
-- [ ] [0053. 掘金小册 - 《Electron + Vue 3 桌面应用开发》](https://tdahuyou.github.io/TNotes.electron/notes/0053.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%2B%20Vue%203%20%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E3%80%8B/README)
-  - [1. 🔗 个人推广链接](https://tdahuyou.github.io/TNotes.electron/notes/0053.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%2B%20Vue%203%20%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E3%80%8B/README#1--个人推广链接)
-  - 《Electron + Vue 3 桌面应用开发》 这本小册的作者就是 electron.0050. 《Electron 实战：入门、进阶与性能优化》 这本书的作者“刘晓伦”。
-- [ ] [0054. 掘金小册 - 《Electron + React 从 0 到 1 实现简历平台实战》](https://tdahuyou.github.io/TNotes.electron/notes/0054.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%2B%20React%20%E4%BB%8E%200%20%E5%88%B0%201%20%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8E%86%E5%B9%B3%E5%8F%B0%E5%AE%9E%E6%88%98%E3%80%8B/README)
-  - [1. 🔗 个人推广链接](https://tdahuyou.github.io/TNotes.electron/notes/0054.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%2B%20React%20%E4%BB%8E%200%20%E5%88%B0%201%20%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8E%86%E5%B9%B3%E5%8F%B0%E5%AE%9E%E6%88%98%E3%80%8B/README#1--个人推广链接)
-  - 《Electron + React 从 0 到 1 实现简历平台实战》 这一本小册还没购买，其它的跟 electron 相关的都已经购买了，并阅读了一部分，也都还没读完，后续学习的时候会顺带着将相关的知识点整理到当前的笔记仓库中。
-- [ ] [0055. WebStudyBooks 免费的前端掘金小册](https://tdahuyou.github.io/TNotes.electron/notes/0055.%20WebStudyBooks%20%E5%85%8D%E8%B4%B9%E7%9A%84%E5%89%8D%E7%AB%AF%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C/README)
-  - [1. 🔗 WebStudyBooks 相关链接](https://tdahuyou.github.io/TNotes.electron/notes/0055.%20WebStudyBooks%20%E5%85%8D%E8%B4%B9%E7%9A%84%E5%89%8D%E7%AB%AF%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C/README#1--webstudybooks-相关链接)
-  - [2. 📒 注意一些可能存在的问题](https://tdahuyou.github.io/TNotes.electron/notes/0055.%20WebStudyBooks%20%E5%85%8D%E8%B4%B9%E7%9A%84%E5%89%8D%E7%AB%AF%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C/README#2--注意一些可能存在的问题)
-  - 介绍了一个 github 仓库 [WebStudyBooks](https://github.com/zhaoxinkun/WebStudyBooks)，这里边存放了一些作者上传的掘金小册的压缩包，可以免费获取。
-  - 介绍了阅读这些内容可能存在的一些问题。
+  - [4. 🔗 References](https://tdahuyou.github.io/TNotes.electron/notes/0051.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E3%80%8B/README#4--references)
+- [x] [0053. 掘金小册 - 《Electron + Vue 3 桌面应用开发》](https://tdahuyou.github.io/TNotes.electron/notes/0053.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%2B%20Vue%203%20%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E3%80%8B/README)
+  - [1. 📝 概述](https://tdahuyou.github.io/TNotes.electron/notes/0053.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%2B%20Vue%203%20%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E3%80%8B/README#1--概述)
+  - [2. 📒 小册目录](https://tdahuyou.github.io/TNotes.electron/notes/0053.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%2B%20Vue%203%20%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E3%80%8B/README#2--小册目录)
+- [x] [0054. 掘金小册 - 《Electron + React 从 0 到 1 实现简历平台实战》](https://tdahuyou.github.io/TNotes.electron/notes/0054.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%2B%20React%20%E4%BB%8E%200%20%E5%88%B0%201%20%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8E%86%E5%B9%B3%E5%8F%B0%E5%AE%9E%E6%88%98%E3%80%8B/README)
+  - [1. 📝 概述](https://tdahuyou.github.io/TNotes.electron/notes/0054.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%2B%20React%20%E4%BB%8E%200%20%E5%88%B0%201%20%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8E%86%E5%B9%B3%E5%8F%B0%E5%AE%9E%E6%88%98%E3%80%8B/README#1--概述)
+  - [2. 📒 小册目录](https://tdahuyou.github.io/TNotes.electron/notes/0054.%20%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C%20-%20%E3%80%8AElectron%20%2B%20React%20%E4%BB%8E%200%20%E5%88%B0%201%20%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8E%86%E5%B9%B3%E5%8F%B0%E5%AE%9E%E6%88%98%E3%80%8B/README#2--小册目录)
+- [x] [0055. WebStudyBooks 免费的前端掘金小册](https://tdahuyou.github.io/TNotes.electron/notes/0055.%20WebStudyBooks%20%E5%85%8D%E8%B4%B9%E7%9A%84%E5%89%8D%E7%AB%AF%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C/README)
+  - [1. 📝 概述](https://tdahuyou.github.io/TNotes.electron/notes/0055.%20WebStudyBooks%20%E5%85%8D%E8%B4%B9%E7%9A%84%E5%89%8D%E7%AB%AF%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C/README#1--概述)
+  - [2. 📂 白嫖小册列表](https://tdahuyou.github.io/TNotes.electron/notes/0055.%20WebStudyBooks%20%E5%85%8D%E8%B4%B9%E7%9A%84%E5%89%8D%E7%AB%AF%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C/README#2--白嫖小册列表)
+  - [3. 🔗 WebStudyBooks 相关链接](https://tdahuyou.github.io/TNotes.electron/notes/0055.%20WebStudyBooks%20%E5%85%8D%E8%B4%B9%E7%9A%84%E5%89%8D%E7%AB%AF%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C/README#3--webstudybooks-相关链接)
+  - [4. 📒 注意一些可能存在的问题](https://tdahuyou.github.io/TNotes.electron/notes/0055.%20WebStudyBooks%20%E5%85%8D%E8%B4%B9%E7%9A%84%E5%89%8D%E7%AB%AF%E6%8E%98%E9%87%91%E5%B0%8F%E5%86%8C/README#4--注意一些可能存在的问题)
 
-## 2. electron 起步
+## 3. electron 起步
 
-### 2.1. electron 都能用来开发什么类型的应用程序？
+### 3.1. electron 都能用来开发什么类型的应用程序？
 
 - [ ] [0052. 通过 Electron Showcase 了解 electron 都能用来开发什么类型的应用程序](https://tdahuyou.github.io/TNotes.electron/notes/0052.%20%E9%80%9A%E8%BF%87%20Electron%20Showcase%20%E4%BA%86%E8%A7%A3%20electron%20%E9%83%BD%E8%83%BD%E7%94%A8%E6%9D%A5%E5%BC%80%E5%8F%91%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/README)
   - [1. 📒 Electron Showcase 简介](https://tdahuyou.github.io/TNotes.electron/notes/0052.%20%E9%80%9A%E8%BF%87%20Electron%20Showcase%20%E4%BA%86%E8%A7%A3%20electron%20%E9%83%BD%E8%83%BD%E7%94%A8%E6%9D%A5%E5%BC%80%E5%8F%91%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/README#1--electron-showcase-简介)
@@ -57,7 +47,7 @@
     - [Electron Showcase](https://www.electronjs.org/apps) 是 Electron 官方提供的一个站点，记录了大量使用 Electron 开发的应用程序。
     - 在正式开始学习 Electron 之前，我们可以通过这个 Electron Showcase 站点，可以快速查阅那些使用 Electron 开发的桌面应用程序。
 
-### 2.2. 了解 electron 的核心概念
+### 3.2. 了解 electron 的核心概念
 
 - [ ] [0001. Electron 应用的最小组成](https://tdahuyou.github.io/TNotes.electron/notes/0001.%20Electron%20%E5%BA%94%E7%94%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%84%E6%88%90/README)
   - [1. 📺 视频](https://tdahuyou.github.io/TNotes.electron/notes/0001.%20Electron%20%E5%BA%94%E7%94%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%84%E6%88%90/README#1--视频)
@@ -96,15 +86,15 @@
   - [12. 💼 面试题：谈谈为什么要使用 `contextBridge`？](https://tdahuyou.github.io/TNotes.electron/notes/0045.%20Electron%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README#12--面试题谈谈为什么要使用-contextbridge)
   - 本节主要介绍 electron 中的部分核心概念 —— 主进程、渲染进程、上下文隔离、上下文桥接、remote 模块、IPC 通信等。
 
-## 3. IPC
+## 4. IPC
 
-### 3.1. 上下文桥接 contextBridge
+### 4.1. 上下文桥接 contextBridge
 
 - [ ] [0002. 使用 contextBridge 暴露 API 给渲染进程](https://tdahuyou.github.io/TNotes.electron/notes/0002.%20%E4%BD%BF%E7%94%A8%20contextBridge%20%E6%9A%B4%E9%9C%B2%20API%20%E7%BB%99%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B/README)
   - [1. 💻 demos.1 - 使用 contextBridge 暴露 API 给渲染进程](https://tdahuyou.github.io/TNotes.electron/notes/0002.%20%E4%BD%BF%E7%94%A8%20contextBridge%20%E6%9A%B4%E9%9C%B2%20API%20%E7%BB%99%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B/README#1--demos1---使用-contextbridge-暴露-api-给渲染进程)
   - 学会在开启 `contextIsolation` 的情况下，使用 `contextBridge` 来给渲染进程暴露 Electron API，使用系统的原生能力。
 
-### 3.2. IPC 基础
+### 4.2. IPC 基础
 
 - [ ] [0046. 认识 IPC 相关模块](https://tdahuyou.github.io/TNotes.electron/notes/0046.%20%E8%AE%A4%E8%AF%86%20IPC%20%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%9D%97/README)
   - [1. 💡 思维导图](https://tdahuyou.github.io/TNotes.electron/notes/0046.%20%E8%AE%A4%E8%AF%86%20IPC%20%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%9D%97/README#1--思维导图)
@@ -137,7 +127,7 @@
   - 本文介绍的这种通信方式，是官方推荐的做法，也是目前比较主流的写法。
   - 渲染进程通过 `ipcRenderer.invoke` 给主进程发送消息，可以通过 `await` 来等待主进程响应，并获取到主进程的处理结果。主进程通过 `ipcMain.handle` 来接受来自渲染进程的消息，通过 `return xxx` 的写法给渲染进程响应处理结果，以此来实现从渲染进程到主进程的双向通信。
 
-### 3.3. IPC 进阶
+### 4.3. IPC 进阶
 
 - [ ] [0047. 分析渲染进程之间的通信](https://tdahuyou.github.io/TNotes.electron/notes/0047.%20%E5%88%86%E6%9E%90%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/README)
   - [1. 📒 错误做法 ❌](https://tdahuyou.github.io/TNotes.electron/notes/0047.%20%E5%88%86%E6%9E%90%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/README#1--错误做法-)
@@ -176,23 +166,23 @@
   - [2. 💻 demos.1 - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle](https://tdahuyou.github.io/TNotes.electron/notes/0003.%20%E6%AF%94%E8%BE%83%E6%B6%88%E6%81%AF%E7%AB%AF%E5%8F%A3%20MessageChannel%20%E5%92%8C%20ipcRenderer.invoke%E3%80%81ipcMain.handle%20%E7%9A%84%E6%80%A7%E8%83%BD/README#2--demos1---messagechannel-vs-ipcrendererinvokeipcmainhandle)
   - 本文通过一个 Electron 应用示例对比了 `MessageChannel` 和 `ipcRenderer.invoke`/`ipcMain.handle` 两种 IPC 通信方式的性能差异。
 
-## 4. 窗口
+## 5. 窗口
 
-### 4.1. 不同系统的窗口行为兼容适配
+### 5.1. 不同系统的窗口行为兼容适配
 
 - [ ] [0016. 适配 Windows 和 macOS 上的窗口交互行为](https://tdahuyou.github.io/TNotes.electron/notes/0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README)
   - [1. 🔍 官方文档 - 查看主进程的 app 模块上的 activate、window-all-closed 事件的相关描述](https://tdahuyou.github.io/TNotes.electron/notes/0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README#1--官方文档---查看主进程的-app-模块上的-activatewindow-all-closed-事件的相关描述)
   - [2. 💻 demos.1 - 适配 Windows 和 macOS 上的窗口交互行为](https://tdahuyou.github.io/TNotes.electron/notes/0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README#2--demos1---适配-windows-和-macos-上的窗口交互行为)
   - 适配 Windows 和 macOS 上的窗口交互行为的处理逻辑很简单，重点在于理解两种系统中窗口交互的一些差异点。
 
-### 4.2. 窗口首次加载的白屏问题
+### 5.2. 窗口首次加载的白屏问题
 
 - [ ] [0015. 等 ready-to-show 事件触发后再显示窗口以解决窗口白屏问题](https://tdahuyou.github.io/TNotes.electron/notes/0015.%20%E7%AD%89%20ready-to-show%20%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E5%90%8E%E5%86%8D%E6%98%BE%E7%A4%BA%E7%AA%97%E5%8F%A3%E4%BB%A5%E8%A7%A3%E5%86%B3%E7%AA%97%E5%8F%A3%E7%99%BD%E5%B1%8F%E9%97%AE%E9%A2%98/README)
   - [1. 🔍 官方文档 - 主进程模块 - BrowserWindow](https://tdahuyou.github.io/TNotes.electron/notes/0015.%20%E7%AD%89%20ready-to-show%20%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E5%90%8E%E5%86%8D%E6%98%BE%E7%A4%BA%E7%AA%97%E5%8F%A3%E4%BB%A5%E8%A7%A3%E5%86%B3%E7%AA%97%E5%8F%A3%E7%99%BD%E5%B1%8F%E9%97%AE%E9%A2%98/README#1--官方文档---主进程模块---browserwindow)
   - [2. 📒 白屏问题常见解决方案](https://tdahuyou.github.io/TNotes.electron/notes/0015.%20%E7%AD%89%20ready-to-show%20%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E5%90%8E%E5%86%8D%E6%98%BE%E7%A4%BA%E7%AA%97%E5%8F%A3%E4%BB%A5%E8%A7%A3%E5%86%B3%E7%AA%97%E5%8F%A3%E7%99%BD%E5%B1%8F%E9%97%AE%E9%A2%98/README#2--白屏问题常见解决方案)
   - [3. 💻 demos.1](https://tdahuyou.github.io/TNotes.electron/notes/0015.%20%E7%AD%89%20ready-to-show%20%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E5%90%8E%E5%86%8D%E6%98%BE%E7%A4%BA%E7%AA%97%E5%8F%A3%E4%BB%A5%E8%A7%A3%E5%86%B3%E7%AA%97%E5%8F%A3%E7%99%BD%E5%B1%8F%E9%97%AE%E9%A2%98/README#3--demos1)
 
-### 4.3. 无边框窗口
+### 5.3. 无边框窗口
 
 - [ ] [0048. 认识无边框窗口](https://tdahuyou.github.io/TNotes.electron/notes/0048.%20%E8%AE%A4%E8%AF%86%E6%97%A0%E8%BE%B9%E6%A1%86%E7%AA%97%E5%8F%A3/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0048.%20%E8%AE%A4%E8%AF%86%E6%97%A0%E8%BE%B9%E6%A1%86%E7%AA%97%E5%8F%A3/README#1--links)
@@ -219,7 +209,7 @@
   - [1. 💻 demo](https://tdahuyou.github.io/TNotes.electron/notes/0020.%20macos%20%E9%9A%90%E8%97%8F%E7%AA%97%E5%8F%A3%E6%A0%87%E9%A2%98%E6%A0%8F%E4%BD%86%E6%98%AF%E4%B8%8D%E9%9A%90%E8%97%8F%E4%BA%A4%E9%80%9A%E7%81%AF/README#1--demo)
   - 只需要调整 BrowserWindow 的配置即可实现在 macos 中隐藏窗口标题栏但是不隐藏交通灯，并且可以微调交通灯的位置。
 
-### 4.4. 窗口层级
+### 5.4. 窗口层级
 
 - [ ] [0017. 窗口置顶](https://tdahuyou.github.io/TNotes.electron/notes/0017.%20%E7%AA%97%E5%8F%A3%E7%BD%AE%E9%A1%B6/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0017.%20%E7%AA%97%E5%8F%A3%E7%BD%AE%E9%A1%B6/README#1--links)
@@ -228,9 +218,9 @@
   - 做法 1：在 new BrowserWindow 的时候，丢一个配置项 `alwaysOnTop: true` 进去，暴力置顶。
   - 做法 2：通过 BrowserWindow 实例 win 的 `setAlwaysOnTop` 方法实现置顶，可以进行更细粒度的控制置顶的层级。
 
-## 5. 菜单
+## 6. 菜单
 
-### 5.1. 不同系统的菜单适配
+### 6.1. 不同系统的菜单适配
 
 - [ ] [0010. macos 应用菜单第一项的问题](https://tdahuyou.github.io/TNotes.electron/notes/0010.%20macos%20%E5%BA%94%E7%94%A8%E8%8F%9C%E5%8D%95%E7%AC%AC%E4%B8%80%E9%A1%B9%E7%9A%84%E9%97%AE%E9%A2%98/README)
   - [1. 📺 视频](https://tdahuyou.github.io/TNotes.electron/notes/0010.%20macos%20%E5%BA%94%E7%94%A8%E8%8F%9C%E5%8D%95%E7%AC%AC%E4%B8%80%E9%A1%B9%E7%9A%84%E9%97%AE%E9%A2%98/README#1--视频)
@@ -253,7 +243,7 @@
   }
   ```
 
-### 5.2. 页面右键菜单
+### 6.2. 页面右键菜单
 
 - [ ] [0012. 使用 Menu 模块实现页面中的右键菜单](https://tdahuyou.github.io/TNotes.electron/notes/0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/README#1--links)
@@ -262,7 +252,7 @@
   - 本节介绍如何如何使用 Menu 模块来创建一个右键菜单。这里提到的右键菜单，又称为上下文菜单，也就是你在一些应用程序的界面上，点击鼠标右键所弹出的内容。
   - ![](https://github.com/Tdahuyou/TNotes.electron/blob/main/notes/0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/assets/2024-10-06-01-24-36.png?raw=true)
 
-### 5.3. Dock 菜单
+### 6.3. Dock 菜单
 
 - [ ] [0009. 设置 macos 的 Dock 菜单](https://tdahuyou.github.io/TNotes.electron/notes/0009.%20%E8%AE%BE%E7%BD%AE%20macos%20%E7%9A%84%20Dock%20%E8%8F%9C%E5%8D%95/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0009.%20%E8%AE%BE%E7%BD%AE%20macos%20%E7%9A%84%20Dock%20%E8%8F%9C%E5%8D%95/README#1--links)
@@ -270,7 +260,7 @@
   - [3. 💻 demo](https://tdahuyou.github.io/TNotes.electron/notes/0009.%20%E8%AE%BE%E7%BD%AE%20macos%20%E7%9A%84%20Dock%20%E8%8F%9C%E5%8D%95/README#3--demo)
   - 如何通过 Menu 模块来创建 macos 上的 Dock 菜单
 
-### 5.4. 自定义菜单
+### 6.4. 自定义菜单
 
 - [ ] [0011. 自定义系统菜单覆盖默认菜单问题](https://tdahuyou.github.io/TNotes.electron/notes/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README#1--links)
@@ -282,7 +272,7 @@
   - 自定义系统菜单和默认菜单的冲突问题是什么
   - 如何解决冲突问题
 
-### 5.5. Tray 菜单
+### 6.5. Tray 菜单
 
 - [ ] [0025. 创建 macos 应用托盘（Tray）](https://tdahuyou.github.io/TNotes.electron/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README#1--links)
@@ -292,9 +282,9 @@
   - [5. 🤔 问：Tray 是 macOS 特有的吗？](https://tdahuyou.github.io/TNotes.electron/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README#5--问tray-是-macos-特有的吗)
   - 如何创建托盘 Tray 菜单
 
-## 6. app
+## 7. app
 
-### 6.1. 路径
+### 7.1. 路径
 
 - [ ] [0024. 通过 app 模块获取应用相关路径](https://tdahuyou.github.io/TNotes.electron/notes/0024.%20%E9%80%9A%E8%BF%87%20app%20%E6%A8%A1%E5%9D%97%E8%8E%B7%E5%8F%96%E5%BA%94%E7%94%A8%E7%9B%B8%E5%85%B3%E8%B7%AF%E5%BE%84/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0024.%20%E9%80%9A%E8%BF%87%20app%20%E6%A8%A1%E5%9D%97%E8%8E%B7%E5%8F%96%E5%BA%94%E7%94%A8%E7%9B%B8%E5%85%B3%E8%B7%AF%E5%BE%84/README#1--links)
@@ -303,9 +293,9 @@
   - `app.getPath(name)` 的基本使用
   - 本文介绍了通过 app 模块中的 app.getPath 方法来获取应用程序的相关路径。其中很多路径在都是很重要的，不要再使用 nodejs 去组装这些路径信息了，现尝试到 app.getPath 中找找看有没有现成的。
 
-## 7. 快捷键
+## 8. 快捷键
 
-### 7.1. 页面级别
+### 8.1. 页面级别
 
 - [ ] [0023. 页面级别的快捷键](https://tdahuyou.github.io/TNotes.electron/notes/0023.%20%E9%A1%B5%E9%9D%A2%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0023.%20%E9%A1%B5%E9%9D%A2%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/README#1--links)
@@ -313,7 +303,7 @@
   - 本节通过一个很简单的 demo，介绍如何实现页面级别的快捷方式。
   - 全局快捷键可以使用 Electron 提供的模块 globalShortcut 来实现，这是一个主进程模块。但是，就文档中要求的页面级别的快捷方式，完全可以使用原生的 Web API `window.onkeydown = function(e) { ... }` 来实现。
 
-### 7.2. 全局级别
+### 8.2. 全局级别
 
 - [ ] [0022. 全局级别的快捷键](https://tdahuyou.github.io/TNotes.electron/notes/0022.%20%E5%85%A8%E5%B1%80%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/README)
   - [1. 🔗 globalShortcut](https://tdahuyou.github.io/TNotes.electron/notes/0022.%20%E5%85%A8%E5%B1%80%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/README#1--globalshortcut)
@@ -324,7 +314,7 @@
   - Q：什么叫“应用程序没有键盘焦点”？
   - A：就是你当前鼠标点击的位置并非该应用，焦点不在这个应用身上。
 
-## 8. 剪切板
+## 9. 剪切板
 
 - [ ] [0021. 使用 clipboard 模块向系统剪切板中读写文本](https://tdahuyou.github.io/TNotes.electron/notes/0021.%20%E4%BD%BF%E7%94%A8%20clipboard%20%E6%A8%A1%E5%9D%97%E5%90%91%E7%B3%BB%E7%BB%9F%E5%89%AA%E5%88%87%E6%9D%BF%E4%B8%AD%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0021.%20%E4%BD%BF%E7%94%A8%20clipboard%20%E6%A8%A1%E5%9D%97%E5%90%91%E7%B3%BB%E7%BB%9F%E5%89%AA%E5%88%87%E6%9D%BF%E4%B8%AD%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC/README#1--links)
@@ -332,7 +322,7 @@
   - 该笔记 clipboard 基本使用
   - clipboard 是一个很常用也狠使用的模块，用于读写系统的剪切板。这篇文档介绍它的基本使用，实现剪切板的读写操作。
 
-## 9. 系统通知
+## 10. 系统通知
 
 - [ ] [0026. 使用 Notification 模块弹出系统消息](https://tdahuyou.github.io/TNotes.electron/notes/0026.%20%E4%BD%BF%E7%94%A8%20Notification%20%E6%A8%A1%E5%9D%97%E5%BC%B9%E5%87%BA%E7%B3%BB%E7%BB%9F%E6%B6%88%E6%81%AF/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0026.%20%E4%BD%BF%E7%94%A8%20Notification%20%E6%A8%A1%E5%9D%97%E5%BC%B9%E5%87%BA%E7%B3%BB%E7%BB%9F%E6%B6%88%E6%81%AF/README#1--links)
@@ -340,7 +330,7 @@
   - 如何使用 Notification 弹出系统通知
   - 这个 demo 使用 electron 的内置模块 Notification 实现了一个简单的 demo，最终效果仅仅是将系统消息给展示出来，没有加其它多余的交互逻辑。
 
-## 10. 桌面视频流
+## 11. 桌面视频流
 
 - [ ] [0029. 实现屏幕监听功能](https://tdahuyou.github.io/TNotes.electron/notes/0029.%20%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E7%9B%91%E5%90%AC%E5%8A%9F%E8%83%BD/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0029.%20%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E7%9B%91%E5%90%AC%E5%8A%9F%E8%83%BD/README#1--links)
@@ -362,7 +352,7 @@
   - desktopCapturer 的基本使用流程
   - desktopCapturer 这是主进程中的一个模块，是一个用于处理桌面视频流（你可以理解为就是你眼睛看到的显示屏上的画面数据）的 API。
 
-## 11. 插件化
+## 12. 插件化
 
 - [ ] [0014. 使用 BrowserView 加载外部资源](https://tdahuyou.github.io/TNotes.electron/notes/0014.%20%E4%BD%BF%E7%94%A8%20BrowserView%20%E5%8A%A0%E8%BD%BD%E5%A4%96%E9%83%A8%E8%B5%84%E6%BA%90/README)
   - [1. 📺 视频](https://tdahuyou.github.io/TNotes.electron/notes/0014.%20%E4%BD%BF%E7%94%A8%20BrowserView%20%E5%8A%A0%E8%BD%BD%E5%A4%96%E9%83%A8%E8%B5%84%E6%BA%90/README#1--视频)
@@ -378,7 +368,7 @@
   - 基于 BrowserView 实现插件化能力
   - 该 demo 模拟了使用 BrowserView 模块来加载第三方资源并注入 preload 脚本，使其具备原生能力。
 
-### 11.1. 集成浏览器插件
+### 12.1. 集成浏览器插件
 
 - 其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。
 - [ ] [0006. 使用 vue-remote-devtools](https://tdahuyou.github.io/TNotes.electron/notes/0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools/README)
@@ -405,9 +395,9 @@
   - 本文基于 electron-devtools-installer 中的下载 chrome 插件的逻辑，封装了一个 downloadChromeExtension.js 模块，在 electron.0007 的基础上，实现自动安装插件的功能。
   - 其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。
 
-## 12. 其它功能
+## 13. 其它功能
 
-### 12.1. webContents startDrag 原生文件拖放
+### 13.1. webContents startDrag 原生文件拖放
 
 - [ ] [0027. 原生文件拖 & 放](https://tdahuyou.github.io/TNotes.electron/notes/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE/README)
   - [1. 📺 视频](https://tdahuyou.github.io/TNotes.electron/notes/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE/README#1--视频)
@@ -418,9 +408,9 @@
   - 如何实现原生文件拖 & 放效果
     - 从视频的 0:50～2:30 开始展示最终的效果，可以从这开始看，快速了解下本节要实现的效果。
 
-## 13. 第三方库
+## 14. 第三方库
 
-### 13.1. electron-reload
+### 14.1. electron-reload
 
 - [ ] [0031. 使用 electron-reload 实现热更](https://tdahuyou.github.io/TNotes.electron/notes/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4/README)
   - [1. 📺 视频](https://tdahuyou.github.io/TNotes.electron/notes/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4/README#1--视频)
@@ -430,7 +420,7 @@
   - 使用 electron-reload 监听主进程和渲染进程内容的变更，一旦内容变化，就自动重启 electron。
   - 额，这功能确实有点儿用，不过感觉也是可有可无，因为手动启动的成本也不算太高。
 
-### 13.2. electron-builder
+### 14.2. electron-builder
 
 - [ ] [0030. 使用 electron-icon-builder、electron-builder 解决应用打包后的图标问题](https://tdahuyou.github.io/TNotes.electron/notes/0030.%20%E4%BD%BF%E7%94%A8%20electron-icon-builder%E3%80%81electron-builder%20%E8%A7%A3%E5%86%B3%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E5%9B%BE%E6%A0%87%E9%97%AE%E9%A2%98/README)
   - [1. 💻 demo](https://tdahuyou.github.io/TNotes.electron/notes/0030.%20%E4%BD%BF%E7%94%A8%20electron-icon-builder%E3%80%81electron-builder%20%E8%A7%A3%E5%86%B3%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E5%9B%BE%E6%A0%87%E9%97%AE%E9%A2%98/README#1--demo)
@@ -438,9 +428,9 @@
   - 使用 electron-icon-builder 处理应用图标
   - 使用 electron-builder 出包
 
-## 14. 小练习
+## 15. 小练习
 
-### 14.1. 桌面时钟
+### 15.1. 桌面时钟
 
 - [ ] [0032. 实现一个桌面时钟](https://tdahuyou.github.io/TNotes.electron/notes/0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F/README#1--links)
@@ -458,14 +448,14 @@
   - 一共没几行代码，直接看 src 下边的源码即可。
   - 在 0032 也练习了一个桌面时钟的应用，0032 是一个桌面时钟摆件，展示效果是以钟表形式来呈现的。
 
-### 14.2. 微信读书助手
+### 15.2. 微信读书助手
 
 - [ ] [0044. weread-helper](https://tdahuyou.github.io/TNotes.electron/notes/0044.%20weread-helper/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0044.%20weread-helper/README#1--links)
   - [2. 📒Quick Start](https://tdahuyou.github.io/TNotes.electron/notes/0044.%20weread-helper/README#2-quick-start)
   - 套壳了微信读书的网页版，并注入了一些自定义脚本。
 
-### 14.3. 自动定时截图工具
+### 15.3. 自动定时截图工具
 
 - [ ] [0033. ScreenCaptureApp](https://tdahuyou.github.io/TNotes.electron/notes/0033.%20ScreenCaptureApp/README)
   - demo - 自动截图程序
