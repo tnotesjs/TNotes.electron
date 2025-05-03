@@ -3,7 +3,7 @@
 <!-- region:toc -->
 
 - [1. 📝 概述](#1--概述)
-- [2. 💻 demos.1 - 使用 ipcRenderer.send、ipcMain.on 实现从渲染进程到主进程的单向 IPC 通信](#2--demos1---使用-ipcrenderersendipcmainon-实现从渲染进程到主进程的单向-ipc-通信)
+- [2. 💻 demos.1 - 使用 `ipcRenderer.send`、`ipcMain.on` 实现从渲染进程到主进程的单向 IPC 通信](#2--demos1---使用-ipcrenderersendipcmainon-实现从渲染进程到主进程的单向-ipc-通信)
 
 <!-- endregion:toc -->
 
