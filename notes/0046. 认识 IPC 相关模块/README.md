@@ -2,23 +2,28 @@
 
 <!-- region:toc -->
 
-- [1. 💡 思维导图](#1--思维导图)
-- [2. 🔍 查看官方提供的 IPC 通信教程](#2--查看官方提供的-ipc-通信教程)
-- [3. 📒 send vs. sendSync](#3--send-vs-sendsync)
-- [4. 📒 send vs. invoke](#4--send-vs-invoke)
-- [5. 🤔 问：使用 send 来实现单向通信能减少开销提高性能？](#5--问使用-send-来实现单向通信能减少开销提高性能)
+- [1. 📝 概述](#1--概述)
+- [2. 💡 思维导图](#2--思维导图)
+- [3. 🔍 查看官方提供的 IPC 通信教程](#3--查看官方提供的-ipc-通信教程)
+- [4. 📒 send vs. sendSync](#4--send-vs-sendsync)
+- [5. 📒 send vs. invoke](#5--send-vs-invoke)
+- [6. 🤔 Q&A](#6--qa)
+  - [6.1. 🤔 问：使用 send 来实现单向通信能减少开销提高性能？](#61--问使用-send-来实现单向通信能减少开销提高性能)
 
 <!-- endregion:toc -->
+
+## 1. 📝 概述
+
 - 把官方教程中提到的 IPC 通信模式刷一遍
 - 认识用于实现 IPC 通信的模块 ipcMain、ipcRenderer
 - send 和 sendSync 之间的一些差异（这俩 API “已过时”）
 - invoke 比 send 好在哪
 
-## 1. 💡 思维导图
+## 2. 💡 思维导图
 
-- ![](assets/2024-10-05-22-33-26.png)
+![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-36-41.png)
 
-## 2. 🔍 查看官方提供的 IPC 通信教程
+## 3. 🔍 查看官方提供的 IPC 通信教程
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/ipc
 - 这是官方提供的 IPC 通信教程，包含以下几个要点：
@@ -29,9 +34,16 @@
     - 模式 3：主进程到渲染器进程
     - 模式 4：渲染器进程到渲染器进程
   - 对象序列化
-- ![](assets/2024-10-05-22-35-18.png)
+- ![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-36-52.png)
 
-## 3. 📒 send vs. sendSync
+## 4. 📒 send vs. sendSync
+
+| 对比项 | ipcRenderer.send | ipcRenderer.sendSync | 说明 |
+| --- | --- | --- | --- |
+| 调用方式 | 异步 | 同步 | `send` 不阻塞渲染进程，`sendSync` 会阻塞 |
+| 返回值 | `undefined` | 主进程处理结果 | `send` 仅发送，`sendSync` 等待返回结果 |
+| 性能影响 | 较小 | 较大 | `send` 更适合高性能需求 |
+| 推荐程度 | 过时 | 过时 | 官方推荐使用 `invoke`（优于 `send` 和 `sendSync`） |
 
 - **写在前面**
   - ipcRenderer.send 和 ipcRenderer.sendSync 这俩 API，可以认为它们已经过时了，重点掌握好 ipcRenderer.invoke 即可。
@@ -65,10 +77,18 @@
   - **🔍 查看官方对 invoke API 的描述**
     - https://www.electronjs.org/docs/latest/tutorial/ipc#note-legacy-approaches
     - 官方建议 - 推荐使用 ipcRenderer.invoke
-    - ![](assets/2024-10-05-22-39-45.png)
+    - ![图 2](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-37-12.png)
     - 简言之就是，**如果我们开发的应用所使用的 Electron 的版本高于 v7，那么推荐使用新版的 API ipcRenderer.invoke 来实现渲染进程到主进程之间的通信。放弃使用传统的 ipcRenderer.send、ipcRenderer.sendSync。**
 
-## 4. 📒 send vs. invoke
+## 5. 📒 send vs. invoke
+
+| 对比项     | ipcRenderer.send       | ipcRenderer.invoke     |
+| ---------- | ---------------------- | ---------------------- |
+| 是否异步   | 是                     | 是                     |
+| 使用复杂度 | 较高（需绑定多个事件） | 较低（单事件完成通信） |
+| 代码可读性 | 较差（逻辑分散）       | 更好（逻辑集中）       |
+| 推荐程度   | 已过时                 | 推荐使用               |
+| 适用场景   | 单向/双向通信          | 单向/双向通信（更优）  |
 
 - **先给出结论**
   - ipcRenderer.invoke 新版 API
@@ -98,14 +118,17 @@
   - 如果仅仅是渲染进程发起请求，不需要管主进程的响应，也就是单向通信，send 和 invoke 又有何区别呢？
   - 答案是 - **几乎没有区别**
 
-## 5. 🤔 问：使用 send 来实现单向通信能减少开销提高性能？
+## 6. 🤔 Q&A
+
+### 6.1. 🤔 问：使用 send 来实现单向通信能减少开销提高性能？
 
 - 这是一位网友提的问题，由于缺乏论据，并且也没在官方文档找到支持这种说法的点，因此暂且认为这种说法是不成立的。
-  - ![](assets/2024-10-05-22-42-58.png)
+  - ![图 3](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-37-32.png)
 - 从官方描述来看，send 之所以被保留，原因也仅仅是为了兼容老版本罢了，而非减少开销提高性能。
-  - ![](assets/2024-10-05-22-46-44.png)
-- 咨询时间：24.06.27
-- 顺带提一嘴 - 不习惯被称呼为老师。
-  - 可以把老师给去掉，直接问问题；
-  - 也可以把老师替换为 up；
-- 看到消息后会尽快去回复。
+  - ![图 4](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-37-44.png)
+- 备注：
+  - 咨询时间：24.06.27
+  - 顺带提一嘴 - 不习惯被称呼为老师。
+    - 可以把老师给去掉，直接问问题；
+    - 也可以把老师替换为 up；
+  - 看到消息后会尽快去回复。
