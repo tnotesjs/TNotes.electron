@@ -16,20 +16,17 @@
 - [6. ✍️ 小练习 - 如何查看主进程加载的入口文件？](#6-️-小练习---如何查看主进程加载的入口文件)
 
 <!-- endregion:toc -->
-- 实现一个 demo - 从 0 到 1 搭建一个 hello world 应用
-  - 知道 Electron 应用的最小组成，要求能够做到快速搭建一个简单的 Electron 学习环境，全程耗时控制在 1min ~ 3min（不算下载依赖耗时）实现一个小 demo，为接下来的 Electron 相关知识点的学习做准备。
-- 本节内容，主要就是仨文件：
-  - package.json 指定入口
-  - index.js 主进程
-  - index.html 渲染进程（非必需）
 
-## 1. 📺 视频
+## 📝 概述
 
 <BilibiliOutsidePlayer id="BV1kBFyeREXv" />
 
-## 2. 🔗 links
-
-- https://nodejs.org/en - 这是 NodeJS 官网，如果你的电脑没有安装 NodeJS 的话，需要到官网安装它。
+- 实现一个 demo - 从 0 到 1 搭建一个 `hello world` 应用
+  - 知道 Electron 应用的最小组成，要求能够做到快速搭建一个简单的 Electron 学习环境，全程耗时控制在 1min ~ 3min（不算下载依赖耗时）实现一个小 demo，为接下来的 Electron 相关知识点的学习做准备。
+- 本节内容，主要就是仨文件：
+  - `package.json` 指定入口
+  - `index.js` 主进程
+  - `index.html` 渲染进程（非必需）
 
 ## 3. 📒 electron 应用的最小组成
 
@@ -44,7 +41,7 @@
 ```js [主进程 - index.js]
 const { app, BrowserWindow } = require('electron')
 
-function createWindow () {
+function createWindow() {
   // 创建浏览器窗口
   const win = new BrowserWindow()
 
@@ -61,13 +58,13 @@ app.whenReady().then(() => {
 ```html [渲染进程 - index.html]
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>initialize-electron-learning-environment</title>
-</head>
-<body>
-  <h1>Hello, World!</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>initialize-electron-learning-environment</title>
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+  </body>
 </html>
 ```
 
@@ -178,7 +175,7 @@ touch index.js
 ```javascript
 const { app, BrowserWindow } = require('electron')
 
-function createWindow () {
+function createWindow() {
   // 创建浏览器窗口
   const win = new BrowserWindow()
 
@@ -209,13 +206,13 @@ touch index.html
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>initialize-electron-learning-environment</title>
-</head>
-<body>
-  <h1>Hello, World!</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>initialize-electron-learning-environment</title>
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+  </body>
 </html>
 ```
 
@@ -227,8 +224,8 @@ touch index.html
 {
   "scripts": {
     "dev": "electron .",
-    "start": "electron .",
-  },
+    "start": "electron ."
+  }
 }
 ```
 
@@ -269,3 +266,12 @@ touch index.html
 
 - 主进程就是 `package.json` 中的 main 字段标识的文件，它是整个程序的入口，也是 Electron 的主进程。
 - 通过 `npm init -y` 生成的默认 `package.json` 文件中的 main 字段的值为 `index.js`。
+
+## 2. 🔗 References
+
+::: details
+
+- https://nodejs.org/en
+  - 这是 NodeJS 官网，如果你的电脑没有安装 NodeJS 的话，需要到官网安装它。
+
+:::
