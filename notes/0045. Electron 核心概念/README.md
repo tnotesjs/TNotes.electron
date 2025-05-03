@@ -41,7 +41,7 @@
 
 ![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-07-49-29.png)
 
-::: details 获取原图 👉 `TNotes.assets`
+::: details 获取原图 👉 `TNotes.yuque`
 
 - 原图记录在 yuque 文档中，有需要的可自行 copy。
 - ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-07-47-35.png)

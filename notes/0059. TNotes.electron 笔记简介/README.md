@@ -5,7 +5,7 @@
 - [1. 📝 概述](#1--概述)
 - [2. 🔗 electron 笔记仓库](#2--electron-笔记仓库)
 - [3. 🔗 B 站视频](#3--b-站视频)
-- [4. 📂 TNotes.assets](#4--tnotesassets)
+- [4. 📂 TNotes.yuque](#4--tnotesyuque)
 - [5. 📒 视频内容及更新说明](#5--视频内容及更新说明)
 
 <!-- endregion:toc -->
@@ -22,6 +22,7 @@
 ## 3. 🔗 B 站视频
 
 - https://space.bilibili.com/407241004
+- 如有需要查阅视频内容，建议二倍速食用……
 
 ::: swiper
 
@@ -31,16 +32,16 @@
 
 :::
 
-## 4. 📂 TNotes.assets
+## 4. 📂 TNotes.yuque
 
-- [TNotes.assets](https://www.yuque.com/tdahuyou/tnotes.assets) 知识库用来存储一些 `TNotes` 中的大型静态资源。
+- [TNotes.yuque](https://www.yuque.com/tdahuyou/tnotes.yuque) 知识库用来存储一些 `TNotes` 中的大型静态资源。
   - 比如：思维导图的源数据以及 pdf 书籍等资源。
   - 思维导图 - Electron 核心概念
     - ![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-07-49-29.png)
   - `《Electron实战：入门、进阶与性能优化》.pdf`
     - ![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-02-19-35-53.png)
 
-::: details 获取原图 👉 `TNotes.assets`
+::: details 获取原图 👉 `TNotes.yuque`
 
 - 原图记录在 yuque 文档中，有需要的可自行 copy。
 - ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-07-47-35.png)

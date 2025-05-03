@@ -2,38 +2,45 @@
 
 <!-- region:toc -->
 
-- [1. 💻 demos.1 - 主进程通过 BrowserWindow 实例的 webContents.send 方法主动给指定的渲染进程发消息](#1--demos1---主进程通过-browserwindow-实例的-webcontentssend-方法主动给指定的渲染进程发消息)
+- [1. 📝 概述](#1--概述)
+- [2. 💻 demos.1 - 主进程通过 BrowserWindow 实例的 `webContents.send` 方法主动给指定的渲染进程发消息](#2--demos1---主进程通过-browserwindow-实例的-webcontentssend-方法主动给指定的渲染进程发消息)
 
 <!-- endregion:toc -->
 
-## 1. 💻 demos.1 - 主进程通过 BrowserWindow 实例的 webContents.send 方法主动给指定的渲染进程发消息
+## 1. 📝 概述
+
+- 主进程 -> 渲染进程
+  - 主进程：`webContents.send`
+  - 渲染进程：`ipcRenderer.on`
+
+## 2. 💻 demos.1 - 主进程通过 BrowserWindow 实例的 `webContents.send` 方法主动给指定的渲染进程发消息
 
 ::: code-group
 
-```js [renderer.js]
+```js [renderer.js] {2}
 const { ipcRenderer } = require('electron')
-ipcRenderer.on('msg-from-main-process', (_, ...args) => { // [!code highlight]
+ipcRenderer.on('msg-from-main-process', (_, ...args) => {
   console.log('renderer-process-received-msg-from-main-process')
   console.log(args)
 })
 ```
 
-```js [index.js]
-const {app, BrowserWindow, ipcMain} = require('electron')
+```js [index.js] {15}
+const { app, BrowserWindow, ipcMain } = require('electron')
 
 let win
 function createWindow() {
   win = new BrowserWindow({
-    webPreferences: { nodeIntegration: true, contextIsolation: false }
+    webPreferences: { nodeIntegration: true, contextIsolation: false },
   })
 
   win.webContents.openDevTools()
 
-  win.loadFile("./index.html")
+  win.loadFile('./index.html')
 }
 
 function handleIPC() {
-  win.webContents.send('msg-from-main-process', 1, 2, 3) // [!code highlight]
+  win.webContents.send('msg-from-main-process', 1, 2, 3)
 }
 
 app.on('ready', () => {
@@ -45,5 +52,5 @@ app.on('ready', () => {
 :::
 
 - **最终效果**
-  - 在主进程中找到需要与之通信的那个渲染进程（可以理解为 BrowserWindow 实例），通过 BrowserWindow 实例的 webContents.send 方法主动给指定的渲染进程发消息。实现从主进程到渲染进程的单向通信。
-  - ![](assets/2024-10-05-20-03-43.png)
+  - 在主进程中找到需要与之通信的那个渲染进程（可以理解为 BrowserWindow 实例），通过 BrowserWindow 实例的 `webContents.send` 方法主动给指定的渲染进程发消息。实现从主进程到渲染进程的单向通信。
+  - ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-11-11-32.png)
