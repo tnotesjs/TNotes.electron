@@ -90,9 +90,12 @@ export const GITHUB_PAGE_NOTES_URL = `https://tdahuyou.github.io/${repoName}/not
 export const NEW_NOTES_README_MD_TEMPLATE = `
 
 <!-- region:toc -->
+
+- [1. 📝 概述](#1--概述)
+
 <!-- endregion:toc -->
 
-## 📒 notes_title
+## 1. 📝 概述
 
 `
 
