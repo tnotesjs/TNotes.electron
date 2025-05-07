@@ -126,7 +126,7 @@ app.on('ready', () => {
 
 - **最终效果**
   - 先点击 send 按钮，然后再点击 sendSync 按钮，最终结果如下。
-  - ![](assets/2024-10-05-20-11-21.png)
+  - ![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-07-19-09-34.png)
 - 主进程日志
 
 ```bash
