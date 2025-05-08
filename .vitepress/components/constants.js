@@ -28,4 +28,12 @@ export const TOC_MD = TOC + '.md'
  * 英语单词仓库基地址
  * https://github.com/Tdahuyou/en-words/blob/main/{word}.md
  */
-export const EN_WORDS_REPO_BASE_URL = 'https://github.com/Tdahuyou/TNotes.en-words/blob/main/'
+export const EN_WORDS_REPO_BASE_URL =
+  'https://github.com/Tdahuyou/TNotes.en-words/blob/main/'
+
+/**
+ * 英语单词仓库 raw 地址
+ * https://raw.githubusercontent.com/Tdahuyou/TNotes.en-words/refs/heads/main/{word}.md
+ */
+export const EN_WORDS_REPO_BASE_RAW_URL =
+  'https://raw.githubusercontent.com/Tdahuyou/TNotes.en-words/refs/heads/main/'
