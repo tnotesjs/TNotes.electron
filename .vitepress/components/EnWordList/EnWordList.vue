@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from 'vue'
-import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
+import { marked } from 'marked'
 import {
   EN_WORDS_REPO_BASE_URL,
   EN_WORDS_REPO_BASE_RAW_URL,
@@ -431,7 +431,7 @@ onUnmounted(() => {
   cursor: pointer;
 }
 
-.__EnWordList__ .toggle-auto-show-card >>> input {
+.__EnWordList__ .toggle-auto-show-card :deep(input) {
   margin: 0 !important;
 }
 
@@ -531,7 +531,7 @@ onUnmounted(() => {
   color: white;
 }
 
-.__EnWordList__ .word-card-content >>> ul {
+.__EnWordList__ .word-card-content :deep(ul) {
   margin: 0.5rem 0;
   padding-left: 1rem;
 }
