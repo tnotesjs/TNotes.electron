@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { marked } from 'marked'
 import {
   EN_WORDS_REPO_BASE_URL,
@@ -30,44 +30,23 @@ const checkAll = () => {
   Object.keys(checkedStates.value).forEach((word) => {
     updateCheckedState(word, true)
   })
+  hideContextMenu()
 }
 
-const resetCheckedStates = () => {
+const reset = () => {
   sortedWords.value.forEach((word) => {
     const key = `${pathname}-${word}`
     localStorage.removeItem(key)
     checkedStates.value[word] = false
   })
-}
-
-const areAllChecked = computed(() => {
-  const allWords = sortedWords.value
-  return (
-    allWords.length > 0 && allWords.every((word) => checkedStates.value[word])
-  )
-})
-
-const isIndeterminate = computed(() => {
-  const allWords = sortedWords.value
-  const checkedCount = allWords.filter(
-    (word) => checkedStates.value[word]
-  ).length
-  return checkedCount > 0 && checkedCount < allWords.length
-})
-
-const toggleAllCheckboxes = () => {
-  if (areAllChecked.value || isIndeterminate.value) {
-    resetCheckedStates()
-  } else {
-    checkAll()
-  }
+  hideContextMenu()
 }
 
 // word card ---------------------------------------------------
 
 const topZIndex = ref(10000)
 
-const isAutoShowCard = ref(false)
+const isAutoShowCard = ref(true)
 
 // 卡片状态
 const showCard = ref(false)
@@ -81,6 +60,9 @@ const pinnedCards = ref([])
 let draggingCard = null
 let offsetX = 0
 let offsetY = 0
+
+const CARD_DEFAULT_WIDTH = 250
+const CARD_DEFAULT_HEIGHT = 350
 
 let resizingCard = null
 let startX = 0
@@ -101,6 +83,7 @@ let hoverTimer = null
  * 显示单词卡片
  */
 const showWordCard = async (e, word) => {
+  cardContent.value = '<em>加载中……</em>'
   return new Promise((resolve) => {
     clearTimeout(hoverTimer)
     hoverTimer = setTimeout(async () => {
@@ -179,6 +162,37 @@ const showWordCard = async (e, word) => {
 //   return stack[0].html.join('')
 // }
 
+const preloadWords = async () => {
+  const wordsToPreload = sortedWords.value
+  if (!wordsToPreload.length) return
+
+  for (let i = 0; i < wordsToPreload.length; i++) {
+    const word = wordsToPreload[i]
+
+    // 如果已经缓存过，跳过
+    if (wordCache.value[word]) continue
+
+    const url = `${EN_WORDS_REPO_BASE_RAW_URL}${encodeURIComponent(word)}.md`
+    try {
+      const res = await fetch(url)
+      if (res.ok) {
+        let text = await res.text()
+        text = marked.parse(text)
+        wordCache.value[word] = text
+        console.log(`✅ 预加载完成: ${word}`)
+      } else {
+        wordCache.value[word] = `<em>无法加载单词内容</em>`
+      }
+    } catch (err) {
+      console.error(`❌ 加载失败: ${word}`, err)
+      wordCache.value[word] = `<em>加载失败</em>`
+    }
+
+    // 可选：加个延迟避免并发请求过多
+    await new Promise((resolve) => setTimeout(resolve, 200))
+  }
+}
+
 const pinCard = (word) => {
   // const key = `${pathname}-${word}`
   // const storedState = localStorage.getItem(key)
@@ -195,8 +209,8 @@ const pinCard = (word) => {
     x: cardX.value,
     y: cardY.value,
     content: cardContent.value,
-    width: 500,
-    height: 400,
+    width: CARD_DEFAULT_WIDTH,
+    height: CARD_DEFAULT_HEIGHT,
     zIndex: topZIndex.value++,
   })
 }
@@ -307,6 +321,73 @@ const hideWordCard = () => {
   showCard.value = false
 }
 
+// pronounce ----------------------------------------------------------
+
+let currentPronounceAllIndex = ref(0)
+let isPronouncingAll = ref(false)
+let pronounceAllInterval = null
+
+const handlePronounceAll = (lang) => {
+  if (isPronouncingAll.value) {
+    // 如果正在播放，就停止
+    stopPronounceAll()
+    return
+  }
+
+  const wordsToSpeak = sortedWords.value
+  if (!wordsToSpeak.length) return
+
+  currentPronounceAllIndex.value = 0
+  isPronouncingAll.value = true
+
+  const speakNext = async () => {
+    if (
+      !isPronouncingAll.value ||
+      currentPronounceAllIndex.value >= wordsToSpeak.length
+    ) {
+      stopPronounceAll()
+      return
+    }
+
+    const word = wordsToSpeak[currentPronounceAllIndex.value]
+    const utterance = new SpeechSynthesisUtterance(word)
+    utterance.lang = lang
+    speechSynthesis.speak(utterance)
+
+    await nextTick()
+    currentPronounceAllIndex.value++
+  }
+
+  speakNext()
+
+  // 每隔 1.5 秒读一个词
+  pronounceAllInterval = setInterval(speakNext, 1500)
+
+  hideContextMenu()
+}
+
+const stopPronounceAll = () => {
+  isPronouncingAll.value = false
+  if (pronounceAllInterval) {
+    clearInterval(pronounceAllInterval)
+    pronounceAllInterval = null
+  }
+  speechSynthesis.cancel() // 停止所有未完成的语音
+}
+
+const handlePronounce = (word, lang = 'en-GB') => {
+  if ('speechSynthesis' in window) {
+    stopPronounceAll()
+
+    const utterance = new SpeechSynthesisUtterance(word)
+    utterance.lang = lang
+    speechSynthesis.speak(utterance)
+    hideContextMenu()
+  } else {
+    alert('您的浏览器不支持语音功能，请尝试使用 Chrome 或 Edge 浏览器。')
+  }
+}
+
 // hooks ----------------------------------------------------------
 
 onMounted(() => {
@@ -315,6 +396,8 @@ onMounted(() => {
     const storedState = localStorage.getItem(key)
     checkedStates.value[word] = storedState === 'true'
   })
+
+  preloadWords()
 })
 
 /**
@@ -329,33 +412,15 @@ onUnmounted(() => {
 
 <template>
   <div class="__EnWordList__">
-    <h3>功能提示：</h3>
-    <ul>
-      <li>单击 toggle-checkbox，将批量切换单词的完成状态。</li>
-      <li>
-        勾选
-        toggle-auto-show-card，将自动展示单词卡片。（适合快速过一遍所有词汇）
-      </li>
-      <li>右键单词 -> 📌 pin 单词卡片。（适合将个别模糊词汇单独拎出来）</li>
-    </ul>
-    <h3>词汇列表：</h3>
-    <div class="btns-box">
-      <div
-        class="toggle-checkbox"
-        title="toggle-checkbox"
-        @click="toggleAllCheckboxes"
-      >
-        <span v-if="isIndeterminate">➖</span>
-        <span v-else-if="areAllChecked">❌</span>
-        <span v-else>✅</span>
-      </div>
-      <div class="toggle-auto-show-card" title="toggle-auto-show-card">
-        <input type="checkbox" v-model="isAutoShowCard" />
-      </div>
-    </div>
-
     <ol>
-      <li v-for="(word, index) in sortedWords" :key="word">
+      <li
+        v-for="(word, index) in sortedWords"
+        :key="word"
+        :class="{
+          pronounced:
+            isPronouncingAll && currentPronounceAllIndex === index + 1,
+        }"
+      >
         <span class="index">{{ index + 1 }}.</span>
         <input
           type="checkbox"
@@ -370,6 +435,7 @@ onUnmounted(() => {
             @mouseenter="(e) => isAutoShowCard && showWordCard(e, word)"
             @mouseleave="handleMouseLeave"
             @contextmenu="(e) => showContextMenu(e, word)"
+            @click.ctrl.exact="(e) => handlePronounce(word)"
           >
             {{ word }}
           </a>
@@ -415,26 +481,22 @@ onUnmounted(() => {
     :show="contextMenuVisible"
     :x="contextMenuX"
     :y="contextMenuY"
+    :isAutoShowCard="isAutoShowCard"
     @pin="handleContextMenuPin"
+    @pronounce="(lang) => handlePronounce(currentWordForContextMenu, lang)"
+    @pronounceAll="(lang) => handlePronounceAll(lang)"
+    @autoShowCard="
+      () => {
+        isAutoShowCard = !isAutoShowCard
+        hideContextMenu()
+      }
+    "
+    @checkAll="checkAll"
+    @reset="reset"
   />
 </template>
 
 <style scoped>
-.__EnWordList__ .btns-box {
-  display: flex;
-  margin: 1rem;
-  gap: 1rem;
-}
-
-.__EnWordList__ .toggle-checkbox,
-.__EnWordList__ .toggle-auto-show-card {
-  cursor: pointer;
-}
-
-.__EnWordList__ .toggle-auto-show-card :deep(input) {
-  margin: 0 !important;
-}
-
 .__EnWordList__ input[type='checkbox'] {
   margin: 8px;
   transform: scale(1.3);
@@ -465,6 +527,13 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   margin-bottom: 8px; /* 调整行间距 */
+}
+
+.__EnWordList__ ol li {
+  transition: all 0.3s ease;
+}
+.__EnWordList__ ol li.pronounced {
+  background-color: rgba(255, 255, 0, 0.1);
 }
 
 .__EnWordList__ .index {
