@@ -12,6 +12,15 @@
     "assets"
   ],
   "rootDocsSrcDir": "../_/docs/src",
+  "home.features.item": {
+    "icon": {
+      "src": "https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/assets/icon--electron.svg"
+    },
+    "title": "Electron 笔记",
+    "completed_notes_count": 19,
+    "details": "优化早期写的一些内容的格式。",
+    "link": "https://tdahuyou.github.io/TNotes.electron/"
+  },
   "port": 9210,
   "menuItems": [
     {

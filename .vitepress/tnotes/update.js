@@ -31,6 +31,7 @@ import {
   rootDocsSrcDir,
   ROOT_DIR,
   getNewNotesTnotesJsonTemplate,
+  ROOT_CONFIG_PATH,
 } from './constants.js'
 import { genHierarchicalSidebar } from './utils/index.js'
 
@@ -50,6 +51,7 @@ class ReadmeUpdater {
     this.tocStartTag = NOTES_TOC_START_TAG
     this.vpTocPath = VP_TOC_PATH
     this.vpSidebarPath = VP_SIDEBAR_PATH
+    this.rootConfigPath = ROOT_CONFIG_PATH
 
     this.author = author
     this.repoName = repoName
@@ -728,6 +730,14 @@ class ReadmeUpdater {
     }
   }
 
+  updateRootConfig() {
+    let configData = fs.readFileSync(this.rootConfigPath, 'utf8')
+    configData = JSON.parse(configData)
+    configData['home.features.item'].completed_notes_count =
+      this.notesInfo.doneIds.size
+    fs.writeFileSync(this.rootConfigPath, JSON.stringify(configData, null, 2))
+  }
+
   updateReadme() {
     this.checkNotesInfo()
     this.getNotesInfo()
@@ -742,6 +752,7 @@ class ReadmeUpdater {
     this.updateHomeToc(this.homeReadme.lines)
     fs.writeFileSync(this.homeReadme.path, this.homeReadme.lines.join(this.EOL))
     this.updateVitepressDocs()
+    this.updateRootConfig()
 
     console.log(`✅ ${this.repoName} \t README.md updated.`)
   }

@@ -37,6 +37,7 @@ export const __dirname = path.dirname(fileURLToPath(import.meta.url))
  * `/Users/huyouda/zm/notes/` 【在此目录下存放其它 TNotes.* 笔记仓库】
  */
 export const TNOTES_BASE_DIR = path.resolve(__dirname, '..', '..', '..')
+export const EN_WORDS_DIR = path.resolve(TNOTES_BASE_DIR, 'TNotes.en-words')
 
 /**
  * TNotes.* 当前的笔记仓库根路径
@@ -45,6 +46,7 @@ export const TNOTES_BASE_DIR = path.resolve(__dirname, '..', '..', '..')
  */
 export const ROOT_DIR = path.resolve(__dirname, '..', '..')
 export const ROOT_README_PATH = path.resolve(ROOT_DIR, 'README.md')
+export const ROOT_CONFIG_PATH = path.resolve(ROOT_DIR, '.tnotes.json')
 export const NOTES_DIR = path.resolve(ROOT_DIR, 'notes')
 export const VP_DIR_PATH = path.resolve(ROOT_DIR, '.vitepress')
 export const GITHUB_DIR_PATH = path.resolve(ROOT_DIR, '.github')

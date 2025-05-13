@@ -1,5 +1,5 @@
 import { runCommand } from './run_command.js'
-import { TNOTES_BASE_DIR, ROOT_DIR } from '../constants.js'
+import { TNOTES_BASE_DIR, ROOT_DIR, EN_WORDS_DIR } from '../constants.js'
 import { getTargetDirs } from './get_target_dirs.js'
 
 /**
@@ -113,7 +113,7 @@ export async function syncRepo(dir = ROOT_DIR) {
  * 在所有 TNotes.* 中执行 npm run tn:push 命令
  */
 export async function pushAllRepos() {
-  const targetDirs = getTargetDirs(TNOTES_BASE_DIR, 'TNotes.')
+  const targetDirs = getTargetDirs(TNOTES_BASE_DIR, 'TNotes.', [EN_WORDS_DIR])
   console.log('开始推送所有仓库...')
   for (const dir of targetDirs) {
     try {
@@ -130,7 +130,7 @@ export async function pushAllRepos() {
  * 在所有 TNotes.* 中执行 npm run tn:pull 命令
  */
 export async function pullAllRepos() {
-  const targetDirs = getTargetDirs(TNOTES_BASE_DIR, 'TNotes.')
+  const targetDirs = getTargetDirs(TNOTES_BASE_DIR, 'TNotes.', [EN_WORDS_DIR])
   console.log('开始拉取所有仓库...')
   for (const dir of targetDirs) {
     try {

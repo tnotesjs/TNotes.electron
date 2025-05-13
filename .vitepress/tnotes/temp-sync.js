@@ -3,11 +3,12 @@ import fs from 'fs'
 import path from 'path'
 import { deleteDirectory, copyFile, getTargetDirs } from './utils/index.js'
 import {
-  TNOTES_BASE_DIR,
-  ROOT_DIR,
-  VP_DIR_PATH,
-  ROOT_PKG_PATH,
+  EN_WORDS_DIR,
   GITHUB_DEPLOYYML_PATH,
+  ROOT_DIR,
+  ROOT_PKG_PATH,
+  TNOTES_BASE_DIR,
+  VP_DIR_PATH,
   VSCODE_SETTINGS_PATH,
 } from './constants.js'
 
@@ -58,7 +59,10 @@ const copyWhitelistedFiles = (source, target) => {
 export async function tempSync() {
   try {
     // 获取基础目录和当前模块所在的目录
-    const targetDirs = getTargetDirs(TNOTES_BASE_DIR, 'TNotes.', [ROOT_DIR])
+    const targetDirs = getTargetDirs(TNOTES_BASE_DIR, 'TNotes.', [
+      ROOT_DIR,
+      EN_WORDS_DIR,
+    ])
 
     if (targetDirs.length === 0) {
       console.log('未找到符合条件的目标目录')
