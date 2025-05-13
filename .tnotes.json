@@ -1,7 +1,9 @@
 {
   "author": "Tdahuyou",
   "repoName": "TNotes.electron",
-  "keywords": ["TNotes.electron"],
+  "keywords": [
+    "TNotes.electron"
+  ],
   "ignore_dirs": [
     ".vscode",
     "0000",
