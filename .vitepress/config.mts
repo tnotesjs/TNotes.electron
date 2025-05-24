@@ -224,7 +224,7 @@ function themeConfig() {
           const titleField = `# ${folderName}\n`
           const html = md.render(titleField + '\n\n' + src, env)
 
-          console.log('html:', html)
+          // console.log('html:', html)
 
           return html
         },
