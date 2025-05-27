@@ -5,7 +5,7 @@ import { deleteDirectory, copyFile, getTargetDirs } from './utils/index.js'
 import {
   EN_WORDS_DIR,
   GITHUB_DEPLOYYML_PATH,
-  ROOT_DIR,
+  ROOT_DIR_PATH,
   ROOT_PKG_PATH,
   TNOTES_BASE_DIR,
   VP_DIR_PATH,
@@ -60,7 +60,7 @@ export async function tempSync() {
   try {
     // 获取基础目录和当前模块所在的目录
     const targetDirs = getTargetDirs(TNOTES_BASE_DIR, 'TNotes.', [
-      ROOT_DIR,
+      ROOT_DIR_PATH,
       EN_WORDS_DIR,
     ])
 

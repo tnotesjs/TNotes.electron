@@ -1,5 +1,5 @@
 import { runCommand } from './run_command.js'
-import { TNOTES_BASE_DIR, ROOT_DIR, EN_WORDS_DIR } from '../constants.js'
+import { TNOTES_BASE_DIR, ROOT_DIR_PATH, EN_WORDS_DIR } from '../constants.js'
 import { getTargetDirs } from './get_target_dirs.js'
 
 /**
@@ -29,7 +29,7 @@ async function ensureGitRepo(dir) {
  * - 它使用 stash 策略来保存未提交的更改，在拉取完成后恢复这些更改。
  * @param {string} dir - 本地仓库目录路径
  */
-export async function pullRepo(dir = ROOT_DIR) {
+export async function pullRepo(dir = ROOT_DIR_PATH) {
   try {
     // 确保是 Git 仓库
     if (!(await ensureGitRepo(dir))) return
@@ -60,7 +60,7 @@ export async function pullRepo(dir = ROOT_DIR) {
  * - 该函数检查是否有未提交的更改，如果有，则提交并推送到远程仓库。
  * @param {string} dir - 本地仓库目录路径
  */
-export async function pushRepo(dir = ROOT_DIR) {
+export async function pushRepo(dir = ROOT_DIR_PATH) {
   try {
     // 确保是 Git 仓库
     if (!(await ensureGitRepo(dir))) return
@@ -100,7 +100,7 @@ export async function pushRepo(dir = ROOT_DIR) {
  * - 该函数调用 pullRepo 和 pushRepo 方法，分别完成拉取和推送操作。
  * @param {string} dir - 本地仓库目录路径
  */
-export async function syncRepo(dir = ROOT_DIR) {
+export async function syncRepo(dir = ROOT_DIR_PATH) {
   try {
     await pullRepo(dir)
     await pushRepo(dir)

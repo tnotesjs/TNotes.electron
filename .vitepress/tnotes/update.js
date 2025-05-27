@@ -5,7 +5,6 @@
 import fs from 'fs'
 import path from 'path'
 
-import GithubSlugger from 'github-slugger' // doc: https://www.npmjs.com/package/github-slugger
 import {
   __dirname,
   author,
@@ -15,7 +14,7 @@ import {
   ignore_dirs,
   menuItems,
   NEW_NOTES_README_MD_TEMPLATE,
-  NOTES_DIR,
+  NOTES_DIR_PATH,
   NOTES_TOC_END_TAG,
   NOTES_TOC_START_TAG,
   REPO_BLOB_URL_1,
@@ -29,20 +28,23 @@ import {
   sidebar_isNotesIDVisible,
   sidebar_isCollapsed,
   rootDocsSrcDir,
-  ROOT_DIR,
+  ROOT_DIR_PATH,
   getNewNotesTnotesJsonTemplate,
   ROOT_CONFIG_PATH,
 } from './constants.js'
-import { genHierarchicalSidebar } from './utils/index.js'
 
-const slugger = new GithubSlugger()
+import {
+  genHierarchicalSidebar,
+  createAddNumberToTitle,
+  generateToc,
+} from './utils/index.js'
 
 class ReadmeUpdater {
   constructor() {
     this.EOL = EOL
     this.githubPageNotesUrl = GITHUB_PAGE_NOTES_URL
     this.newNotesReadmeMdTemplate = NEW_NOTES_README_MD_TEMPLATE
-    this.notesDir = NOTES_DIR
+    this.notesDirPath = NOTES_DIR_PATH
     this.repoBlobUrl1 = REPO_BLOB_URL_1
     this.repoBlobUrl2 = REPO_BLOB_URL_2
     this.repoNotesUrl = REPO_NOTES_URL
@@ -61,7 +63,7 @@ class ReadmeUpdater {
     this.socialLinks = socialLinks
     this.menuItems = menuItems
     this.rootDocsSrcDir = rootDocsSrcDir
-      ? path.resolve(ROOT_DIR, rootDocsSrcDir)
+      ? path.resolve(ROOT_DIR_PATH, rootDocsSrcDir)
       : ''
 
     this.notesInfo = {
@@ -86,7 +88,7 @@ class ReadmeUpdater {
        */
       doneIds: new Set(),
       /**
-       * - 存在于 NOTES_DIR 中的需要处理的笔记目录名称列表。
+       * - 存在于 NOTES_DIR_PATH 中的需要处理的笔记目录名称列表。
        */
       dirNameList: [],
     }
@@ -122,28 +124,108 @@ class ReadmeUpdater {
   }
 
   /**
-   * 检查笔记目录列表，对于缺失必要文件的笔记目录，使用默认模板进行补全。
+   * 初始化笔记目录列表。
+   * - 遍历所有可能的笔记目录，检查是否符合笔记目录的规范，并将其加入到 dirNameList 中。
    */
-  checkNotesInfo() {
-    for (let notesDirName of fs.readdirSync(this.notesDir)) {
-      if (this.ignoreDirs.includes(notesDirName)) continue
-      const dirPath = path.join(this.notesDir, notesDirName)
-      const stats = fs.lstatSync(dirPath)
+  async initNotesDirNameList() {
+    for (const notesDirName of await fs.promises.readdir(this.notesDirPath)) {
+      if (await this.isNotesDir(notesDirName)) {
+        this.notesInfo.dirNameList.push(notesDirName)
+      }
+    }
+  }
 
-      if (!(stats.isDirectory() && notesDirName.match(/^\d{4}/))) continue
+  /**
+   * 判断给定的目录名是否是一个合法的笔记目录。
+   * - 排除 ignoreDirs 中配置的忽略目录。
+   * - 确保是目录而非文件。
+   * - 笔记目录名称必须以 4 位数字开头。
+   * @param {string} notesDirName - 要判断的目录名
+   * @returns {boolean} 是否为一个合法的笔记目录
+   */
+  async isNotesDir(notesDirName) {
+    if (this.ignoreDirs.includes(notesDirName)) return false
+    const stats = await fs.promises.lstat(
+      path.resolve(this.notesDirPath, notesDirName)
+    )
+    return stats.isDirectory() && notesDirName.match(/^\d{4}.\s/)
+  }
 
-      const notesPath = path.resolve(this.notesDir, notesDirName, 'README.md')
-      const notesConfigPath = path.resolve(
-        this.notesDir,
-        notesDirName,
-        '.tnotes.json'
-      )
+  /**
+   * 生成笔记标题行。
+   * - 标题格式为带链接的 Markdown 格式，点击跳转到对应的 GitHub 仓库上的笔记位置。
+   * @param {string} notesDirName - 笔记目录名称
+   * @returns {string} 返回格式化的标题行
+   */
+  genNotesTitleLine(notesDirName) {
+    return `# [${notesDirName}](${this.repoNotesUrl}/${encodeURIComponent(
+      notesDirName
+    )})`
+  }
 
-      const notesTitle = `# [${notesDirName}](${
-        this.repoNotesUrl
-      }/${encodeURIComponent(notesDirName)})`
+  /**
+   * 获取指定笔记目录下的 README.md 文件路径。
+   * @param {string} notesDirName - 笔记目录名称
+   * @returns {string} 返回 README.md 的绝对路径
+   */
+  getNotesReadmePath(notesDirName) {
+    return path.resolve(this.notesDirPath, notesDirName, 'README.md')
+  }
 
-      if (!fs.existsSync(notesPath)) {
+  /**
+   * 获取指定笔记目录下的 .tnotes.json 配置文件路径。
+   * @param {string} notesDirName - 笔记目录名称
+   * @returns {string} 返回 .tnotes.json 的绝对路径
+   */
+  getNotesConfigPath(notesDirName) {
+    return path.resolve(this.notesDirPath, notesDirName, '.tnotes.json')
+  }
+
+  /**
+   * 异步读取指定笔记目录下的 .tnotes.json 配置文件内容。
+   *
+   * @param {string} notesDirName - 笔记目录名称
+   * @returns {Promise<Object>} 返回解析后的配置对象
+   */
+  async getNotesConfig(notesDirName) {
+    return JSON.parse(
+      await fs.promises.readFile(this.getNotesConfigPath(notesDirName), 'utf8')
+    )
+  }
+
+  /**
+   * 异步判断文件或目录是否存在。
+   * @param {string} filePath - 文件或目录路径
+   * @returns {Promise<boolean>} 返回一个 Promise，表示文件是否存在
+   */
+  async isExists(filePath) {
+    try {
+      await fs.promises.access(filePath, fs.constants.F_OK)
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  /**
+   * 检查所有笔记目录中是否包含必要的文件（README.md 和 .tnotes.json）。
+   * - 如果文件缺失，则根据模板生成对应文件。
+   *
+   * 主要功能点：
+   * 1. 检查每个笔记目录是否包含 README.md 文件。
+   * 2. 如果 README.md 不存在，则创建并写入默认模板内容。
+   * 3. 如果 .tnotes.json 配置文件不存在，则创建并写入默认配置。
+   * 4. 如果配置文件已存在，则将其与默认模板进行合并，确保字段完整。
+   *
+   * @returns {Promise<void>} 返回一个 Promise，表示操作完成状态。
+   */
+  async ensureNoteFilesExist() {
+    for (let notesDirName of this.notesInfo.dirNameList) {
+      const notesPath = this.getNotesReadmePath(notesDirName)
+      const notesConfigPath = this.getNotesConfigPath(notesDirName)
+      const notesTitle = this.genNotesTitleLine(notesDirName)
+
+      if (!(await this.isExists(notesPath))) {
         fs.writeFileSync(
           notesPath,
           notesTitle + this.newNotesReadmeMdTemplate,
@@ -158,19 +240,20 @@ class ReadmeUpdater {
         return
       }
 
-      if (fs.existsSync(notesConfigPath)) {
-        let notesConfig = JSON.parse(fs.readFileSync(notesConfigPath, 'utf8'))
+      if (await this.isExists(notesConfigPath)) {
+        const data = await fs.promises.readFile(notesConfigPath, 'utf8')
+        let notesConfig = JSON.parse(data)
         notesConfig = {
           ...getNewNotesTnotesJsonTemplate(false),
           ...notesConfig,
         }
-        fs.writeFileSync(
+        await fs.promises.writeFile(
           notesConfigPath,
           JSON.stringify(notesConfig, null, 2),
           'utf8'
         )
       } else {
-        fs.writeFileSync(
+        await fs.promises.writeFile(
           notesConfigPath,
           getNewNotesTnotesJsonTemplate(),
           'utf8'
@@ -196,51 +279,25 @@ class ReadmeUpdater {
    * 6. 确保笔记头部信息中的链接有效。
    * @returns {Array} 笔记目录列表
    */
-  getNotesInfo() {
-    for (let notesDirName of fs.readdirSync(this.notesDir)) {
-      if (this.ignoreDirs.includes(notesDirName)) continue
-      const dirPath = path.join(this.notesDir, notesDirName)
-      const stats = fs.lstatSync(dirPath)
-
-      // 检查是否是笔记文件夹
-      if (!(stats.isDirectory() && notesDirName.match(/^\d{4}/))) continue
-
-      this.notesInfo.dirNameList.push(notesDirName)
+  async initNotesInfo() {
+    for (let notesDirName of this.notesInfo.dirNameList) {
+      const notesReadmePath = this.getNotesReadmePath(notesDirName)
       const notesID = notesDirName.slice(0, 4)
       this.notesInfo.ids.add(notesID)
 
-      const notesPath = path.resolve(this.notesDir, notesDirName, 'README.md')
-      const notesConfigPath = path.resolve(
-        this.notesDir,
-        notesDirName,
-        '.tnotes.json'
-      )
-
-      const notesTitle = `# [${notesDirName}](${
-        this.repoNotesUrl
-      }/${encodeURIComponent(notesDirName)})`
-
-      // 获取笔记配置
-      const notesConfig = JSON.parse(fs.readFileSync(notesConfigPath, 'utf8'))
+      const notesConfig = await this.getNotesConfig(notesDirName)
       this.notesInfo.configMap[notesID] = notesConfig
-      notesConfig.done && this.notesInfo.doneIds.add(notesID)
+      if (notesConfig.done) {
+        this.notesInfo.doneIds.add(notesID)
+      }
 
       // 读取笔记内容
-      const notesLines = fs.readFileSync(notesPath, 'utf8').split(this.EOL)
+      const notesLines = (
+        await fs.promises.readFile(notesReadmePath, 'utf8')
+      ).split(this.EOL)
 
       // 更新笔记标题
-      notesLines[0] = notesTitle
-
-      // ! Deprecated
-      // 以下逻辑已经合并到 Layout.vue 组件中，如果开启评论功能，会在文档结尾自动注入 Discussions 组件。
-      // 管理笔记评论是否开启
-      // const comp_Discussions = `<Discussions id="${this.repoName}.${notesID}" />`
-      // if (notesConfig.enableDiscussions && !notesLines.includes(comp_Discussions)) {
-      //   notesLines.push(`${this.EOL}${comp_Discussions}`)
-      // } else if (!notesConfig.enableDiscussions && notesLines.includes(comp_Discussions)) {
-      //   const index = notesLines.indexOf(comp_Discussions)
-      //   notesLines.splice(index, 1)
-      // }
+      notesLines[0] = this.genNotesTitleLine(notesDirName)
 
       // 更新笔记目录。
       this.updateNotesToc(notesID, notesLines)
@@ -250,7 +307,11 @@ class ReadmeUpdater {
         notesLines.pop()
       }
 
-      fs.writeFileSync(notesPath, notesLines.join(this.EOL) + this.EOL, 'utf8')
+      await fs.promises.writeFile(
+        notesReadmePath,
+        notesLines.join(this.EOL) + this.EOL,
+        'utf8'
+      )
 
       let firstHeading2Index = -1
       for (let i = 1; i < notesLines.length; i++) {
@@ -449,18 +510,6 @@ class ReadmeUpdater {
   }
 
   updateNotesToc(id = '', lines = []) {
-    this.updateToc({ id, lines, isHome: false })
-  }
-
-  updateHomeToc(lines = []) {
-    this.updateToc({ lines, isHome: true })
-  }
-
-  updateToc({
-    id = '', // 如果是处理非 homeReadme，则需要具体的笔记 id。
-    lines = '', // required
-    isHome = false, // 是否是处理 homeReadme
-  }) {
     let startLineIdx = -1,
       endLineIdx = -1
     lines.forEach((line, idx) => {
@@ -469,60 +518,34 @@ class ReadmeUpdater {
     })
     if (startLineIdx === -1 || endLineIdx === -1) return
 
-    // 收集标题，并更新编号。
-    const titles = isHome ? this.homeReadme.titles : []
+    const titles = []
     const headers = ['## ', '### ', '#### ', '##### ', '###### '] // 2~6 级标题，忽略 1 级标题。
-    isHome && headers.push('# ') // homeReadme 处理标题范围 1~6；非 homeReadme 处理标题范围 2~6。
-    const titleNumbers = Array(7).fill(0) // 用于存储每个级别的编号
-    let notesCount = 0 // 统计每个标题下的直属笔记数量
+    const addNumberToTitle = createAddNumberToTitle()
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i]
       const isHeader = headers.some((header) => line.startsWith(header))
-      const match = line.match(this.homeReadme.noteTitleReg)
       if (isHeader) {
-        if (isHome) {
-          this.homeReadme.titlesNotesCount.push(notesCount)
-          notesCount = 0
-        }
-        const [numberedTitle, plainTitle] = addNumberToTitle(line, titleNumbers)
+        const [numberedTitle] = addNumberToTitle(line)
         titles.push(numberedTitle)
         lines[i] = numberedTitle // 更新原行内容
-        // console.log('lines[i] =>', numberedTitle)
-      } else if (isHome && match) {
-        // const noteID = match[3];
-        notesCount++
       }
     }
-    if (isHome) {
-      this.homeReadme.titlesNotesCount.push(notesCount)
-      notesCount = 0
-      this.homeReadme.titlesNotesCount.splice(0, 1)
-    }
-
-    const toc = generateToc(titles, this.EOL)
-    // console.log('toc =>', toc)
-
+    const toc = generateToc(titles, 2)
     let bilibiliTOCItems = []
-    // let BilibiliOutsidePlayerCompStr = '';
-    if (!isHome) {
-      const notesConfig = this.notesInfo.configMap[id]
-      if (notesConfig && notesConfig.bilibili.length > 0) {
-        bilibiliTOCItems = notesConfig.bilibili.map(
-          (bvid, i) =>
-            `  - [bilibili.${this.repoName}.${id}.${i + 1}](${
-              BILIBILI_VIDEO_BASE_URL + bvid
-            })`
-        )
-        // BilibiliOutsidePlayerCompStr = notesConfig.bilibili.map((bvid, i) => `<BilibiliOutsidePlayer id="${bvid}" />`).join(this.EOL);
-      }
+    const notesConfig = this.notesInfo.configMap[id]
+    if (notesConfig && notesConfig.bilibili.length > 0) {
+      bilibiliTOCItems = notesConfig.bilibili.map(
+        (bvid, i) =>
+          `  - [bilibili.${this.repoName}.${id}.${i + 1}](${
+            BILIBILI_VIDEO_BASE_URL + bvid
+          })`
+      )
     }
-    // console.log('bilibiliItems =>', bilibiliItems)
 
     if (bilibiliTOCItems.length > 0) {
       lines.splice(
         startLineIdx + 1,
         endLineIdx - startLineIdx - 1,
-        // BilibiliOutsidePlayerCompStr,
         '',
         `- [📺 bilibili 👉 TNotes 合集](https://space.bilibili.com/407241004)`,
         ...bilibiliTOCItems,
@@ -535,57 +558,46 @@ class ReadmeUpdater {
         ...toc.split(this.EOL)
       )
     }
+  }
 
-    // 生成 toc
-    function generateToc(titles, EOL) {
-      const toc = titles
-        .map((title) => {
-          const level = title.indexOf(' ')
-          const text = title.slice(level).trim()
-          const anchor = generateAnchor(text)
-          const baseLevel = isHome ? 1 : 2
-          return ' '.repeat((level - baseLevel) * 2) + `- [${text}](#${anchor})`
-        })
-        .join(EOL)
-      // !在 TOC 区域 <!-- region:toc --> ... <!-- endregion:toc --> 前后添加换行符 - 适配 prettier 格式化
-      return `${EOL}${toc}${EOL}`
+  updateHomeToc(lines = []) {
+    let startLineIdx = -1,
+      endLineIdx = -1
+    lines.forEach((line, idx) => {
+      if (line.startsWith(this.tocStartTag)) startLineIdx = idx
+      if (line.startsWith(this.tocEndTag)) endLineIdx = idx
+    })
+    if (startLineIdx === -1 || endLineIdx === -1) return
+
+    const titles = this.homeReadme.titles
+    const headers = ['# ', '## ', '### ', '#### ', '##### ', '###### '] // homeReadme 处理标题范围 1~6；非 homeReadme 处理标题范围 2~6。
+    const addNumberToTitle = createAddNumberToTitle()
+    let notesCount = 0 // 统计每个标题下的直属笔记数量
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i]
+      const isHeader = headers.some((header) => line.startsWith(header))
+      const match = line.match(this.homeReadme.noteTitleReg)
+      if (isHeader) {
+        this.homeReadme.titlesNotesCount.push(notesCount)
+        const [numberedTitle] = addNumberToTitle(line)
+        titles.push(numberedTitle)
+        lines[i] = numberedTitle
+        notesCount = 0
+      } else if (match) {
+        // const noteID = match[3];
+        notesCount++
+      }
     }
 
-    function addNumberToTitle(title, titleNumbers) {
-      // !注意：windows 环境下，读到的 title 结尾会带有一个 /r，在正则匹配的时候，不要记上结尾 $
-      // console.log(title, title.endsWith('\r'));
-      const match = title.match(
-        /^(\#+)\s*((\d+(\.\d*)?(\.\d*)?(\.\d*)?(\.\d*)?(\.\d*)?)\.\s*)?(.*)/
-      )
-      const plainTitle = match ? match[9].trim() : title.trim()
+    this.homeReadme.titlesNotesCount.push(notesCount)
+    this.homeReadme.titlesNotesCount.splice(0, 1) // !for what?
+    const toc = generateToc(titles, 1)
 
-      const level = title.indexOf(' ')
-      const baseLevel = 2 // 基础级别为2
-
-      // 一级标题
-      if (level === 1) return [title, plainTitle]
-
-      // 重置当前级别以上的编号
-      for (let i = level + 1; i < titleNumbers.length; i++) titleNumbers[i] = 0
-
-      // 增加当前级别的编号
-      titleNumbers[level] += 1
-
-      // 生成新的编号
-      const newNumber = titleNumbers.slice(baseLevel, level + 1).join('.')
-
-      // 构建新的标题
-      const headerSymbol = title.slice(0, level).trim() // 获取原有的 # 符号
-      const newTitle = `${headerSymbol} ${newNumber}. ${plainTitle}`
-
-      return [newTitle, plainTitle]
-    }
-
-    // !注意：需要跟和 .vitepress/config.mts 中的 markdown.anchor.slugify 的锚点要保持一致。
-    function generateAnchor(label) {
-      slugger.reset()
-      return slugger.slug(label)
-    }
+    lines.splice(
+      startLineIdx + 1,
+      endLineIdx - startLineIdx - 1,
+      ...toc.split(this.EOL)
+    )
   }
 
   /**
@@ -698,7 +710,7 @@ class ReadmeUpdater {
             fs.mkdirSync(notesDir)
           }
           const sourceREADMEPath = path.resolve(
-            ROOT_DIR,
+            ROOT_DIR_PATH,
             'notes',
             dirName,
             'README.md'
@@ -706,7 +718,7 @@ class ReadmeUpdater {
           const targetREADMEPath = path.resolve(notesDir, 'README.md')
           fs.copyFileSync(sourceREADMEPath, targetREADMEPath)
           const sourceAssetsPath = path.resolve(
-            ROOT_DIR,
+            ROOT_DIR_PATH,
             'notes',
             dirName,
             'assets'
@@ -738,21 +750,42 @@ class ReadmeUpdater {
     fs.writeFileSync(this.rootConfigPath, JSON.stringify(configData, null, 2))
   }
 
-  updateReadme() {
-    this.checkNotesInfo()
-    this.getNotesInfo()
-    this.homeReadme.contents = fs.readFileSync(this.homeReadme.path, 'utf8')
+  async updateReadme() {
+    await this.initNotesDirNameList()
+    await this.ensureNoteFilesExist()
+    await this.initNotesInfo()
+    this.homeReadme.contents = await fs.promises.readFile(
+      this.homeReadme.path,
+      'utf8'
+    )
+
+    // console.time('resetHomeTopInfos')
     this.homeReadme.lines = this.resetHomeTopInfos()
-    // console.log(this.homeReadme.lines)
+    // console.timeEnd('resetHomeTopInfos')
+
+    // console.time('setHomeTopInfos')
     this.setHomeTopInfos()
+    // console.timeEnd('setHomeTopInfos')
 
     // console.log(this.notes.ids, this.homeReadme.ids);
 
+    // console.time('handleUnassignedNotes')
     this.handleUnassignedNotes()
+    // console.timeEnd('handleUnassignedNotes')
+
+    // console.time('updateHomeToc')
     this.updateHomeToc(this.homeReadme.lines)
+    // console.timeEnd('updateHomeToc')
+
     fs.writeFileSync(this.homeReadme.path, this.homeReadme.lines.join(this.EOL))
+
+    // console.time('updateVitepressDocs')
     this.updateVitepressDocs()
+    // console.timeEnd('updateVitepressDocs')
+
+    // console.time('updateRootConfig')
     this.updateRootConfig()
+    // console.timeEnd('updateRootConfig')
 
     console.log(`✅ ${this.repoName} \t README.md updated.`)
   }

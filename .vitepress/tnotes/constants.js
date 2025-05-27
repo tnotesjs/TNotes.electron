@@ -44,29 +44,32 @@ export const EN_WORDS_DIR = path.resolve(TNOTES_BASE_DIR, 'TNotes.en-words')
  * @example
  * `/Users/huyouda/zm/notes/TNotes.template/`
  */
-export const ROOT_DIR = path.resolve(__dirname, '..', '..')
-export const ROOT_README_PATH = path.resolve(ROOT_DIR, 'README.md')
-export const ROOT_CONFIG_PATH = path.resolve(ROOT_DIR, '.tnotes.json')
-export const NOTES_DIR = path.resolve(ROOT_DIR, 'notes')
-export const VP_DIR_PATH = path.resolve(ROOT_DIR, '.vitepress')
-export const GITHUB_DIR_PATH = path.resolve(ROOT_DIR, '.github')
+export const ROOT_DIR_PATH = path.resolve(__dirname, '..', '..')
+export const ROOT_README_PATH = path.resolve(ROOT_DIR_PATH, 'README.md')
+export const ROOT_CONFIG_PATH = path.resolve(ROOT_DIR_PATH, '.tnotes.json')
+export const NOTES_DIR_PATH = path.resolve(ROOT_DIR_PATH, 'notes')
+export const VP_DIR_PATH = path.resolve(ROOT_DIR_PATH, '.vitepress')
+export const GITHUB_DIR_PATH = path.resolve(ROOT_DIR_PATH, '.github')
 export const GITHUB_DEPLOYYML_PATH = path.resolve(
   GITHUB_DIR_PATH,
   'workflows',
   'deploy.yml'
 )
-export const VP_TOC_PATH = path.resolve(ROOT_DIR, 'TOC.md')
-export const VP_SIDEBAR_PATH = path.resolve(ROOT_DIR, 'sidebar.json')
-export const ROOT_PKG_PATH = path.resolve(ROOT_DIR, 'package.json')
+export const VP_TOC_PATH = path.resolve(ROOT_DIR_PATH, 'TOC.md')
+export const VP_SIDEBAR_PATH = path.resolve(ROOT_DIR_PATH, 'sidebar.json')
+export const ROOT_PKG_PATH = path.resolve(ROOT_DIR_PATH, 'package.json')
 export const VSCODE_SETTINGS_PATH = path.resolve(
-  ROOT_DIR,
+  ROOT_DIR_PATH,
   '.vscode',
   'settings.json'
 )
 
 export const EOL = '\n'
 export const MERGED_README_FILENAME = 'MERGED_README.md'
-export const MERGED_README_PATH = path.resolve(ROOT_DIR, MERGED_README_FILENAME)
+export const MERGED_README_PATH = path.resolve(
+  ROOT_DIR_PATH,
+  MERGED_README_FILENAME
+)
 export const SEPERATOR = `<!-- !======> SEPERATOR <====== -->`
 
 export const NOTES_TOC_START_TAG = '<!-- region:toc -->'

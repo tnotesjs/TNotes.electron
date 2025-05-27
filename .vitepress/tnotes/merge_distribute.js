@@ -1,7 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 
-import { EOL, MERGED_README_PATH, SEPERATOR, NOTES_DIR, ignore_dirs } from './constants.js'
+import {
+  EOL,
+  MERGED_README_PATH,
+  SEPERATOR,
+  NOTES_DIR_PATH,
+  ignore_dirs,
+} from './constants.js'
 
 function mergeNotes() {
   /**
@@ -9,14 +15,14 @@ function mergeNotes() {
    * - val 是本地 readme 的相对路径，结尾加上分隔符
    */
   const dirMap = {}
-  const dirNameList = fs.readdirSync(NOTES_DIR)
+  const dirNameList = fs.readdirSync(NOTES_DIR_PATH)
   for (let dirName of dirNameList) {
     if (ignore_dirs.includes(dirName)) continue
-    const filePath = path.join(NOTES_DIR, dirName)
+    const filePath = path.join(NOTES_DIR_PATH, dirName)
     const stats = fs.lstatSync(filePath)
 
     if (stats.isDirectory()) {
-      const key = path.resolve(NOTES_DIR, dirName, 'README.md')
+      const key = path.resolve(NOTES_DIR_PATH, dirName, 'README.md')
       const val = `# [README.md](./notes/${dirName.replaceAll(
         ' ',
         '%20'
@@ -77,7 +83,7 @@ function distributeNotes() {
         return
       }
 
-      const notesPath = path.resolve(NOTES_DIR, linkMatch[1], 'README.md')
+      const notesPath = path.resolve(NOTES_DIR_PATH, linkMatch[1], 'README.md')
 
       // 删除笔记结尾的空行
       while (lines[lines.length - 1].trim() === '') lines.pop()

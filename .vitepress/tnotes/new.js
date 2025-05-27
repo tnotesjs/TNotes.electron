@@ -4,7 +4,7 @@ import path from 'path'
 
 import {
   EOL,
-  NOTES_DIR,
+  NOTES_DIR_PATH,
   ignore_dirs,
   NEW_NOTES_README_MD_TEMPLATE,
   getNewNotesTnotesJsonTemplate,
@@ -16,7 +16,7 @@ import {
  * 新建笔记
  */
 function newNotes() {
-  const dirNameList = fs.readdirSync(NOTES_DIR)
+  const dirNameList = fs.readdirSync(NOTES_DIR_PATH)
   const validDirNames = dirNameList.filter((dirName) => {
     return !ignore_dirs.includes(dirName) && /^\d{4}\./.test(dirName)
   })
@@ -53,7 +53,7 @@ function newNotes() {
 
   // 新笔记初始化
   const newNoteDirName = `${nextNoteId}. xxx`
-  const newNoteDirPath = path.join(NOTES_DIR, newNoteDirName)
+  const newNoteDirPath = path.join(NOTES_DIR_PATH, newNoteDirName)
   fs.mkdirSync(newNoteDirPath)
 
   const notesTitle = `# [${newNoteDirName}](${REPO_NOTES_URL}/${encodeURIComponent(

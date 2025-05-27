@@ -4,7 +4,6 @@ import {
   DefaultTheme,
   MarkdownOptions,
 } from 'vitepress'
-import GithubSlugger from 'github-slugger'
 import markdownItTaskLists from 'markdown-it-task-lists'
 import mila from 'markdown-it-link-attributes'
 import markdownItContainer from 'markdown-it-container'
@@ -22,13 +21,13 @@ import {
 import sidebar from '../sidebar.json'
 import TN_HMR_Plugin from './plugins/hmr'
 
+import { generateAnchor } from './tnotes/utils'
+
 const IGNORE_LIST = [
   './README.md',
   './MERGED_README.md',
   ...ignore_dirs.map((dir) => `**/${dir}/**`),
 ]
-const slugger = new GithubSlugger()
-
 const github_page_url =
   'https://' + author.toLowerCase() + '.github.io/' + repoName + '/'
 
@@ -130,10 +129,7 @@ function markdown() {
       })
     },
     anchor: {
-      slugify: (label: string) => {
-        slugger.reset()
-        return slugger.slug(label)
-      },
+      slugify: generateAnchor,
     },
     image: {
       lazyLoading: true,
