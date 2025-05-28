@@ -9,6 +9,7 @@ import {
   NOTES_TOC_END_TAG,
   BILIBILI_VIDEO_BASE_URL,
   EOL,
+  repoName,
 } from '../tnotes/constants.js'
 import {
   createAddNumberToTitle,
@@ -96,7 +97,7 @@ export default async function TN_HMR_Plugin() {
               if (notesConfig && notesConfig.bilibili.length > 0) {
                 bilibiliTOCItems = notesConfig.bilibili.map(
                   (bvid, i) =>
-                    `  - [bilibili.${this.repoName}.${notesID}.${i + 1}](${
+                    `  - [bilibili.${repoName}.${notesID}.${i + 1}](${
                       BILIBILI_VIDEO_BASE_URL + bvid
                     })`
                 )

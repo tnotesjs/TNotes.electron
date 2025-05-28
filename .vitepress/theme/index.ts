@@ -18,14 +18,18 @@ export default {
   // doc: https://vitepress.dev/zh/guide/extending-default-theme#layout-slots
   // 使用注入插槽的包装组件覆盖 Layout
   Layout,
-  
+
   // doc: https://vitepress.dev/zh/guide/extending-default-theme#registering-global-components
   enhanceApp({ app }) {
     // 注册自定义全局组件
     app.component('BilibiliOutsidePlayer', BilibiliOutsidePlayer)
+    app.component('B', BilibiliOutsidePlayer)
     app.component('Discussions', Discussions)
     app.component('EnWordList', EnWordList)
+    app.component('E', EnWordList)
     app.component('Footprints', Footprints)
+    app.component('F', Footprints)
     app.component('Settings', Settings)
+    app.component('S', Settings)
   },
 } satisfies Theme
