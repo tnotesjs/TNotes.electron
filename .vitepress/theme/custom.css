@@ -6,14 +6,53 @@
 
 /* hide default last updated */
 .last-updated {
-    display: none;
+  display: none;
 }
 
 a {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
+/* !!! 修复 Discussions 两个主题 noborder light、noborder dark 的边框渲染不完整的问题 */
 .VPDoc.has-aside .content-container {
-  /* ! 修复 Discussions 两个主题 noborder light、noborder dark 的边框渲染不完整的问题 */
   padding: 0 2px !important;
+}
+
+/* !!! markdown-it-task-lists css enhancement */
+/* 移除任务列表项前面的点 */
+ul > li.task-list-item {
+  list-style-type: none;
+}
+
+/* 确保任务列表项的内边距和缩进正常 */
+ul > li.task-list-item {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+/* 保持任务列表项的子元素正常缩进 */
+ul > li.task-list-item > ul {
+  padding-left: 3rem;
+}
+
+/* reset checkbox style */
+.task-list-item > input[type='checkbox'] {
+  appearance: none;
+}
+
+.task-list-item > input[type='checkbox']::after {
+  font-size: 1.1rem;
+  content: '⏰';
+}
+
+.task-list-item > input[type='checkbox']:checked {
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1rem;
+  vertical-align: baseline;
+}
+
+.task-list-item > input[type='checkbox']:checked::after {
+  font-size: 1.1rem;
+  content: '✅';
 }

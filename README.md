@@ -2,7 +2,7 @@
 
 <!-- region:toc -->
 
-- [electron](#electron)
+- [TNotes.electron](#tnoteselectron)
   - [1. TNotes.electron 笔记简介](#1-tnoteselectron-笔记简介)
   - [2. Electron 学习资源](#2-electron-学习资源)
   - [3. Electron 应用](#3-electron-应用)
@@ -277,7 +277,7 @@
   ```json
   {
     // ...
-    "productName": "xxx" // 在这里配置你的应用名称
+    "productName": "xxx", // 在这里配置你的应用名称
     // ...
   }
   ```
@@ -303,8 +303,8 @@
 
 - [ ] [0011. 自定义系统菜单覆盖默认菜单问题](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README.md)
   - [1. 🔗 links](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README.md#1--links)
-  - [2. 📒 菜单项冲突问题](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README.md#2-菜单项冲突问题)
-  - [3. 📒 如何解决冲突问题](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README.md#3-如何解决冲突问题)
+  - [2. 📒菜单项冲突问题](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README.md#2-菜单项冲突问题)
+  - [3. 📒如何解决冲突问题](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README.md#3-如何解决冲突问题)
   - [4. 💻 demo1 - 手写调试工具切换的触发逻辑](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README.md#4--demo1---手写调试工具切换的触发逻辑)
   - [5. 💻 demo2 - 使用预设的 role 来快速配置菜单项](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README.md#5--demo2---使用预设的-role-来快速配置菜单项)
   - [6. 🤔 问：role 是什么？](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README.md#6--问role-是什么)
@@ -315,8 +315,8 @@
 
 - [ ] [0025. 创建 macos 应用托盘（Tray）](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README.md)
   - [1. 🔗 links](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README.md#1--links)
-  - [2. 📒 核心模块概述](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README.md#2-核心模块概述)
-  - [3. 📒 托盘图标](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README.md#3-托盘图标)
+  - [2. 📒核心模块概述](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README.md#2-核心模块概述)
+  - [3. 📒托盘图标](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README.md#3-托盘图标)
   - [4. 💻 demo](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README.md#4--demo)
   - [5. 🤔 问：Tray 是 macOS 特有的吗？](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README.md#5--问tray-是-macos-特有的吗)
   - 如何创建托盘 Tray 菜单
@@ -441,11 +441,11 @@
 - [ ] [0027. 原生文件拖 & 放](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE/README.md)
   - [1. 📺 视频](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE/README.md#1--视频)
   - [2. 🔗 links](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE/README.md#2--links)
-  - [3. 📒 本文要实现一个什么样的效果](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE/README.md#3-本文要实现一个什么样的效果)
+  - [3. 📒本文要实现一个什么样的效果](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE/README.md#3-本文要实现一个什么样的效果)
   - [4. 💻 demo](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE/README.md#4--demo)
   - 原生文件拖 & 放是什么
   - 如何实现原生文件拖 & 放效果
-    - 从视频的 0:50 ～ 2:30 开始展示最终的效果，可以从这开始看，快速了解下本节要实现的效果。
+    - 从视频的 0:50～2:30 开始展示最终的效果，可以从这开始看，快速了解下本节要实现的效果。
 
 ## 18. 第三方库
 

@@ -1,4 +1,4 @@
-# electron
+# TNotes.electron
 
 
 ## 1. TNotes.electron 笔记简介
