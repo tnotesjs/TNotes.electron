@@ -604,7 +604,7 @@ class ReadmeUpdater {
    * - 基于 this.homeReadme.lines 生成 vitepress 上的 TOC.md 文件内容。
    */
   updateVitepressDocs() {
-    const updateFile_TOC_MD = () => {
+    const updateFile_TOC_MD = (vpTocPath) => {
       const lines_ = this.homeReadme.lines
       /**
        * 重写路径
@@ -633,14 +633,14 @@ class ReadmeUpdater {
       if (tocStartIdx !== -1 && tocEndIdx !== -1) {
         // 将 tocStartIdx 到 tocEndIdx 之间的内容给删除后再写入。
         fs.writeFileSync(
-          this.vpTocPath,
+          vpTocPath,
           lines
             .slice(0, tocStartIdx)
             .concat(lines.slice(tocEndIdx + 1))
             .join(this.EOL)
         )
       } else {
-        fs.writeFileSync(this.vpTocPath, lines.join(this.EOL))
+        fs.writeFileSync(vpTocPath, lines.join(this.EOL))
       }
     }
 
@@ -684,10 +684,9 @@ class ReadmeUpdater {
       )
     }
 
-    updateFile_TOC_MD()
+    updateFile_TOC_MD(this.vpTocPath)
     updateFile_SIDEBAT_JSON(this.vpSidebarPath, '/notes')
 
-    // 将笔记数据同步到根知识库的指定位置
     if (this.rootDocsSrcDir) {
       if (
         fs.existsSync(this.rootDocsSrcDir) &&
@@ -697,49 +696,65 @@ class ReadmeUpdater {
         if (!fs.existsSync(repoDir) || !fs.statSync(repoDir).isDirectory()) {
           fs.mkdirSync(repoDir)
         }
-        updateFile_SIDEBAT_JSON(
-          path.resolve(repoDir, 'sidebar.json'),
-          `/${this.repoName}`
-        )
-        this.notesInfo.dirNameList.forEach((dirName) => {
-          const notesDir = path.resolve(repoDir, dirName)
-          if (
-            !fs.existsSync(notesDir) ||
-            !fs.statSync(notesDir).isDirectory()
-          ) {
-            fs.mkdirSync(notesDir)
-          }
-          const sourceREADMEPath = path.resolve(
-            ROOT_DIR_PATH,
-            'notes',
-            dirName,
-            'README.md'
-          )
-          const targetREADMEPath = path.resolve(notesDir, 'README.md')
-          fs.copyFileSync(sourceREADMEPath, targetREADMEPath)
-          const sourceAssetsPath = path.resolve(
-            ROOT_DIR_PATH,
-            'notes',
-            dirName,
-            'assets'
-          )
-          if (fs.existsSync(sourceAssetsPath)) {
-            const targetAssetsPath = path.resolve(notesDir, 'assets')
-            fs.cpSync(sourceAssetsPath, targetAssetsPath, { recursive: true })
-          }
-          // const sourceDemosPath = path.resolve(
-          //   ROOT_DIR,
-          //   'notes',
-          //   dirName,
-          //   'demos'
-          // )
-          // if (fs.existsSync(sourceDemosPath)) {
-          //   const targetDemosPath = path.resolve(notesDir, 'demos')
-          //   fs.cpSync(sourceDemosPath, targetDemosPath, { recursive: true })
-          // }
-        })
+        updateFile_TOC_MD(path.resolve(repoDir, 'TOC.md'))
       }
     }
+
+    // !Deprecated 如果直接将所有笔记都汇总到 root，会导致 page rendering 卡死。
+    // 2025 年 5 月 29 日 改为只同步 TOC
+    // 将笔记数据同步到根知识库的指定位置
+    // if (this.rootDocsSrcDir) {
+    //   if (
+    //     fs.existsSync(this.rootDocsSrcDir) &&
+    //     fs.statSync(this.rootDocsSrcDir).isDirectory()
+    //   ) {
+    //     const repoDir = path.resolve(this.rootDocsSrcDir, this.repoName)
+    //     if (!fs.existsSync(repoDir) || !fs.statSync(repoDir).isDirectory()) {
+    //       fs.mkdirSync(repoDir)
+    //     }
+    //     updateFile_SIDEBAT_JSON(
+    //       path.resolve(repoDir, 'sidebar.json'),
+    //       `/${this.repoName}`
+    //     )
+    //     this.notesInfo.dirNameList.forEach((dirName) => {
+    //       const notesDir = path.resolve(repoDir, dirName)
+    //       if (
+    //         !fs.existsSync(notesDir) ||
+    //         !fs.statSync(notesDir).isDirectory()
+    //       ) {
+    //         fs.mkdirSync(notesDir)
+    //       }
+    //       const sourceREADMEPath = path.resolve(
+    //         ROOT_DIR_PATH,
+    //         'notes',
+    //         dirName,
+    //         'README.md'
+    //       )
+    //       const targetREADMEPath = path.resolve(notesDir, 'README.md')
+    //       fs.copyFileSync(sourceREADMEPath, targetREADMEPath)
+    //       const sourceAssetsPath = path.resolve(
+    //         ROOT_DIR_PATH,
+    //         'notes',
+    //         dirName,
+    //         'assets'
+    //       )
+    //       if (fs.existsSync(sourceAssetsPath)) {
+    //         const targetAssetsPath = path.resolve(notesDir, 'assets')
+    //         fs.cpSync(sourceAssetsPath, targetAssetsPath, { recursive: true })
+    //       }
+    //       // const sourceDemosPath = path.resolve(
+    //       //   ROOT_DIR,
+    //       //   'notes',
+    //       //   dirName,
+    //       //   'demos'
+    //       // )
+    //       // if (fs.existsSync(sourceDemosPath)) {
+    //       //   const targetDemosPath = path.resolve(notesDir, 'demos')
+    //       //   fs.cpSync(sourceDemosPath, targetDemosPath, { recursive: true })
+    //       // }
+    //     })
+    //   }
+    // }
   }
 
   updateRootConfig() {
