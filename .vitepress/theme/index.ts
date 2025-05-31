@@ -11,6 +11,7 @@ import EnWordList from '../components/EnWordList/EnWordList.vue'
 import Footprints from '../components/Footprints/Footprints.vue'
 import Layout from '../components/Layout/Layout.vue'
 import Settings from '../components/Settings/Settings.vue'
+import SidebarCard from '../components/SidebarCard/SidebarCard.vue'
 
 export default {
   extends: DefaultTheme,
@@ -30,6 +31,6 @@ export default {
     app.component('Footprints', Footprints)
     app.component('F', Footprints)
     app.component('Settings', Settings)
-    app.component('S', Settings)
+    app.component('SidebarCard', SidebarCard)
   },
 } satisfies Theme
