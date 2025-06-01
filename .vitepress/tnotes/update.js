@@ -10,6 +10,7 @@ import {
   author,
   BILIBILI_VIDEO_BASE_URL,
   EOL,
+  getNewNotesTnotesJsonTemplate,
   GITHUB_PAGE_NOTES_URL,
   ignore_dirs,
   menuItems,
@@ -21,16 +22,16 @@ import {
   REPO_BLOB_URL_2,
   REPO_NOTES_URL,
   repoName,
-  ROOT_README_PATH,
-  socialLinks,
-  VP_TOC_PATH,
-  VP_SIDEBAR_PATH,
-  sidebar_isNotesIDVisible,
-  sidebar_isCollapsed,
-  rootDocsSrcDir,
-  ROOT_DIR_PATH,
-  getNewNotesTnotesJsonTemplate,
   ROOT_CONFIG_PATH,
+  ROOT_DIR_PATH,
+  ROOT_README_PATH,
+  rootDocsSrcDir,
+  sidebar_isCollapsed,
+  sidebar_isNotesIDVisible,
+  socialLinks,
+  TNOTES_YUQUE_BASE_URL,
+  VP_SIDEBAR_PATH,
+  VP_TOC_PATH,
 } from './constants.js'
 
 import {
@@ -532,32 +533,51 @@ class ReadmeUpdater {
     }
     const toc = generateToc(titles, 2)
     let bilibiliTOCItems = []
+    let yuqueTOCItems = []
     const notesConfig = this.notesInfo.configMap[id]
-    if (notesConfig && notesConfig.bilibili.length > 0) {
-      bilibiliTOCItems = notesConfig.bilibili.map(
-        (bvid, i) =>
-          `  - [bilibili.${this.repoName}.${id}.${i + 1}](${
-            BILIBILI_VIDEO_BASE_URL + bvid
-          })`
+    if (notesConfig) {
+      if (notesConfig.bilibili.length > 0) {
+        bilibiliTOCItems = notesConfig.bilibili.map(
+          (bvid, i) =>
+            `  - [bilibili.${this.repoName}.${id}.${i + 1}](${
+              BILIBILI_VIDEO_BASE_URL + bvid
+            })`
+        )
+      }
+      if (notesConfig.yuque.length > 0) {
+        yuqueTOCItems = notesConfig.yuque.map(
+          (slug, i) =>
+            `  - [TNotes.yuque.${this.repoName.replace('TNotes.', '')}.${id}](${
+              TNOTES_YUQUE_BASE_URL + slug
+            })`
+        )
+      }
+    }
+
+    const insertTocItems = []
+
+    if (bilibiliTOCItems.length > 0) {
+      insertTocItems.push(
+        `- [📺 bilibili 👉 TNotes 合集](https://space.bilibili.com/407241004)`,
+        ...bilibiliTOCItems
       )
     }
 
-    if (bilibiliTOCItems.length > 0) {
-      lines.splice(
-        startLineIdx + 1,
-        endLineIdx - startLineIdx - 1,
-        '',
-        `- [📺 bilibili 👉 TNotes 合集](https://space.bilibili.com/407241004)`,
-        ...bilibiliTOCItems,
-        ...toc.replace(new RegExp(`^${this.EOL}`), '').split(this.EOL)
-      )
-    } else {
-      lines.splice(
-        startLineIdx + 1,
-        endLineIdx - startLineIdx - 1,
-        ...toc.split(this.EOL)
+    if (yuqueTOCItems.length > 0) {
+      insertTocItems.push(
+        `- [📂 TNotes.yuque](${TNOTES_YUQUE_BASE_URL})`,
+        ...yuqueTOCItems
       )
     }
+
+    lines.splice(
+      startLineIdx + 1,
+      endLineIdx - startLineIdx - 1,
+      '',
+      ...insertTocItems,
+      ...toc.replace(new RegExp(`^${this.EOL}`), '').split(this.EOL)
+    )
+    // console.log(lines)
   }
 
   updateHomeToc(lines = []) {

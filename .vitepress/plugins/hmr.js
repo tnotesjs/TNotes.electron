@@ -8,6 +8,7 @@ import {
   NOTES_TOC_START_TAG,
   NOTES_TOC_END_TAG,
   BILIBILI_VIDEO_BASE_URL,
+  TNOTES_YUQUE_BASE_URL,
   EOL,
   repoName,
 } from '../tnotes/constants.js'
@@ -88,37 +89,56 @@ export default async function TN_HMR_Plugin() {
               }
               const toc = generateToc(titles, 2)
               let bilibiliTOCItems = []
+              let yuqueTOCItems = []
               const configPath = path.resolve(
                 path.dirname(filePath),
                 '.tnotes.json'
               )
               let notesConfig = await fs.promises.readFile(configPath, 'utf8')
               notesConfig = JSON.parse(notesConfig)
-              if (notesConfig && notesConfig.bilibili.length > 0) {
-                bilibiliTOCItems = notesConfig.bilibili.map(
-                  (bvid, i) =>
-                    `  - [bilibili.${repoName}.${notesID}.${i + 1}](${
-                      BILIBILI_VIDEO_BASE_URL + bvid
-                    })`
+              if (notesConfig) {
+                if (notesConfig.bilibili.length > 0) {
+                  bilibiliTOCItems = notesConfig.bilibili.map(
+                    (bvid, i) =>
+                      `  - [bilibili.${repoName}.${notesID}.${i + 1}](${
+                        BILIBILI_VIDEO_BASE_URL + bvid
+                      })`
+                  )
+                }
+                if (notesConfig.yuque.length > 0) {
+                  yuqueTOCItems = notesConfig.yuque.map(
+                    (slug, i) =>
+                      `  - [TNotes.yuque.${repoName.replace(
+                        'TNotes.',
+                        ''
+                      )}.${notesID}](${TNOTES_YUQUE_BASE_URL + slug})`
+                  )
+                }
+              }
+
+              const insertTocItems = []
+
+              if (bilibiliTOCItems.length > 0) {
+                insertTocItems.push(
+                  `- [📺 bilibili 👉 TNotes 合集](https://space.bilibili.com/407241004)`,
+                  ...bilibiliTOCItems
                 )
               }
 
-              if (bilibiliTOCItems.length > 0) {
-                lines.splice(
-                  startLineIdx + 1,
-                  endLineIdx - startLineIdx - 1,
-                  '',
-                  `- [📺 bilibili 👉 TNotes 合集](https://space.bilibili.com/407241004)`,
-                  ...bilibiliTOCItems,
-                  ...toc.replace(new RegExp(`^${EOL}`), '').split(EOL)
-                )
-              } else {
-                lines.splice(
-                  startLineIdx + 1,
-                  endLineIdx - startLineIdx - 1,
-                  ...toc.split(EOL)
+              if (yuqueTOCItems.length > 0) {
+                insertTocItems.push(
+                  `- [📂 TNotes.yuque](${TNOTES_YUQUE_BASE_URL})`,
+                  ...yuqueTOCItems
                 )
               }
+
+              lines.splice(
+                startLineIdx + 1,
+                endLineIdx - startLineIdx - 1,
+                '',
+                ...insertTocItems,
+                ...toc.replace(new RegExp(`^${EOL}`), '').split(EOL)
+              )
             }
 
             // 写入前标记

@@ -28,6 +28,8 @@ export {
 }
 
 export const BILIBILI_VIDEO_BASE_URL = 'https://www.bilibili.com/video/'
+export const TNOTES_YUQUE_BASE_URL =
+  'https://www.yuque.com/tdahuyou/tnotes.yuque/'
 
 export const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -109,6 +111,7 @@ export const NEW_NOTES_README_MD_TEMPLATE = `
  */
 const NEW_NOTES_TNOTES_JSON_TEMPLATE = {
   bilibili: [],
+  yuque: [],
   done: false,
   enableDiscussions: false,
 }
