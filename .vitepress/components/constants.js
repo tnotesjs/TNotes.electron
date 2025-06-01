@@ -18,12 +18,6 @@ export const IGNORE_DIRS = ignore_dirs
 export const NOTES_DIR_KEY = 'NOTES_DIR_KEY__' + repoName
 
 /**
- * 首页 sidebar 卡片是否显示文章的最后更新时间
- */
-export const HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY =
-  'HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY__' + repoName
-
-/**
  * 首页 sidebar 卡片是否显示分组信息
  */
 export const HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY =

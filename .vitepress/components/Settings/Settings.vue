@@ -19,30 +19,11 @@
   <hr />
   <div class="container">
     <p class="label">
-      <label for="path"
-        >⚙️ {{ HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY }}:</label
-      >
+      <label for="path">⚙️ {{ HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY }}:</label>
     </p>
     <p class="input-container">
       <label>
-        <input type="checkbox" v-model="showLastUpdated" />
-        显示更新时间
-      </label>
-    </p>
-    <ul class="instructions">
-      <li>配置是否显示首页首页文章卡片对应文章的最近更新时间</li>
-      <li>默认隐藏</li>
-    </ul>
-  </div>
-  <div class="container">
-    <p class="label">
-      <label for="path"
-        >⚙️ {{ HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY }}:</label
-      >
-    </p>
-    <p class="input-container">
-      <label>
-        <input type="checkbox" v-model="showLastUpdated" />
+        <input type="checkbox" v-model="showCategory" />
         显示分组信息
       </label>
     </p>
@@ -60,28 +41,20 @@
 import { ref } from 'vue'
 import {
   NOTES_DIR_KEY,
-  HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY,
   HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY,
 } from '../constants.js'
 
 const path = ref('')
-const showLastUpdated = ref(false)
 const showCategory = ref(false)
 
 if (typeof window !== 'undefined') {
   path.value = localStorage.getItem(NOTES_DIR_KEY)
-  showLastUpdated.value =
-    localStorage.getItem(HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY) === 'true'
   showCategory.value =
     localStorage.getItem(HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY) === 'true'
 }
 
 const save = () => {
   localStorage.setItem(NOTES_DIR_KEY, path.value)
-  localStorage.setItem(
-    HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY,
-    showLastUpdated.value
-  )
   localStorage.setItem(HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY, showCategory.value)
   alert(`配置已保存`)
 }

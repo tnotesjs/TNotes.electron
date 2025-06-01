@@ -2,25 +2,14 @@
 import { useData } from 'vitepress'
 import { formatDate } from '../utils.js'
 import { ref } from 'vue'
-import {
-  HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY,
-  HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY,
-} from '../constants.js'
+import { HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY } from '../constants.js'
 
 const { theme, site } = useData()
 
 // read config ------------------------------------------------------------
-const showLastUpdated = ref(
-  localStorage.getItem(HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY) === 'true'
-)
 const showCategory = ref(
   localStorage.getItem(HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY) === 'true'
 )
-
-// console.log('useData()', useData())
-// console.log(window._tnotes_lastupdatedMap)
-
-const lastUpdatedMap = window._tnotes_lastupdatedMap || {}
 const baseUrl = site.value.base.replace(/\/$/, '')
 
 // 定义组件属性
@@ -87,7 +76,7 @@ function extractArticlesWithGroups(
             realNumber,
             link: fullLink,
             group: group || '未分类',
-            lastUpdated: formatDate(lastUpdatedMap[item.link]),
+            // lastUpdated: formatDate(lastUpdatedMap[item.link]),
             status,
             firstLevelCategory, // 添加 firstLevelCategory 字段
           }
@@ -122,8 +111,7 @@ function extractTitleFromText(text) {
   if (!text) return ''
 
   // 去除开头的编号格式（如 "0016. " 或 "0016 "）
-  const match = text.match(/^\d{4}\.?\s*(.*)/)
-  return match ? match[2] : text
+  return text.replace(/^\d{4}\.?\s/, '')
 }
 
 const { articles, groups } = extractArticlesWithGroups(
@@ -206,11 +194,11 @@ function toggleGroup(groupName) {
             </div>
           </div>
 
-          <div class="card-footer" v-if="showLastUpdated">
+          <!-- <div class="card-footer" v-if="showLastUpdated">
             <div class="card-footer-text">
               {{ article.lastUpdated }}
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
