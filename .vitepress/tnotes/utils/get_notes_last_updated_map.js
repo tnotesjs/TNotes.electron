@@ -3,14 +3,14 @@ import { resolve } from 'node:path'
 import { ROOT_DIR_PATH } from '../constants.js'
 import { execSync } from 'node:child_process'
 
-const getMarkdownFiles = (dir, files = []) => {
+const getMarkdownFiles = (dir) => {
   const items = fs.readdirSync(dir)
 
+  const files = []
+
   for (const item of items) {
-    const path = resolve(dir, item)
-    if (fs.statSync(path).isDirectory()) {
-      getMarkdownFiles(path, files)
-    } else if (item.endsWith('README.md')) {
+    if (item.match(/^\d{4}.\s/)) {
+      const path = resolve(dir, item, 'README.md')
       files.push(path)
     }
   }

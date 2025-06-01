@@ -24,6 +24,12 @@ export const HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY =
   'HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY__' + repoName
 
 /**
+ * 首页 sidebar 卡片是否显示分组信息
+ */
+export const HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY =
+  'HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY__' + repoName
+
+/**
  * VitePress HOME README 文件名
  * 该文件内容基于 HOME README 而生成，作为 github pages 中的 README 文件，主要用于展示笔记的目录结构。
  */

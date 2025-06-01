@@ -2,9 +2,20 @@
 import { useData } from 'vitepress'
 import { formatDate } from '../utils.js'
 import { ref } from 'vue'
-import { HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY } from '../constants.js'
+import {
+  HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY,
+  HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY,
+} from '../constants.js'
 
 const { theme, site } = useData()
+
+// read config ------------------------------------------------------------
+const showLastUpdated = ref(
+  localStorage.getItem(HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY) === 'true'
+)
+const showCategory = ref(
+  localStorage.getItem(HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY) === 'true'
+)
 
 // console.log('useData()', useData())
 // console.log(window._tnotes_lastupdatedMap)
@@ -27,10 +38,6 @@ const props = defineProps({
     default: false,
   },
 })
-
-const showLastUpdated = ref(
-  localStorage.getItem(HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY) === 'true'
-)
 
 function extractArticlesWithGroups(
   sidebar,
@@ -182,6 +189,7 @@ function toggleGroup(groupName) {
             </div>
             <div class="card-index">
               {{ gIndex + 1 + '.' + (aIndex + 1) }}
+              <!-- {{ aIndex + 1 }} -->
             </div>
           </div>
 
@@ -191,7 +199,7 @@ function toggleGroup(groupName) {
                 {{ article.text }}
               </a>
             </h3>
-            <div class="card-group">
+            <div class="card-group" v-if="showCategory">
               <div class="card-group-display">
                 {{ article.group }}
               </div>

@@ -34,6 +34,23 @@
       <li>默认隐藏</li>
     </ul>
   </div>
+  <div class="container">
+    <p class="label">
+      <label for="path"
+        >⚙️ {{ HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY }}:</label
+      >
+    </p>
+    <p class="input-container">
+      <label>
+        <input type="checkbox" v-model="showLastUpdated" />
+        显示分组信息
+      </label>
+    </p>
+    <ul class="instructions">
+      <li>配置是否显示首页文章卡片的分组信息</li>
+      <li>默认隐藏</li>
+    </ul>
+  </div>
   <div class="button-container">
     <button @click="save" class="button">save</button>
   </div>
@@ -44,15 +61,19 @@ import { ref } from 'vue'
 import {
   NOTES_DIR_KEY,
   HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY,
+  HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY,
 } from '../constants.js'
 
 const path = ref('')
 const showLastUpdated = ref(false)
+const showCategory = ref(false)
 
 if (typeof window !== 'undefined') {
   path.value = localStorage.getItem(NOTES_DIR_KEY)
   showLastUpdated.value =
     localStorage.getItem(HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY) === 'true'
+  showCategory.value =
+    localStorage.getItem(HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY) === 'true'
 }
 
 const save = () => {
@@ -61,6 +82,7 @@ const save = () => {
     HOME_SIDEBAR_CARD_SHOW_LAST_UPDATED_KEY,
     showLastUpdated.value
   )
+  localStorage.setItem(HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY, showCategory.value)
   alert(`配置已保存`)
 }
 </script>
