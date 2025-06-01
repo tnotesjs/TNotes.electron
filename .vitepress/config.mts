@@ -20,8 +20,9 @@ import {
 
 import sidebar from '../sidebar.json'
 import TN_HMR_Plugin from './plugins/hmr'
+import TN_INJECT_LAST_UPDATED_MAP_PLUGIN from './plugins/last_updated_map'
 
-import { generateAnchor } from './tnotes/utils'
+import { generateAnchor, getNotesLastUpdatedMap } from './tnotes/utils'
 
 const IGNORE_LIST = [
   './README.md',
@@ -59,7 +60,7 @@ const vpConfig = defineConfig({
         ignored: IGNORE_LIST,
       },
     },
-    plugins: [TN_HMR_Plugin()],
+    plugins: [TN_HMR_Plugin(), TN_INJECT_LAST_UPDATED_MAP_PLUGIN()],
   },
 })
 
@@ -229,6 +230,8 @@ function themeConfig() {
     sidebar: [...sidebar],
     socialLinks,
   }
+
+  ;(themeConfig as any)._tnotes_lastupdatedMap = getNotesLastUpdatedMap()
 
   return themeConfig
 }

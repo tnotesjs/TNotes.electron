@@ -3,7 +3,7 @@
 
 // .vitepress/theme/index.ts
 import DefaultTheme from 'vitepress/theme'
-import type { Theme } from 'vitepress'
+import type { Theme, defineClientComponent } from 'vitepress'
 import './custom.css'
 import BilibiliOutsidePlayer from '../components/BilibiliOutsidePlayer/BilibiliOutsidePlayer.vue'
 import Discussions from '../components/Discussions/Discussions.vue'
