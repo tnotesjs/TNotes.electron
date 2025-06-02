@@ -27,7 +27,7 @@ import { tempSync } from './temp-sync.js'
       case args.dev:
         const port_ = port || 5173
         await runCommand_spawn(
-          `vitepress dev --host --port ${port_}`,
+          `vitepress dev --host --port ${port_} --open`,
           ROOT_DIR_PATH
         )
         commandExecuted = true
