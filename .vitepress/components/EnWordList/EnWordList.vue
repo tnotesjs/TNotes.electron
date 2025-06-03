@@ -53,11 +53,7 @@ const reset = () => {
 
 const topZIndex = ref(10000)
 
-const isAutoShowCard = ref(
-  ['true', null].includes(
-    localStorage.getItem(EN_WORD_LIST_COMP_IS_AUTO_SHOW_CARD)
-  )
-)
+const isAutoShowCard = ref(false)
 
 // 卡片状态
 const showCard = ref(false)
@@ -72,8 +68,8 @@ let draggingCard = null
 let offsetX = 0
 let offsetY = 0
 
-const CARD_DEFAULT_WIDTH = 250
-const CARD_DEFAULT_HEIGHT = 350
+const CARD_DEFAULT_WIDTH = 400
+const CARD_DEFAULT_HEIGHT = 500
 
 let resizingCard = null
 let startX = 0
@@ -272,6 +268,8 @@ const showContextMenu = (e, word) => {
 const hideContextMenu = () => {
   contextMenuVisible.value = false
 }
+
+document.body.addEventListener('click', hideContextMenu)
 
 const handleContextMenuPin = () => {
   if (currentWordForContextMenu) {

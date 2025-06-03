@@ -17,9 +17,9 @@
     <div class="menu-item" @click="(e) => handlePronounceAll(e, 'en-US')">
       📢 Pronounce All（美）
     </div>
-    <!-- <div class="menu-item" @click="handleAutoShowCard">
+    <div class="menu-item" @click="handleAutoShowCard">
       🔍 Auto Show Card（{{ isAutoShowCard ? '关' : '开' }}）
-    </div> -->
+    </div>
     <div class="menu-item" @click="handleCheckAll">✅ Check All</div>
     <div class="menu-item" @click="handleReset">❌ Reset</div>
   </div>
