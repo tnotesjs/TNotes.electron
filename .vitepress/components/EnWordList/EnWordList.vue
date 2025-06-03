@@ -4,6 +4,7 @@ import { marked } from 'marked'
 import {
   EN_WORDS_REPO_BASE_URL,
   EN_WORDS_REPO_BASE_RAW_URL,
+  EN_WORD_LIST_COMP_IS_AUTO_SHOW_CARD,
 } from '../constants.js'
 import RightClickMenu from './RightClickMenu.vue'
 
@@ -12,12 +13,18 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  needSort: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 // checkbox ---------------------------------------------------
 
 const pathname = window.location.pathname
-const sortedWords = computed(() => [...new Set(props.words)].sort())
+const sortedWords = props.needSort
+  ? computed(() => [...new Set(props.words)].sort())
+  : computed(() => [...new Set(props.words)])
 const checkedStates = ref({})
 
 const updateCheckedState = (word, isChecked) => {
@@ -46,7 +53,11 @@ const reset = () => {
 
 const topZIndex = ref(10000)
 
-const isAutoShowCard = ref(true)
+const isAutoShowCard = ref(
+  ['true', null].includes(
+    localStorage.getItem(EN_WORD_LIST_COMP_IS_AUTO_SHOW_CARD)
+  )
+)
 
 // 卡片状态
 const showCard = ref(false)

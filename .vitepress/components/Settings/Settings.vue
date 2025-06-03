@@ -32,6 +32,22 @@
       <li>默认隐藏</li>
     </ul>
   </div>
+  <hr />
+  <div class="container">
+    <p class="label">
+      <label for="path">⚙️ {{ EN_WORD_LIST_COMP_IS_AUTO_SHOW_CARD }}:</label>
+    </p>
+    <p class="input-container">
+      <label>
+        <input type="checkbox" v-model="isAutoShowCard" />
+        自动显示单词卡片
+      </label>
+    </p>
+    <ul class="instructions">
+      <li>全局配置 EnWordList.vue 组件是否自动展示词汇卡片</li>
+      <li>默认显示</li>
+    </ul>
+  </div>
   <div class="button-container">
     <button @click="save" class="button">save</button>
   </div>
@@ -42,20 +58,29 @@ import { ref } from 'vue'
 import {
   NOTES_DIR_KEY,
   HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY,
+  EN_WORD_LIST_COMP_IS_AUTO_SHOW_CARD,
 } from '../constants.js'
 
 const path = ref('')
 const showCategory = ref(false)
+const isAutoShowCard = ref(true)
 
 if (typeof window !== 'undefined') {
   path.value = localStorage.getItem(NOTES_DIR_KEY)
   showCategory.value =
     localStorage.getItem(HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY) === 'true'
+  isAutoShowCard.value = ['true', null].includes(
+    localStorage.getItem(EN_WORD_LIST_COMP_IS_AUTO_SHOW_CARD)
+  )
 }
 
 const save = () => {
   localStorage.setItem(NOTES_DIR_KEY, path.value)
   localStorage.setItem(HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY, showCategory.value)
+  localStorage.setItem(
+    EN_WORD_LIST_COMP_IS_AUTO_SHOW_CARD,
+    isAutoShowCard.value
+  )
   alert(`配置已保存`)
 }
 </script>
