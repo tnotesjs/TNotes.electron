@@ -404,29 +404,24 @@
   - 如何实现原生文件拖 & 放效果
     - 从视频的 0:50～2:30 开始展示最终的效果，可以从这开始看，快速了解下本节要实现的效果。
 
-## 18. 第三方库
-
-### 18.1. electron-reload
+## 18. electron-reload
 
 - [ ] [0031. 使用 electron-reload 实现热更](https://tdahuyou.github.io/TNotes.electron/notes/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4/README)
-  - [1. 📺 视频](https://tdahuyou.github.io/TNotes.electron/notes/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4/README#1--视频)
-  - [2. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4/README#2--links)
-  - [3. 💻 demo](https://tdahuyou.github.io/TNotes.electron/notes/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4/README#3--demo)
-  - 如何使用 electron-reload 实现热更
-  - 使用 electron-reload 监听主进程和渲染进程内容的变更，一旦内容变化，就自动重启 electron。
-  - 额，这功能确实有点儿用，不过感觉也是可有可无，因为手动启动的成本也不算太高。
+  - [📺 bilibili 👉 TNotes 合集](https://space.bilibili.com/407241004)
+    - [bilibili.TNotes.electron.0031.1](https://www.bilibili.com/video/BV1kBFyeREDD)
+  - [1. 📝 概述](https://tdahuyou.github.io/TNotes.electron/notes/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4/README#1--概述)
+  - [2. 📺 视频](https://tdahuyou.github.io/TNotes.electron/notes/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4/README#2--视频)
+  - [3. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4/README#3--links)
+  - [4. 💻 demo](https://tdahuyou.github.io/TNotes.electron/notes/0031.%20%E4%BD%BF%E7%94%A8%20electron-reload%20%E5%AE%9E%E7%8E%B0%E7%83%AD%E6%9B%B4/README#4--demo)
 
-### 18.2. electron-builder
+## 19. electron-icon-builder
 
-- [ ] [0030. 使用 electron-icon-builder、electron-builder 解决应用打包后的图标问题](https://tdahuyou.github.io/TNotes.electron/notes/0030.%20%E4%BD%BF%E7%94%A8%20electron-icon-builder%E3%80%81electron-builder%20%E8%A7%A3%E5%86%B3%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E5%9B%BE%E6%A0%87%E9%97%AE%E9%A2%98/README)
-  - [1. 💻 demo](https://tdahuyou.github.io/TNotes.electron/notes/0030.%20%E4%BD%BF%E7%94%A8%20electron-icon-builder%E3%80%81electron-builder%20%E8%A7%A3%E5%86%B3%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E5%9B%BE%E6%A0%87%E9%97%AE%E9%A2%98/README#1--demo)
-  - [2. 📒electron, electron-builder, 和 electron-icon-builder 应该安装为开发依赖还是生产依赖呢？](https://tdahuyou.github.io/TNotes.electron/notes/0030.%20%E4%BD%BF%E7%94%A8%20electron-icon-builder%E3%80%81electron-builder%20%E8%A7%A3%E5%86%B3%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E5%9B%BE%E6%A0%87%E9%97%AE%E9%A2%98/README#2-electron-electron-builder-和-electron-icon-builder-应该安装为开发依赖还是生产依赖呢)
-  - 使用 electron-icon-builder 处理应用图标
-  - 使用 electron-builder 出包
+- [x] [0030. 使用 electron-icon-builder、electron-builder 解决应用打包后的图标问题](https://tdahuyou.github.io/TNotes.electron/notes/0030.%20%E4%BD%BF%E7%94%A8%20electron-icon-builder%E3%80%81electron-builder%20%E8%A7%A3%E5%86%B3%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E5%9B%BE%E6%A0%87%E9%97%AE%E9%A2%98/README)
+  - [1. 📝 概述](https://tdahuyou.github.io/TNotes.electron/notes/0030.%20%E4%BD%BF%E7%94%A8%20electron-icon-builder%E3%80%81electron-builder%20%E8%A7%A3%E5%86%B3%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E5%9B%BE%E6%A0%87%E9%97%AE%E9%A2%98/README#1--概述)
+  - [2. 💻 demos.1](https://tdahuyou.github.io/TNotes.electron/notes/0030.%20%E4%BD%BF%E7%94%A8%20electron-icon-builder%E3%80%81electron-builder%20%E8%A7%A3%E5%86%B3%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E5%9B%BE%E6%A0%87%E9%97%AE%E9%A2%98/README#2--demos1)
+  - [3. 🤔 electron, electron-builder, 和 electron-icon-builder 应该安装为开发依赖还是生产依赖呢？](https://tdahuyou.github.io/TNotes.electron/notes/0030.%20%E4%BD%BF%E7%94%A8%20electron-icon-builder%E3%80%81electron-builder%20%E8%A7%A3%E5%86%B3%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E5%9B%BE%E6%A0%87%E9%97%AE%E9%A2%98/README#3--electron-electron-builder-和-electron-icon-builder-应该安装为开发依赖还是生产依赖呢)
 
-## 19. 小练习
-
-### 19.1. 桌面时钟
+## 20. 小练习：桌面时钟
 
 - [ ] [0032. 实现一个桌面时钟](https://tdahuyou.github.io/TNotes.electron/notes/0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F/README#1--links)
@@ -444,14 +439,14 @@
   - 一共没几行代码，直接看 src 下边的源码即可。
   - 在 0032 也练习了一个桌面时钟的应用，0032 是一个桌面时钟摆件，展示效果是以钟表形式来呈现的。
 
-### 19.2. 微信读书助手
+## 21. 小练习：微信读书助手
 
 - [ ] [0044. weread-helper](https://tdahuyou.github.io/TNotes.electron/notes/0044.%20weread-helper/README)
   - [1. 🔗 links](https://tdahuyou.github.io/TNotes.electron/notes/0044.%20weread-helper/README#1--links)
   - [2. 📒Quick Start](https://tdahuyou.github.io/TNotes.electron/notes/0044.%20weread-helper/README#2-quick-start)
   - 套壳了微信读书的网页版，并注入了一些自定义脚本。
 
-### 19.3. 自动定时截图工具
+## 22. 小练习：自动定时截图工具
 
 - [ ] [0033. ScreenCaptureApp](https://tdahuyou.github.io/TNotes.electron/notes/0033.%20ScreenCaptureApp/README)
   - demo - 自动截图程序
