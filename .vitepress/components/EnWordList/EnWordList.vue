@@ -19,6 +19,12 @@ const props = defineProps({
   },
 })
 
+const isMobile = computed(() => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  )
+})
+
 // checkbox ---------------------------------------------------
 
 const pathname = window.location.pathname
@@ -61,6 +67,9 @@ const cardX = ref(0)
 const cardY = ref(0)
 const cardContent = ref('')
 const wordCache = ref({})
+
+// 加载失败的词汇（也就是词库中不存在的词汇）
+const failedWords = ref({})
 
 // pinnedCards: { id, word, x, y, isDragging }
 const pinnedCards = ref([])
@@ -105,7 +114,9 @@ const showWordCard = async (e, word) => {
         return
       }
 
-      const url = `${EN_WORDS_REPO_BASE_RAW_URL}${encodeURIComponent(word)}.md`
+      const url = `${EN_WORDS_REPO_BASE_RAW_URL}${encodeURIComponent(
+        word.toLowerCase().replaceAll(/\s/g, '_')
+      )}.md`
       try {
         const res = await fetch(url)
         if (res.ok) {
@@ -179,7 +190,9 @@ const preloadWords = async () => {
     // 如果已经缓存过，跳过
     if (wordCache.value[word]) continue
 
-    const url = `${EN_WORDS_REPO_BASE_RAW_URL}${encodeURIComponent(word)}.md`
+    const url = `${EN_WORDS_REPO_BASE_RAW_URL}${encodeURIComponent(
+      word.toLowerCase().replaceAll(/\s/g, '_')
+    )}.md`
     try {
       const res = await fetch(url)
       if (res.ok) {
@@ -189,10 +202,12 @@ const preloadWords = async () => {
         console.log(`✅ 预加载完成: ${word}`)
       } else {
         wordCache.value[word] = `<em>无法加载单词内容</em>`
+        failedWords.value[word] = true
       }
     } catch (err) {
       console.error(`❌ 加载失败: ${word}`, err)
       wordCache.value[word] = `<em>加载失败</em>`
+      failedWords.value[word] = true
     }
 
     // 可选：加个延迟避免并发请求过多
@@ -406,7 +421,7 @@ onMounted(() => {
     checkedStates.value[word] = storedState === 'true'
   })
 
-  preloadWords()
+  if (!isMobile.value) preloadWords()
 })
 
 /**
@@ -439,8 +454,13 @@ onUnmounted(() => {
         />
         <label :for="word">
           <a
-            :href="`${EN_WORDS_REPO_BASE_URL}${encodeURIComponent(word)}.md`"
-            :class="{ 'line-through': checkedStates[word] }"
+            :href="`${EN_WORDS_REPO_BASE_URL}${encodeURIComponent(
+              word.toLowerCase().replaceAll(/\s/g, '_')
+            )}.md`"
+            :class="{
+              'line-through': checkedStates[word],
+              'text-red': failedWords[word],
+            }"
             @mouseenter="(e) => isAutoShowCard && showWordCard(e, word)"
             @mouseleave="handleMouseLeave"
             @contextmenu="(e) => showContextMenu(e, word)"
@@ -487,6 +507,7 @@ onUnmounted(() => {
   </div>
 
   <RightClickMenu
+    v-if="!isMobile"
     :show="contextMenuVisible"
     :x="contextMenuX"
     :y="contextMenuY"
@@ -524,6 +545,9 @@ onUnmounted(() => {
 .__EnWordList__ a.line-through {
   color: #999;
   text-decoration: line-through;
+}
+.__EnWordList__ a.text-red {
+  color: #f40 !important;
 }
 
 /* 调整单词列表的间距 */
