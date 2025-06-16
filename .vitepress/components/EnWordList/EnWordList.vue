@@ -29,7 +29,12 @@ const isMobile = computed(() => {
 
 const pathname = window.location.pathname
 const sortedWords = props.needSort
-  ? computed(() => [...new Set(props.words)].sort())
+  ? computed(() =>
+      [...new Set(props.words)].sort(
+        (a, b) =>
+          a.toLowerCase()[0].charCodeAt() - b.toLowerCase()[0].charCodeAt()
+      )
+    )
   : computed(() => [...new Set(props.words)])
 const checkedStates = ref({})
 
