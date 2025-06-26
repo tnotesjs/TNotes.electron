@@ -18,9 +18,9 @@
     "icon": {
       "src": "https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/assets/icon--electron.svg"
     },
-    "title": "Electron 笔记",
+    "title": "electron",
     "completed_notes_count": 20,
-    "details": "主要都是 23 年初写的一些内容",
+    "details": "Electron 笔记",
     "link": "https://tdahuyou.github.io/TNotes.electron/"
   },
   "port": 9210,
