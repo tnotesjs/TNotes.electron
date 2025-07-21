@@ -1,0 +1,5 @@
+<E
+  needSort
+  :words="[
+    'vocabulary',
+]" />
