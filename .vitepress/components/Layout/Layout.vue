@@ -141,11 +141,11 @@ const isDiscussionsVisible = computed(
 
 const vscodeNotesDir = ref('')
 
-const updateVscodeNoteDir = (relativePath) => {
+const updateVscodeNoteDir = () => {
   if (typeof window !== 'undefined') {
     const notesDir = localStorage.getItem(NOTES_DIR_KEY)
     vscodeNotesDir.value = notesDir
-      ? `vscode://file/${notesDir}/${relativePath}`
+      ? `vscode://file/${notesDir}/${vpData.page.value.relativePath}`
       : ''
   }
 }
@@ -157,7 +157,7 @@ onMounted(() => {
 watch(
   () => vpData.page.value.relativePath,
   () => {
-    updateVscodeNoteDir(vpData.page.value.relativePath)
+    updateVscodeNoteDir()
     initSwiper()
   }
 )
