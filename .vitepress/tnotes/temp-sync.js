@@ -10,6 +10,7 @@ import {
   TNOTES_BASE_DIR,
   VP_DIR_PATH,
   VSCODE_SETTINGS_PATH,
+  VSCODE_TASKS_PATH,
 } from './constants.js'
 
 /**
@@ -81,10 +82,14 @@ export async function tempSync() {
       // 复制 package.json 文件
       copyFile(ROOT_PKG_PATH, path.resolve(targetDir, 'package.json'))
 
-      // 复制 .vscode/settings.json 文件
+      // 复制 .vscode/settings.json、.vscode/tasks.json 文件
       copyFile(
         VSCODE_SETTINGS_PATH,
         path.resolve(targetDir, '.vscode', 'settings.json')
+      )
+      copyFile(
+        VSCODE_TASKS_PATH,
+        path.resolve(targetDir, '.vscode', 'tasks.json')
       )
 
       // 复制 .github/workflows/deploy.yml 文件

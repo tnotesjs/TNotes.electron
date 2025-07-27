@@ -65,6 +65,11 @@ export const VSCODE_SETTINGS_PATH = path.resolve(
   '.vscode',
   'settings.json'
 )
+export const VSCODE_TASKS_PATH = path.resolve(
+  ROOT_DIR_PATH,
+  '.vscode',
+  'tasks.json'
+)
 
 export const EOL = '\n'
 export const MERGED_README_FILENAME = 'MERGED_README.md'
