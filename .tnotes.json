@@ -13,15 +13,18 @@
     "demos",
     "assets"
   ],
-  "rootDocsSrcDir": "../_/docs/src",
-  "home.features.item": {
+  "rootSidebarDir": "../_/sidebars",
+  "root_item": {
     "icon": {
       "src": "https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/assets/icon--electron.svg"
     },
     "title": "electron",
     "completed_notes_count": 20,
     "details": "Electron 笔记",
-    "link": "https://tdahuyou.github.io/TNotes.electron/"
+    "link": "https://tdahuyou.github.io/TNotes.electron/",
+    "created_at": 1726304357000,
+    "updated_at": 1753580635000,
+    "days_since_birth": 9210
   },
   "port": 9210,
   "menuItems": [

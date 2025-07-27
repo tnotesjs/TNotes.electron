@@ -6,7 +6,6 @@ import fs from 'fs'
 import path from 'path'
 
 import {
-  __dirname,
   author,
   BILIBILI_VIDEO_BASE_URL,
   EOL,
@@ -25,7 +24,7 @@ import {
   ROOT_CONFIG_PATH,
   ROOT_DIR_PATH,
   ROOT_README_PATH,
-  rootDocsSrcDir,
+  rootSidebarDir,
   sidebar_isCollapsed,
   sidebar_isNotesIDVisible,
   socialLinks,
@@ -35,9 +34,9 @@ import {
 } from './constants.js'
 
 import {
-  genHierarchicalSidebar,
   createAddNumberToTitle,
   generateToc,
+  genHierarchicalSidebar,
 } from './utils/index.js'
 
 class ReadmeUpdater {
@@ -63,8 +62,8 @@ class ReadmeUpdater {
     this.sidebar_isCollapsed = sidebar_isCollapsed || true
     this.socialLinks = socialLinks
     this.menuItems = menuItems
-    this.rootDocsSrcDir = rootDocsSrcDir
-      ? path.resolve(ROOT_DIR_PATH, rootDocsSrcDir)
+    this.rootSidebarDir = rootSidebarDir
+      ? path.resolve(ROOT_DIR_PATH, rootSidebarDir)
       : ''
 
     this.notesInfo = {
@@ -707,81 +706,27 @@ class ReadmeUpdater {
     updateFile_TOC_MD(this.vpTocPath)
     updateFile_SIDEBAT_JSON(this.vpSidebarPath, '/notes')
 
-    if (this.rootDocsSrcDir) {
+    if (this.rootSidebarDir) {
       if (
-        fs.existsSync(this.rootDocsSrcDir) &&
-        fs.statSync(this.rootDocsSrcDir).isDirectory()
+        fs.existsSync(this.rootSidebarDir) &&
+        fs.statSync(this.rootSidebarDir).isDirectory()
       ) {
-        const repoDir = path.resolve(this.rootDocsSrcDir, this.repoName)
+        const repoDir = path.resolve(this.rootSidebarDir, this.repoName)
         if (!fs.existsSync(repoDir) || !fs.statSync(repoDir).isDirectory()) {
           fs.mkdirSync(repoDir)
         }
-        updateFile_TOC_MD(path.resolve(repoDir, 'TOC.md'))
+        updateFile_SIDEBAT_JSON(
+          path.resolve(repoDir, 'sidebar.json'),
+          this.githubPageNotesUrl
+        )
       }
     }
-
-    // !Deprecated 如果直接将所有笔记都汇总到 root，会导致 page rendering 卡死。
-    // 2025 年 5 月 29 日 改为只同步 TOC
-    // 将笔记数据同步到根知识库的指定位置
-    // if (this.rootDocsSrcDir) {
-    //   if (
-    //     fs.existsSync(this.rootDocsSrcDir) &&
-    //     fs.statSync(this.rootDocsSrcDir).isDirectory()
-    //   ) {
-    //     const repoDir = path.resolve(this.rootDocsSrcDir, this.repoName)
-    //     if (!fs.existsSync(repoDir) || !fs.statSync(repoDir).isDirectory()) {
-    //       fs.mkdirSync(repoDir)
-    //     }
-    //     updateFile_SIDEBAT_JSON(
-    //       path.resolve(repoDir, 'sidebar.json'),
-    //       `/${this.repoName}`
-    //     )
-    //     this.notesInfo.dirNameList.forEach((dirName) => {
-    //       const notesDir = path.resolve(repoDir, dirName)
-    //       if (
-    //         !fs.existsSync(notesDir) ||
-    //         !fs.statSync(notesDir).isDirectory()
-    //       ) {
-    //         fs.mkdirSync(notesDir)
-    //       }
-    //       const sourceREADMEPath = path.resolve(
-    //         ROOT_DIR_PATH,
-    //         'notes',
-    //         dirName,
-    //         'README.md'
-    //       )
-    //       const targetREADMEPath = path.resolve(notesDir, 'README.md')
-    //       fs.copyFileSync(sourceREADMEPath, targetREADMEPath)
-    //       const sourceAssetsPath = path.resolve(
-    //         ROOT_DIR_PATH,
-    //         'notes',
-    //         dirName,
-    //         'assets'
-    //       )
-    //       if (fs.existsSync(sourceAssetsPath)) {
-    //         const targetAssetsPath = path.resolve(notesDir, 'assets')
-    //         fs.cpSync(sourceAssetsPath, targetAssetsPath, { recursive: true })
-    //       }
-    //       // const sourceDemosPath = path.resolve(
-    //       //   ROOT_DIR,
-    //       //   'notes',
-    //       //   dirName,
-    //       //   'demos'
-    //       // )
-    //       // if (fs.existsSync(sourceDemosPath)) {
-    //       //   const targetDemosPath = path.resolve(notesDir, 'demos')
-    //       //   fs.cpSync(sourceDemosPath, targetDemosPath, { recursive: true })
-    //       // }
-    //     })
-    //   }
-    // }
   }
 
   updateRootConfig() {
     let configData = fs.readFileSync(this.rootConfigPath, 'utf8')
     configData = JSON.parse(configData)
-    configData['home.features.item'].completed_notes_count =
-      this.notesInfo.doneIds.size
+    configData['root_item'].completed_notes_count = this.notesInfo.doneIds.size
     fs.writeFileSync(this.rootConfigPath, JSON.stringify(configData, null, 2))
   }
 

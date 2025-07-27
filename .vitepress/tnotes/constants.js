@@ -1,7 +1,7 @@
-import { fileURLToPath } from 'url'
 import path from 'path'
-import { getTnotesConfig } from './utils/index.js'
+import { fileURLToPath } from 'url'
 import { v4 as uuidv4 } from 'uuid'
+import { getTnotesConfig } from './utils/index.js'
 
 const {
   author,
@@ -12,19 +12,19 @@ const {
   sidebar_isNotesIDVisible,
   sidebar_isCollapsed,
   port,
-  rootDocsSrcDir,
+  rootSidebarDir,
 } = getTnotesConfig()
 
 export {
   author,
   ignore_dirs,
-  repoName,
-  socialLinks,
   menuItems,
-  sidebar_isNotesIDVisible,
-  sidebar_isCollapsed,
   port,
-  rootDocsSrcDir,
+  repoName,
+  rootSidebarDir,
+  sidebar_isCollapsed,
+  sidebar_isNotesIDVisible,
+  socialLinks,
 }
 
 export const BILIBILI_VIDEO_BASE_URL = 'https://www.bilibili.com/video/'
