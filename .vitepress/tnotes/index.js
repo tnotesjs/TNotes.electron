@@ -44,7 +44,9 @@ import { tempSync } from './temp-sync.js'
         await disableHMR()
         const updater = new ReadmeUpdater()
         await updater.updateReadme()
-        await enableHMR()
+        setTimeout(async () => {
+          await enableHMR()
+        }, 10 * 1000)
         commandExecuted = true
         break
       case args.push:

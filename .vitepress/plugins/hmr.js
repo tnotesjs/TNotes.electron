@@ -26,17 +26,19 @@ export default async function TN_HMR_Plugin() {
     configureServer(server) {
       const UPDATE_TIMEOUT = 1000
       let lastUpdateTime = 0
+      let isDoing = false
       // 监听文件变化事件
       server.watcher.on('all', async (event, filePath) => {
-        // console.log('filePath:', filePath)
         // /Users/huyouda/zm/notes/TNotes.leetcode/notes/0002. xxx/README.md
         // console.log('path.basename(filePath)', path.basename(filePath))
 
         // console.log('Date.now()', Date.now())
         // console.log('lastUpdateTime', lastUpdateTime)
         // console.log('Date.now() - lastUpdateTime', Date.now() - lastUpdateTime)
-        if (Date.now() - lastUpdateTime < UPDATE_TIMEOUT) return
+        if (Date.now() - lastUpdateTime < UPDATE_TIMEOUT || isDoing) return
         if (!(await isEnableHRM())) return
+        console.log('[hmr]', filePath)
+        isDoing = true
 
         try {
           const basename = path.basename(filePath)
@@ -150,7 +152,7 @@ export default async function TN_HMR_Plugin() {
             //     filePath
             //   )}`
             // )
-            // console.log(`🚀 ${Date.now() - startTime} ms`)
+            console.log(`🚀 ${Date.now() - startTime} ms`)
           }
         } catch (err) {
           if (
@@ -159,6 +161,8 @@ export default async function TN_HMR_Plugin() {
           ) {
             console.log('❌ tn hmr error', err)
           }
+        } finally {
+          isDoing = false
         }
       })
     },
