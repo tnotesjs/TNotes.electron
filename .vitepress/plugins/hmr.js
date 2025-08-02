@@ -12,21 +12,19 @@ import {
   EOL,
   repoName,
 } from '../tnotes/constants.js'
-import {
-  createAddNumberToTitle,
-  generateToc,
-  isEnableHRM,
-  ensureConfigExists,
-} from '../tnotes/utils'
+import { createAddNumberToTitle, generateToc } from '../tnotes/utils'
 
 export default async function TN_HMR_Plugin() {
-  await ensureConfigExists()
   return {
     name: 'tn-hmr-plugin',
     configureServer(server) {
-      const UPDATE_TIMEOUT = 1000
-      let lastUpdateTime = 0
-      let isDoing = false
+      /**
+       * 平均 3s 内只处理一次 hmr
+       */
+      const HANDLE_DURATION = 3 * 1000
+      let lastHandleTime = Date.now()
+      let isHmrEnable = true
+
       // 监听文件变化事件
       server.watcher.on('all', async (event, filePath) => {
         // /Users/huyouda/zm/notes/TNotes.leetcode/notes/0002. xxx/README.md
@@ -35,10 +33,17 @@ export default async function TN_HMR_Plugin() {
         // console.log('Date.now()', Date.now())
         // console.log('lastUpdateTime', lastUpdateTime)
         // console.log('Date.now() - lastUpdateTime', Date.now() - lastUpdateTime)
-        if (Date.now() - lastUpdateTime < UPDATE_TIMEOUT || isDoing) return
-        if (!(await isEnableHRM())) return
+        console.log('最近两次更新的时间间隔：', Date.now() - lastHandleTime)
+        console.log('HRM 开关是否打开：', isHmrEnable)
+        if (
+          Date.now() - lastHandleTime < HANDLE_DURATION || // 如果最近两次更新的时间需要小于 UPDATE_TIMEOUT 阈值，直接 return
+          !isHmrEnable // 如果 hmr 被禁用，直接 return
+        ) {
+          return
+        }
         console.log('[hmr]', filePath)
-        isDoing = true
+        lastHandleTime = Date.now()
+        isHmrEnable = false
 
         try {
           const basename = path.basename(filePath)
@@ -144,7 +149,7 @@ export default async function TN_HMR_Plugin() {
             }
 
             // 写入前标记
-            lastUpdateTime = Date.now()
+
             await fs.promises.writeFile(filePath, lines.join(EOL))
 
             // console.log(
@@ -162,7 +167,7 @@ export default async function TN_HMR_Plugin() {
             console.log('❌ tn hmr error', err)
           }
         } finally {
-          isDoing = false
+          isHmrEnable = true
         }
       })
     },

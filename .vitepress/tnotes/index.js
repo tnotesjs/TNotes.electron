@@ -10,8 +10,6 @@ import {
   pushAllRepos,
   pullAllRepos,
   runCommand_spawn,
-  disableHMR,
-  enableHMR,
 } from './utils/index.js'
 import { newNotes } from './new.js'
 import { __dirname, ROOT_DIR_PATH, port } from './constants.js'
@@ -41,12 +39,8 @@ import { tempSync } from './temp-sync.js'
         commandExecuted = true
         break
       case args.update:
-        await disableHMR()
         const updater = new ReadmeUpdater()
         await updater.updateReadme()
-        setTimeout(async () => {
-          await enableHMR()
-        }, 10 * 1000)
         commandExecuted = true
         break
       case args.push:
