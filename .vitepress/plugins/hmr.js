@@ -33,8 +33,8 @@ export default async function TN_HMR_Plugin() {
         // console.log('Date.now()', Date.now())
         // console.log('lastUpdateTime', lastUpdateTime)
         // console.log('Date.now() - lastUpdateTime', Date.now() - lastUpdateTime)
-        console.log('最近两次更新的时间间隔：', Date.now() - lastHandleTime)
-        console.log('HRM 开关是否打开：', isHmrEnable)
+        // console.log('最近两次更新的时间间隔：', Date.now() - lastHandleTime)
+        // console.log('HRM 开关是否打开：', isHmrEnable)
         if (
           Date.now() - lastHandleTime < HANDLE_DURATION || // 如果最近两次更新的时间需要小于 UPDATE_TIMEOUT 阈值，直接 return
           !isHmrEnable // 如果 hmr 被禁用，直接 return
