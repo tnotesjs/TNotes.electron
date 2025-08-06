@@ -13,6 +13,7 @@ const {
   sidebar_isCollapsed,
   port,
   rootSidebarDir,
+  root_item,
 } = getTnotesConfig()
 
 export {
@@ -25,6 +26,7 @@ export {
   sidebar_isCollapsed,
   sidebar_isNotesIDVisible,
   socialLinks,
+  root_item,
 }
 
 export const BILIBILI_VIDEO_BASE_URL = 'https://www.bilibili.com/video/'

@@ -19,6 +19,7 @@
   "devDependencies": {
     "markdown-it-task-lists": "^2.1.1",
     "mermaid": "^11.5.0",
+    "sass-embedded": "^1.90.0",
     "vitepress": "^1.6.3",
     "vitepress-plugin-mermaid": "^2.0.17"
   },

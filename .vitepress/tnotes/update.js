@@ -727,6 +727,7 @@ class ReadmeUpdater {
     let configData = fs.readFileSync(this.rootConfigPath, 'utf8')
     configData = JSON.parse(configData)
     configData['root_item'].completed_notes_count = this.notesInfo.doneIds.size
+    configData['root_item'].updated_at = Date.now()
     fs.writeFileSync(this.rootConfigPath, JSON.stringify(configData, null, 2))
   }
 

@@ -1,9 +1,14 @@
-import { repoName, ignore_dirs } from '../../.tnotes.json'
+import { repoName, ignore_dirs, author, root_item } from '../../.tnotes.json'
 
 /**
  * 笔记仓库名儿
  */
 export const REPO_NAME = repoName
+
+/**
+ * 笔记仓库作者
+ */
+export const AUTHOR = author
 
 /**
  * notes 目录下需要忽略的笔记目录
@@ -13,15 +18,19 @@ export const REPO_NAME = repoName
 export const IGNORE_DIRS = ignore_dirs
 
 /**
+ * 根知识库配置项
+ */
+export const ROOT_ITEM = root_item
+
+/**
  * 存储本地笔记文件夹所在位置的 key
  */
 export const NOTES_DIR_KEY = 'NOTES_DIR_KEY__' + repoName
 
 /**
- * 首页 sidebar 卡片是否显示分组信息
+ * 用户选择的视图
  */
-export const HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY =
-  'HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY__' + repoName
+export const NOTES_VIEW_KEY = 'NOTES_VIEW_KEY__' + repoName
 
 /**
  * 全局配置 EnWordList.vue 组件是否自动展示词汇卡片

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <p class="label">
-      <label for="path">⚙️ {{ NOTES_DIR_KEY }}:</label>
+      <label for="path">⚙️ 本地知识库的绝对路径:</label>
     </p>
     <p class="input-container">
       <input
@@ -14,22 +14,6 @@
     <ul class="instructions">
       <li>配置本地笔记文件夹所在位置，以便使用 VSCode 快速打开笔记。</li>
       <li>⚠️ 注意：要求是 PC 环境。</li>
-    </ul>
-  </div>
-  <hr />
-  <div class="container">
-    <p class="label">
-      <label for="path">⚙️ {{ HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY }}:</label>
-    </p>
-    <p class="input-container">
-      <label>
-        <input type="checkbox" v-model="showCategory" />
-        显示分组信息
-      </label>
-    </p>
-    <ul class="instructions">
-      <li>配置是否显示首页文章卡片的分组信息</li>
-      <li>默认隐藏</li>
     </ul>
   </div>
   <hr />
@@ -57,18 +41,14 @@
 import { ref } from 'vue'
 import {
   NOTES_DIR_KEY,
-  HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY,
   // EN_WORD_LIST_COMP_IS_AUTO_SHOW_CARD,
 } from '../constants.js'
 
 const path = ref('')
-const showCategory = ref(false)
 // const isAutoShowCard = ref(false)
 
 if (typeof window !== 'undefined') {
   path.value = localStorage.getItem(NOTES_DIR_KEY)
-  showCategory.value =
-    localStorage.getItem(HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY) === 'true'
   // isAutoShowCard.value = ['true' /* , null */].includes(
   //   localStorage.getItem(EN_WORD_LIST_COMP_IS_AUTO_SHOW_CARD)
   // )
@@ -76,7 +56,6 @@ if (typeof window !== 'undefined') {
 
 const save = () => {
   localStorage.setItem(NOTES_DIR_KEY, path.value)
-  localStorage.setItem(HOME_SIDEBAR_CARD_SHOW_CATEGORY_KEY, showCategory.value)
   // localStorage.setItem(
   //   EN_WORD_LIST_COMP_IS_AUTO_SHOW_CARD,
   //   isAutoShowCard.value
