@@ -56,6 +56,7 @@ onMounted(() => {
   if (savedViewMode) {
     viewMode.value = savedViewMode
   }
+  // console.log('folderViewData', folderViewData.value)
 })
 // #endregion
 
@@ -65,15 +66,39 @@ const folderViewData = computed(() => {
 
   // 按完整分组路径构建层级结构（平铺模式）
   articles.forEach((article) => {
-    const group = article.group
-    if (!result[group]) {
-      result[group] = {
-        name: group,
+    // 将所有层级铺出来，路径信息作为分组名
+    // eg. 1. 第一层级/第一个第二层级
+    //          article 1
+    //          article 2
+    //          ……
+    //     1. 第一层级/第二个第二层级
+    //          article 1
+    //          article 2
+    //          ……
+    //     1. 第一层级/第三个第二层级
+    //          article 1
+    //          article 2
+    //          ……
+    // const group = article.group
+    // if (!result[group]) {
+    //   result[group] = {
+    //     name: group,
+    //     articles: [],
+    //     fullPath: group,
+    //   }
+    // }
+    // result[group].articles.push(article)
+
+    // 只铺出第一层级
+    const firstLevelCategory = article.firstLevelCategory
+    if (!result[firstLevelCategory]) {
+      result[firstLevelCategory] = {
+        name: firstLevelCategory,
         articles: [],
-        fullPath: group,
+        fullPath: firstLevelCategory,
       }
     }
-    result[group].articles.push(article)
+    result[firstLevelCategory].articles.push(article)
   })
 
   return result
@@ -177,9 +202,15 @@ function extractTitleFromText(text) {
 }
 
 function handleCardClick(link) {
+  // open in new tab
   if (link) {
-    window.location.href = link
+    window.open(link, '_blank')
   }
+
+  // open in current tab
+  // if (link) {
+  //   window.location.href = link
+  // }
 }
 
 function toggleGroup(groupName) {
