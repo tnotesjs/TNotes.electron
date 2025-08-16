@@ -1,5 +1,11 @@
 <template>
   <Layout>
+    <template v-if="showNotFound" #not-found>
+      <div class="not-found-container">
+        <h1>404</h1>
+        <p>Page not found</p>
+      </div>
+    </template>
     <template #doc-top>
       <!-- <pre>vscodesNoteDir: {{ vscodeNotesDir }}</pre> -->
       <!-- <pre>vpData.page.value: {{ vpData.page.value }}</pre>
@@ -103,7 +109,7 @@ import m2mm from '/m2mm.png'
 import icon__github from '/icon__github.svg'
 
 import DefaultTheme from 'vitepress/theme'
-import { useData } from 'vitepress'
+import { useData, useRouter, useRoute } from 'vitepress'
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 
 import Discussions from '../Discussions/Discussions.vue'
@@ -111,12 +117,17 @@ import Discussions from '../Discussions/Discussions.vue'
 import { data as tocData } from './toc.data.js'
 import { data as allNotesConfig } from '../notesConfig.data.js'
 
+// console.log('allNotesConfig', allNotesConfig)
+
 import { formatDate, scrollToTop } from '../utils.js'
 
 import { NOTES_DIR_KEY, TOC_MD, REPO_NAME } from '../constants.js'
 
 const { Layout } = DefaultTheme
 const vpData = useData()
+const router = useRouter()
+const route = useRoute()
+
 // console.log('notesData:', notesData)
 // console.log('vpData:', vpData)
 // 提取当前笔记的 ID（前 4 个数字）
@@ -183,6 +194,69 @@ const copyRawFile = () => {
     )
   }, 1000)
 }
+
+// #region - 404 redirect
+// 控制是否显示 404 内容
+const showNotFound = ref(false)
+
+// 重定向检查函数
+function checkRedirect() {
+  if (typeof window === 'undefined') return
+
+  const currentPath = window.location.pathname
+  // 匹配路径格式：/TNotes.*/notes/四个数字
+  const match = currentPath.match(/\/TNotes[^/]+\/notes\/(\d{4})(?:\/.*)?$/)
+
+  if (match) {
+    const noteId = match[1]
+    const targetNote = allNotesConfig[noteId]
+
+    if (targetNote && targetNote.redirect) {
+      const base = vpData.site.value.base
+      // 构建目标路径（包含基础路径）
+      const targetPath = `${base}${targetNote.redirect}`
+
+      // 避免重定向死循环
+      if (currentPath !== targetPath) {
+        // 使用前端路由跳转（无刷新）
+        router.go(targetPath)
+        return true
+      }
+    }
+  }
+
+  return false
+}
+
+// 在组件挂载时检查重定向
+onMounted(() => {
+  // 延迟执行以确保路由状态稳定
+  setTimeout(() => {
+    // 如果是 404 页面，尝试重定向
+    if (vpData.page.value.isNotFound) {
+      const redirected = checkRedirect()
+
+      // 如果重定向失败，显示原始 404 内容
+      if (!redirected) {
+        showNotFound.value = true
+      }
+    }
+    // 正常页面也检查是否需要重定向
+    else {
+      checkRedirect()
+    }
+  }, 100)
+})
+
+// 监听路由变化
+watch(
+  () => route.path,
+  () => {
+    // 延迟检查以确保路由更新完成
+    setTimeout(checkRedirect, 50)
+  }
+)
+// #endregion
 
 // --------------------------------------------------------------
 // #region - swiper
@@ -348,5 +422,26 @@ onBeforeUnmount(destroySwiper)
 .swiper-container .swiper-button-next:hover {
   transform: scale(1.5);
   opacity: 1;
+}
+
+/* 添加 404 页面样式 */
+.not-found-container {
+  text-align: center;
+  padding: 2rem;
+  min-height: calc(100vh - var(--vp-nav-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-found-container h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.not-found-container p {
+  font-size: 1.5rem;
+  color: var(--vp-c-text-2);
 }
 </style>

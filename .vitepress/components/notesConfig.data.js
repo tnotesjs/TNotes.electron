@@ -29,12 +29,18 @@ export default {
         const noteIdMatch = filePath.match(/notes\/(\d{4})\./)
         if (noteIdMatch) {
           const noteId = noteIdMatch[1] // 获取笔记 ID
-          allNotesConfig[noteId] = configData // 将配置数据存入对象
+          const redirect = filePath.replace(/\.tnotes\.json$/, 'README')
+          allNotesConfig[noteId] = {
+            ...configData,
+            redirect,
+          } // 将配置数据存入对象
         }
       } catch (error) {
         console.error(`Failed to load config file: ${filePath}`, error)
       }
     })
+
+    // console.log('All notes config loaded:', allNotesConfig)
 
     return allNotesConfig
   },
