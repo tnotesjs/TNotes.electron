@@ -4,6 +4,11 @@
       <div class="not-found-container">
         <h1>404</h1>
         <p>Page not found</p>
+        <div class="debug-info">
+          <p>Current path: {{ currentPath }}</p>
+          <p>Matched ID: {{ matchedId }}</p>
+          <p>Redirect path: {{ redirectPath }}</p>
+        </div>
       </div>
     </template>
     <template #doc-top>
@@ -201,7 +206,7 @@ const showNotFound = ref(false)
 
 // 重定向检查函数
 function checkRedirect() {
-  if (typeof window === 'undefined') return
+  if (typeof window === 'undefined') return false
 
   const currentPath = window.location.pathname
   // 匹配路径格式：/TNotes.*/notes/四个数字
@@ -218,13 +223,14 @@ function checkRedirect() {
 
       // 避免重定向死循环
       if (currentPath !== targetPath) {
-        // 使用前端路由跳转（无刷新）
-        router.go(targetPath)
+        console.log(`Redirecting from ${currentPath} to ${targetPath}`)
+
+        // 使用完整的页面跳转（强制刷新）
+        window.location.href = targetPath
         return true
       }
     }
   }
-
   return false
 }
 
@@ -245,7 +251,7 @@ onMounted(() => {
     else {
       checkRedirect()
     }
-  }, 100)
+  }, 50) // 缩短延迟时间
 })
 
 // 监听路由变化
@@ -253,7 +259,17 @@ watch(
   () => route.path,
   () => {
     // 延迟检查以确保路由更新完成
-    setTimeout(checkRedirect, 50)
+    setTimeout(() => {
+      // 如果当前页面是404，则尝试重定向
+      if (vpData.page.value.isNotFound) {
+        const redirected = checkRedirect()
+        if (!redirected) {
+          showNotFound.value = true
+        }
+      } else {
+        checkRedirect()
+      }
+    }, 30) // 进一步缩短延迟时间
   }
 )
 // #endregion
@@ -443,5 +459,14 @@ onBeforeUnmount(destroySwiper)
 .not-found-container p {
   font-size: 1.5rem;
   color: var(--vp-c-text-2);
+}
+
+.debug-info {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f8f8f8;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  font-size: 0.9rem;
 }
 </style>
