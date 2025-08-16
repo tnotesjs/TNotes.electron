@@ -4,11 +4,11 @@
       <div class="not-found-container">
         <h1>404</h1>
         <p>Page not found</p>
-        <div class="debug-info">
-          <p>Current path: {{ currentPath }}</p>
+        <!-- <div class="debug-info">
+          <p>Current path: {{ decodedCurrentPath }}</p>
           <p>Matched ID: {{ matchedId }}</p>
           <p>Redirect path: {{ redirectPath }}</p>
-        </div>
+        </div> -->
       </div>
     </template>
     <template #doc-top>
@@ -203,18 +203,24 @@ const copyRawFile = () => {
 // #region - 404 redirect
 // 控制是否显示 404 内容
 const showNotFound = ref(false)
+const currentPath = ref('')
+const matchedId = ref('')
+const redirectPath = ref('')
 
 // 重定向检查函数
 function checkRedirect() {
   if (typeof window === 'undefined') return false
 
-  const currentPath = window.location.pathname
-  // 匹配路径格式：/TNotes.*/notes/四个数字
-  const match = currentPath.match(/\/TNotes[^/]+\/notes\/(\d{4})(?:\/.*)?$/)
+  currentPath.value = window.location.pathname
+  // 匹配路径格式：/TNotes.*/notes/四个数字{任意内容}/README
+  const match = currentPath.value.match(
+    /\/TNotes[^/]+\/notes\/(\d{4})[^/]*(?:\/.*)?$/
+  )
 
   if (match) {
-    const noteId = match[1]
-    const targetNote = allNotesConfig[noteId]
+    matchedId.value = match[1]
+    const targetNote = allNotesConfig[matchedId.value]
+    redirectPath.value = targetNote ? targetNote.redirect : ''
 
     if (targetNote && targetNote.redirect) {
       const base = vpData.site.value.base
@@ -222,9 +228,10 @@ function checkRedirect() {
       const targetPath = `${base}${targetNote.redirect}`
 
       // 避免重定向死循环
-      if (currentPath !== targetPath) {
-        console.log(`Redirecting from ${currentPath} to ${targetPath}`)
+      if (currentPath.value !== targetPath) {
+        console.log(`Redirecting from ${currentPath.value} to ${targetPath}`)
 
+        // !会页面尚未构建完成，不用 vue router，虽然它可以实现无刷新（页面积闪烁）的跳转页面。
         // 使用完整的页面跳转（强制刷新）
         window.location.href = targetPath
         return true
@@ -233,6 +240,15 @@ function checkRedirect() {
   }
   return false
 }
+
+const decodedCurrentPath = computed(() => {
+  try {
+    return decodeURIComponent(currentPath.value)
+  } catch (e) {
+    console.error('Failed to decode URI:', e)
+    return currentPath.value
+  }
+})
 
 // 在组件挂载时检查重定向
 onMounted(() => {
@@ -248,10 +264,10 @@ onMounted(() => {
       }
     }
     // 正常页面也检查是否需要重定向
-    else {
-      checkRedirect()
-    }
-  }, 50) // 缩短延迟时间
+    // else {
+    //   checkRedirect()
+    // }
+  }, 1000)
 })
 
 // 监听路由变化
@@ -266,10 +282,8 @@ watch(
         if (!redirected) {
           showNotFound.value = true
         }
-      } else {
-        checkRedirect()
       }
-    }, 30) // 进一步缩短延迟时间
+    }, 1000)
   }
 )
 // #endregion
@@ -461,12 +475,12 @@ onBeforeUnmount(destroySwiper)
   color: var(--vp-c-text-2);
 }
 
+/*
 .debug-info {
   margin-top: 2rem;
   padding: 1rem;
-  background-color: #f8f8f8;
-  border: 1px solid #eee;
   border-radius: 4px;
   font-size: 0.9rem;
 }
+  */
 </style>
