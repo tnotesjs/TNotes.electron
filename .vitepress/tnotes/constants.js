@@ -53,6 +53,7 @@ export const ROOT_README_PATH = path.resolve(ROOT_DIR_PATH, 'README.md')
 export const ROOT_CONFIG_PATH = path.resolve(ROOT_DIR_PATH, '.tnotes.json')
 export const NOTES_DIR_PATH = path.resolve(ROOT_DIR_PATH, 'notes')
 export const VP_DIR_PATH = path.resolve(ROOT_DIR_PATH, '.vitepress')
+export const PUBLIC_PATH = path.resolve(ROOT_DIR_PATH, 'public')
 export const GITHUB_DIR_PATH = path.resolve(ROOT_DIR_PATH, '.github')
 export const GITHUB_DEPLOYYML_PATH = path.resolve(
   GITHUB_DIR_PATH,

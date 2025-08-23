@@ -9,6 +9,7 @@ import {
   ROOT_PKG_PATH,
   TNOTES_BASE_DIR,
   VP_DIR_PATH,
+  PUBLIC_PATH,
   VSCODE_SETTINGS_PATH,
   VSCODE_TASKS_PATH,
 } from './constants.js'
@@ -78,6 +79,12 @@ export async function tempSync() {
 
       // 创建新的 .vitepress 文件夹，并复制 VP_SYNC_LIST 中的内容
       copyWhitelistedFiles(VP_DIR_PATH, targetVitepressDir)
+
+      // 复制整个 public 目录
+      const publicDir = path.join(targetDir, 'public')
+      deleteDirectory(publicDir)
+      fs.cpSync(PUBLIC_PATH, publicDir, { recursive: true })
+      console.log(`✅ 已复制 ${PUBLIC_PATH} 到 ${publicDir}`)
 
       // 复制 package.json 文件
       copyFile(ROOT_PKG_PATH, path.resolve(targetDir, 'package.json'))
