@@ -181,35 +181,87 @@ function markdown() {
         },
       })
 
+      function esc(s = '') {
+        return s.replace(
+          /[&<>"']/g,
+          (ch) =>
+            ({
+              '&': '&amp;',
+              '<': '&lt;',
+              '>': '&gt;',
+              '"': '&quot;',
+              "'": '&#39;',
+            }[ch]!)
+        )
+      }
+
+      let __tn_swiper_uid = 0
+
+      interface TN_RULES_STACK_ITEM {
+        image: any
+        pOpen: any
+        pClose: any
+      }
+      let __tn_rules_stack: Array<TN_RULES_STACK_ITEM> = []
+
+      // 每个文档渲染前重置计数器
+      md.core.ruler.before('block', 'tn_swiper_reset_uid', () => {
+        __tn_swiper_uid = 0
+        __tn_rules_stack = []
+        return true
+      })
+
       md.use(markdownItContainer, 'swiper', {
         render: (tokens, idx) => {
-          const defaultRenderRulesImage =
-            md.renderer.rules.image ||
-            ((tokens, idx, options, env, slf) =>
-              slf.renderToken(tokens, idx, options))
           if (tokens[idx].nesting === 1) {
+            // 进容器：保存原规则 & 局部覆盖
+            __tn_rules_stack.push({
+              image: md.renderer.rules.image,
+              pOpen: md.renderer.rules.paragraph_open,
+              pClose: md.renderer.rules.paragraph_close,
+            })
+
             md.renderer.rules.paragraph_open = () => ''
             md.renderer.rules.paragraph_close = () => ''
-            md.renderer.rules.image = (tokens, idx, options, env, slf) =>
-              `<div class="swiper-slide">${defaultRenderRulesImage(
-                tokens,
-                idx,
-                options,
-                env,
-                slf
-              )
-                .replaceAll('<div class="swiper-slide">', '')
-                .replaceAll('</div>', '')}</div>`
+            md.renderer.rules.image = (tokens, i) => {
+              const token: any = tokens[i]
+              const src = token.attrGet('src') || ''
+              const alt = token.content || ''
+              const title = alt && alt.trim() ? alt : 'img'
+              return `<div class="swiper-slide" data-title="${esc(
+                title
+              )}"><img src="${esc(src)}" alt="${esc(alt)}"></div>`
+            }
 
-            return `<div class="swiper-container"><div class="swiper-wrapper">\n`
+            const id = `tn-swiper-${++__tn_swiper_uid}`
+            return `
+<div class="tn-swiper" data-swiper-id="${id}">
+  <div class="tn-swiper-tabs"></div>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+`
           } else {
-            md.renderer.rules.paragraph_open = undefined
-            md.renderer.rules.paragraph_close = undefined
-            md.renderer.rules.image = (tokens, idx, options, env, slf) =>
-              `${defaultRenderRulesImage(tokens, idx, options, env, slf)
-                .replaceAll('<div class="swiper-slide">', '')
-                .replaceAll('</div>', '')}`
-            return '</div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div></div>\n'
+            // 出容器：恢复原规则并收尾
+            const prev: TN_RULES_STACK_ITEM = __tn_rules_stack.pop() || {
+              image: null,
+              pOpen: null,
+              pClose: null,
+            }
+            md.renderer.rules.image = prev.image
+            md.renderer.rules.paragraph_open = prev.pOpen
+            md.renderer.rules.paragraph_close = prev.pClose
+
+            return `
+    </div>
+    <!-- 下一页按钮 -->
+    <!-- <div class="swiper-button-next"></div> -->
+    <!-- 上一页按钮 -->
+    <!-- <div class="swiper-button-prev"></div> -->
+    <!-- 分页导航 -->
+    <!-- <div class="swiper-pagination"></div> -->
+  </div>
+</div>
+`
           }
         },
       })

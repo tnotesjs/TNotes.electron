@@ -105,11 +105,11 @@ export const NEW_NOTES_README_MD_TEMPLATE = `
 
 <!-- region:toc -->
 
-- [1. 📝 概述](#1--概述)
+- [1. 🫧 评价](#1--概述)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 🫧 评价
 
 `
 

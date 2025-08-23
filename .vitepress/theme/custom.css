@@ -34,25 +34,3 @@ ul > li.task-list-item {
 ul > li.task-list-item > ul {
   padding-left: 3rem;
 }
-
-/* reset checkbox style */
-.task-list-item > input[type='checkbox'] {
-  appearance: none;
-}
-
-.task-list-item > input[type='checkbox']::after {
-  font-size: 1.1rem;
-  content: '⏰';
-}
-
-.task-list-item > input[type='checkbox']:checked {
-  display: inline-block;
-  width: 1.1em;
-  height: 1.1rem;
-  vertical-align: baseline;
-}
-
-.task-list-item > input[type='checkbox']:checked::after {
-  font-size: 1.1rem;
-  content: '✅';
-}

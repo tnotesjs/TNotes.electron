@@ -17,6 +17,8 @@
             <pre>currentNoteConfig: {{ currentNoteConfig }}</pre> -->
       <!-- <button @click="copyRawFile" title="Copy raw file">raw</button> -->
       <!-- <pre>{{ tocData }}</pre> -->
+      <ImagePreview />
+      <Swiper />
     </template>
     <!-- <template #doc-bottom>doc-bottom</template> -->
     <template #doc-before>
@@ -108,14 +110,17 @@
 </template>
 
 <script setup>
+import ImagePreview from './ImagePreview.vue'
+import Swiper from './Swiper.vue'
+
 import icon__vscode from '/icon__vscode.svg'
 import icon__totop from '/icon__totop.svg'
-import m2mm from '/m2mm.png'
 import icon__github from '/icon__github.svg'
+import m2mm from '/m2mm.png'
 
 import DefaultTheme from 'vitepress/theme'
 import { useData, useRouter, useRoute } from 'vitepress'
-import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 
 import Discussions from '../Discussions/Discussions.vue'
 
@@ -168,13 +173,11 @@ const updateVscodeNoteDir = () => {
 
 onMounted(() => {
   updateVscodeNoteDir()
-  initSwiper()
 })
 watch(
   () => vpData.page.value.relativePath,
   () => {
     updateVscodeNoteDir()
-    initSwiper()
   }
 )
 
@@ -287,59 +290,6 @@ watch(
   }
 )
 // #endregion
-
-// --------------------------------------------------------------
-// #region - swiper
-// --------------------------------------------------------------
-// doc: https://swiperjs.com/demos
-
-// import Swiper from 'swiper'
-// import { Navigation, Pagination } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-
-const swiperInstance = ref(null)
-
-const initSwiper = () => {
-  import('swiper').then(({ default: Swiper }) => {
-    import('swiper/modules').then(({ Navigation, Pagination }) => {
-      swiperInstance.value = new Swiper('.swiper-container', {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        modules: [Navigation, Pagination],
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-      })
-    })
-  })
-}
-
-function destroySwiper() {
-  // ! unknow error
-  if (swiperInstance.value && swiperInstance.value.destroy) {
-    try {
-      swiperInstance.value.destroy(true, true)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  // document.querySelectorAll('.swiper-container').forEach(el => el.remove())
-  // swiperInstance.value = null
-}
-
-onBeforeUnmount(destroySwiper)
-// --------------------------------------------------------------
-// #endregion - swiper
-// --------------------------------------------------------------
 </script>
 
 <style scoped>
@@ -400,60 +350,6 @@ onBeforeUnmount(destroySwiper)
 </style>
 
 <style>
-/* add some custom styles to set Swiper size */
-.swiper-container {
-  width: 100%;
-  aspect-ratio: 16/9;
-  position: relative;
-  overflow: hidden;
-  margin: 1rem 0;
-}
-
-.swiper-container img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-/* .swiper-container .swiper-pagination-bullet {
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    line-height: 20px;
-    font-size: 12px;
-    color: #1a1a1a;
-    opacity: .2;
-    background: rgba(0, 0, 0, 0.2);
-} */
-
-.swiper-container .swiper-pagination-bullet:hover {
-  opacity: 0.8;
-}
-
-.swiper-container .swiper-pagination-bullet-active {
-  color: #fff;
-  background: var(--vp-c-brand-1);
-  opacity: 0.8;
-}
-
-.swiper-container .swiper-button-prev:after,
-.swiper-container .swiper-button-next:after {
-  font-size: 1.5rem;
-}
-
-.swiper-container .swiper-button-prev,
-.swiper-container .swiper-button-next {
-  transition: all 0.3s;
-  opacity: 0.5;
-}
-
-.swiper-container .swiper-button-prev:hover,
-.swiper-container .swiper-button-next:hover {
-  transform: scale(1.5);
-  opacity: 1;
-}
-
 /* 添加 404 页面样式 */
 .not-found-container {
   text-align: center;
