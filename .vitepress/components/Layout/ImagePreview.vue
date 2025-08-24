@@ -177,15 +177,9 @@ function onPointerUp() {
   window.removeEventListener('pointermove', onPointerMove)
 }
 
-// 键盘 ESC 关闭
-function onKeydown(e) {
-  if (!preview.value.visible) return
-  if (e.key === 'Escape') closePreview()
-  else if (e.key === 'ArrowLeft') prevImage()
-  else if (e.key === 'ArrowRight') nextImage()
-  else if (e.key === 'Enter') toggleZoom()
-  else if (e.key === 'ArrowUp') zoomIn()
-  else if (e.key === 'ArrowDown') zoomOut()
+let downX = 0
+function onPointerDownSwiper(e) {
+  downX = e.clientX
 }
 
 // 事件委托：拦截正文区域的 <img> 点击
@@ -197,16 +191,28 @@ function onDocClick(e) {
   // 只处理正文：VitePress 主文档区常见容器：.vp-doc / .VPDoc .main
   const img = target.closest?.('img')
   if (!img) return
-  const inDoc =
-    img.closest('.vp-doc') || img.closest('.VPDoc') || img.closest('.main')
-
+  const inDoc = img.closest('.main')
   if (!inDoc) return
+
+  // 判断是否在 swiper 中切换图片
+  const inSwiper = img.closest('.swiper-container')
+  if (inSwiper) {
+    const diffX = Math.abs(e.clientX - downX)
+    // 只要水平位移超过阈值，就认为是滑动，而不是点击
+    if (diffX > 5) {
+      return
+    }
+  }
 
   // 明确排除：带 data-preview="false" 或 .tn-preview-ignore 的图片
   if (img.dataset?.preview === 'false' || img.closest('.tn-preview-ignore'))
     return
 
-  // 如果图片包了链接，阻止跳转
+  // !禁止图片包含超链接
+  // TODO
+  // 做法 1：包含超链接的图片不支持 preview；
+  // 做法 2：如果图片包了链接，阻止跳转，支持 preview；【当前的方案】
+  // 做法 3：维护一个白名单，对特定类型的图片进行特殊处理；
   const a = img.closest('a')
   if (a) {
     e.preventDefault()
@@ -217,14 +223,27 @@ function onDocClick(e) {
   if (src) openPreview(src)
 }
 
+// 键盘 ESC 关闭
+function onKeydown(e) {
+  if (!preview.value.visible) return
+  if (e.key === 'Escape') closePreview()
+  else if (e.key === 'ArrowLeft') prevImage()
+  else if (e.key === 'ArrowRight') nextImage()
+  else if (e.key === 'Enter') toggleZoom()
+  else if (e.key === 'ArrowUp') zoomIn()
+  else if (e.key === 'ArrowDown') zoomOut()
+}
+
 onMounted(() => {
   document.addEventListener('click', onDocClick, true)
   document.addEventListener('keydown', onKeydown)
+  document.addEventListener('pointerdown', onPointerDownSwiper, true)
 })
 
 onBeforeUnmount(() => {
   document.removeEventListener('click', onDocClick, true)
   document.removeEventListener('keydown', onKeydown)
+  document.removeEventListener('pointerdown', onPointerDownSwiper, true)
 })
 </script>
 
@@ -283,12 +302,12 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.45);
+  /* background: rgba(0, 0, 0, 0.45); */
   border: none;
   border-radius: 50%;
   cursor: pointer;
   z-index: 2;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); */
   transition: all 0.2s ease;
 }
 
@@ -316,13 +335,13 @@ onBeforeUnmount(() => {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.65);
+  /* background: rgba(0, 0, 0, 0.65); */
   color: #fff;
   padding: 6px 14px;
   border-radius: 14px;
   font-size: 0.85rem;
   font-weight: 500;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); */
   z-index: 2;
   user-select: none;
 }
