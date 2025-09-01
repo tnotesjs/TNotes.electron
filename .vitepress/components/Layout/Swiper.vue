@@ -3,13 +3,8 @@
 <script setup>
 import { useData } from 'vitepress'
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
-// doc: https://swiperjs.com/demos
 
-// import Swiper from 'swiper'
-// import { Navigation, Pagination } from 'swiper/modules'
 import 'swiper/css'
-// import 'swiper/css/navigation'
-// import 'swiper/css/pagination'
 
 const vpData = useData()
 
@@ -26,22 +21,21 @@ const initSwiper = () => {
       wrappers.forEach((wrap) => {
         const container = wrap.querySelector('.swiper-container')
         const tabsEl = wrap.querySelector('.tn-swiper-tabs')
-        // const paginationEl = wrap.querySelector('.swiper-pagination')
-        // const nextEl = wrap.querySelector('.swiper-button-next')
-        // const prevEl = wrap.querySelector('.swiper-button-prev')
         if (!container || !tabsEl) return
 
         const instance = new Swiper(container, {
-          // modules: [Navigation, Pagination],
-          // slidesPerView: 1,
-          // spaceBetween: 30,
-          loop: false, // tab 与索引一一对应，更直观
-          // pagination: paginationEl
-          //   ? { el: paginationEl, clickable: true }
-          //   : undefined,
-          // navigation: nextEl && prevEl ? { nextEl, prevEl } : undefined,
+          loop: false,
           on: {
-            slideChange: () => updateActiveTab(wrap, instance.activeIndex),
+            slideChange: () => {
+              updateActiveTab(wrap, instance.activeIndex)
+              updateContainerHeight(container, instance.activeIndex)
+            },
+            // 在初始化时也设置一次高度
+            afterInit: () => {
+              setTimeout(() => {
+                updateContainerHeight(container, instance.activeIndex)
+              }, 0)
+            },
           },
         })
 
@@ -54,7 +48,13 @@ const initSwiper = () => {
           btn.type = 'button'
           btn.className = 'tn-tab' + (i === 0 ? ' active' : '')
           btn.textContent = label
-          btn.addEventListener('click', () => instance.slideTo(i))
+          btn.addEventListener('click', () => {
+            instance.slideTo(i)
+            // 点击tab时更新高度
+            setTimeout(() => {
+              updateContainerHeight(container, i)
+            }, 0)
+          })
           tabsEl.appendChild(btn)
         })
 
@@ -67,6 +67,23 @@ const initSwiper = () => {
 function updateActiveTab(wrap, activeIndex) {
   const btns = wrap.querySelectorAll('.tn-swiper-tabs .tn-tab')
   btns.forEach((b, i) => b.classList.toggle('active', i === activeIndex))
+}
+
+// 新增函数：根据当前slide中的图片高度更新容器高度
+function updateContainerHeight(container, activeIndex) {
+  const slides = container.querySelectorAll('.swiper-slide')
+  if (slides[activeIndex]) {
+    const img = slides[activeIndex].querySelector('img')
+    if (img && img.complete) {
+      // 如果图片已加载完成，直接设置高度
+      container.style.height = img.offsetHeight + 'px'
+    } else if (img) {
+      // 如果图片未加载完成，等待加载完成后设置高度
+      img.onload = () => {
+        container.style.height = img.offsetHeight + 'px'
+      }
+    }
+  }
 }
 
 function destroySwiper() {
@@ -83,6 +100,7 @@ onBeforeUnmount(destroySwiper)
 onMounted(() => {
   initSwiper()
 })
+
 watch(
   () => vpData.page.value.relativePath,
   () => {
@@ -118,10 +136,7 @@ watch(
   background: transparent;
   cursor: pointer;
   font-size: 0.875rem;
-  /* max-width: 20rem; */
-  /* overflow: hidden; */
-  /* text-overflow: ellipsis; */
-  /* white-space: nowrap; */
+  white-space: nowrap;
   color: var(--vp-code-tab-text-color);
 }
 .tn-tab::after {
@@ -137,65 +152,27 @@ watch(
   transition: background-color 0.25s;
 }
 .tn-tab.active {
-  /* background: var(--vp-c-brand-1); */
   color: var(--vp-code-tab-active-text-color);
-  /* border-bottom-color: var(--vp-c-brand-1); */
 }
 .tn-tab.active::after {
   background-color: var(--vp-code-tab-active-bar-color);
 }
-/* add some custom styles to set Swiper size */
+
+/* 修改 swiper-container 样式以支持动态高度 */
 .swiper-container {
   width: 100%;
-  aspect-ratio: 16/9;
   position: relative;
   overflow: hidden;
   margin: 1rem 0;
+  /* 添加高度变化的过渡动画 */
+  transition: height 0.3s ease;
 }
 
 .swiper-container img {
   display: block;
   width: 100%;
-  height: 100%;
+  /* 改为auto以保持图片原始比例 */
+  height: auto;
   object-fit: contain;
 }
-
-/* .swiper-container .swiper-pagination-bullet {
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    line-height: 20px;
-    font-size: 12px;
-    color: #1a1a1a;
-    opacity: .2;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.swiper-container .swiper-pagination-bullet:hover {
-  opacity: 0.8;
-}
-
-.swiper-container .swiper-pagination-bullet-active {
-  color: #fff;
-  background: var(--vp-c-brand-1);
-  opacity: 0.8;
-}
-
-.swiper-container .swiper-button-prev:after,
-.swiper-container .swiper-button-next:after {
-  font-size: 1.5rem;
-}
-
-.swiper-container .swiper-button-prev,
-.swiper-container .swiper-button-next {
-  transition: all 0.3s;
-  opacity: 0.5;
-}
-
-.swiper-container .swiper-button-prev:hover,
-.swiper-container .swiper-button-next:hover {
-  transform: scale(1.5);
-  opacity: 1;
-}
-*/
 </style>
