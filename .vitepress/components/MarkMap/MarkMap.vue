@@ -15,7 +15,7 @@ const props = defineProps({
   spacingVertical: { type: Number, default: 10 },
   spacingHorizontal: { type: Number, default: 20 },
   nodeMinHeight: { type: Number, default: 24 },
-  initialExpandLevel: { type: Number, default: 3 },
+  initialExpandLevel: { type: Number, default: 5 },
 })
 
 const svgRef = ref<SVGSVGElement | null>(null)
@@ -58,10 +58,10 @@ function renderMarkmap(content: string, level = expandLevel.value) {
         maxWidth: 400,
         // default color
         // color: (node): string => defaultColorFn(`${node.state?.path || ''}`),
-        color: (node): string =>
-          +node.state?.path === 1
-            ? 'var(--vp-c-brand-3)'
-            : 'var(--vp-c-brand-1)',
+        // color: (node): string =>
+        //   +node.state?.path === 1
+        //     ? 'var(--vp-c-brand-3)'
+        //     : 'var(--vp-c-brand-1)',
       }
 
       markmapInstance = Markmap.create(svgRef.value!, options, root)
