@@ -13,7 +13,7 @@
     "demos",
     "assets"
   ],
-  "rootSidebarDir": "../_/sidebars",
+  "rootSidebarDir": "../TNotes/sidebars",
   "root_item": {
     "icon": {
       "src": "https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/assets/icon--electron.svg"
@@ -23,7 +23,7 @@
     "details": "Electron 笔记",
     "link": "https://tdahuyou.github.io/TNotes.electron/",
     "created_at": 1726304357000,
-    "updated_at": 1754494580828,
+    "updated_at": 1757163546226,
     "days_since_birth": 9210
   },
   "port": 9210,
@@ -62,7 +62,7 @@
     },
     {
       "ariaLabel": "TNotes.electron github 仓库链接",
-      "link": "https://github.com/Tdahuyou/TNotes.electron",
+      "link": "https://github.com/tnotesjs/TNotes.electron",
       "icon": "github"
     }
   ],

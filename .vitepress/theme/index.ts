@@ -2,17 +2,18 @@
 // https://vitepress.dev/zh/guide/custom-theme
 
 // .vitepress/theme/index.ts
+import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import type { Theme, defineClientComponent } from 'vitepress'
-import './custom.css'
 import BilibiliOutsidePlayer from '../components/BilibiliOutsidePlayer/BilibiliOutsidePlayer.vue'
 import Discussions from '../components/Discussions/Discussions.vue'
 import EnWordList from '../components/EnWordList/EnWordList.vue'
 import Footprints from '../components/Footprints/Footprints.vue'
 import Layout from '../components/Layout/Layout.vue'
+import MarkMap from '../components/MarkMap/MarkMap.vue'
+import Mermaid from '../components/Mermaid/Mermaid.vue'
 import Settings from '../components/Settings/Settings.vue'
 import SidebarCard from '../components/SidebarCard/SidebarCard.vue'
-import MarkMap from '../components/MarkMap/MarkMap.vue'
+import './custom.css'
 
 export default {
   extends: DefaultTheme,
@@ -34,5 +35,6 @@ export default {
     app.component('Settings', Settings)
     app.component('SidebarCard', SidebarCard)
     app.component('MarkMap', MarkMap)
+    app.component('Mermaid', Mermaid)
   },
 } satisfies Theme

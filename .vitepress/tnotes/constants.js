@@ -96,8 +96,8 @@ export const REPO_NOTES_URL = `https://github.com/${author}/${repoName}/tree/mai
 export const REPO_BLOB_URL_1 = `https://github.com/${author}/${repoName}/blob/main/notes`
 export const REPO_BLOB_URL_2 = `?raw=true`
 
-export const GITHUB_PAGE_URL = `https://tdahuyou.github.io/${repoName}`
-export const GITHUB_PAGE_NOTES_URL = `https://tdahuyou.github.io/${repoName}/notes`
+export const GITHUB_PAGE_URL = `https://tnotesjs.github.io/${repoName}`
+export const GITHUB_PAGE_NOTES_URL = `https://tnotesjs.github.io/${repoName}/notes`
 
 /**
  * 新增笔记 README.md 模板

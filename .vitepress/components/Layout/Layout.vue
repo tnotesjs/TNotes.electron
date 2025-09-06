@@ -36,9 +36,9 @@
           </div>
           <div class="github-box" v-show="isHomeReadme">
             <a
-              :href="`https://github.com/Tdahuyou/${vpData.page.value.title.toLowerCase()}/blob/main/README.md`"
-              :aria-label="`Tdahuyou github - ${vpData.page.value.title.toLowerCase()} 笔记仓库链接`"
-              :title="`Tdahuyou github - ${vpData.page.value.title.toLowerCase()} 笔记仓库链接`"
+              :href="`https://github.com/tnotesjs/${vpData.page.value.title.toLowerCase()}/blob/main/README.md`"
+              :aria-label="`tnotesjs github - ${vpData.page.value.title.toLowerCase()} 笔记仓库链接`"
+              :title="`tnotesjs github - ${vpData.page.value.title.toLowerCase()} 笔记仓库链接`"
               target="_blank"
               rel="noopener"
             >
@@ -113,25 +113,25 @@
 import ImagePreview from './ImagePreview.vue'
 import Swiper from './Swiper.vue'
 
-import icon__vscode from '/icon__vscode.svg'
-import icon__totop from '/icon__totop.svg'
 import icon__github from '/icon__github.svg'
+import icon__totop from '/icon__totop.svg'
+import icon__vscode from '/icon__vscode.svg'
 import m2mm from '/m2mm.png'
 
+import { useData, useRoute, useRouter } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import { useData, useRouter, useRoute } from 'vitepress'
-import { ref, computed, onMounted, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 import Discussions from '../Discussions/Discussions.vue'
 
-import { data as tocData } from './toc.data.js'
 import { data as allNotesConfig } from '../notesConfig.data.js'
+import { data as tocData } from './toc.data.js'
 
 // console.log('allNotesConfig', allNotesConfig)
 
 import { formatDate, scrollToTop } from '../utils.js'
 
-import { NOTES_DIR_KEY, TOC_MD, REPO_NAME } from '../constants.js'
+import { NOTES_DIR_KEY, TOC_MD } from '../constants.js'
 
 const { Layout } = DefaultTheme
 const vpData = useData()

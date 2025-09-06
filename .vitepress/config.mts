@@ -1,21 +1,21 @@
+import MarkdownIt from 'markdown-it'
+import markdownItContainer from 'markdown-it-container'
+import mila from 'markdown-it-link-attributes'
+import markdownItTaskLists from 'markdown-it-task-lists'
 import {
+  DefaultTheme,
   defineConfig,
   HeadConfig,
-  DefaultTheme,
   MarkdownOptions,
 } from 'vitepress'
-import markdownItTaskLists from 'markdown-it-task-lists'
-import mila from 'markdown-it-link-attributes'
-import markdownItContainer from 'markdown-it-container'
-import { withMermaid } from 'vitepress-plugin-mermaid'
 
 import {
   author,
-  repoName,
-  keywords,
-  socialLinks,
-  menuItems,
   ignore_dirs,
+  keywords,
+  menuItems,
+  repoName,
+  socialLinks,
 } from '../.tnotes.json'
 
 import sidebar from '../sidebar.json'
@@ -32,7 +32,7 @@ const github_page_url =
   'https://' + author.toLowerCase() + '.github.io/' + repoName + '/'
 
 // https://vitepress.dev/reference/site-config
-const vpConfig = defineConfig({
+export default defineConfig({
   appearance: 'dark',
   base: '/' + repoName + '/',
   cleanUrls: true,
@@ -81,6 +81,42 @@ function head() {
   return head
 }
 
+// 简化的 Mermaid 处理函数
+const simpleMermaidMarkdown = (md: MarkdownIt) => {
+  const fence = md.renderer.rules.fence
+    ? md.renderer.rules.fence.bind(md.renderer.rules)
+    : () => ''
+
+  md.renderer.rules.fence = (tokens, index, options, env, slf) => {
+    const token = tokens[index]
+
+    // 检查是否为 mermaid 代码块
+    if (token.info.trim() === 'mermaid') {
+      try {
+        const key = `mermaid-${Date.now()}-${Math.random()
+          .toString(36)
+          .substr(2, 9)}`
+        const content = token.content
+        // 使用自定义组件
+        console.log(
+          'mermaid',
+          `<Mermaid id="${key}" graph="${encodeURIComponent(content)}" />`
+        )
+        return `<Mermaid id="${key}" graph="${encodeURIComponent(content)}" />`
+      } catch (err) {
+        return `<pre>${err}</pre>`
+      }
+    }
+
+    // 允许使用 mmd 标记显示 Mermaid 代码本身
+    if (token.info.trim() === 'mmd') {
+      tokens[index].info = 'mermaid'
+    }
+
+    return fence(tokens, index, options, env, slf)
+  }
+}
+
 function markdown() {
   const markdown: MarkdownOptions = {
     lineNumbers: true,
@@ -91,6 +127,9 @@ function markdown() {
         state.env.source = state.src
         return true
       })
+
+      // 添加 Mermaid 支持
+      simpleMermaidMarkdown(md)
 
       // 先保留 container 的解析（负责把 ```markmap ``` 识别成 container tokens）
       // 但让它本身不输出任何 HTML（render 返回空）
@@ -371,15 +410,15 @@ function themeConfig() {
   return themeConfig
 }
 
-export default withMermaid({
-  // your existing vitepress config...
-  ...vpConfig,
-  // optionally, you can pass MermaidConfig
-  mermaid: {
-    // refer https://mermaid.js.org/config/setup/modules/mermaidAPI.html#mermaidapi-configuration-defaults for options
-  },
-  // optionally set additional config for plugin itself with MermaidPluginConfig
-  mermaidPlugin: {
-    class: 'mermaid my-class', // set additional css classes for parent container
-  },
-})
+// export default withMermaid({
+//   // your existing vitepress config...
+//   ...vpConfig,
+//   // optionally, you can pass MermaidConfig
+//   mermaid: {
+//     // refer https://mermaid.js.org/config/setup/modules/mermaidAPI.html#mermaidapi-configuration-defaults for options
+//   },
+//   // optionally set additional config for plugin itself with MermaidPluginConfig
+//   mermaidPlugin: {
+//     class: 'mermaid my-class', // set additional css classes for parent container
+//   },
+// })
