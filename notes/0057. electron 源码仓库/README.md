@@ -16,7 +16,7 @@
 
 - https://github.com/electron/electron
   - 这是 Github electron 项目源码仓库链接
-  - ![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-02-19-24-11.png)
+  - ![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-02-19-24-11.png)
   - 截止目前 `2025 年 5 月 2 日` 的 `🌟 starred` 数量：`117k`
 
 ## 3. 🔗 deepwiki - 借助 AI 来阅读项目源码
@@ -24,4 +24,4 @@
 - https://deepwiki.com/electron/electron
   - deepwiki
   - 借助 AI 来学习 Electron 项目源码
-  - ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-02-19-20-51.png)
+  - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-02-19-20-51.png)

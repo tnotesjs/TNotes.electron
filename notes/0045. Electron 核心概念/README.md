@@ -39,19 +39,19 @@
 
 ## 2. 💡 思维导图
 
-![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-07-49-29.png)
+![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-07-49-29.png)
 
 ::: details 获取原图 👉 `TNotes.yuque`
 
 - 原图记录在 yuque 文档中，有需要的可自行 copy。
-- ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-07-47-35.png)
+- ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-07-47-35.png)
 
 :::
 
 ## 3. 📒 认识 Electron 基本架构
 
 - 在 Electron 中，进程模型主要包含两类进程：主进程、渲染进程。
-  - ![图 2](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-07-50-59.png)
+  - ![图 2](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-07-50-59.png)
 - **主进程**
   - Electron 的主进程是负责创建 GUI 窗口，管理应用程序事件和处理系统操作的进程，它可以调用 Electron 提供的大部分原生 API。
 - **渲染进程**
@@ -88,7 +88,7 @@
     - 可以在官网的 `API/Main Process Modules` 中查看 Electron 主进程都有哪些模块。
   - https://www.electronjs.org/docs/latest/api/clipboard
     - 在官网的 `API/Renderer Process Modules` 中查看 Electron 渲染进程都有哪些模块。
-  - ![图 3](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-03-54.png)
+  - ![图 3](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-03-54.png)
 - [**主进程**](https://www.electronjs.org/docs/latest/api/app) 模块通常用于实现 Electron 应用的核心功能，如：
   - **进行进程间通信（ipcMain）**
   - **创建窗口（BrowserWindow、BrowserView）**
@@ -231,7 +231,7 @@ contextBridge.exposeInMainWorld('myAPI', {
 
 - 答：
   - 因为这么设计，可以保证每个浏览器窗口（渲染进程、页面）的独立性和稳定性，同时也有利于提高应用程序的安全性（**只有主进程才能访问系统级别的资源和操作**）。
-  - ![图 2](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-07-50-59.png)
+  - ![图 2](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-07-50-59.png)
 - Electron 架构中主进程对系统级别的资源和操作的独特访问权限主要是出于安全和稳定性的考虑：
   - **安全性**
     - 限制对系统级别资源和操作的访问可以防止恶意代码或者攻击对系统级别资源造成破坏。

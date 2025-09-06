@@ -26,9 +26,9 @@
 
 ::: swiper
 
-![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-02-18-43-07.png)
+![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-02-18-43-07.png)
 
-![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-02-18-43-26.png)
+![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-02-18-43-26.png)
 
 :::
 
@@ -37,14 +37,14 @@
 - [TNotes.yuque](https://www.yuque.com/tdahuyou/tnotes.yuque) 知识库用来存储一些 `TNotes` 中的大型静态资源。
   - 比如：思维导图的源数据以及 pdf 书籍等资源。
   - 思维导图 - Electron 核心概念
-    - ![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-07-49-29.png)
+    - ![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-07-49-29.png)
   - `《Electron实战：入门、进阶与性能优化》.pdf`
-    - ![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-02-19-35-53.png)
+    - ![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-02-19-35-53.png)
 
 ::: details 获取原图 👉 `TNotes.yuque`
 
 - 原图记录在 yuque 文档中，有需要的可自行 copy。
-- ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-07-47-35.png)
+- ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-07-47-35.png)
 
 :::
 

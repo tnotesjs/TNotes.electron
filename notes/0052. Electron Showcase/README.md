@@ -21,4 +21,4 @@
   - https://1password.com/zh-tw - 1Password
   - …… 等等
 - 通过这个 Electron Showcase 站点，可以快速查阅那些使用 Electron 开发的桌面应用程序，了解 Electron 都适合用来写些什么东西。
-- ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-07-40-52.png)
+- ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-07-40-52.png)

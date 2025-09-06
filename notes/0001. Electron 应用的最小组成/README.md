@@ -85,7 +85,7 @@ app.whenReady().then(() => {
 
 - **最终效果展示**
   - 本节需要实现的 demo 效果非常简单 —— 启动 Electron 应用并在页面上渲染出 `Hello World`。
-  - ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-10-51.png)
+  - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-10-51.png)
 
 ## 2. 💻 demos.1 - Hello World 示例
 
@@ -273,7 +273,7 @@ touch index.html
 ### 2.6. 启动 Electron 应用
 
 - 运行应用程序：`npm run dev`，这将启动 Electron 应用程序，并在窗口中显示“Hello, World!”消息。
-  - ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-10-51.png)
+  - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-10-51.png)
 
 ## 3. 🤔 Q&A
 

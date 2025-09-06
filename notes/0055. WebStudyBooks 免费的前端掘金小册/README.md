@@ -88,7 +88,7 @@ Webpack5 核心原理与应用实践.zip
   - GitHub WebStudyBooks
   - 这是仓库原地址，存放了一系列作者网上买来的掘金小册压缩包。
   - 仓库作者原话：这是掘金小册，基本都是完整版的，如果有不完整的希望体谅，我也是从别人哪里买的。
-  - ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-02-19-53-47.png)
+  - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-02-19-53-47.png)
 - https://github.com/Tdahuyou/zhaoxinkun--WebStudyBooks
   - GitHub WebStudyBooks
   - forked from zhaoxinkun/WebStudyBooks
@@ -101,6 +101,6 @@ Webpack5 核心原理与应用实践.zip
 - **滞后问题**：
   - 掘金上的一些小册是会不定期更新的，作者会不定期在小册下发布新的文章，这些压缩包的版本或许会有所滞后。
   - 以《Electron + Vue3 桌面应用开发》为例：
-  - ![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-02-19-55-15.png)
+  - ![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-02-19-55-15.png)
 - **错误问题**：
   - 小册中可能会存在内容错误，购买小册的读者在掘金上阅读小册时，若发现错误，可能会在评论区提醒作者，然后作者修正错误，而仓库中的这些小册压缩包则不会更新，可能有些错误还没有被修正。

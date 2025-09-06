@@ -16,4 +16,4 @@
 - https://www.electronjs.org/
   - 这是 Electron 的官网链接，可以说是除了源码之外最权威的 Electron 内容了。
   - 官网有中文版，翻译得非常友好。
-  - ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-02-19-26-54.png)
+  - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-02-19-26-54.png)

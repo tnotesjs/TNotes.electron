@@ -37,7 +37,7 @@ const loadGiscusScript = () => {
   // 创建新的 giscus 脚本
   const giscusScript = document.createElement('script')
   giscusScript.src = 'https://giscus.app/client.js'
-  giscusScript.setAttribute('data-repo', 'tnotesjs/TNotes.discussions')
+  giscusScript.setAttribute('data-repo', 'tnotesjs/discussions')
   giscusScript.setAttribute('data-repo-id', 'R_kgDON-A6tg')
   giscusScript.setAttribute('data-category', 'Announcements')
   giscusScript.setAttribute('data-category-id', 'DIC_kwDON-A6ts4CnPI3')

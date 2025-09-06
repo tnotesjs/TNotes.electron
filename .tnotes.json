@@ -1,9 +1,7 @@
 {
   "author": "Tdahuyou",
   "repoName": "TNotes.electron",
-  "keywords": [
-    "TNotes.electron"
-  ],
+  "keywords": ["TNotes.electron"],
   "ignore_dirs": [
     ".vscode",
     "0000",
@@ -16,7 +14,7 @@
   "rootSidebarDir": "../TNotes/sidebars",
   "root_item": {
     "icon": {
-      "src": "https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/assets/icon--electron.svg"
+      "src": "https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/assets/icon--electron.svg"
     },
     "title": "electron",
     "completed_notes_count": 20,

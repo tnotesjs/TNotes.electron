@@ -14,7 +14,7 @@
 <BilibiliOutsidePlayer id="BV1CBFyeREu6" />
 
 - 主进程 <-> 渲染进程
-  - ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-11-18-08.png)
+  - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-11-18-08.png)
 - 本文档通过对比 `ipcRenderer.send`、`ipcRenderer.sendSync` 这两种通信方法，简单介绍了有关 `ipcRenderer.sendSync` API 的一些特点和基本用法。
 - 注意：
   - `ipcRenderer.sendSync` 非必要，不建议使用。
@@ -126,7 +126,7 @@ app.on('ready', () => {
 
 - **最终效果**
   - 先点击 send 按钮，然后再点击 sendSync 按钮，最终结果如下。
-  - ![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-07-19-09-34.png)
+  - ![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-07-19-09-34.png)
 - 主进程日志
 
 ```bash

@@ -21,7 +21,7 @@
 
 ## 2. 💡 思维导图
 
-![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-36-41.png)
+![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-36-41.png)
 
 ## 3. 🔍 查看官方提供的 IPC 通信教程
 
@@ -34,7 +34,7 @@
     - 模式 3：主进程到渲染器进程
     - 模式 4：渲染器进程到渲染器进程
   - 对象序列化
-- ![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-36-52.png)
+- ![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-36-52.png)
 
 ## 4. 📒 send vs. sendSync
 
@@ -77,7 +77,7 @@
   - **🔍 查看官方对 invoke API 的描述**
     - https://www.electronjs.org/docs/latest/tutorial/ipc#note-legacy-approaches
     - 官方建议 - 推荐使用 ipcRenderer.invoke
-    - ![图 2](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-37-12.png)
+    - ![图 2](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-37-12.png)
     - 简言之就是，**如果我们开发的应用所使用的 Electron 的版本高于 v7，那么推荐使用新版的 API ipcRenderer.invoke 来实现渲染进程到主进程之间的通信。放弃使用传统的 ipcRenderer.send、ipcRenderer.sendSync。**
 
 ## 5. 📒 send vs. invoke
@@ -123,9 +123,9 @@
 ### 6.1. 🤔 问：使用 send 来实现单向通信能减少开销提高性能？
 
 - 这是一位网友提的问题，由于缺乏论据，并且也没在官方文档找到支持这种说法的点，因此暂且认为这种说法是不成立的。
-  - ![图 3](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-37-32.png)
+  - ![图 3](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-37-32.png)
 - 从官方描述来看，send 之所以被保留，原因也仅仅是为了兼容老版本罢了，而非减少开销提高性能。
-  - ![图 4](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-08-37-44.png)
+  - ![图 4](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-37-44.png)
 - 备注：
   - 咨询时间：24.06.27
   - 顺带提一嘴 - 不习惯被称呼为老师。

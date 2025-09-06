@@ -10,7 +10,7 @@
 
 - **pdf 资源获取**：
   - 在 `TNotes.yuque` 中有这本书的 pdf 版本 `《Electron实战：入门、进阶与性能优化》.pdf`，有需要的可直接下载。
-  - ![图 1](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-02-19-35-53.png)
+  - ![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-02-19-35-53.png)
 - **注意版本**：
   - 这本书还没读完，记得读了其中的一小部分，现在 `24.10` electron 已经升级到 `v33` 了，书中的版本记得应该是蛮低的，在阅读的时候需要注意一下版本。书中 `20.05` 的版本是 8 左右。差了 25 个大版本，变化的内容还是挺多的。
-  - ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-02-19-33-22.png)
+  - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-02-19-33-22.png)

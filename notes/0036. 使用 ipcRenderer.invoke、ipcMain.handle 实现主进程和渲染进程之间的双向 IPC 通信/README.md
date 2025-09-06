@@ -85,7 +85,7 @@ app.on('ready', () => {
 :::
 
 - **最终效果**
-  - ![图 0](https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/2025-05-03-11-23-00.png)
+  - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-11-23-00.png)
 - 主进程日志
 
 ```bash
