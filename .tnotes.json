@@ -1,5 +1,5 @@
 {
-  "author": "Tdahuyou",
+  "author": "tnotesjs",
   "repoName": "TNotes.electron",
   "keywords": ["TNotes.electron"],
   "ignore_dirs": [
@@ -19,7 +19,7 @@
     "title": "electron",
     "completed_notes_count": 20,
     "details": "Electron 笔记",
-    "link": "https://tdahuyou.github.io/TNotes.electron/",
+    "link": "https://tnotesjs.github.io/TNotes.electron/",
     "created_at": 1726304357000,
     "updated_at": 1757163546226,
     "days_since_birth": 9210
@@ -36,7 +36,7 @@
     },
     {
       "text": "📒 TNotes",
-      "link": "https://tdahuyou.github.io/notes"
+      "link": "https://tnotesjs.github.io/notes"
     },
     {
       "text": "📂 TNotes.yuque",
