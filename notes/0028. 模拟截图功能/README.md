@@ -1,4 +1,4 @@
-# [0028. 模拟截图功能](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0028.%20%E6%A8%A1%E6%8B%9F%E6%88%AA%E5%9B%BE%E5%8A%9F%E8%83%BD)
+# [0028. 模拟截图功能](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0028.%20%E6%A8%A1%E6%8B%9F%E6%88%AA%E5%9B%BE%E5%8A%9F%E8%83%BD)
 
 <!-- region:toc -->
 

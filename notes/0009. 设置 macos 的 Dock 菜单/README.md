@@ -1,4 +1,4 @@
-# [0009. 设置 macos 的 Dock 菜单](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0009.%20%E8%AE%BE%E7%BD%AE%20macos%20%E7%9A%84%20Dock%20%E8%8F%9C%E5%8D%95)
+# [0009. 设置 macos 的 Dock 菜单](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0009.%20%E8%AE%BE%E7%BD%AE%20macos%20%E7%9A%84%20Dock%20%E8%8F%9C%E5%8D%95)
 
 <!-- region:toc -->
 

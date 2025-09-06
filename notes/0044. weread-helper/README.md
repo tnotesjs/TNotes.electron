@@ -1,4 +1,4 @@
-# [0044. weread-helper](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0044.%20weread-helper)
+# [0044. weread-helper](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0044.%20weread-helper)
 
 <!-- region:toc -->
 

@@ -246,7 +246,7 @@
   - [2. 💻 demo](https://tnotesjs.github.io/TNotes.electron/notes/0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/README#2--demo)
   - 在页面上创建右键菜单，这是桌面端应用中很常见的一个功能点。本文的介绍了如何使用 Menu 模块来创建一个右键菜单。
   - 本节介绍如何如何使用 Menu 模块来创建一个右键菜单。这里提到的右键菜单，又称为上下文菜单，也就是你在一些应用程序的界面上，点击鼠标右键所弹出的内容。
-  - ![](https://github.com/Tdahuyou/TNotes.electron/blob/main/notes/0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/assets/2024-10-06-01-24-36.png?raw=true)
+  - ![](https://github.com/tnotesjs/TNotes.electron/blob/main/notes/0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/assets/2024-10-06-01-24-36.png?raw=true)
 
 ### 10.3. Dock 菜单
 
@@ -429,7 +429,7 @@
   - [3. 💻 demo](https://tnotesjs.github.io/TNotes.electron/notes/0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F/README#3--demo)
   - 手写一个简单的桌面时钟摆件
   - 最终效果：
-    - ![](https://github.com/Tdahuyou/TNotes.electron/blob/main/notes/0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F/assets/2024-10-13-21-41-11.png?raw=true)
+    - ![](https://github.com/tnotesjs/TNotes.electron/blob/main/notes/0032.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F/assets/2024-10-13-21-41-11.png?raw=true)
 - [ ] [0056. 实现一个桌面时钟-2](https://tnotesjs.github.io/TNotes.electron/notes/0056.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F-2/README)
   - [1. 📒 demo 功能简介](https://tnotesjs.github.io/TNotes.electron/notes/0056.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F-2/README#1--demo-功能简介)
   - [2. 📒 编写这个 demo 的初衷](https://tnotesjs.github.io/TNotes.electron/notes/0056.%20%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E6%97%B6%E9%92%9F-2/README#2--编写这个-demo-的初衷)

@@ -1,4 +1,4 @@
-# [0048. 认识无边框窗口](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0048.%20%E8%AE%A4%E8%AF%86%E6%97%A0%E8%BE%B9%E6%A1%86%E7%AA%97%E5%8F%A3)
+# [0048. 认识无边框窗口](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0048.%20%E8%AE%A4%E8%AF%86%E6%97%A0%E8%BE%B9%E6%A1%86%E7%AA%97%E5%8F%A3)
 
 <!-- region:toc -->
 

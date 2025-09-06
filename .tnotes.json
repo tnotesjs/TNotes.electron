@@ -1,7 +1,9 @@
 {
   "author": "tnotesjs",
   "repoName": "TNotes.electron",
-  "keywords": ["TNotes.electron"],
+  "keywords": [
+    "TNotes.electron"
+  ],
   "ignore_dirs": [
     ".vscode",
     "0000",
@@ -21,7 +23,7 @@
     "details": "Electron 笔记",
     "link": "https://tnotesjs.github.io/TNotes.electron/",
     "created_at": 1726304357000,
-    "updated_at": 1757163546226,
+    "updated_at": 1757172130052,
     "days_since_birth": 9210
   },
   "port": 9210,

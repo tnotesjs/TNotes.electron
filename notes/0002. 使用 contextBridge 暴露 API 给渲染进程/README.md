@@ -1,4 +1,4 @@
-# [0002. 使用 contextBridge 暴露 API 给渲染进程](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0002.%20%E4%BD%BF%E7%94%A8%20contextBridge%20%E6%9A%B4%E9%9C%B2%20API%20%E7%BB%99%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B)
+# [0002. 使用 contextBridge 暴露 API 给渲染进程](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0002.%20%E4%BD%BF%E7%94%A8%20contextBridge%20%E6%9A%B4%E9%9C%B2%20API%20%E7%BB%99%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B)
 
 <!-- region:toc -->
 

@@ -1,4 +1,4 @@
-# [0024. 通过 app 模块获取应用相关路径](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0024.%20%E9%80%9A%E8%BF%87%20app%20%E6%A8%A1%E5%9D%97%E8%8E%B7%E5%8F%96%E5%BA%94%E7%94%A8%E7%9B%B8%E5%85%B3%E8%B7%AF%E5%BE%84)
+# [0024. 通过 app 模块获取应用相关路径](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0024.%20%E9%80%9A%E8%BF%87%20app%20%E6%A8%A1%E5%9D%97%E8%8E%B7%E5%8F%96%E5%BA%94%E7%94%A8%E7%9B%B8%E5%85%B3%E8%B7%AF%E5%BE%84)
 
 <!-- region:toc -->
 

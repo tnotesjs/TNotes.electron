@@ -1,4 +1,4 @@
-# [0052. Electron Showcase](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0052.%20Electron%20Showcase)
+# [0052. Electron Showcase](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0052.%20Electron%20Showcase)
 
 <!-- region:toc -->
 

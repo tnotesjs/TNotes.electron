@@ -1,4 +1,4 @@
-# [0005. 使用 electron-devtools-installer 安装 vue-devtools](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0005.%20%E4%BD%BF%E7%94%A8%20electron-devtools-installer%20%E5%AE%89%E8%A3%85%20vue-devtools)
+# [0005. 使用 electron-devtools-installer 安装 vue-devtools](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0005.%20%E4%BD%BF%E7%94%A8%20electron-devtools-installer%20%E5%AE%89%E8%A3%85%20vue-devtools)
 
 <!-- region:toc -->
 

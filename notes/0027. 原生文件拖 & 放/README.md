@@ -1,4 +1,4 @@
-# [0027. 原生文件拖 & 放](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE)
+# [0027. 原生文件拖 & 放](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE)
 
 
 <!-- region:toc -->

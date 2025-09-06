@@ -1,4 +1,4 @@
-# [0033. ScreenCaptureApp](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0033.%20ScreenCaptureApp)
+# [0033. ScreenCaptureApp](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0033.%20ScreenCaptureApp)
 
 <!-- region:toc -->
 

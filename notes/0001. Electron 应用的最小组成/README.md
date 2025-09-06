@@ -1,4 +1,4 @@
-# [0001. Electron 应用的最小组成](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0001.%20Electron%20%E5%BA%94%E7%94%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%84%E6%88%90)
+# [0001. Electron 应用的最小组成](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0001.%20Electron%20%E5%BA%94%E7%94%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%84%E6%88%90)
 
 <!-- region:toc -->
 

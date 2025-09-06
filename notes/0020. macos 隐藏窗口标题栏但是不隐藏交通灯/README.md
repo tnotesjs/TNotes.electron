@@ -1,4 +1,4 @@
-# [0020. macos 隐藏窗口标题栏但是不隐藏交通灯](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0020.%20macos%20%E9%9A%90%E8%97%8F%E7%AA%97%E5%8F%A3%E6%A0%87%E9%A2%98%E6%A0%8F%E4%BD%86%E6%98%AF%E4%B8%8D%E9%9A%90%E8%97%8F%E4%BA%A4%E9%80%9A%E7%81%AF)
+# [0020. macos 隐藏窗口标题栏但是不隐藏交通灯](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0020.%20macos%20%E9%9A%90%E8%97%8F%E7%AA%97%E5%8F%A3%E6%A0%87%E9%A2%98%E6%A0%8F%E4%BD%86%E6%98%AF%E4%B8%8D%E9%9A%90%E8%97%8F%E4%BA%A4%E9%80%9A%E7%81%AF)
 
 <!-- region:toc -->
 

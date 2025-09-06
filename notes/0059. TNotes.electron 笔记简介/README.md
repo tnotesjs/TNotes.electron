@@ -1,4 +1,4 @@
-# [0059. TNotes.electron 笔记简介](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0059.%20TNotes.electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B)
+# [0059. TNotes.electron 笔记简介](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0059.%20TNotes.electron%20%E7%AC%94%E8%AE%B0%E7%AE%80%E4%BB%8B)
 
 <!-- region:toc -->
 

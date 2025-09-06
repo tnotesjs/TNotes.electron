@@ -1,4 +1,4 @@
-# [0047. 分析渲染进程之间的通信](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0047.%20%E5%88%86%E6%9E%90%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1)
+# [0047. 分析渲染进程之间的通信](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0047.%20%E5%88%86%E6%9E%90%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1)
 
 <!-- region:toc -->
 

@@ -1,4 +1,4 @@
-# [0025. 创建 macos 应用托盘（Tray）](https://github.com/Tdahuyou/TNotes.electron/tree/main/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89)
+# [0025. 创建 macos 应用托盘（Tray）](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89)
 
 <!-- region:toc -->
 
