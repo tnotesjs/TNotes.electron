@@ -14,6 +14,7 @@ import {
 import { newNotes } from './new.js'
 import { __dirname, ROOT_DIR_PATH, port } from './constants.js'
 import { tempSync } from './temp-sync.js'
+import { safeUpdate, startServer } from './vp-manager.js'
 ;(async () => {
   try {
     const args = minimist(process.argv)
@@ -30,6 +31,11 @@ import { tempSync } from './temp-sync.js'
         )
         commandExecuted = true
         break
+      // 含大量笔记知识库（比如 TNotes.leetcode）的启动方式
+      case args.safeDev:
+        startServer()
+        commandExecuted = true
+        break
       case args.build:
         await runCommand_spawn(`vitepress build`, ROOT_DIR_PATH)
         commandExecuted = true
@@ -41,6 +47,11 @@ import { tempSync } from './temp-sync.js'
       case args.update:
         const updater = new ReadmeUpdater()
         await updater.updateReadme()
+        commandExecuted = true
+        break
+      // 含大量笔记知识库（比如 TNotes.leetcode）的更新方式
+      case args.safeUpdate:
+        await safeUpdate()
         commandExecuted = true
         break
       case args.push:

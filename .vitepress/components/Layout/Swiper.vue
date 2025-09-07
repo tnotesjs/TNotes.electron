@@ -25,6 +25,9 @@ const initSwiper = () => {
 
         const instance = new Swiper(container, {
           loop: false,
+          // TODO 可配置
+          // effect: 'fade',
+          // speed: 0, // 禁用动画
           on: {
             slideChange: () => {
               updateActiveTab(wrap, instance.activeIndex)

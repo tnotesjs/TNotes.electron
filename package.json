@@ -3,7 +3,9 @@
   "scripts": {
     "tn:new": "         node ./.vitepress/tnotes --new",
     "tn:dev": "         node ./.vitepress/tnotes --dev",
+    "tn:dev:safe": "    node ./.vitepress/tnotes --safeDev",
     "tn:update": "      node ./.vitepress/tnotes --update",
+    "tn:update:safe": " node ./.vitepress/tnotes --safeUpdate",
     "tn:push": "        node ./.vitepress/tnotes --push",
     "tn:pull": "        node ./.vitepress/tnotes --pull",
     "tn:merge": "       node ./.vitepress/tnotes --merge",

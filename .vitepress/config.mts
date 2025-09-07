@@ -57,7 +57,16 @@ export default defineConfig({
     server: {
       watch: {
         ignored: IGNORE_LIST,
+        // awaitWriteFinish: {
+        //   stabilityThreshold: 5000, // 文件大小稳定 1000ms 后触发
+        //   pollInterval: 1000, // 每 100ms 检查一次文件大小
+        // },
+        // usePolling: true, // 启用轮询机制（更稳定但稍耗资源） 解决 WSL/macOS 常见监听问题
       },
+      // 避免内存溢出（大型文档库必备）
+      // warmup: {
+      //   clientFiles: ['./**/*.md'],
+      // },
     },
     plugins: [TN_HMR_Plugin()],
   },
@@ -98,10 +107,10 @@ const simpleMermaidMarkdown = (md: MarkdownIt) => {
           .substr(2, 9)}`
         const content = token.content
         // 使用自定义组件
-        console.log(
-          'mermaid',
-          `<Mermaid id="${key}" graph="${encodeURIComponent(content)}" />`
-        )
+        // console.log(
+        //   'mermaid',
+        //   `<Mermaid id="${key}" graph="${encodeURIComponent(content)}" />`
+        // )
         return `<Mermaid id="${key}" graph="${encodeURIComponent(content)}" />`
       } catch (err) {
         return `<pre>${err}</pre>`

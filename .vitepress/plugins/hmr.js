@@ -27,7 +27,7 @@ export default async function TN_HMR_Plugin() {
 
       // 监听文件变化事件
       server.watcher.on('all', async (event, filePath) => {
-        // /Users/huyouda/zm/notes/TNotes.leetcode/notes/0002. xxx/README.md
+        // /Users/huyouda/tnotesjs/TNotes.leetcode/notes/0002. xxx/README.md
         // console.log('path.basename(filePath)', path.basename(filePath))
 
         // console.log('Date.now()', Date.now())
