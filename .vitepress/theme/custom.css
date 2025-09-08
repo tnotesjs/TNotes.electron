@@ -34,3 +34,53 @@ ul > li.task-list-item {
 ul > li.task-list-item > ul {
   padding-left: 3rem;
 }
+
+/* sidebar toggle */
+/* 仅隐藏 sidebar，不动 --vp-sidebar-width */
+.hide-sidebar .VPSidebar {
+  transform: translateX(-100%);
+  /*   opacity: 0; */
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.hide-sidebar .VPNavBar {
+  background-color: var(--vp-nav-bg-color) !important;
+}
+
+/* 主体内容往左补齐，否则左边会留白 */
+.hide-sidebar .VPContent {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+.hide-sidebar .VPDoc .content-container {
+  max-width: calc(688px + var(--vp-sidebar-width)) !important;
+}
+
+/* content fullscreen toggle */
+/* 全屏显示内容区时的样式 */
+.content-fullscreen .VPSidebar,
+.content-fullscreen .VPNav,
+.content-fullscreen .VPDocFooter {
+  display: none !important;
+}
+
+.content-fullscreen .VPContent {
+  margin: 0 !important;
+  padding: 0 2rem !important; /* 你想要的内边距 */
+  max-width: 100% !important;
+}
+
+.content-fullscreen .VPNavBar {
+  display: none !important; /* 如果也想隐藏顶部导航栏可以加上 */
+}
+
+/* body 拉伸到全屏 */
+.content-fullscreen body {
+  overflow: auto;
+}
+
+/* 主体内容往左补齐，否则左边会留白 */
+.content-fullscreen .VPDoc .content-container {
+  max-width: calc(688px + var(--vp-sidebar-width)) !important;
+}

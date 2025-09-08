@@ -24,6 +24,9 @@
     <template #doc-before>
       <div class="doc-before-container">
         <div class="left-area">
+          <div class="toggle-sidebar-box">
+            <ToggleSidebar />
+          </div>
           <div class="vscode-box" v-show="vscodeNotesDir">
             <a
               :href="vscodeNotesDir"
@@ -33,6 +36,9 @@
             >
               <img :src="icon__vscode" alt="open in vscode" />
             </a>
+          </div>
+          <div class="content-toggle-box">
+            <ToggleFullContent />
           </div>
           <div class="github-box" v-show="isHomeReadme">
             <a
@@ -110,8 +116,11 @@
 </template>
 
 <script setup>
+import Discussions from '../Discussions/Discussions.vue'
 import ImagePreview from './ImagePreview.vue'
 import Swiper from './Swiper.vue'
+import ToggleFullContent from './ToggleFullContent.vue'
+import ToggleSidebar from './ToggleSidebar.vue'
 
 import icon__github from '/icon__github.svg'
 import icon__totop from '/icon__totop.svg'
@@ -121,8 +130,6 @@ import m2mm from '/m2mm.png'
 import { useData, useRoute, useRouter } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { computed, onMounted, ref, watch } from 'vue'
-
-import Discussions from '../Discussions/Discussions.vue'
 
 import { data as allNotesConfig } from '../notesConfig.data.js'
 import { data as tocData } from './toc.data.js'
@@ -306,9 +313,22 @@ watch(
   gap: 1rem;
 }
 
+/* 默认隐藏，当屏幕宽度 >= 960px 时显示，因为当宽度小于 960px 时，侧边栏会自动隐藏 */
+.toggle-sidebar-box {
+  display: none;
+}
+@media (min-width: 960px) {
+  .toggle-sidebar-box {
+    display: block;
+  }
+}
 .vscode-box {
-  width: 1em;
-  height: 1em;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 3px;
+}
+.vscode-box:hover {
+  background: var(--vp-c-bg-alt);
 }
 
 .copy-box {
