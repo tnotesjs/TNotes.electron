@@ -23,7 +23,7 @@
     "details": "Electron 笔记",
     "link": "https://tnotesjs.github.io/TNotes.electron/",
     "created_at": 1726304357000,
-    "updated_at": 1757172130052,
+    "updated_at": 1757554021205,
     "days_since_birth": 9210
   },
   "port": 9210,
@@ -38,7 +38,7 @@
     },
     {
       "text": "📒 TNotes",
-      "link": "https://tnotesjs.github.io/notes"
+      "link": "https://tnotesjs.github.io/TNotes"
     },
     {
       "text": "📂 TNotes.yuque",
