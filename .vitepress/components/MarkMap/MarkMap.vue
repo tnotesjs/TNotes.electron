@@ -25,9 +25,13 @@ let markmapInstance: Markmap | null = null
 let observer: MutationObserver | null = null
 let toolbarEl: HTMLElement | null = null
 
+// 可由 props.initialExpandLevel 初始化，也可以通过工具栏改动
 const expandLevel = ref(props.initialExpandLevel)
 const transformer = new Transformer()
 const isFullscreen = ref(false)
+
+// 保存工具栏中层级输入框的引用，方便同步显示与绑定事件
+let toolbarLevelInput: HTMLInputElement | null = null
 
 function renderMarkmap(content: string, level = expandLevel.value) {
   if (!svgRef.value) return
@@ -48,7 +52,8 @@ function renderMarkmap(content: string, level = expandLevel.value) {
     try {
       const { root } = transformer.transform(content)
       const options: Partial<IMarkmapOptions> = {
-        autoFit: true,
+        // autoFit 会自动调整 scale 和 position 来适配当前容器大小，在阅读大量节点内容的时候，会放大某块区域阅读，每次展开节点或者收起节点，都会自动触发 autoFit，导致阅读体验不佳，因此不启用。
+        // autoFit: true,
         initialExpandLevel: level,
         duration: props.duration,
         nodeMinHeight: props.nodeMinHeight,
@@ -89,6 +94,8 @@ function initToolbar() {
   // 移除现有的工具栏
   if (toolbarEl) {
     toolbarEl.remove()
+    toolbarEl = null
+    toolbarLevelInput = null
   }
 
   // 创建新工具栏
@@ -105,7 +112,7 @@ function initToolbar() {
   // 添加自定义全屏按钮
   addFullscreenButton(toolbarEl)
 
-  // 在工具栏中添加更新按钮
+  // 在工具栏中添加更新按钮 + 层级输入（并支持 Enter 键触发）
   addUpdateButton(toolbarEl)
 }
 
@@ -132,13 +139,34 @@ function addUpdateButton(toolbar: HTMLElement) {
   levelInput.min = '1'
   levelInput.max = '100'
   levelInput.value = expandLevel.value.toString()
-  levelInput.style.width = '2rem'
+  levelInput.style.width = '2.2rem'
   levelInput.style.textAlign = 'center'
   levelInput.title = '展开层级'
+  levelInput.setAttribute('aria-label', 'markmap-expand-level')
+
+  // 保存引用，供外部（props 改变）同步输入值
+  toolbarLevelInput = levelInput
+
+  // 当输入框值变化时仅更新内部 expandLevel（不自动渲染）
   levelInput.addEventListener('change', (e) => {
     const value = parseInt((e.target as HTMLInputElement).value)
-    if (!isNaN(value)) {
+    if (!isNaN(value) && value >= 1) {
       expandLevel.value = value
+    } else {
+      // 回退到之前的值（避免非法输入）
+      levelInput.value = expandLevel.value.toString()
+    }
+  })
+
+  // 按键监听：按 Enter 时触发更新（相当于点击 L 按钮）
+  levelInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      // 同步输入框值到 expandLevel（防止未触发 change）
+      const val = parseInt((e.target as HTMLInputElement).value)
+      if (!isNaN(val) && val >= 1) {
+        expandLevel.value = val
+      }
+      onUpdateClick()
     }
   })
 
@@ -155,6 +183,7 @@ function addUpdateButton(toolbar: HTMLElement) {
   toolbar.insertBefore(updateContainer, toolbar.firstChild)
 }
 
+// 切换全屏（保持原来的实现）
 function toggleFullscreen() {
   if (!containerRef.value) return
 
@@ -189,14 +218,16 @@ function handleFullscreenChange() {
     (document as any).msFullscreenElement
   )
 
-  // 更新工具栏中的全屏按钮
+  // 更新工具栏中的全屏按钮（若存在）
   if (toolbarEl) {
     const fullscreenBtn = toolbarEl.querySelector(
       '.mm-toolbar-item:last-child'
     ) as HTMLButtonElement
     if (fullscreenBtn) {
-      fullscreenBtn.title = isFullscreen.value ? '退出全屏' : '全屏'
-      fullscreenBtn.innerHTML = isFullscreen.value ? 'R' : 'M'
+      fullscreenBtn.title = isFullscreen.value
+        ? '退出全屏（Exit Fullscreen）'
+        : '全屏（Fullscreen）'
+      fullscreenBtn.innerHTML = isFullscreen.value ? 'E' : 'F'
     }
   }
 
@@ -212,7 +243,7 @@ function handleFullscreenChange() {
     setTimeout(() => {
       if (markmapInstance) {
         try {
-          markmapInstance.fit() // 重新居中
+          markmapInstance.fit()
         } catch (e) {
           console.warn('居中失败', e)
         }
@@ -227,7 +258,7 @@ function setupObserver() {
     observer.disconnect()
   }
   observer = new MutationObserver(() => {
-    // 如果需要做 DOM 变动后特殊处理，写这里
+    // DOM 变动后处理（保留扩展点）
   })
   observer.observe(svgRef.value, {
     childList: true,
@@ -236,13 +267,37 @@ function setupObserver() {
   })
 }
 
-// 只监听内容变化，expandLevel改动不自动渲染
+// 只监听内容变化，expandLevel 改动不自动渲染（点击/Enter 确认渲染）
 watch(
   () => props.content,
   (newVal) => {
     renderMarkmap(decodeURIComponent(newVal || ''))
   }
 )
+
+// 新增：当外部传入的 initialExpandLevel 改变时，组件应同步并重新渲染
+watch(
+  () => props.initialExpandLevel,
+  (newVal) => {
+    if (typeof newVal === 'number' && !isNaN(newVal)) {
+      expandLevel.value = newVal
+      // 更新输入框显示（如果已创建）
+      if (toolbarLevelInput) toolbarLevelInput.value = newVal.toString()
+      // 重新渲染使用新的层级（保持对外部 prop 改动的即时响应）
+      renderMarkmap(decodeURIComponent(props.content || ''), newVal)
+    }
+  }
+)
+
+// 同步：当内部 expandLevel 变更时（例如通过输入框 change 事件），更新工具栏输入显示
+watch(expandLevel, (v) => {
+  if (toolbarLevelInput) {
+    const asStr = (v || 0).toString()
+    if (toolbarLevelInput.value !== asStr) {
+      toolbarLevelInput.value = asStr
+    }
+  }
+})
 
 // 点击更新按钮才用当前 expandLevel 渲染
 function onUpdateClick() {
