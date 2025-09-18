@@ -3,7 +3,8 @@ import { execSync } from 'child_process'
 
 export function getChangedIds() {
   const changedFiles = execSync(
-    `git diff --name-only HEAD~1 HEAD -- "notes/[0-9][0-9][0-9][0-9]*/README.md"` // <-- 这里从单引号改为了双引号
+    `git diff --name-only HEAD -- "notes/[0-9][0-9][0-9][0-9]*/README.md"`
+    // 根据当前仓库状态和最近一次提交之间的比较
   )
     .toString()
     .split(/\r?\n/)
