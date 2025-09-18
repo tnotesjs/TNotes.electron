@@ -44,12 +44,12 @@ export async function getGitTimestamps(filePath, noteId) {
     const createdTs = createdStdout.toString().trim()
     if (createdTs) created_at = parseInt(createdTs, 10) * 1000
 
-    // 最近提交时间
-    const { stdout: updatedStdout } = await execAsync(
-      `git log -1 --format=%ct "${filePath}"`
-    )
-    const updatedTs = updatedStdout.toString().trim()
-    if (updatedTs) updated_at = parseInt(updatedTs, 10) * 1000
+    // 上一次 commit 的时间
+    // const { stdout: updatedStdout } = await execAsync(
+    //   `git log -1 --format=%ct "${filePath}"`
+    // )
+    // const updatedTs = updatedStdout.toString().trim()
+    // if (updatedTs) updated_at = parseInt(updatedTs, 10) * 1000
   } catch {
     // 文件可能未在 Git 中提交过，使用当前时间
   }
