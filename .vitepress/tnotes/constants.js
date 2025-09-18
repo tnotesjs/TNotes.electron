@@ -106,11 +106,18 @@ export const NEW_NOTES_README_MD_TEMPLATE = `
 
 <!-- region:toc -->
 
-- [1. 🫧 评价](#1--概述)
+- [1. 🎯 本节内容](#1--本节内容)
+- [2. 🫧 评价](#2--评价)
 
 <!-- endregion:toc -->
 
-## 1. 🫧 评价
+## 1. 🎯 本节内容
+
+- todo
+
+## 2. 🫧 评价
+
+- todo
 
 `
 
@@ -122,12 +129,17 @@ const NEW_NOTES_TNOTES_JSON_TEMPLATE = {
   yuque: [],
   done: false,
   enableDiscussions: false,
+  created_at: -1,
+  updated_at: -1,
 }
 
 export const getNewNotesTnotesJsonTemplate = (needToString = true) => {
+  const now = Date.now()
   const temp = {
     ...NEW_NOTES_TNOTES_JSON_TEMPLATE,
     id: uuidv4(),
+    created_at: now,
+    updated_at: now,
   }
   if (needToString) {
     return JSON.stringify(temp, null, 2)

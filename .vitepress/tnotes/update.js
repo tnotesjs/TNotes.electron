@@ -37,6 +37,7 @@ import {
   createAddNumberToTitle,
   generateToc,
   genHierarchicalSidebar,
+  getGitTimestamps,
 } from './utils/index.js'
 
 class ReadmeUpdater {
@@ -216,6 +217,7 @@ class ReadmeUpdater {
    * 2. 如果 README.md 不存在，则创建并写入默认模板内容。
    * 3. 如果 .tnotes.json 配置文件不存在，则创建并写入默认配置。
    * 4. 如果配置文件已存在，则将其与默认模板进行合并，确保字段完整。
+   * 5. 利用 git 命令获取这篇笔记的 created_at、updated_at 时间戳。
    *
    * @returns {Promise<void>} 返回一个 Promise，表示操作完成状态。
    */
@@ -225,27 +227,41 @@ class ReadmeUpdater {
       const notesConfigPath = this.getNotesConfigPath(notesDirName)
       const notesTitle = this.genNotesTitleLine(notesDirName)
 
+      const noteId = notesDirName.slice(0, 4)
+
+      // README.md 不存在，重新创建 README.md 和 .tnotes.json
       if (!(await this.isExists(notesPath))) {
         fs.writeFileSync(
           notesPath,
           notesTitle + this.newNotesReadmeMdTemplate,
           'utf8'
         )
+        const timeInfo = await getGitTimestamps(notesPath, noteId)
+        const notesConfig = getNewNotesTnotesJsonTemplate(false)
+        if (timeInfo) {
+          notesConfig.created_at = timeInfo.created_at
+          notesConfig.updated_at = timeInfo.updated_at
+        }
         fs.writeFileSync(
           notesConfigPath,
-          getNewNotesTnotesJsonTemplate(),
+          JSON.stringify(notesConfig, null, 2),
           'utf8'
         )
         console.log(`${notesDirName} 笔记不存在，已完成初始化。`)
         return
       }
 
+      // .tnotes.json 配置文件存在，则更新 updated_at、created_at，若不存在，重新创建 .tnotes.json
       if (await this.isExists(notesConfigPath)) {
         const data = await fs.promises.readFile(notesConfigPath, 'utf8')
-        let notesConfig = JSON.parse(data)
-        notesConfig = {
+        const notesConfig = {
           ...getNewNotesTnotesJsonTemplate(false),
-          ...notesConfig,
+          ...JSON.parse(data), // 已有配置
+        }
+        const timeInfo = await getGitTimestamps(notesPath, noteId)
+        if (timeInfo) {
+          notesConfig.created_at = timeInfo.created_at
+          notesConfig.updated_at = timeInfo.updated_at
         }
         await fs.promises.writeFile(
           notesConfigPath,
@@ -253,9 +269,15 @@ class ReadmeUpdater {
           'utf8'
         )
       } else {
+        const notesConfig = getNewNotesTnotesJsonTemplate(false)
+        const timeInfo = await getGitTimestamps(notesPath, noteId)
+        if (timeInfo) {
+          notesConfig.created_at = timeInfo.created_at
+          notesConfig.updated_at = timeInfo.updated_at
+        }
         await fs.promises.writeFile(
           notesConfigPath,
-          getNewNotesTnotesJsonTemplate(),
+          JSON.stringify(notesConfig, null, 2),
           'utf8'
         )
       }

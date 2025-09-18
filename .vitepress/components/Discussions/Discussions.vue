@@ -100,6 +100,7 @@ watch(isDark, (newVal) => {
   font-style: italic;
   font-size: 0.7rem;
   padding: 1rem 0;
+  color: var(--vp-c-text-2);
 }
 
 /* #region:same as vitepress theme */

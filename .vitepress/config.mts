@@ -40,7 +40,16 @@ export default defineConfig({
   head: head(),
   ignoreDeadLinks: true,
   lang: 'zh-Hans',
-  lastUpdated: true,
+  /*
+   * 笔记的创建时间和最后更新时间直接写入 ./notes/xxx/.tnotes.json 配置文件中
+   * created_at: ...,
+   * updated_at: ...,
+   *
+   * 备注：
+   * 直接使用内置的 lastUpdated 来计算，在笔记数量较多（比如 leetcode 3k+）的情况下，经常会在 build 的时候遇到 vitepress 的报错：[vitepress] spawn EBADF。
+   * 经过排查是因为 vitepress 内部使用的 git-log 命令在处理大量文件时会失败（怀疑是命令行参数过长导致），所以只能放弃内置的 lastUpdated 功能，改为手动维护。
+   * */
+  lastUpdated: false,
   markdown: markdown(),
   router: {
     prefetchLinks: false,
