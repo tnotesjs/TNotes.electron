@@ -51,17 +51,16 @@
               <img :src="icon__github" alt="github icon" />
             </a>
           </div>
-          <div class="copy-box" v-show="isHomeReadme">
+          <!-- <div class="copy-box" v-show="isHomeReadme">
             <span class="tip" v-show="isCopied">Copied!</span>
             <button
               class="copy-raw-file"
               @click="copyRawFile"
               title="Copy raw file"
             >
-              <!-- <img class="icon" src="./icon__clipboard.svg" alt="icon__clipboard"> -->
               <img class="icon" :src="m2mm" alt="icon__clipboard" />
             </button>
-          </div>
+          </div> -->
         </div>
         <div class="right-area" v-show="isHomeReadme">
           <span title="已完成笔记数量">✅ 已完成：{{ doneNotesLen }}</span>

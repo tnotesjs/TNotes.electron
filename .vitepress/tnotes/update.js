@@ -388,9 +388,14 @@ class ReadmeUpdater {
       // 以 notes ID 作为 key，初始化 notes map，value 为笔记头部信息。
       this.notesInfo.topInfoMap[notesID] = `[${notesDirName}](${
         this.repoNotesUrl
-      }/${encodeURIComponent(notesDirName)}/README.md)${
-        this.EOL
-      }${topInfoLines.join(this.EOL)}`
+      }/${encodeURIComponent(notesDirName)}/README.md)`
+
+      // bak
+      // this.notesInfo.topInfoMap[notesID] = `[${notesDirName}](${
+      //   this.repoNotesUrl
+      // }/${encodeURIComponent(notesDirName)}/README.md)${
+      //   this.EOL
+      // }${topInfoLines.join(this.EOL)}`
     }
   }
 
