@@ -96,6 +96,7 @@ export default async function TN_HMR_Plugin() {
               }
               const toc = generateToc(titles, 2)
               let bilibiliTOCItems = []
+              let tnotesTOCItems = []
               let yuqueTOCItems = []
               const configPath = path.resolve(
                 path.dirname(filePath),
@@ -109,6 +110,20 @@ export default async function TN_HMR_Plugin() {
                     (bvid, i) =>
                       `  - [bilibili.${repoName}.${notesID}.${i + 1}](${
                         BILIBILI_VIDEO_BASE_URL + bvid
+                      })`
+                  )
+                }
+                if (notesConfig.tnotes.length > 0) {
+                  tnotesTOCItems = notesConfig.tnotes.map(
+                    ([tnotesName, notesID, notesName], i) =>
+                      `  - [TNotes.${tnotesName} - ${
+                        notesID + (notesName ? `. ${notesName}/README` : '')
+                      }](${
+                        `https://tnotesjs.github.io/TNotes.${tnotesName}/notes/` +
+                        notesID +
+                        (notesName
+                          ? `.%20${encodeURIComponent(notesName)}/README`
+                          : '')
                       })`
                   )
                 }
@@ -129,6 +144,13 @@ export default async function TN_HMR_Plugin() {
                 insertTocItems.push(
                   `- [📺 bilibili 👉 TNotes 合集](https://space.bilibili.com/407241004)`,
                   ...bilibiliTOCItems
+                )
+              }
+
+              if (tnotesTOCItems.length > 0) {
+                insertTocItems.push(
+                  `- [📒 TNotes](https://tnotesjs.github.io/TNotes/)`,
+                  ...tnotesTOCItems
                 )
               }
 

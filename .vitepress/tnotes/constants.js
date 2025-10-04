@@ -126,6 +126,7 @@ export const NEW_NOTES_README_MD_TEMPLATE = `
  */
 const NEW_NOTES_TNOTES_JSON_TEMPLATE = {
   bilibili: [],
+  tnotes: [],
   yuque: [],
   done: false,
   enableDiscussions: false,

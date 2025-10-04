@@ -22,6 +22,8 @@ import sidebar from '../sidebar.json'
 import TN_HMR_Plugin from './plugins/hmr'
 
 import { generateAnchor } from './tnotes/utils'
+import fs from 'fs'
+import path from 'path'
 
 const IGNORE_LIST = [
   './README.md',
@@ -189,6 +191,7 @@ function markdown() {
 
             // 1) 从开头 fence 行解析参数（支持 `{a=1 b="x"}`、`a=1 b="x"`，并支持单个数字 shorthand）
             let params: { [key: string]: any; initialExpandLevel?: number } = {}
+
             if (open.map && typeof open.map[0] === 'number') {
               const openLine = (lines[open.map[0]] || '').trim()
               let paramPart = ''
@@ -246,7 +249,7 @@ function markdown() {
               }
             }
 
-            // 2) 提取内容
+            // 2) 提取内容（支持文件引用语法 `<<< ./path/to/file.md`）
             let content = ''
             if (startLine !== null && endLine !== null) {
               for (let k = startLine; k <= endLine && k < lines.length; k++) {
@@ -259,12 +262,59 @@ function markdown() {
               }
             }
 
-            // 3) 构造组件标签并把参数注入为 props
-            // content 使用 encodeURIComponent（与组件 decode 对应）
+            // --- 检查第一非空行是否为引用语法 ---
+            const firstNonEmptyLine =
+              (content || '').split('\n').find((ln) => ln.trim() !== '') || ''
+            const refMatch = firstNonEmptyLine.trim().match(/^<<<\s*(.+)$/)
+            if (refMatch) {
+              // 提取引用路径，支持引号包裹
+              let refRaw = refMatch[1].trim().replace(/^['"]|['"]$/g, '')
+
+              // 尝试同步读取文件内容（兼容常见 Node 环境）
+              try {
+                // 尝试根据当前 markdown 文件位置解析相对路径
+                const env = state.env || {}
+                const possibleRel =
+                  env.relativePath || env.path || env.filePath || env.file || ''
+                let refFullPath = refRaw
+
+                if (!path.isAbsolute(refRaw)) {
+                  if (possibleRel) {
+                    // 将 relativePath 视作相对于项目根的路径（例如 'notes/foo/bar.md'），取其目录
+                    const currentDir = path.dirname(possibleRel)
+                    // 解析到 process.cwd()
+                    refFullPath = path.resolve(
+                      process.cwd(),
+                      currentDir,
+                      refRaw
+                    )
+                  } else {
+                    // 没有相对文件信息，则相对于项目根解析
+                    refFullPath = path.resolve(process.cwd(), refRaw)
+                  }
+                } else {
+                  // 绝对路径直接使用（按系统路径）
+                  refFullPath = refRaw
+                }
+
+                // 如果文件扩展名缺失且指定的是目录或无扩展名，允许按原样读取（用户可在引用中指定 .md）
+                console.log('refFullPath:', refFullPath)
+                const fileContent = fs.readFileSync(refFullPath, 'utf-8')
+                content = fileContent
+              } catch (err) {
+                // 读取失败：将错误写入 content 以便排查（不会让流程直接崩溃）
+                content = `Failed to load referenced file: ${esc(
+                  String(refRaw)
+                )}\n\nError: ${esc(
+                  String(err && err.message ? err.message : err)
+                )}`
+              }
+            }
+
+            // 3) 构造组件标签并把参数注入为 props（与原实现一致）
             const encodedContent = encodeURIComponent(content.trim())
             let propsStr = `content="${encodedContent}"`
 
-            // 数字值以绑定形式注入 (:prop)，字符串按普通属性注入
             for (const [k, v] of Object.entries(params)) {
               if (typeof v === 'number' || /^\d+$/.test(String(v))) {
                 propsStr += ` :${k}="${v}"`
