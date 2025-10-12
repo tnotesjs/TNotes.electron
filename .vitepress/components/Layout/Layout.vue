@@ -99,7 +99,7 @@
           </div>
 
           <div class="time-line" title="最近提交时间">
-            <div class="time-label"><strong>⌛️ ；最近提交</strong></div>
+            <div class="time-label"><strong>⌛️ 最近提交</strong></div>
             <div class="time-value">{{ formatDate(updated_at) }}</div>
           </div>
         </div>
