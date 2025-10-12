@@ -48,6 +48,8 @@ jobs:
       - name: Gen Toc
         run: pnpm tn:update
       - name: Build with VitePress
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
         run: pnpm tn:build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -269,7 +269,8 @@ watch(
 
 .swiper-container img {
   display: block;
-  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
   /* 改为auto以保持图片原始比例 */
   height: auto;
   object-fit: contain;
