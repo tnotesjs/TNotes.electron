@@ -1,23 +1,23 @@
 <template>
   <!-- 使用 teleport 将 modal 放到 body 之下（避免父容器样式影响） -->
   <teleport to="body">
-    <div v-if="modelValue" class="tm-modal-backdrop" @click.self="close">
+    <div v-if="modelValue" :class="$style.modalBackdrop" @click.self="close">
       <div
-        class="tm-modal"
+        :class="$style.modal"
         role="dialog"
         :aria-labelledby="titleId"
         aria-modal="true"
         ref="modalRef"
       >
-        <header class="tm-modal-header">
-          <h3 :id="titleId" class="tm-modal-title">
+        <header :class="$style.modalHeader">
+          <h3 :id="titleId" :class="$style.modalTitle">
             <!-- 标题通过 slot #title 提供，未提供则使用 prop title -->
             <slot name="title">
               {{ title }}
             </slot>
           </h3>
           <button
-            class="tm-close-btn"
+            :class="$style.closeBtn"
             @click="close"
             aria-label="Close"
             title="Close"
@@ -27,7 +27,7 @@
           </button>
         </header>
 
-        <section class="tm-modal-body">
+        <section :class="$style.modalBody">
           <!-- 默认插槽用于传入内容 -->
           <slot>
             <!-- fallback 内容（如果父组件没有传入插槽） -->
@@ -35,7 +35,7 @@
           </slot>
         </section>
 
-        <footer class="tm-modal-footer" v-if="$slots.footer">
+        <footer :class="$style.modalFooter" v-if="$slots.footer">
           <slot name="footer"></slot>
         </footer>
       </div>
@@ -103,70 +103,4 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped>
-.tm-modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(16, 24, 32, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1200;
-  padding: 1rem;
-}
-
-/* modal box */
-.tm-modal {
-  background: var(--vp-c-bg);
-  color: var(--vp-c-text);
-  border-radius: 12px;
-  max-width: 540px;
-  width: 100%;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
-  outline: none;
-}
-
-/* header */
-.tm-modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.8rem 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  background: transparent;
-}
-.tm-modal-title {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-/* close btn */
-.tm-close-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  line-height: 1;
-  padding: 0.25rem;
-  border-radius: 6px;
-}
-.tm-close-btn:hover {
-  background: var(--vp-c-bg-alt);
-}
-
-/* body */
-.tm-modal-body {
-  padding: 0.9rem 1rem;
-  font-size: 0.95rem;
-  color: var(--vp-c-text-2);
-}
-
-/* footer (optional) */
-.tm-modal-footer {
-  padding: 0.6rem 1rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-  text-align: right;
-}
-</style>
+<style module src="./AboutModal.module.scss"></style>

@@ -5,7 +5,7 @@ import {
   EN_WORDS_REPO_BASE_URL,
   EN_WORDS_REPO_BASE_RAW_URL,
   EN_WORD_LIST_COMP_IS_AUTO_SHOW_CARD,
-} from '../constants.js'
+} from '../constants.ts'
 import RightClickMenu from './RightClickMenu.vue'
 
 const props = defineProps({
@@ -20,6 +20,7 @@ const props = defineProps({
 })
 
 const isMobile = computed(() => {
+  if (typeof navigator === 'undefined') return false
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
     navigator.userAgent
   )
@@ -27,7 +28,7 @@ const isMobile = computed(() => {
 
 // checkbox ---------------------------------------------------
 
-const pathname = window.location.pathname
+const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
 const sortedWords = props.needSort
   ? computed(() =>
       [...new Set(props.words)].sort(
@@ -289,8 +290,6 @@ const hideContextMenu = () => {
   contextMenuVisible.value = false
 }
 
-document.body.addEventListener('click', hideContextMenu)
-
 const handleContextMenuPin = () => {
   if (currentWordForContextMenu) {
     const word = currentWordForContextMenu
@@ -427,6 +426,11 @@ onMounted(() => {
   })
 
   if (!isMobile.value) preloadWords()
+
+  // 添加点击事件监听以隐藏右键菜单
+  if (typeof document !== 'undefined') {
+    document.body.addEventListener('click', hideContextMenu)
+  }
 })
 
 /**
@@ -434,23 +438,26 @@ onMounted(() => {
  */
 onUnmounted(() => {
   clearTimeout(hoverTimer)
-  document.removeEventListener('mousemove', onDragging)
-  document.removeEventListener('mouseup', stopDrag)
+  if (typeof document !== 'undefined') {
+    document.removeEventListener('mousemove', onDragging)
+    document.removeEventListener('mouseup', stopDrag)
+    document.body.removeEventListener('click', hideContextMenu)
+  }
 })
 </script>
 
 <template>
-  <div class="__EnWordList__">
+  <div :class="$style.enWordList">
     <ol>
       <li
         v-for="(word, index) in sortedWords"
         :key="word"
         :class="{
-          pronounced:
+          [$style.pronounced]:
             isPronouncingAll && currentPronounceAllIndex === index + 1,
         }"
       >
-        <span class="index">{{ index + 1 }}.</span>
+        <span :class="$style.index">{{ index + 1 }}.</span>
         <input
           type="checkbox"
           :id="word"
@@ -463,8 +470,8 @@ onUnmounted(() => {
               word.toLowerCase().replaceAll(/\s/g, '_')
             )}.md`"
             :class="{
-              'line-through': checkedStates[word],
-              'text-red': failedWords[word],
+              [$style.lineThrough]: checkedStates[word],
+              [$style.textRed]: failedWords[word],
             }"
             @mouseenter="(e) => isAutoShowCard && showWordCard(e, word)"
             @mouseleave="handleMouseLeave"
@@ -478,18 +485,18 @@ onUnmounted(() => {
     </ol>
 
     <div
-      class="word-card"
+      :class="$style.wordCard"
       :style="{ left: cardX + 'px', top: cardY + 'px' }"
       v-if="showCard"
     >
-      <div class="word-card-content" v-html="cardContent"></div>
+      <div :class="$style.wordCardContent" v-html="cardContent"></div>
     </div>
 
     <!-- pinned cards -->
     <div
       v-for="card in pinnedCards"
       :key="card.id"
-      class="word-card pinned"
+      :class="$style.wordCard"
       :style="{
         left: card.x + 'px',
         top: card.y + 'px',
@@ -500,12 +507,14 @@ onUnmounted(() => {
       @mousedown="(e) => startDrag(card, e)"
       @click="bringToFront(card)"
     >
-      <div class="word-card-content-wrapper">
-        <div class="word-card-content" v-html="card.content"></div>
+      <div :class="$style.wordCardContentWrapper">
+        <div :class="$style.wordCardContent" v-html="card.content"></div>
       </div>
-      <button class="close-btn" @click.stop="removeCard(card.id)">✖</button>
+      <button :class="$style.closeBtn" @click.stop="removeCard(card.id)">
+        ✖
+      </button>
       <div
-        class="resize-handle"
+        :class="$style.resizeHandle"
         @mousedown.stop="startResize(card, $event)"
       ></div>
     </div>
@@ -531,115 +540,4 @@ onUnmounted(() => {
   />
 </template>
 
-<style scoped>
-.__EnWordList__ input[type='checkbox'] {
-  margin: 8px;
-  transform: scale(1.3);
-  cursor: pointer;
-}
-
-.__EnWordList__ a {
-  text-decoration: none;
-  color: #4fc3f7;
-}
-
-.__EnWordList__ a:hover {
-  text-decoration: underline !important;
-}
-
-.__EnWordList__ a.line-through {
-  color: #999;
-  text-decoration: line-through;
-}
-.__EnWordList__ a.text-red {
-  color: #f40 !important;
-}
-
-/* 调整单词列表的间距 */
-.__EnWordList__ ol {
-  list-style-type: decimal;
-  padding-left: 20px;
-}
-
-.__EnWordList__ ol li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px; /* 调整行间距 */
-}
-
-.__EnWordList__ ol li {
-  transition: all 0.3s ease;
-}
-.__EnWordList__ ol li.pronounced {
-  background-color: rgba(255, 255, 0, 0.1);
-}
-
-.__EnWordList__ .index {
-  margin-right: 10px;
-  color: #aaa;
-}
-
-/* 🌑 暗色悬浮卡片 */
-.__EnWordList__ .word-card {
-  position: fixed;
-  z-index: 9999;
-  background: #1e1e1e;
-  border: 1px solid #333;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  padding: 12px 16px;
-  max-width: 600px; /* 可选 */
-  min-width: 200px;
-  min-height: 100px;
-  font-size: 14px;
-  line-height: 1.4;
-  border-radius: 8px;
-  color: #eee;
-  pointer-events: auto;
-  font-family: sans-serif;
-  cursor: move;
-}
-
-.__EnWordList__ .word-card-content-wrapper {
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-}
-
-/* Resize Handle 样式 */
-.__EnWordList__ .resize-handle {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 12px;
-  height: 12px;
-  background-color: #666;
-  cursor: nwse-resize;
-  z-index: 2;
-  border-radius: 50%;
-}
-
-.__EnWordList__ .resize-handle:hover {
-  background-color: #aaa;
-}
-
-.__EnWordList__ .word-card .close-btn {
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  background: none;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  color: #ccc;
-}
-
-.__EnWordList__ .word-card .close-btn:hover,
-.__EnWordList__ .word-card .pin-btn:hover {
-  color: white;
-}
-
-.__EnWordList__ .word-card-content :deep(ul) {
-  margin: 0.5rem 0;
-  padding-left: 1rem;
-}
-</style>
+<style module src="./EnWordList.module.scss"></style>

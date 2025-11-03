@@ -14,6 +14,7 @@ import Mermaid from '../components/Mermaid/Mermaid.vue'
 import Settings from '../components/Settings/Settings.vue'
 import SidebarCard from '../components/SidebarCard/SidebarCard.vue'
 import './custom.css'
+import '../components/global-components.css'
 
 export default {
   extends: DefaultTheme,

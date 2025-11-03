@@ -1,0 +1,30 @@
+# 自动检测文本文件并进行行尾符规范化
+* text=auto
+
+# Markdown 文件统一使用 LF
+*.md text eol=lf
+
+# 源代码文件统一使用 LF
+*.ts text eol=lf
+*.js text eol=lf
+*.tsx text eol=lf
+*.jsx text eol=lf
+*.vue text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# 配置文件统一使用 LF
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# 二进制文件不进行行尾符转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary

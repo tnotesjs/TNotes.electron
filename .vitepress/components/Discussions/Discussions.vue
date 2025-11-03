@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useData } from 'vitepress'
+import { useData } from 'vitepress/client'
 import { onMounted, watch } from 'vue'
 
 const props = defineProps({
@@ -89,35 +89,9 @@ watch(isDark, (newVal) => {
 </script>
 
 <template>
-  <h2>🫧 Discussions</h2>
+  <h2 :class="$style.h2">🫧 Discussions</h2>
   <div id="giscus-comments"></div>
-  <p class="id-box" title="留言版 ID">{{ id }}</p>
+  <p :class="$style.idBox" title="留言版 ID">{{ id }}</p>
 </template>
 
-<style scoped>
-.id-box {
-  text-align: right;
-  font-style: italic;
-  font-size: 0.7rem;
-  padding: 1rem 0;
-  color: var(--vp-c-text-2);
-}
-
-/* #region:same as vitepress theme */
-/* .vp-doc h2 */
-h2 {
-  margin: 48px 0 16px;
-  border-top: 1px solid var(--vp-c-divider);
-  padding-top: 24px;
-  letter-spacing: -0.02em;
-  line-height: 32px;
-  font-size: 24px;
-}
-
-/* .vp-doc p */
-p {
-  line-height: 28px;
-}
-
-/* #endregion:same as vitepress theme */
-</style>
+<style module src="./Discussions.module.scss"></style>

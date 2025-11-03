@@ -1,6 +1,6 @@
 <template>
   <iframe
-    style="width: 100%; aspect-ratio: 16/9; margin: 1rem 0;"
+    style="width: 100%; aspect-ratio: 16/9; margin: 1rem 0"
     :src="'//player.bilibili.com/player.html?isOutside=true&bvid=' + id"
     scrolling="no"
     border="0"
@@ -14,10 +14,7 @@
 defineProps({
   id: {
     type: String,
-    required: true
-  }
-});
+    required: true,
+  },
+})
 </script>
-
-<style scoped>
-</style>

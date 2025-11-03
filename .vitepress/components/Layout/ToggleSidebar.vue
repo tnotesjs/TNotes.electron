@@ -1,6 +1,6 @@
 <!-- .vitepress\components\Layout\ToggleSidebar.vue -->
 <template>
-    <img @click="toggle" class="sidebar-toggle-btn" :aria-pressed="hidden.toString()" :title="hidden ? '显示侧边栏' : '隐藏侧边栏'" :src="hidden ? icon__next : icon__prev" alt=""></img>
+    <img @click="toggle" :class="$style.sidebarToggleBtn" :aria-pressed="hidden.toString()" :title="hidden ? '显示侧边栏' : '隐藏侧边栏'" :src="hidden ? icon__next : icon__prev" alt=""></img>
 </template>
 
 <script setup lang="ts">
@@ -33,16 +33,4 @@ function toggle() {
 }
 </script>
 
-<style scoped>
-.sidebar-toggle-btn {
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 3px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.sidebar-toggle-btn:hover {
-  background: var(--vp-c-bg-alt);
-}
-</style>
+<style module src="./ToggleSidebar.module.scss"></style>

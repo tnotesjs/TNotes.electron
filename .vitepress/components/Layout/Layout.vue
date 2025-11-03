@@ -22,12 +22,18 @@
     </template>
     <!-- <template #doc-bottom>doc-bottom</template> -->
     <template #doc-before>
-      <div class="doc-before-container">
-        <div class="left-area">
-          <div class="toggle-sidebar-box">
+      <div :class="$style.docBeforeContainer">
+        <div :class="$style.leftArea">
+          <div
+            :class="[$style.toggleSidebarBox, $style.pcOnly]"
+            v-show="!isFullContentMode"
+          >
             <ToggleSidebar />
           </div>
-          <div class="vscode-box" v-show="vscodeNotesDir">
+          <div
+            :class="[$style.vscodeBox, $style.pcOnly]"
+            v-show="vscodeNotesDir"
+          >
             <a
               :href="vscodeNotesDir"
               aria-label="open in vscode"
@@ -37,10 +43,26 @@
               <img :src="icon__vscode" alt="open in vscode" />
             </a>
           </div>
-          <div class="content-toggle-box">
+          <!-- 笔记的 GitHub 链接（移动端和 PC 端都显示） -->
+          <div :class="$style.githubNoteBox" v-show="currentNoteGithubUrl">
+            <a
+              :href="currentNoteGithubUrl"
+              aria-label="在 GitHub 上查看此笔记"
+              title="在 GitHub 上查看此笔记"
+              target="_blank"
+              rel="noopener"
+            >
+              <img :src="icon__github" alt="github icon" />
+            </a>
+          </div>
+          <div :class="[$style.contentToggleBox, $style.pcOnly]">
             <ToggleFullContent />
           </div>
-          <div class="github-box" v-show="isHomeReadme">
+          <!-- 知识库的 GitHub 链接（仅首页显示，PC 端） -->
+          <div
+            :class="[$style.githubRepoBox, $style.pcOnly]"
+            v-show="isHomeReadme"
+          >
             <a
               :href="`https://github.com/tnotesjs/${vpData.page.value.title.toLowerCase()}/blob/main/README.md`"
               :aria-label="`tnotesjs github - ${vpData.page.value.title.toLowerCase()} 笔记仓库链接`"
@@ -51,22 +73,25 @@
               <img :src="icon__github" alt="github icon" />
             </a>
           </div>
-          <!-- <div class="copy-box" v-show="isHomeReadme">
-            <span class="tip" v-show="isCopied">Copied!</span>
+          <!-- <div :class="$style.copyBox" v-show="isHomeReadme">
+            <span :class="$style.tip" v-show="isCopied">Copied!</span>
             <button
-              class="copy-raw-file"
+              :class="$style.copyRawFile"
               @click="copyRawFile"
               title="Copy raw file"
             >
-              <img class="icon" :src="m2mm" alt="icon__clipboard" />
+              <img :class="$style.icon" :src="m2mm" alt="icon__clipboard" />
             </button>
           </div> -->
         </div>
-        <div class="right-area">
-          <!-- 单个图标，点击打开 modal -->
-          <div class="about-btn">
+        <div :class="$style.rightArea">
+          <!-- 单个图标，点击打开 modal，只在有笔记数据的页面显示 -->
+          <div
+            :class="$style.aboutBtn"
+            v-show="currentNoteId && created_at && updated_at"
+          >
             <button
-              class="about-icon-button"
+              :class="$style.aboutIconButton"
               @click="openTimeModal"
               aria-haspopup="dialog"
               :aria-expanded="timeModalOpen.toString()"
@@ -92,15 +117,19 @@
           {{ modalTitle }}
         </template>
 
-        <div class="time-modal-content" role="group" aria-label="笔记提交信息">
-          <div class="time-line" title="首次提交时间">
-            <div class="time-label"><strong>⌛️ 首次提交</strong></div>
-            <div class="time-value">{{ formatDate(created_at) }}</div>
+        <div
+          :class="$style.timeModalContent"
+          role="group"
+          aria-label="笔记提交信息"
+        >
+          <div :class="$style.timeLine" title="首次提交时间">
+            <div :class="$style.timeLabel"><strong>⌛️ 首次提交</strong></div>
+            <div :class="$style.timeValue">{{ formatDate(created_at) }}</div>
           </div>
 
-          <div class="time-line" title="最近提交时间">
-            <div class="time-label"><strong>⌛️ 最近提交</strong></div>
-            <div class="time-value">{{ formatDate(updated_at) }}</div>
+          <div :class="$style.timeLine" title="最近提交时间">
+            <div :class="$style.timeLabel"><strong>⌛️ 最近提交</strong></div>
+            <div :class="$style.timeValue">{{ formatDate(updated_at) }}</div>
           </div>
         </div>
       </AboutModal>
@@ -133,7 +162,17 @@
       </span>
     </template>
 
-    <!-- <template #sidebar-nav-before>sidebar-nav-before</template> -->
+    <template #sidebar-nav-before>
+      <div :class="$style.sidebarControls">
+        <span
+          @click="toggleAllSidebarSections"
+          :class="{ [$style.folded]: !allSidebarExpanded }"
+          :title="allSidebarExpanded ? '收起所有章节' : '展开所有章节'"
+        >
+          <img :src="icon__fold" alt="折叠/展开" />
+        </span>
+      </div>
+    </template>
     <!-- <template #sidebar-nav-after>sidebar-nav-after</template> -->
 
     <!-- <template #aside-outline-after>aside-outline-after</template> -->
@@ -163,18 +202,19 @@ import ToggleSidebar from './ToggleSidebar.vue'
 import icon__github from '/icon__github.svg'
 import icon__totop from '/icon__totop.svg'
 import icon__vscode from '/icon__vscode.svg'
+import icon__fold from '/icon__fold.svg'
 import m2mm from '/m2mm.png'
 
 import { useData, useRoute, useRouter } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { computed, onMounted, ref, watch, onUnmounted } from 'vue'
 
-import { data as allNotesConfig } from '../notesConfig.data.js'
-import { data as tocData } from './toc.data.js'
+import { data as allNotesConfig } from '../notesConfig.data.ts'
+import { data as tocData } from './toc.data.ts'
 
-import { formatDate, scrollToTop } from '../utils.js'
+import { formatDate, scrollToTop } from '../utils.ts'
 
-import { NOTES_DIR_KEY, TOC_MD } from '../constants.js'
+import { NOTES_DIR_KEY, TOC_MD } from '../constants.ts'
 
 import AboutModal from './AboutModal.vue' // <- 新增 modal 组件导入
 
@@ -228,10 +268,28 @@ watch(
 
 const isHomeReadme = computed(() => vpData.page.value.filePath === TOC_MD)
 const doneNotesLen = computed(() => tocData?.doneNotesLen)
+
+// 计算当前笔记的 GitHub URL
+const currentNoteGithubUrl = computed(() => {
+  if (!currentNoteId.value) return ''
+
+  // 从 relativePath 提取笔记路径
+  // 格式如: notes/0001. xxx/README.md
+  const relativePath = vpData.page.value.relativePath
+  const match = relativePath.match(/notes\/(\d{4}\.[^/]+)/)
+
+  if (!match) return ''
+
+  const notePath = match[0] // notes/0001. xxx
+  const repoName = vpData.site.value.title.toLowerCase() // TNotes.introduction
+
+  return `https://github.com/tnotesjs/${repoName}/tree/main/${notePath}`
+})
+
 const isCopied = ref(false)
 const copyRawFile = () => {
   if (!tocData) return
-  navigator.clipboard.writeText(tocData.fileContent)
+  layout.clipboard.writeText(tocData.fileContent)
   isCopied.value = true
   setTimeout(() => (isCopied.value = false), 1000)
 
@@ -341,183 +399,100 @@ function openTimeModal() {
 function onTimeModalClose() {
   timeModalOpen.value = false
 }
+
+// #region - 全屏状态检测
+const isFullContentMode = ref(false)
+
+function checkFullContentMode() {
+  if (typeof document === 'undefined') return
+
+  // 检测 VitePress 的全屏内容模式（通过检查 body 或根元素的 class）
+  const vpApp = document.querySelector('.VPContent')
+  if (vpApp) {
+    // VitePress 全屏模式通常会给容器添加特定的 class 或样式
+    // 我们检测 sidebar 是否被隐藏
+    const sidebar = document.querySelector('.VPSidebar')
+    if (sidebar) {
+      const sidebarDisplay = window.getComputedStyle(sidebar).display
+      isFullContentMode.value = sidebarDisplay === 'none'
+    }
+  }
+}
+
+// 监听窗口大小变化和全屏事件
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    checkFullContentMode()
+    window.addEventListener('resize', checkFullContentMode)
+    // 监听 VitePress 的侧边栏切换事件
+    const observer = new MutationObserver(checkFullContentMode)
+    const vpLayout = document.querySelector('.Layout')
+    if (vpLayout) {
+      observer.observe(vpLayout, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+      })
+    }
+  }
+})
+
+// 监听路由变化时重新检查
+watch(
+  () => route.path,
+  () => {
+    setTimeout(checkFullContentMode, 100)
+  }
+)
+// #endregion
+
+// #region - 侧边栏展开/收起控制
+const allSidebarExpanded = ref(true)
+
+function toggleAllSidebarSections() {
+  if (typeof document === 'undefined') return
+
+  // 查找 VitePress 左侧导航栏中的所有可折叠项
+  const sidebar = document.querySelector('.VPSidebar')
+  if (!sidebar) return
+
+  // VitePress 侧边栏使用 .group 和 .VPSidebarItem.collapsible 类
+  const collapsibleItems = sidebar.querySelectorAll(
+    '.VPSidebarItem.collapsible'
+  )
+
+  if (collapsibleItems.length === 0) return
+
+  // 切换状态
+  allSidebarExpanded.value = !allSidebarExpanded.value
+
+  // 应用到所有可折叠项
+  collapsibleItems.forEach((item) => {
+    const button = item.querySelector('.caret')
+    if (button) {
+      const isCurrentlyExpanded = item.classList.contains('collapsed')
+
+      // 如果想展开但当前是收起的，或想收起但当前是展开的，就点击按钮
+      if (allSidebarExpanded.value && isCurrentlyExpanded) {
+        button.click()
+      } else if (!allSidebarExpanded.value && !isCurrentlyExpanded) {
+        button.click()
+      }
+    }
+  })
+}
+
+// 监听路由变化，重置展开状态
+watch(
+  () => route.path,
+  () => {
+    // 延迟一下，等侧边栏渲染完成
+    setTimeout(() => {
+      allSidebarExpanded.value = true
+    }, 100)
+  }
+)
+// #endregion
 </script>
 
-<style scoped>
-.doc-before-container {
-  display: flex;
-  margin-bottom: 1rem;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.doc-before-container .left-area {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* 默认隐藏，当屏幕宽度 >= 960px 时显示，因为当宽度小于 960px 时，侧边栏会自动隐藏 */
-.toggle-sidebar-box,
-.content-toggle-box {
-  display: none;
-}
-@media (min-width: 960px) {
-  .toggle-sidebar-box,
-  .content-toggle-box {
-    display: block;
-  }
-}
-.vscode-box {
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 3px;
-}
-.vscode-box:hover {
-  background: var(--vp-c-bg-alt);
-}
-
-.copy-box {
-  width: 1em;
-  height: 1em;
-  position: relative;
-}
-
-.copy-box .tip {
-  position: absolute;
-  top: -1.5rem;
-  left: -1rem;
-}
-
-.copy-box .copy-raw-file {
-  vertical-align: top;
-  height: 100%;
-  line-height: 100%;
-}
-
-/* 右侧区域样式 */
-.right-area {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-style: italic;
-  font-size: 0.7rem;
-  position: relative;
-}
-
-/* about icon button */
-.about-btn {
-  display: inline-block;
-}
-.about-icon-button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0.15rem;
-  transition: all 1s;
-  color: var(--vp-c-brand-1);
-}
-.about-icon-button:hover {
-  font-size: 1.3rem;
-}
-
-/* time-modal-content: 通用容器 */
-.time-modal-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding: 0.25rem 0;
-  font-size: 0.95rem;
-}
-
-/* 每一行：移动端默认纵向排列（标签在上，值在下），在宽屏时变成左右两栏 */
-.time-line {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  align-items: flex-start;
-}
-
-/* 标签（左侧） */
-.time-label {
-  font-weight: 700;
-  color: var(--vp-c-text);
-  /* 在移动端让标签略大一点，增强可读性 */
-  font-size: 0.98rem;
-}
-
-/* 值（右侧/下方） */
-.time-value {
-  color: var(--vp-c-text-2);
-  font-size: 0.88rem;
-  line-height: 1.35;
-  word-break: break-word;
-  /* 避免在宽屏时文本太拥挤，允许换行 */
-}
-
-/* 宽屏样式：在 >=720px 时，改为左右两栏布局 */
-@media (min-width: 720px) {
-  .time-modal-content {
-    gap: 1rem;
-  }
-  .time-line {
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 1rem;
-  }
-  .time-label {
-    width: 9.5rem; /* 固定宽度，确保右侧内容统一对齐 */
-    text-align: left;
-    font-size: 1rem;
-  }
-  .time-value {
-    flex: 1;
-    white-space: nowrap; /* 防止在一行内换行，超出时使用省略 */
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-/* 可选：微调 modal 的 body 内部间距（如果需要） */
-.tm-modal-body .time-modal-content {
-  padding-top: 0.15rem;
-  padding-bottom: 0.15rem;
-}
-
-/* 更明显的可触控目标（移动端） */
-@media (max-width: 520px) {
-  .time-modal-content {
-    gap: 0.9rem;
-  }
-  .time-label {
-    font-size: 1.02rem;
-  }
-  .time-value {
-    font-size: 1rem;
-  }
-}
-</style>
-
-<style>
-/* 添加 404 页面样式 */
-.not-found-container {
-  text-align: center;
-  padding: 2rem;
-  min-height: calc(100vh - var(--vp-nav-height));
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.not-found-container h1 {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-}
-
-.not-found-container p {
-  font-size: 1.5rem;
-  color: var(--vp-c-text-2);
-}
-</style>
+<style module src="./Layout.module.scss"></style>

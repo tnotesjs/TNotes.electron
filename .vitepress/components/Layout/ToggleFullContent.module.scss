@@ -1,0 +1,11 @@
+.contentToggleBtn {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: var(--vp-c-bg-alt);
+  }
+}

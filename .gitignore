@@ -13,7 +13,7 @@ Thumbs.db
 *.swo
 *.bak
 *~
-.vscode/
+# .vscode/
 .idea/
 
 # 忽略日志文件、数据库文件、缓存等
@@ -62,7 +62,7 @@ build/
 
 # 忽略用户特定设置
 config.json
-settings.json
+# settings.json
 credentials.json
 
 # 忽略敏感信息文件
@@ -87,3 +87,8 @@ tmp/
 *.min.js
 *.min.css
 *.map
+
+
+
+# 忽略词典数据解析后生成的文件
+results
