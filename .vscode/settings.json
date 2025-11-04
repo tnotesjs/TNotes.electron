@@ -201,10 +201,10 @@
     "*.vue": "$(capture).module.scss",
     "*.env": "$(capture).env.*",
     "README.md": "README*,CHANGELOG*,LICENSE,CNAME",
-    "package.json": ".gitignore,package-lock.json,.gitattributes,tsconfig.json,pnpm-lock.yaml",
+    "package.json": ".gitignore,package-lock.json,.gitattributes,tsconfig.json,pnpm-lock.yaml,.vitepress-pid",
     "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,cspell.json",
     "tailwind.config.mjs": "postcss.*",
-    ".tnotes.json": "Settings.md,sidebar.json,TOC.md,Words.md,References.md,Introduction.md"
+    ".tnotes.json": "Settings.md,sidebar.json,TOC.md,Words.md,References.md,Introduction.md,index.md"
   },
 
   // #endregion - Explorer（资源管理器相关配置）
@@ -218,7 +218,14 @@
   // #region - markdown
   "markdownlint.config": {
     "no-bare-urls": false,
-    "no-inline-html": false
+    "no-inline-html": false,
+    "MD007": false,
+    "MD022": false,
+    "MD029": false,
+    "MD031": false,
+    "MD032": false,
+    "MD040": false,
+    "MD051": false
   },
   // #endregion - markdown
 

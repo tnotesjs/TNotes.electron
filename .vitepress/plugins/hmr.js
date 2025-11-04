@@ -11,8 +11,8 @@ import {
   TNOTES_YUQUE_BASE_URL,
   EOL,
   repoName,
-} from '../tnotes/constants.js'
-import { createAddNumberToTitle, generateToc } from '../tnotes/utils'
+} from '../tnotes/config/constants.js'
+import { createAddNumberToTitle, generateToc } from '../tnotes/utils/index.js'
 
 export default async function TN_HMR_Plugin() {
   return {

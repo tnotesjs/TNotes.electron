@@ -16,6 +16,7 @@ a {
 /* !!! 修复 Discussions 两个主题 noborder light、noborder dark 的边框渲染不完整的问题 */
 .VPDoc.has-aside .content-container {
   padding: 0 2px !important;
+  max-width: var(--tn-content-width, 688px) !important;
 }
 
 /* !!! markdown-it-task-lists css enhancement */
@@ -48,13 +49,18 @@ ul > li.task-list-item > ul {
   background-color: var(--vp-nav-bg-color) !important;
 }
 
-/* 主体内容往左补齐，否则左边会留白 */
+/* 主体内容往左补齐，与导航栏标题左对齐 */
 .hide-sidebar .VPContent {
   margin-left: 0 !important;
-  padding-left: 0 !important;
+  padding-left: calc(
+    (100vw - var(--vp-layout-max-width)) / 2
+  ) !important; /* 与导航栏标题左边距对齐 */
 }
 .hide-sidebar .VPDoc .content-container {
-  max-width: calc(688px + var(--vp-sidebar-width)) !important;
+  max-width: calc(
+    var(--vp-sidebar-width) + var(--tn-content-width, 688px) +
+      var(--vp-sidebar-width)
+  ) !important;
 }
 
 /* content fullscreen toggle */
@@ -80,7 +86,7 @@ ul > li.task-list-item > ul {
   overflow: auto;
 }
 
-/* 主体内容往左补齐，否则左边会留白 */
+/* 全屏模式下不限制最大宽度 */
 .content-fullscreen .VPDoc .content-container {
-  max-width: calc(688px + var(--vp-sidebar-width)) !important;
+  max-width: none !important;
 }

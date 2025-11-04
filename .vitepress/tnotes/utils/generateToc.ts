@@ -1,4 +1,4 @@
-import { EOL } from '../constants'
+import { EOL } from '../config/constants'
 import { generateAnchor } from './generateAnchor'
 
 /**

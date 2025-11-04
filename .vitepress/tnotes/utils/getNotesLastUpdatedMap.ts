@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import { resolve } from 'node:path'
-import { ROOT_DIR_PATH } from '../constants'
+import { ROOT_DIR_PATH } from '../config/constants'
 import { execSync } from 'node:child_process'
 import type { NotesLastUpdatedMap } from '../types'
 

@@ -1,7 +1,11 @@
 import fs from 'fs'
 import path from 'path'
 import { deleteDirectory, getTargetDirs } from './utils/index'
-import { EN_WORDS_DIR, ROOT_DIR_PATH, TNOTES_BASE_DIR } from './constants'
+import {
+  EN_WORDS_DIR,
+  ROOT_DIR_PATH,
+  TNOTES_BASE_DIR,
+} from './config/constants'
 import { logger } from './utils/logger'
 import { runCommand } from './utils/runCommand'
 
@@ -84,11 +88,12 @@ async function syncSingleRepo(targetDir: string): Promise<{
       syncItem(item, ROOT_DIR_PATH, targetDir)
     }
 
-    // 2. 清空 node_modules
-    const nodeModulesPath = path.join(targetDir, 'node_modules')
-    if (fs.existsSync(nodeModulesPath)) {
-      deleteDirectory(nodeModulesPath)
-    }
+    // 2. node_modules 删除
+    // 说明：重新安装依赖会自动覆盖旧文件，无需手动删除
+    // const nodeModulesPath = path.join(targetDir, 'node_modules')
+    // if (fs.existsSync(nodeModulesPath)) {
+    //   deleteDirectory(nodeModulesPath)
+    // }
 
     // 3. 重新安装依赖
     await runCommand('pnpm i', targetDir)

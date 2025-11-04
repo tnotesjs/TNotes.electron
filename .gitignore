@@ -52,7 +52,6 @@ out/
 
 # 忽略Gradle构建系统产生的文件
 .gradle/
-build/
 .gradle/*
 
 # 忽略Docker容器和镜像
@@ -88,7 +87,8 @@ tmp/
 *.min.css
 *.map
 
-
+# 忽略 VitePress 临时文件
+.vitepress/**/*.timestamp-*.mjs
 
 # 忽略词典数据解析后生成的文件
 results

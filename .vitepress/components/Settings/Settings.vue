@@ -44,6 +44,53 @@
       </div>
     </section>
 
+    <!-- 内容宽度配置 -->
+    <section :class="$style.section">
+      <div :class="$style.sectionHeader">
+        <h2 :class="$style.sectionTitle">
+          <span :class="$style.icon">📏</span>
+          内容区宽度
+          <span
+            :class="$style.infoIcon"
+            @mouseenter="showTooltip('contentWidth')"
+            @mouseleave="hideTooltip"
+            @click="toggleTooltip('contentWidth')"
+            >ℹ️
+            <span
+              v-if="activeTooltip === 'contentWidth'"
+              :class="$style.tooltip"
+            >
+              调整文章内容区域的最大宽度（全屏模式下不限制宽度）
+            </span>
+          </span>
+        </h2>
+        <span :class="$style.badge">{{ contentWidth }}</span>
+      </div>
+
+      <div :class="$style.widthOptions">
+        <button
+          :class="[
+            $style.widthBtn,
+            contentWidth === '688px' ? $style.active : '',
+          ]"
+          @click="setContentWidth('688px')"
+          title="标准宽度 688px（VitePress 默认）"
+        >
+          标准 (688px)
+        </button>
+        <button
+          :class="[
+            $style.widthBtn,
+            contentWidth === '755px' ? $style.active : '',
+          ]"
+          @click="setContentWidth('755px')"
+          title="较大宽度 755px（适合宽屏）"
+        >
+          较大 (755px)
+        </button>
+      </div>
+    </section>
+
     <!-- MarkMap 配置 -->
     <section :class="$style.section">
       <div :class="$style.sectionHeader">
@@ -152,6 +199,8 @@ import {
   MARKMAP_EXPAND_LEVEL_KEY,
 } from '../constants'
 
+const CONTENT_WIDTH_KEY = 'tnotes-content-width'
+
 // ===================================
 // #region 响应式数据
 // ===================================
@@ -161,6 +210,7 @@ const markmapTheme = ref('default')
 const originalMarkmapTheme = ref('default')
 const markmapExpandLevel = ref(5)
 const originalMarkmapExpandLevel = ref(5)
+const contentWidth = ref('688px')
 const showSuccessToast = ref(false)
 const activeTooltip = ref<string | null>(null)
 // #endregion
@@ -197,6 +247,10 @@ onMounted(() => {
     const savedLevel = localStorage.getItem(MARKMAP_EXPAND_LEVEL_KEY) || '5'
     markmapExpandLevel.value = parseInt(savedLevel)
     originalMarkmapExpandLevel.value = parseInt(savedLevel)
+
+    const savedWidth = localStorage.getItem(CONTENT_WIDTH_KEY) || '688px'
+    contentWidth.value = savedWidth
+    applyContentWidth()
   }
 })
 // #endregion
@@ -254,6 +308,22 @@ function hideTooltip() {
 
 function toggleTooltip(id: string) {
   activeTooltip.value = activeTooltip.value === id ? null : id
+}
+
+// 应用内容宽度（通过 CSS 变量）
+function applyContentWidth() {
+  if (typeof document === 'undefined') return
+  document.documentElement.style.setProperty(
+    '--tn-content-width',
+    contentWidth.value
+  )
+}
+
+// 设置内容宽度
+function setContentWidth(width: string) {
+  contentWidth.value = width
+  localStorage.setItem(CONTENT_WIDTH_KEY, width)
+  applyContentWidth()
 }
 // #endregion
 </script>

@@ -415,3 +415,52 @@ input[type='number'] {
 /* ===================================== */
 /* #endregion 响应式设计                 */
 /* ===================================== */
+
+/* ===================================== */
+/* #region 内容宽度配置                  */
+/* ===================================== */
+.widthOptions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.widthBtn {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  &:hover {
+    border-color: var(--vp-c-brand-1);
+    color: var(--vp-c-brand-1);
+    background: var(--vp-c-bg-alt);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(100, 108, 255, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &.active {
+    border-color: var(--vp-c-brand-1);
+    background: var(--vp-c-brand-1);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 2px 12px rgba(100, 108, 255, 0.3);
+  }
+}
+/* ===================================== */
+/* #endregion 内容宽度配置               */
+/* ===================================== */

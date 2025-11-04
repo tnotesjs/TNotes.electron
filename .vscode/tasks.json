@@ -30,43 +30,12 @@
       "problemMatcher": ["$tsc"]
     },
     {
-      "label": "tn:dev:safe",
-      "detail": "安全启动知识库开发环境（自动管理进程）",
-      "type": "shell",
-      "command": "pnpm tn:dev:safe",
-      "group": "build",
-      "problemMatcher": ["$tsc"],
-      "isBackground": true,
-      "presentation": {
-        "panel": "dedicated",
-        "reveal": "always",
-        "focus": true
-      },
-      "runOptions": {
-        "runOn": "folderOpen",
-        "instanceLimit": 1 // 防止重复启动
-      }
-    },
-    {
       "label": "tn:update",
       "detail": "根据笔记内容更新知识库",
       "type": "shell",
       "command": "pnpm tn:update",
       "group": "build",
       "problemMatcher": ["$tsc"]
-    },
-    {
-      "label": "tn:update:safe",
-      "detail": "安全更新知识库（自动重启服务）",
-      "type": "shell",
-      "command": "pnpm tn:update:safe",
-      "group": "build",
-      "problemMatcher": ["$tsc"],
-      "presentation": {
-        "panel": "dedicated",
-        "reveal": "always",
-        "focus": true
-      }
     },
     {
       "label": "tn:push",

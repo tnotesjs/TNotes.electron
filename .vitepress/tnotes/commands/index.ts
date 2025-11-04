@@ -1,24 +1,20 @@
 /**
  * .vitepress/tnotes/commands/index.ts
  *
- * 命令注册中心
+ * 命令注册中心 - 使用新架构的命令
  */
 import type { Command, CommandName } from '../types'
-import { BuildCommand } from './BuildCommand'
-import { DevCommand } from './DevCommand'
-import { PreviewCommand } from './PreviewCommand'
-import { SafeDevCommand } from './SafeDevCommand'
-import { SafeUpdateCommand } from './SafeUpdateCommand'
-import { UpdateCommand } from './UpdateCommand'
-import {
-  PushCommand,
-  PullCommand,
-  SyncCommand,
-  PushAllCommand,
-  PullAllCommand,
-  SyncAllCommand,
-} from './GitCommands'
-import { NewCommand, MergeCommand, DistributeCommand } from './NoteCommands'
+
+// 新架构的命令（从子目录导入）
+import { DevCommand } from './dev'
+import { BuildCommand, PreviewCommand } from './build'
+import { UpdateCommand } from './update'
+import { PushCommand, PullCommand, SyncCommand } from './git'
+import { NewCommand } from './note'
+
+// 旧命令（暂时保持向后兼容）
+import { PushAllCommand, PullAllCommand, SyncAllCommand } from './GitCommands'
+import { MergeCommand, DistributeCommand } from './NoteCommands'
 import { TempSyncCommand } from './TempSyncCommand'
 import { HelpCommand } from './HelpCommand'
 
@@ -27,11 +23,9 @@ import { HelpCommand } from './HelpCommand'
  */
 export const commands: Record<CommandName, Command> = {
   dev: new DevCommand(),
-  safeDev: new SafeDevCommand(),
   build: new BuildCommand(),
   preview: new PreviewCommand(),
   update: new UpdateCommand(),
-  safeUpdate: new SafeUpdateCommand(),
   push: new PushCommand(),
   pushAll: new PushAllCommand(),
   pull: new PullCommand(),
@@ -63,13 +57,16 @@ export function getAllCommands(): Command[] {
  * 导出所有命令类（供外部使用）
  */
 export * from './BaseCommand'
-export * from './BuildCommand'
-export * from './DevCommand'
-export * from './PreviewCommand'
-export * from './SafeDevCommand'
-export * from './SafeUpdateCommand'
-export * from './UpdateCommand'
-export * from './GitCommands'
-export * from './NoteCommands'
+
+// 新架构的命令导出
+export * from './dev'
+export * from './build'
+export * from './update'
+export * from './git'
+export * from './note'
+
+// 旧命令导出（向后兼容，仅导出不冲突的部分）
+export { PushAllCommand, PullAllCommand, SyncAllCommand } from './GitCommands'
+export { MergeCommand, DistributeCommand } from './NoteCommands'
 export * from './TempSyncCommand'
 export * from './HelpCommand'

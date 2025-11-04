@@ -4,9 +4,13 @@
  * 同步 Git 仓库的工具函数
  */
 import { runCommand } from './runCommand'
-import { TNOTES_BASE_DIR, ROOT_DIR_PATH, EN_WORDS_DIR } from '../constants'
+import {
+  TNOTES_BASE_DIR,
+  ROOT_DIR_PATH,
+  EN_WORDS_DIR,
+} from '../config/constants'
 import { getTargetDirs } from './getTargetDirs'
-import { GitManager } from './GitManager'
+import { GitManager } from '../lib/GitManager'
 import { logger } from './logger'
 import { handleError } from './errorHandler'
 

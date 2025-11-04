@@ -43,18 +43,6 @@
               <img :src="icon__vscode" alt="open in vscode" />
             </a>
           </div>
-          <!-- 笔记的 GitHub 链接（移动端和 PC 端都显示） -->
-          <div :class="$style.githubNoteBox" v-show="currentNoteGithubUrl">
-            <a
-              :href="currentNoteGithubUrl"
-              aria-label="在 GitHub 上查看此笔记"
-              title="在 GitHub 上查看此笔记"
-              target="_blank"
-              rel="noopener"
-            >
-              <img :src="icon__github" alt="github icon" />
-            </a>
-          </div>
           <div :class="[$style.contentToggleBox, $style.pcOnly]">
             <ToggleFullContent />
           </div>
@@ -122,6 +110,26 @@
           role="group"
           aria-label="笔记提交信息"
         >
+          <div
+            :class="$style.timeLine"
+            v-if="currentNoteGithubUrl"
+            title="在 GitHub 中打开当前笔记"
+          >
+            <div :class="$style.timeLabel">
+              <strong>🔗 GitHub 链接</strong>
+            </div>
+            <div :class="$style.timeValue">
+              <a
+                :href="currentNoteGithubUrl"
+                target="_blank"
+                rel="noopener"
+                :class="$style.githubLink"
+              >
+                在 GitHub 中打开当前笔记
+              </a>
+            </div>
+          </div>
+
           <div :class="$style.timeLine" title="首次提交时间">
             <div :class="$style.timeLabel"><strong>⌛️ 首次提交</strong></div>
             <div :class="$style.timeValue">{{ formatDate(created_at) }}</div>

@@ -24,8 +24,8 @@ export class HelpCommand extends BaseCommand {
 
     // 按类别组织命令
     const categories = {
-      开发和构建: ['dev', 'safeDev', 'build', 'preview'],
-      内容管理: ['update', 'safeUpdate', 'new', 'merge', 'distribute'],
+      开发和构建: ['dev', 'build', 'preview'],
+      内容管理: ['update', 'new', 'merge', 'distribute'],
       'Git 操作': ['push', 'pull', 'sync', 'pushAll', 'pullAll', 'syncAll'],
       其他: ['tempSync', 'help'],
     }

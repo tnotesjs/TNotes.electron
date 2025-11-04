@@ -4,11 +4,13 @@ import {
   EOL,
   NOTES_DIR_PATH,
   ignore_dirs,
-  NEW_NOTES_README_MD_TEMPLATE,
-  getNewNotesTnotesJsonTemplate,
   REPO_NOTES_URL,
   ROOT_README_PATH,
-} from './constants'
+} from './config/constants'
+import {
+  NEW_NOTES_README_MD_TEMPLATE,
+  getNewNotesTnotesJsonTemplate,
+} from './config/templates'
 
 /**
  * 新建笔记

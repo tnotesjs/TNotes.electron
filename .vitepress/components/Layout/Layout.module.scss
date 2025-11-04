@@ -278,6 +278,21 @@
   font-family: var(--vp-font-family-mono);
 }
 
+/* GitHub 链接样式 */
+.githubLink {
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  &:hover {
+    color: var(--vp-c-brand-2);
+    text-decoration: underline;
+  }
+}
+
 /* 宽屏样式：在 >=720px 时，改为左右两栏布局 */
 @media (min-width: 720px) {
   .timeModalContent {

@@ -15,7 +15,7 @@
  */
 import { defineConfig } from 'vitepress'
 import { repoName } from '../.tnotes.json'
-import TN_HMR_Plugin from './plugins/hmr'
+// import TN_HMR_Plugin from './plugins/hmr' // 已废弃，改用 FileWatcherService
 import {
   IGNORE_LIST,
   GITHUB_PAGE_URL,
@@ -61,7 +61,7 @@ export default defineConfig({
       //   clientFiles: ['./**/*.md'],
       // },
     },
-    plugins: [TN_HMR_Plugin()],
+    // plugins: [TN_HMR_Plugin()], // 已废弃，改用 FileWatcherService
     css: {
       preprocessorOptions: {
         scss: {

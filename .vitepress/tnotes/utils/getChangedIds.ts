@@ -24,6 +24,6 @@ export function getChangedIds(): Set<string> {
     })
     .filter((id): id is string => Boolean(id))
 
-  console.log('本次更新的笔记 ID 集合:', changedIds)
+  // 移除日志输出，由调用方决定是否输出
   return new Set(changedIds)
 }

@@ -4,10 +4,10 @@ import path from 'path'
 import {
   EOL,
   MERGED_README_PATH,
-  SEPERATOR,
+  SEPARATOR,
   NOTES_DIR_PATH,
   ignore_dirs,
-} from './constants'
+} from './config/constants'
 
 /**
  * 合并所有笔记到一个 MERGED_README.md 文件中
@@ -33,7 +33,7 @@ export function mergeNotes(): void {
       const val = `# [README.md](./notes/${dirName.replaceAll(
         ' ',
         '%20'
-      )}/README.md)${SEPERATOR}`
+      )}/README.md)${SEPARATOR}`
       dirMap[key] = val
     }
   }
@@ -62,7 +62,7 @@ export function mergeNotes(): void {
 export function distributeNotes(): void {
   const mergedReadmeContent = fs.readFileSync(MERGED_README_PATH, 'utf8')
   const mergedReadmeSections = mergedReadmeContent.split(
-    new RegExp(`.*${SEPERATOR}$`, 'gm')
+    new RegExp(`.*${SEPARATOR}$`, 'gm')
   )
 
   mergedReadmeSections

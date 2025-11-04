@@ -1,63 +1,55 @@
 /**
- * .vitepress/tnotes/constants.ts
+ * .vitepress/tnotes/config/constants.ts
+ *
+ * 常量定义（从配置中派生的路径和URL常量）
  */
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { v4 as uuidv4 } from 'uuid'
-import { getTnotesConfig } from './utils/getTnotesConfig'
-import type { NoteConfig } from './types'
+import { getConfigManager } from './ConfigManager'
 
-const {
-  author,
-  ignore_dirs,
-  repoName,
-  socialLinks,
-  menuItems,
-  sidebar_isNotesIDVisible,
-  sidebar_isCollapsed,
-  port,
-  rootSidebarDir,
-  root_item,
-} = getTnotesConfig()
+const configManager = getConfigManager()
+const config = configManager.getAll()
 
-export {
+// 导出配置项（向后兼容）
+export const {
   author,
   ignore_dirs,
   menuItems,
   port,
   repoName,
   rootSidebarDir,
-  sidebar_isCollapsed,
-  sidebar_isNotesIDVisible,
+  sidebarShowNoteId,
   socialLinks,
   root_item,
-}
+} = config
 
+// URL 常量
 export const BILIBILI_VIDEO_BASE_URL = 'https://www.bilibili.com/video/'
 export const TNOTES_YUQUE_BASE_URL =
   'https://www.yuque.com/tdahuyou/tnotes.yuque/'
 
-export const __dirname = path.dirname(fileURLToPath(import.meta.url))
+// 目录常量
+export const __dirname = configManager.getDirname()
 
 /**
  * TNotes.* 笔记仓库的基路径
  * @example `/Users/huyouda/zm/notes/` 【在此目录下存放其它 TNotes.* 笔记仓库】
  */
-export const TNOTES_BASE_DIR = path.resolve(__dirname, '..', '..', '..')
+export const TNOTES_BASE_DIR = path.resolve(__dirname, '..', '..', '..', '..')
 export const EN_WORDS_DIR = path.resolve(TNOTES_BASE_DIR, 'TNotes.en-words')
 
 /**
  * TNotes.* 当前的笔记仓库根路径
  * @example `/Users/huyouda/zm/notes/TNotes.template/`
  */
-export const ROOT_DIR_PATH = path.resolve(__dirname, '..', '..')
+export const ROOT_DIR_PATH = path.resolve(__dirname, '..', '..', '..')
 export const ROOT_README_PATH = path.resolve(ROOT_DIR_PATH, 'README.md')
 export const ROOT_CONFIG_PATH = path.resolve(ROOT_DIR_PATH, '.tnotes.json')
 export const NOTES_DIR_PATH = path.resolve(ROOT_DIR_PATH, 'notes')
 export const VP_DIR_PATH = path.resolve(ROOT_DIR_PATH, '.vitepress')
 export const PUBLIC_PATH = path.resolve(ROOT_DIR_PATH, 'public')
 export const GITHUB_DIR_PATH = path.resolve(ROOT_DIR_PATH, '.github')
-export const GITHUB_DEPLOYYML_PATH = path.resolve(
+export const GITHUB_DEPLOY_YML_PATH = path.resolve(
   GITHUB_DIR_PATH,
   'workflows',
   'deploy.yml'
@@ -76,13 +68,14 @@ export const VSCODE_TASKS_PATH = path.resolve(
   'tasks.json'
 )
 
+// 文本常量
 export const EOL = '\n'
 export const MERGED_README_FILENAME = 'MERGED_README.md'
 export const MERGED_README_PATH = path.resolve(
   ROOT_DIR_PATH,
   MERGED_README_FILENAME
 )
-export const SEPERATOR = `<!-- !======> SEPERATOR <====== -->`
+export const SEPARATOR = `<!-- !======> SEPARATOR <====== -->`
 
 export const NOTES_TOC_START_TAG = '<!-- region:toc -->'
 export const NOTES_TOC_END_TAG = '<!-- endregion:toc -->'
@@ -140,6 +133,15 @@ export const CONSTANTS = {
   } as const,
 } as const
 
+// 导出常用的文件名常量（便于直接导入）
+export const README_FILENAME = CONSTANTS.README_FILENAME
+export const TNOTES_JSON_FILENAME = CONSTANTS.CONFIG_FILENAME
+export const VITEPRESS_PID_FILENAME = CONSTANTS.PID_FILENAME
+
+// 导出路径常量别名（向后兼容）
+export const NOTES_PATH = NOTES_DIR_PATH
+
+// GitHub URL 常量
 export const REPO_URL = `https://github.com/${author}/${repoName}/tree/main`
 export const REPO_NOTES_URL = `https://github.com/${author}/${repoName}/tree/main/notes`
 
@@ -152,62 +154,3 @@ export const REPO_BLOB_URL_2 = `?raw=true`
 
 export const GITHUB_PAGE_URL = `https://tnotesjs.github.io/${repoName}`
 export const GITHUB_PAGE_NOTES_URL = `https://tnotesjs.github.io/${repoName}/notes`
-
-/**
- * 新增笔记 README.md 模板
- */
-export const NEW_NOTES_README_MD_TEMPLATE = `
-
-<!-- region:toc -->
-
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-
-<!-- endregion:toc -->
-
-## 1. 🎯 本节内容
-
-- todo
-
-## 2. 🫧 评价
-
-- todo
-
-`
-
-/**
- * 新增笔记 .tnotes.json 模板
- */
-const NEW_NOTES_TNOTES_JSON_TEMPLATE: Omit<
-  NoteConfig,
-  'id' | 'created_at' | 'updated_at'
-> = {
-  bilibili: [],
-  tnotes: [],
-  yuque: [],
-  done: false,
-  enableDiscussions: false,
-}
-
-/**
- * 获取新笔记的配置模板
- * @param needToString - 是否需要转为字符串
- * @returns 配置对象或 JSON 字符串
- */
-export const getNewNotesTnotesJsonTemplate = (
-  needToString = true
-): string | NoteConfig => {
-  const now = Date.now()
-  const temp: NoteConfig = {
-    ...NEW_NOTES_TNOTES_JSON_TEMPLATE,
-    id: uuidv4(),
-    created_at: now,
-    updated_at: now,
-  }
-
-  if (needToString) {
-    return JSON.stringify(temp, null, 2)
-  } else {
-    return temp
-  }
-}
