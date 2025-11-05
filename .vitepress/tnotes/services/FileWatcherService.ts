@@ -18,10 +18,11 @@ import type { NoteConfig } from '../types'
  */
 interface FileChange {
   path: string
-  type: 'readme' | 'config'
+  type: 'readme' | 'config' | 'folder-rename'
   noteId: string
   noteDirName: string
   noteDirPath: string
+  oldNoteDirName?: string // 文件夹重命名时的旧名称
 }
 
 /**
@@ -43,6 +44,11 @@ export class FileWatcherService {
   private batchUpdateThreshold = 5 // 批量更新阈值（文件数）
   private batchUpdateWindow = 2000 // 批量更新检测窗口（毫秒）
   private recentChanges: Array<{ time: number; path: string }> = [] // 记录最近的变更
+  private noteDirCache: Set<string> = new Set() // 缓存所有笔记文件夹名称
+  private folderRenameTimer: NodeJS.Timeout | null = null // 文件夹重命名检测定时器
+  private pendingFolderRename: { oldName: string; time: number } | null = null // 待处理的文件夹重命名
+  private configCache: Map<string, { done: boolean; deprecated: boolean }> =
+    new Map() // 缓存配置状态
 
   constructor() {
     this.readmeService = new ReadmeService()
@@ -70,9 +76,15 @@ export class FileWatcherService {
   private initializeFileHashes(): void {
     try {
       const noteDirs = fs.readdirSync(NOTES_DIR_PATH)
+      this.noteDirCache.clear()
+      this.configCache.clear()
+
       for (const noteDir of noteDirs) {
         const noteDirPath = path.join(NOTES_DIR_PATH, noteDir)
         if (!fs.statSync(noteDirPath).isDirectory()) continue
+
+        // 缓存文件夹名称
+        this.noteDirCache.add(noteDir)
 
         // 缓存 README.md 的哈希
         const readmePath = path.join(noteDirPath, 'README.md')
@@ -81,15 +93,34 @@ export class FileWatcherService {
           this.fileHashes.set(readmePath, readmeHash)
         }
 
-        // 缓存 .tnotes.json 的哈希
+        // 缓存 .tnotes.json 的哈希和状态
         const configPath = path.join(noteDirPath, '.tnotes.json')
         const configHash = this.getFileHash(configPath)
         if (configHash) {
           this.fileHashes.set(configPath, configHash)
+          // 缓存配置状态
+          this.cacheConfigStatus(configPath)
         }
       }
     } catch (error) {
       logger.warn('初始化文件哈希缓存失败', error)
+    }
+  }
+
+  /**
+   * 缓存配置文件的状态
+   */
+  private cacheConfigStatus(configPath: string): void {
+    try {
+      if (!fs.existsSync(configPath)) return
+      const configContent = fs.readFileSync(configPath, 'utf-8')
+      const config = JSON.parse(configContent) as NoteConfig
+      this.configCache.set(configPath, {
+        done: config.done || false,
+        deprecated: config.deprecated || false,
+      })
+    } catch (error) {
+      // 忽略解析错误
     }
   }
 
@@ -125,6 +156,12 @@ export class FileWatcherService {
 
         // 如果正在更新，忽略所有变更
         if (this.isUpdating) {
+          return
+        }
+
+        // 检测文件夹重命名（eventType === 'rename' 且 filename 不包含路径分隔符）
+        if (eventType === 'rename' && !filename.includes(path.sep)) {
+          this.handleFolderRename(filename)
           return
         }
 
@@ -245,13 +282,186 @@ export class FileWatcherService {
       this.updateTimer = null
     }
 
+    if (this.folderRenameTimer) {
+      clearTimeout(this.folderRenameTimer)
+      this.folderRenameTimer = null
+    }
+
     this.watcher.close()
     this.watcher = null
     this.changedFiles.clear()
     this.fileHashes.clear()
     this.recentChanges = []
+    this.noteDirCache.clear()
+    this.pendingFolderRename = null
 
     logger.info('文件监听已停止')
+  }
+
+  /**
+   * 处理文件夹重命名事件
+   */
+  private handleFolderRename(folderName: string): void {
+    const folderPath = path.join(NOTES_DIR_PATH, folderName)
+    const folderExists = fs.existsSync(folderPath)
+
+    // 检查是否是有效的笔记文件夹（以 4 位数字开头）
+    const noteIdMatch = folderName.match(/^(\d{4})\./)
+    if (!noteIdMatch) {
+      return // 不是有效的笔记文件夹
+    }
+
+    const noteId = noteIdMatch[1]
+
+    if (!folderExists) {
+      // 文件夹被删除或重命名（旧名称）
+      if (this.noteDirCache.has(folderName)) {
+        logger.info(`检测到文件夹删除/重命名: ${folderName}`)
+        this.pendingFolderRename = {
+          oldName: folderName,
+          time: Date.now(),
+        }
+
+        // 设置定时器，等待新文件夹出现
+        if (this.folderRenameTimer) {
+          clearTimeout(this.folderRenameTimer)
+        }
+
+        this.folderRenameTimer = setTimeout(() => {
+          // 超时后清除待处理的重命名
+          this.pendingFolderRename = null
+          this.folderRenameTimer = null
+        }, 500) // 500ms 内如果没有新文件夹出现，则认为是删除操作
+      }
+    } else {
+      // 文件夹被创建或重命名（新名称）
+      if (!this.noteDirCache.has(folderName)) {
+        logger.info(`检测到文件夹创建/重命名: ${folderName}`)
+
+        // 检查是否有待处理的重命名
+        if (
+          this.pendingFolderRename &&
+          Date.now() - this.pendingFolderRename.time < 500
+        ) {
+          const oldName = this.pendingFolderRename.oldName
+          const oldNoteIdMatch = oldName.match(/^(\d{4})\./)
+
+          // 确保是同一个笔记（ID 相同）
+          if (oldNoteIdMatch && oldNoteIdMatch[1] === noteId) {
+            logger.success(`检测到文件夹重命名: ${oldName} → ${folderName}`)
+
+            // 清除定时器
+            if (this.folderRenameTimer) {
+              clearTimeout(this.folderRenameTimer)
+              this.folderRenameTimer = null
+            }
+
+            // 触发全局文件更新
+            this.handleFolderRenameUpdate(noteId, oldName, folderName)
+
+            // 清除待处理的重命名
+            this.pendingFolderRename = null
+          }
+        }
+
+        // 更新缓存
+        this.noteDirCache.add(folderName)
+
+        // 如果有旧名称，删除旧名称的缓存
+        if (this.pendingFolderRename) {
+          this.noteDirCache.delete(this.pendingFolderRename.oldName)
+        }
+      }
+    }
+  }
+
+  /**
+   * 处理文件夹重命名后的更新
+   */
+  private async handleFolderRenameUpdate(
+    noteId: string,
+    oldName: string,
+    newName: string
+  ): Promise<void> {
+    if (this.isUpdating) {
+      logger.warn('正在更新中，跳过文件夹重命名更新')
+      return
+    }
+
+    this.isUpdating = true
+
+    try {
+      const startTime = Date.now()
+      logger.info('正在更新全局文件（sidebar、README）...')
+
+      // 重新扫描所有笔记（因为文件夹名称已变更）
+      const allNotes = this.noteService.getAllNotes()
+
+      // 更新全局文件
+      await this.readmeService.updateGlobalFiles(allNotes)
+
+      const duration = Date.now() - startTime
+      logger.success(`全局文件更新完成 (耗时 ${duration}ms)`)
+      logger.info(`  - 已更新 sidebar.json`)
+      logger.info(`  - 已更新 README.md`)
+
+      this.lastUpdateTime = Date.now()
+    } catch (error) {
+      logger.error('文件夹重命名更新失败', error)
+    } finally {
+      // 延迟重置更新标志
+      setTimeout(() => {
+        this.isUpdating = false
+        // 重新初始化缓存
+        this.initializeFileHashes()
+      }, 1000)
+    }
+  }
+
+  /**
+   * 检测配置文件状态是否发生变化
+   * @param configPath - 配置文件路径
+   * @returns 是否发生状态变化
+   */
+  private hasConfigStatusChanged(configPath: string): boolean {
+    try {
+      if (!fs.existsSync(configPath)) return false
+
+      const configContent = fs.readFileSync(configPath, 'utf-8')
+      const newConfig = JSON.parse(configContent) as NoteConfig
+      const cachedStatus = this.configCache.get(configPath)
+
+      if (!cachedStatus) {
+        // 首次检测，缓存状态
+        this.cacheConfigStatus(configPath)
+        return false
+      }
+
+      const newDone = newConfig.done || false
+      const newDeprecated = newConfig.deprecated || false
+
+      // 检查状态是否变化
+      const statusChanged =
+        cachedStatus.done !== newDone ||
+        cachedStatus.deprecated !== newDeprecated
+
+      if (statusChanged) {
+        // 更新缓存
+        this.configCache.set(configPath, {
+          done: newDone,
+          deprecated: newDeprecated,
+        })
+
+        logger.info(
+          `检测到配置状态变化: done(${cachedStatus.done}→${newDone}), deprecated(${cachedStatus.deprecated}→${newDeprecated})`
+        )
+      }
+
+      return statusChanged
+    } catch (error) {
+      logger.error('检测配置状态失败', error)
+      return false
+    }
   }
 
   /**
@@ -281,40 +491,62 @@ export class FileWatcherService {
     try {
       const startTime = Date.now()
 
-      // 收集所有需要更新的笔记 ID（README 变更 + 配置变更）
-      const noteIdsToUpdate = [...new Set(changes.map((c) => c.noteId))]
+      // 检查是否有配置文件的状态变化
+      const configChanges = changes.filter((c) => c.type === 'config')
+      let hasStatusChange = false
 
-      // 先修正 README 变更笔记的标题
-      const readmeChangedIds = changes
-        .filter((c) => c.type === 'readme')
-        .map((c) => c.noteId)
-
-      if (readmeChangedIds.length > 0) {
-        for (const noteId of readmeChangedIds) {
-          const noteInfo = this.noteService.getNoteById(noteId)
-          if (noteInfo) {
-            await this.noteService.fixNoteTitle(noteInfo)
-          }
+      for (const change of configChanges) {
+        if (this.hasConfigStatusChanged(change.path)) {
+          hasStatusChange = true
+          break
         }
       }
 
-      // 只更新变更笔记的 README（包含 TOC）
-      logger.info(
-        `检测到 ${changes.length} 个文件变更，更新 ${noteIdsToUpdate.length} 个笔记...`
-      )
-      await this.readmeService.updateNoteReadmesOnly(noteIdsToUpdate)
+      // 如果有状态变化，需要更新全局文件
+      if (hasStatusChange) {
+        logger.info('检测到笔记状态变化，更新全局文件...')
+        const allNotes = this.noteService.getAllNotes()
+        await this.readmeService.updateGlobalFiles(allNotes)
 
-      const duration = Date.now() - startTime
-      logger.success(`更新完成 (耗时 ${duration}ms)`)
+        const duration = Date.now() - startTime
+        logger.success(`全局文件更新完成 (耗时 ${duration}ms)`)
+        logger.info(`  - 已更新 sidebar.json`)
+        logger.info(`  - 已更新 README.md`)
+      } else {
+        // 没有状态变化，只更新笔记内容
+        const noteIdsToUpdate = [...new Set(changes.map((c) => c.noteId))]
 
-      // 输出变更详情
-      const readmeChanges = changes.filter((c) => c.type === 'readme')
-      const configChanges = changes.filter((c) => c.type === 'config')
-      if (readmeChanges.length > 0) {
-        logger.info(`  - README 变更: ${readmeChanges.length} 个`)
-      }
-      if (configChanges.length > 0) {
-        logger.info(`  - 配置变更: ${configChanges.length} 个`)
+        // 先修正 README 变更笔记的标题
+        const readmeChangedIds = changes
+          .filter((c) => c.type === 'readme')
+          .map((c) => c.noteId)
+
+        if (readmeChangedIds.length > 0) {
+          for (const noteId of readmeChangedIds) {
+            const noteInfo = this.noteService.getNoteById(noteId)
+            if (noteInfo) {
+              await this.noteService.fixNoteTitle(noteInfo)
+            }
+          }
+        }
+
+        // 只更新变更笔记的 README（包含 TOC）
+        logger.info(
+          `检测到 ${changes.length} 个文件变更，更新 ${noteIdsToUpdate.length} 个笔记...`
+        )
+        await this.readmeService.updateNoteReadmesOnly(noteIdsToUpdate)
+
+        const duration = Date.now() - startTime
+        logger.success(`更新完成 (耗时 ${duration}ms)`)
+
+        // 输出变更详情
+        const readmeChanges = changes.filter((c) => c.type === 'readme')
+        if (readmeChanges.length > 0) {
+          logger.info(`  - README 变更: ${readmeChanges.length} 个`)
+        }
+        if (configChanges.length > 0) {
+          logger.info(`  - 配置变更: ${configChanges.length} 个`)
+        }
       }
 
       this.lastUpdateTime = Date.now()

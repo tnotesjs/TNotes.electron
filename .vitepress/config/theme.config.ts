@@ -20,8 +20,8 @@ export function getThemeConfig(): DefaultTheme.Config {
     },
     nav: [
       {
-        text: '👀 TOC',
-        link: '/TOC',
+        text: '👀 README',
+        link: '/README',
       },
       {
         text: 'Menus',

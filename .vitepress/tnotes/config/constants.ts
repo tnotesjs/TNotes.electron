@@ -54,7 +54,6 @@ export const GITHUB_DEPLOY_YML_PATH = path.resolve(
   'workflows',
   'deploy.yml'
 )
-export const VP_TOC_PATH = path.resolve(ROOT_DIR_PATH, 'TOC.md')
 export const VP_SIDEBAR_PATH = path.resolve(ROOT_DIR_PATH, 'sidebar.json')
 export const ROOT_PKG_PATH = path.resolve(ROOT_DIR_PATH, 'package.json')
 export const VSCODE_SETTINGS_PATH = path.resolve(

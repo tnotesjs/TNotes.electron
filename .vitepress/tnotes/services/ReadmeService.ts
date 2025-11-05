@@ -7,14 +7,9 @@ import type { NoteInfo } from '../types'
 import { NoteManager } from '../core/NoteManager'
 import { ReadmeGenerator } from '../core/ReadmeGenerator'
 import { SidebarGenerator } from '../core/SidebarGenerator'
-import { TocGenerator } from '../core/TocGenerator'
 import { ConfigManager } from '../config/ConfigManager'
 import { logger } from '../utils/logger'
-import {
-  ROOT_README_PATH,
-  VP_SIDEBAR_PATH,
-  VP_TOC_PATH,
-} from '../config/constants'
+import { ROOT_README_PATH, VP_SIDEBAR_PATH } from '../config/constants'
 import * as fs from 'fs'
 
 /**
@@ -22,7 +17,6 @@ import * as fs from 'fs'
  */
 export interface UpdateReadmeOptions {
   updateSidebar?: boolean
-  updateToc?: boolean
   updateHome?: boolean
 }
 
@@ -33,14 +27,12 @@ export class ReadmeService {
   private noteManager: NoteManager
   private readmeGenerator: ReadmeGenerator
   private sidebarGenerator: SidebarGenerator
-  private tocGenerator: TocGenerator
   private configManager: ConfigManager
 
   constructor() {
     this.noteManager = new NoteManager()
     this.readmeGenerator = new ReadmeGenerator()
     this.sidebarGenerator = new SidebarGenerator()
-    this.tocGenerator = new TocGenerator()
     this.configManager = ConfigManager.getInstance()
   }
 
@@ -49,11 +41,7 @@ export class ReadmeService {
    * @param options - 更新选项
    */
   async updateAllReadmes(options: UpdateReadmeOptions = {}): Promise<void> {
-    const {
-      updateSidebar = true,
-      updateToc = true,
-      updateHome = true,
-    } = options
+    const { updateSidebar = true, updateHome = true } = options
 
     logger.info('开始更新知识库...')
 
@@ -86,12 +74,7 @@ export class ReadmeService {
       await this.updateSidebar(notes)
     }
 
-    // 5. 更新目录文件（始终更新）
-    if (updateToc) {
-      await this.updateTocFile(notes)
-    }
-
-    // 6. 更新首页 README（始终更新）
+    // 5. 更新首页 README（始终更新）
     if (updateHome) {
       await this.updateHomeReadme(notes)
     }
@@ -131,6 +114,141 @@ export class ReadmeService {
         logger.error(`更新笔记 ${note.dirName} 失败`, error)
       }
     }
+  }
+
+  /**
+   * 只更新全局文件（sidebar、README）
+   * 用于文件夹重命名等场景
+   * @param notes - 所有笔记信息数组
+   */
+  async updateGlobalFiles(notes: NoteInfo[]): Promise<void> {
+    // 对于文件夹重命名，需要更新 README.md 中的链接
+    // 但 updateHomeReadme 只能检测"缺失"和"移除"，无法识别"重命名"
+    // 所以需要特殊处理：更新 README.md 中所有笔记链接的路径
+    await this.updateHomeReadmeForRename(notes)
+
+    // 2. 更新侧边栏配置（基于更新后的 README.md）
+    await this.updateSidebar(notes)
+  }
+
+  /**
+   * 更新首页 README（专门用于文件夹重命名场景）
+   * 保持原有章节结构，只更新笔记链接的路径和文本
+   * @param notes - 所有笔记信息数组
+   */
+  private async updateHomeReadmeForRename(notes: NoteInfo[]): Promise<void> {
+    if (!fs.existsSync(ROOT_README_PATH)) {
+      logger.error('未找到首页 README')
+      return
+    }
+
+    const content = fs.readFileSync(ROOT_README_PATH, 'utf-8')
+    const lines = content.split('\n')
+
+    // 创建笔记映射：ID -> NoteInfo
+    const noteByIdMap = new Map<string, NoteInfo>()
+    for (const note of notes) {
+      noteByIdMap.set(note.id, note)
+    }
+
+    let inTocRegion = false
+    const titles: string[] = []
+    const titlesNotesCount: number[] = []
+    let currentNoteCount = 0
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i]
+
+      // 跳过 TOC region
+      if (line.includes('<!-- region:toc -->')) {
+        inTocRegion = true
+        continue
+      }
+      if (line.includes('<!-- endregion:toc -->')) {
+        inTocRegion = false
+        continue
+      }
+      if (inTocRegion) {
+        continue
+      }
+
+      // 匹配笔记链接（可能带 ❌ 标记）
+      const noteMatch = line.match(
+        /^- \[(.)\] \[(.+?)\]\((https:\/\/github\.com\/.+?\/notes\/(.+?)\/README(?:\.md)?)\)(\s*❌)?/
+      )
+      if (noteMatch) {
+        const [, status, oldText, , encodedPath] = noteMatch
+        const decodedPath = decodeURIComponent(encodedPath)
+
+        // 提取笔记 ID
+        const idMatch = decodedPath.match(/^(\d{4})\./)
+        if (idMatch) {
+          const noteId = idMatch[1]
+          const note = noteByIdMap.get(noteId)
+
+          if (note) {
+            // 找到对应的笔记，更新链接
+            const newEncodedPath = encodeURIComponent(note.dirName)
+            const newUrl = `https://github.com/tnotesjs/TNotes.introduction/tree/main/notes/${newEncodedPath}/README.md`
+
+            // 根据配置更新状态和标记
+            let newStatus = ' '
+            let deprecatedMark = ''
+
+            if (note.config) {
+              if (note.config.deprecated) {
+                newStatus = ' ' // 弃用的笔记，复选框不勾选
+                deprecatedMark = ' ❌' // 添加弃用标记
+              } else if (note.config.done) {
+                newStatus = 'x' // 完成的笔记，勾选复选框
+              }
+            }
+
+            lines[
+              i
+            ] = `- [${newStatus}] [${note.dirName}](${newUrl})${deprecatedMark}`
+            currentNoteCount++
+          } else {
+            // 笔记不存在，保持原样（后续会被移除）
+            logger.warn(`笔记不存在: ${noteId}`)
+          }
+        }
+        continue
+      }
+
+      // 匹配标题
+      const titleMatch = line.match(/^(#{2,})\s+(.+)$/)
+      if (titleMatch) {
+        if (titles.length > 0) {
+          titlesNotesCount.push(currentNoteCount)
+        }
+        titles.push(line)
+        currentNoteCount = 0
+      }
+    }
+
+    // 保存最后一个标题的笔记数量
+    if (titles.length > 0) {
+      titlesNotesCount.push(currentNoteCount)
+    }
+
+    // 更新 TOC 区域（内联实现，不再依赖 TocGenerator）
+    const { generateToc } = await import('../utils/markdown')
+    let startLineIdx = -1,
+      endLineIdx = -1
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].includes('<!-- region:toc -->')) startLineIdx = i
+      if (lines[i].includes('<!-- endregion:toc -->')) endLineIdx = i
+    }
+    if (startLineIdx !== -1 && endLineIdx !== -1) {
+      const toc = generateToc(titles, 1)
+      const tocLines = toc.split('\n')
+      lines.splice(startLineIdx + 1, endLineIdx - startLineIdx - 1, ...tocLines)
+    }
+
+    const updatedContent = lines.join('\n')
+    fs.writeFileSync(ROOT_README_PATH, updatedContent, 'utf-8')
+    logger.info('已更新首页 README')
   }
 
   /**
@@ -312,50 +430,6 @@ export class ReadmeService {
 
     logger.info('已更新侧边栏配置')
   }
-  /**
-   * 更新目录文件 (TOC.md)
-   * 从 README.md 提取内容，移除 region:toc 区域
-   * @param notes - 笔记信息数组
-   */
-  private async updateTocFile(notes: NoteInfo[]): Promise<void> {
-    if (!fs.existsSync(ROOT_README_PATH)) {
-      logger.error('未找到首页 README，无法生成目录')
-      return
-    }
-
-    const content = fs.readFileSync(ROOT_README_PATH, 'utf-8')
-    const lines = content.split('\n')
-
-    // 找到 region:toc 区域
-    let startIdx = -1
-    let endIdx = -1
-
-    for (let i = 0; i < lines.length; i++) {
-      if (lines[i].includes('<!-- region:toc -->')) {
-        startIdx = i
-      }
-      if (lines[i].includes('<!-- endregion:toc -->')) {
-        endIdx = i
-        break
-      }
-    }
-
-    if (startIdx === -1 || endIdx === -1) {
-      logger.warn('未找到 region:toc 区域，使用完整内容')
-      fs.writeFileSync(VP_TOC_PATH, content, 'utf-8')
-      logger.info('已更新目录文件')
-      return
-    }
-
-    // 移除 region:toc 区域，保留其他内容
-    const tocLines = [...lines.slice(0, startIdx), ...lines.slice(endIdx + 1)]
-
-    // 生成 TOC.md 内容
-    const tocContent = tocLines.join('\n')
-
-    fs.writeFileSync(VP_TOC_PATH, tocContent, 'utf-8')
-    logger.info('已更新目录文件')
-  }
 
   /**
    * 更新首页 README
@@ -376,10 +450,6 @@ export class ReadmeService {
     // 更新侧边栏
     await this.updateSidebar(notes)
     generatedFiles.push(VP_SIDEBAR_PATH)
-
-    // 更新目录
-    await this.updateTocFile(notes)
-    generatedFiles.push(VP_TOC_PATH)
 
     // 更新首页
     await this.updateHomeReadme(notes)

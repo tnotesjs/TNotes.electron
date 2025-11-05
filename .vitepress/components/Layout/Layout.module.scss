@@ -172,6 +172,39 @@
   }
 }
 
+/* collapse all button */
+.collapseAllBtn {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.collapseAllButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--vp-c-bg-soft);
+  }
+
+  img {
+    width: 16px;
+    height: 16px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover img {
+    opacity: 1;
+  }
+}
+
 /* about icon button */
 .aboutBtn {
   display: inline-block;
@@ -374,14 +407,16 @@
     }
 
     &.folded img {
-      transform: rotate(180deg);
+      // transform: rotate(180deg);
     }
 
     &.folded:hover img {
-      transform: rotate(180deg) scale(1.1);
+      // transform: rotate(180deg) scale(1.1);
     }
   }
-} /* 
+}
+
+/* 
   404 页面样式已移至 global-components.css
   相关全局类名：.not-found-container
 */

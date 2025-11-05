@@ -19,6 +19,7 @@
       <!-- <pre>{{ tocData }}</pre> -->
       <ImagePreview />
       <Swiper />
+      <ContentCollapse />
     </template>
     <!-- <template #doc-bottom>doc-bottom</template> -->
     <template #doc-before>
@@ -73,26 +74,37 @@
           </div> -->
         </div>
         <div :class="$style.rightArea">
+          <!-- 全局折叠/展开按钮 -->
+          <div :class="$style.collapseAllBtn" v-show="currentNoteId">
+            <button
+              :class="$style.collapseAllButton"
+              @click="toggleAllCollapse"
+              :title="allCollapsed ? '展开所有区域' : '折叠所有区域'"
+              type="button"
+            >
+              <img :src="icon__fold" alt="collapse all" />
+            </button>
+          </div>
+
           <!-- 单个图标，点击打开 modal，只在有笔记数据的页面显示 -->
           <div
             :class="$style.aboutBtn"
-            v-show="currentNoteId && created_at && updated_at"
+            v-show="
+              (currentNoteId && created_at && updated_at) ||
+              (isHomeReadme && homeReadmeCreatedAt && homeReadmeUpdatedAt)
+            "
           >
             <button
               :class="$style.aboutIconButton"
               @click="openTimeModal"
               aria-haspopup="dialog"
               :aria-expanded="timeModalOpen.toString()"
-              title="关于这篇笔记"
+              :title="isHomeReadme ? '关于这个知识库' : '关于这篇笔记'"
               type="button"
             >
               !
             </button>
           </div>
-
-          <span title="已完成笔记数量" v-show="isHomeReadme"
-            >✅ 已完成：{{ doneNotesLen }}</span
-          >
         </div>
       </div>
 
@@ -108,36 +120,63 @@
         <div
           :class="$style.timeModalContent"
           role="group"
-          aria-label="笔记提交信息"
+          :aria-label="isHomeReadme ? '知识库提交信息' : '笔记提交信息'"
         >
+          <!-- 完成进度（仅首页显示） -->
           <div
             :class="$style.timeLine"
-            v-if="currentNoteGithubUrl"
-            title="在 GitHub 中打开当前笔记"
+            v-if="isHomeReadme && completionPercentage !== null"
+            title="笔记完成进度"
+          >
+            <div :class="$style.timeLabel">
+              <strong>📊 完成进度</strong>
+            </div>
+            <div :class="$style.timeValue">
+              {{ completionPercentage }}% ({{ doneNotesLen }} /
+              {{ totalNotesLen }})
+            </div>
+          </div>
+
+          <div
+            :class="$style.timeLine"
+            v-if="modalGithubUrl"
+            :title="
+              isHomeReadme
+                ? '在 GitHub 中打开知识库'
+                : '在 GitHub 中打开当前笔记'
+            "
           >
             <div :class="$style.timeLabel">
               <strong>🔗 GitHub 链接</strong>
             </div>
             <div :class="$style.timeValue">
               <a
-                :href="currentNoteGithubUrl"
+                :href="modalGithubUrl"
                 target="_blank"
                 rel="noopener"
                 :class="$style.githubLink"
               >
-                在 GitHub 中打开当前笔记
+                {{
+                  isHomeReadme
+                    ? '在 GitHub 中打开知识库'
+                    : '在 GitHub 中打开当前笔记'
+                }}
               </a>
             </div>
           </div>
 
           <div :class="$style.timeLine" title="首次提交时间">
             <div :class="$style.timeLabel"><strong>⌛️ 首次提交</strong></div>
-            <div :class="$style.timeValue">{{ formatDate(created_at) }}</div>
+            <div :class="$style.timeValue">
+              {{ formatDate(modalCreatedAt) }}
+            </div>
           </div>
 
           <div :class="$style.timeLine" title="最近提交时间">
             <div :class="$style.timeLabel"><strong>⌛️ 最近提交</strong></div>
-            <div :class="$style.timeValue">{{ formatDate(updated_at) }}</div>
+            <div :class="$style.timeValue">
+              {{ formatDate(modalUpdatedAt) }}
+            </div>
           </div>
         </div>
       </AboutModal>
@@ -160,7 +199,7 @@
       <!-- aside-top -->
       <!-- {{ vpData.page.value.title }} -->
     </template>
-    <template #aside-outline-before>
+    <!-- <template #aside-outline-before>
       <span
         @click="scrollToTop"
         style="cursor: pointer; height: 1em; width: 1em"
@@ -168,7 +207,7 @@
       >
         <img :src="icon__totop" alt="to top" />
       </span>
-    </template>
+    </template> -->
 
     <template #sidebar-nav-before>
       <div :class="$style.sidebarControls">
@@ -206,6 +245,7 @@ import ImagePreview from './ImagePreview.vue'
 import Swiper from './Swiper.vue'
 import ToggleFullContent from './ToggleFullContent.vue'
 import ToggleSidebar from './ToggleSidebar.vue'
+import ContentCollapse from './ContentCollapse.vue'
 
 import icon__github from '/icon__github.svg'
 import icon__totop from '/icon__totop.svg'
@@ -218,11 +258,11 @@ import DefaultTheme from 'vitepress/theme'
 import { computed, onMounted, ref, watch, onUnmounted } from 'vue'
 
 import { data as allNotesConfig } from '../notesConfig.data.ts'
-import { data as tocData } from './toc.data.ts'
+import { data as readmeData } from './homeReadme.data.ts'
 
 import { formatDate, scrollToTop } from '../utils.ts'
 
-import { NOTES_DIR_KEY, TOC_MD } from '../constants.ts'
+import { NOTES_DIR_KEY } from '../constants.ts'
 
 import AboutModal from './AboutModal.vue' // <- 新增 modal 组件导入
 
@@ -274,8 +314,20 @@ watch(
   }
 )
 
-const isHomeReadme = computed(() => vpData.page.value.filePath === TOC_MD)
-const doneNotesLen = computed(() => tocData?.doneNotesLen)
+// 判断是否为首页 README.md
+const isHomeReadme = computed(() => vpData.page.value.filePath === 'README.md')
+const doneNotesLen = computed(() => readmeData?.doneNotesLen || 0)
+const totalNotesLen = computed(() => readmeData?.totalNotesLen || 0)
+
+// 完成进度百分比
+const completionPercentage = computed(() => {
+  if (!totalNotesLen.value || totalNotesLen.value === 0) return null
+  return Math.round((doneNotesLen.value / totalNotesLen.value) * 100)
+})
+
+// 首页 README.md 的时间戳
+const homeReadmeCreatedAt = computed(() => readmeData?.created_at)
+const homeReadmeUpdatedAt = computed(() => readmeData?.updated_at)
 
 // 计算当前笔记的 GitHub URL
 const currentNoteGithubUrl = computed(() => {
@@ -296,8 +348,8 @@ const currentNoteGithubUrl = computed(() => {
 
 const isCopied = ref(false)
 const copyRawFile = () => {
-  if (!tocData) return
-  layout.clipboard.writeText(tocData.fileContent)
+  if (!readmeData) return
+  layout.clipboard.writeText(readmeData.fileContent)
   isCopied.value = true
   setTimeout(() => (isCopied.value = false), 1000)
 
@@ -306,7 +358,7 @@ const copyRawFile = () => {
     targetWindow.postMessage(
       {
         senderID: '__TNotes__',
-        message: tocData.fileContent,
+        message: readmeData.fileContent,
       },
       '*'
     )
@@ -398,7 +450,26 @@ watch(
 // modal 控制
 const timeModalOpen = ref(false)
 const modalTitle = computed(() => {
-  return '关于这篇笔记'
+  return isHomeReadme.value ? '关于这个知识库' : '关于这篇笔记'
+})
+
+// modal 中显示的 GitHub 链接
+const modalGithubUrl = computed(() => {
+  if (isHomeReadme.value) {
+    const repoName = vpData.site.value.title.toLowerCase()
+    return `https://github.com/tnotesjs/${repoName}`
+  }
+  return currentNoteGithubUrl.value
+})
+
+// modal 中显示的创建时间
+const modalCreatedAt = computed(() => {
+  return isHomeReadme.value ? homeReadmeCreatedAt.value : created_at.value
+})
+
+// modal 中显示的更新时间
+const modalUpdatedAt = computed(() => {
+  return isHomeReadme.value ? homeReadmeUpdatedAt.value : updated_at.value
 })
 
 function openTimeModal() {
@@ -498,6 +569,83 @@ watch(
     setTimeout(() => {
       allSidebarExpanded.value = true
     }, 100)
+  }
+)
+// #endregion
+
+// #region - 全局折叠/展开功能
+const allCollapsed = ref(false)
+
+function toggleAllCollapse() {
+  if (typeof document === 'undefined') return
+
+  allCollapsed.value = !allCollapsed.value
+
+  // 获取所有折叠区域
+  const tocHeaders = document.querySelectorAll('.toc-collapse-header')
+  const h2Elements = document.querySelectorAll('.vp-doc h2.collapsible-h2')
+
+  // 切换 TOC 区域
+  tocHeaders.forEach((header) => {
+    const content = header.nextElementSibling
+    if (!content) return
+
+    const isCollapsed = content.classList.contains('collapsed')
+
+    // 根据目标状态决定是否需要切换
+    if (allCollapsed.value && !isCollapsed) {
+      // 需要折叠 - 直接操作 DOM
+      content.classList.add('collapsed')
+      header.classList.add('collapsed')
+      // 保存状态到 localStorage
+      const noteKey = route.path.replace(/\//g, '_')
+      const storageKey = `tnotes_collapse_state_${noteKey}_toc`
+      localStorage.setItem(storageKey, '1')
+    } else if (!allCollapsed.value && isCollapsed) {
+      // 需要展开 - 直接操作 DOM
+      content.classList.remove('collapsed')
+      header.classList.remove('collapsed')
+      // 保存状态到 localStorage
+      const noteKey = route.path.replace(/\//g, '_')
+      const storageKey = `tnotes_collapse_state_${noteKey}_toc`
+      localStorage.setItem(storageKey, '0')
+    }
+  })
+
+  // 切换 H2 区域
+  h2Elements.forEach((h2) => {
+    const content = h2.nextElementSibling
+    if (!content || !content.classList.contains('h2-collapse-content')) return
+
+    const isCollapsed = content.classList.contains('collapsed')
+    const h2Id = h2.id || `h2_${Array.from(h2Elements).indexOf(h2)}`
+
+    // 根据目标状态决定是否需要切换
+    if (allCollapsed.value && !isCollapsed) {
+      // 需要折叠 - 直接操作 DOM
+      content.classList.add('collapsed')
+      h2.classList.add('collapsed')
+      // 保存状态到 localStorage
+      const noteKey = route.path.replace(/\//g, '_')
+      const storageKey = `tnotes_collapse_state_${noteKey}_h2_${h2Id}`
+      localStorage.setItem(storageKey, '1')
+    } else if (!allCollapsed.value && isCollapsed) {
+      // 需要展开 - 直接操作 DOM
+      content.classList.remove('collapsed')
+      h2.classList.remove('collapsed')
+      // 保存状态到 localStorage
+      const noteKey = route.path.replace(/\//g, '_')
+      const storageKey = `tnotes_collapse_state_${noteKey}_h2_${h2Id}`
+      localStorage.setItem(storageKey, '0')
+    }
+  })
+}
+
+// 监听路由变化，重置折叠状态
+watch(
+  () => route.path,
+  () => {
+    allCollapsed.value = false
   }
 )
 // #endregion
