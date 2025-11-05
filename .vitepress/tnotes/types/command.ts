@@ -22,6 +22,7 @@ export type CommandName =
   | 'merge'
   | 'distribute'
   | 'tempSync'
+  | 'timestamp-fix'
   | 'help'
 
 /**
@@ -44,7 +45,11 @@ export interface CommandArgs {
   merge?: boolean
   distribute?: boolean
   tempSync?: boolean
+  'timestamp-fix'?: boolean
   help?: boolean
+  force?: boolean
+  quiet?: boolean
+  'no-watch'?: boolean
 }
 
 /**
@@ -75,6 +80,7 @@ export function isValidCommand(cmd: string): cmd is CommandName {
     'merge',
     'distribute',
     'tempSync',
+    'timestamp-fix',
     'help',
   ].includes(cmd)
 }

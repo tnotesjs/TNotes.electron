@@ -119,11 +119,17 @@ export class ReadmeGenerator {
 
     // 创建笔记配置映射，以目录名为键
     const noteConfigMap = new Map<string, NoteConfig>()
+    const noteDirNames = new Set<string>()
     for (const note of notes) {
+      noteDirNames.add(note.dirName)
       if (note.config) {
         noteConfigMap.set(note.dirName, note.config)
       }
     }
+
+    // 跟踪 home README 中已存在的笔记
+    const existingNotesInHome = new Set<string>()
+    const linesToRemove = new Set<number>() // 要移除的行索引
 
     // 更新笔记链接的状态标记
     const titles: string[] = []
@@ -154,6 +160,16 @@ export class ReadmeGenerator {
       if (noteMatch) {
         const [fullMatch, oldStatus, text, url, encodedPath] = noteMatch
         const decodedPath = decodeURIComponent(encodedPath)
+
+        // 检查笔记是否在真实目录中存在
+        if (!noteDirNames.has(decodedPath)) {
+          // 笔记不存在，标记为移除
+          linesToRemove.add(i)
+          logger.warn(`移除不存在的笔记: ${decodedPath}`)
+          continue
+        }
+
+        existingNotesInHome.add(decodedPath)
         const noteConfig = noteConfigMap.get(decodedPath)
 
         if (noteConfig) {
@@ -185,6 +201,40 @@ export class ReadmeGenerator {
 
         titles.push(line)
         currentNoteCount = 0
+      }
+    }
+
+    // 移除不存在的笔记（从后往前删除，避免索引问题）
+    const sortedLinesToRemove = Array.from(linesToRemove).sort((a, b) => b - a)
+    for (const lineIndex of sortedLinesToRemove) {
+      lines.splice(lineIndex, 1)
+      // 调整当前笔记数量
+      if (currentNoteCount > 0) {
+        currentNoteCount--
+      }
+    }
+
+    // 查找缺失的笔记（在真实目录中存在但 home README 中不存在）
+    const missingNotes: NoteInfo[] = []
+    for (const note of notes) {
+      if (!existingNotesInHome.has(note.dirName)) {
+        missingNotes.push(note)
+      }
+    }
+
+    // 将缺失的笔记添加到结尾
+    if (missingNotes.length > 0) {
+      logger.info(`添加 ${missingNotes.length} 篇缺失的笔记到 home README`)
+
+      // 按笔记ID排序
+      missingNotes.sort((a, b) => a.id.localeCompare(b.id))
+
+      for (const note of missingNotes) {
+        const status = note.config?.done ? 'x' : ' '
+        const encodedDirName = encodeURIComponent(note.dirName)
+        const noteLine = `- [${status}] [${note.dirName}](https://github.com/tnotesjs/TNotes.introduction/tree/main/notes/${encodedDirName}/README.md)`
+        lines.push(noteLine)
+        currentNoteCount++
       }
     }
 

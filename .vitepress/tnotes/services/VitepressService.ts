@@ -9,6 +9,7 @@ import { logger } from '../utils/logger'
 import { VITEPRESS_PID_FILENAME, ROOT_DIR_PATH } from '../config/constants'
 import { runCommand } from '../utils/command'
 import * as path from 'path'
+import * as fs from 'fs'
 
 /**
  * VitePress 服务类
@@ -26,9 +27,10 @@ export class VitepressService {
 
   /**
    * 启动 VitePress 开发服务器
+   * @param onReady - 服务就绪回调
    * @returns 进程ID
    */
-  async startServer(): Promise<number | undefined> {
+  async startServer(onReady?: () => void): Promise<number | undefined> {
     const port = this.configManager.get('port')
     const processId = 'vitepress-dev'
 
@@ -63,15 +65,47 @@ export class VitepressService {
       await new Promise((resolve) => setTimeout(resolve, 1000))
     }
 
-    // 启动 VitePress 开发服务器（使用 inherit 以显示日志）
+    // 启动 VitePress 开发服务器
     const command = 'pnpm'
     const args = ['vitepress', 'dev', '--port', port.toString()]
     logger.info(`执行命令：${command} ${args.join(' ')}`)
 
+    // 显示启动阶段标识（在启动进程之前）
+    console.log('\n🚀 启动阶段：')
+    // 立即显示初始进度（注意：这里不换行，后续进度会覆盖这一行）
+    process.stdout.write('⏳ 启动进度: [░░░░░░░░░░░░░░░░░░░░] 0% - 初始化')
+
     const processInfo = this.processManager.spawn(processId, command, args, {
       cwd: ROOT_DIR_PATH,
-      stdio: 'inherit', // 继承当前进程的 stdio，显示所有日志
+      stdio: ['inherit', 'pipe', 'pipe'], // stdin 继承，stdout/stderr 管道捕获
     })
+
+    // 进程已启动，输出换行，让后续日志从新行开始
+    console.log()
+
+    // 启动进度追踪
+    const progressTracker = this.createProgressTracker(onReady)
+
+    // 监听 stdout 和 stderr，解析启动进度
+    if (processInfo.process.stdout) {
+      processInfo.process.stdout.setEncoding('utf8')
+      processInfo.process.stdout.on('data', (data: string) => {
+        const shouldShowOutput = progressTracker.parseOutput(data)
+        if (shouldShowOutput) {
+          process.stdout.write(data)
+        }
+      })
+    }
+
+    if (processInfo.process.stderr) {
+      processInfo.process.stderr.setEncoding('utf8')
+      processInfo.process.stderr.on('data', (data: string) => {
+        const shouldShowOutput = progressTracker.parseOutput(data)
+        if (shouldShowOutput) {
+          process.stderr.write(data)
+        }
+      })
+    }
 
     // 将 PID 写入文件
     await this.writePidFile(processInfo.pid!)
@@ -79,6 +113,199 @@ export class VitepressService {
     return processInfo.pid
   }
 
+  /**
+   * 创建进度追踪器
+   */
+  private createProgressTracker(onReady?: () => void) {
+    const startTime = Date.now()
+    let currentProgress = 0
+    let serverReady = false
+    let progressLine = ''
+    let lastOutputTime = Date.now()
+    let hasSeenOutput = false
+    let totalFiles = 0
+
+    const updateProgress = (progress: number, message?: string) => {
+      if (serverReady || progress <= currentProgress) return
+
+      currentProgress = progress
+
+      // 清除之前的进度行（使用 \r 覆盖当前行）
+      if (progressLine) {
+        process.stdout.write(`\r${' '.repeat(progressLine.length)}\r`)
+      }
+
+      // 构建新的进度行
+      const bar =
+        '█'.repeat(Math.floor(currentProgress / 5)) +
+        '░'.repeat(20 - Math.floor(currentProgress / 5))
+      const fileInfo = totalFiles > 0 ? ` (${totalFiles} 个文件)` : ''
+      progressLine = `⏳ 启动进度: [${bar}] ${currentProgress}%${fileInfo}${
+        message ? ' - ' + message : ''
+      }`
+
+      // 写入进度行（不换行，保持在同一行）
+      process.stdout.write(progressLine)
+      lastOutputTime = Date.now()
+    }
+
+    // 启动一个定时器，在没有实际输出时也缓慢增长进度
+    const progressTimer = setInterval(() => {
+      if (serverReady) {
+        clearInterval(progressTimer)
+        return
+      }
+
+      const elapsed = Date.now() - startTime
+      const timeSinceLastOutput = Date.now() - lastOutputTime
+
+      // 基于时间的进度估算（假设 15 秒完成）
+      const timeBasedProgress = Math.min(90, Math.floor((elapsed / 15000) * 90))
+
+      // 如果基于时间的进度超过当前进度，更新它
+      if (timeBasedProgress > currentProgress) {
+        let stage = '处理中...'
+        if (timeBasedProgress < 20) stage = '启动 VitePress'
+        else if (timeBasedProgress < 40) stage = '初始化 Vite'
+        else if (timeBasedProgress < 60) stage = '转换文件中'
+        else if (timeBasedProgress < 80) stage = '构建页面'
+        else stage = '即将完成'
+
+        updateProgress(timeBasedProgress, stage)
+      }
+    }, 300)
+
+    const parseOutput = (data: string): boolean => {
+      if (serverReady) return true // 服务已就绪，显示所有输出
+
+      const text = data.toString()
+      hasSeenOutput = true
+
+      // 先检测是否服务已就绪（优先级最高）
+      if (
+        text.includes('Local:') ||
+        text.includes('http://localhost') ||
+        (text.includes('➜') && text.includes('Local'))
+      ) {
+        if (!serverReady) {
+          serverReady = true
+          clearInterval(progressTimer)
+
+          // 清除进度行
+          if (progressLine) {
+            process.stdout.write(`\r${' '.repeat(progressLine.length)}\r`)
+            progressLine = ''
+          }
+        }
+        return true // 显示服务地址信息
+      }
+
+      // 检测是否是 VitePress 的主要输出（版本信息等）
+      if (
+        text.includes('vitepress v') ||
+        text.includes('Network:') ||
+        text.includes('press h to show help') ||
+        text.includes('➜')
+      ) {
+        // 清除进度条并换行，让 VitePress 输出显示在新行
+        if (progressLine) {
+          process.stdout.write(`\r${' '.repeat(progressLine.length)}\r`)
+          progressLine = ''
+        }
+        return true // 显示这行输出
+      }
+
+      // Vite 启动阶段匹配规则 - 更新进度但不显示输出
+      if (text.includes('vitepress') && currentProgress < 5) {
+        updateProgress(5, '启动 VitePress')
+        setTimeout(() => !serverReady && updateProgress(15, '加载配置'), 50)
+        return false
+      } else if (text.includes('VITE') && text.includes('v')) {
+        updateProgress(20, '初始化 Vite')
+        setTimeout(() => !serverReady && updateProgress(35, '准备构建'), 50)
+        return false
+      } else if (
+        text.includes('Pre-bundling') ||
+        text.includes('Dependencies')
+      ) {
+        updateProgress(40, '预构建依赖')
+        return false
+      } else if (
+        text.includes('Optimizable dependencies detected') ||
+        text.includes('optimized dependencies')
+      ) {
+        updateProgress(50, '优化依赖')
+        return false
+      } else if (text.includes('transforming') || text.includes('transform')) {
+        const match =
+          text.match(/(\d+)\s*(?:module|files?)/i) || text.match(/\((\d+)\)/)
+        if (match) {
+          const count = parseInt(match[1], 10)
+          totalFiles = Math.max(totalFiles, count)
+          const ratio = Math.log(count + 1) / Math.log(1000)
+          const transformProgress = Math.min(85, 55 + Math.floor(ratio * 30))
+          updateProgress(transformProgress, `已处理 ${count} 个文件`)
+        } else if (currentProgress < 60) {
+          updateProgress(60, '转换文件中')
+        }
+        return false
+      } else if (
+        text.includes('✓') &&
+        (text.includes('modules') || text.includes('files'))
+      ) {
+        const match = text.match(/(\d+)\s*(?:module|files?)/i)
+        if (match) {
+          const count = parseInt(match[1], 10)
+          totalFiles = Math.max(totalFiles, count)
+          updateProgress(90, `完成处理 ${count} 个文件`)
+        } else {
+          updateProgress(90, '构建完成')
+        }
+        return false
+      } else if (text.includes('Port') && text.includes('is in use')) {
+        updateProgress(70, '切换端口')
+        return true // 显示端口占用信息
+      } else if (text.includes('page reload') || text.includes('hmr')) {
+        updateProgress(85, '配置热更新')
+        return false
+      }
+
+      // 默认返回 true，显示其他输出
+      return true
+    }
+
+    // 监听服务就绪后，延迟显示 100% 完成信息
+    let readyCheckInterval: NodeJS.Timeout | null = null
+    let lastReadyCheck = Date.now()
+
+    readyCheckInterval = setInterval(() => {
+      if (serverReady && Date.now() - lastReadyCheck > 200) {
+        // 服务就绪后等待 200ms，让 VitePress 的输出完成
+        clearInterval(readyCheckInterval!)
+
+        const elapsed = Date.now() - startTime
+        const seconds = (elapsed / 1000).toFixed(1)
+        const bar = '█'.repeat(20)
+        const fileInfo = totalFiles > 0 ? ` (${totalFiles} 个文件)` : ''
+        process.stdout.write(
+          `✅ 启动完成: [${bar}] 100%${fileInfo} - 耗时 ${seconds}s\n`
+        )
+
+        if (onReady) {
+          onReady()
+        }
+      }
+
+      if (serverReady) {
+        lastReadyCheck = Date.now()
+      }
+    }, 50)
+
+    return {
+      parseOutput,
+      isReady: () => serverReady,
+    }
+  }
   /**
    * 停止 VitePress 开发服务器
    */
@@ -159,7 +386,6 @@ export class VitepressService {
 
     // 先检查 PID 文件（同步版本）
     try {
-      const fs = require('fs')
       if (fs.existsSync(this.pidFile)) {
         const content = fs.readFileSync(this.pidFile, 'utf-8')
         const pid = parseInt(content.trim(), 10)

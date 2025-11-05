@@ -4,17 +4,15 @@
  * 开发服务器命令 - 使用 VitepressService 和 FileWatcherService
  */
 import { BaseCommand } from '../BaseCommand'
-import { VitepressService, FileWatcherService } from '../../services'
+import { VitepressService, serviceManager } from '../../services'
 
 export class DevCommand extends BaseCommand {
   private vitepressService: VitepressService
-  private fileWatcherService: FileWatcherService
   private enableWatch: boolean = true
 
   constructor() {
     super('dev', '启动知识库开发服务')
     this.vitepressService = new VitepressService()
-    this.fileWatcherService = new FileWatcherService()
   }
 
   /**
@@ -40,7 +38,8 @@ export class DevCommand extends BaseCommand {
       // 启动文件监听（默认启用）
       if (this.enableWatch) {
         this.logger.info('启用自动更新模式...')
-        this.fileWatcherService.start()
+        const fileWatcherService = serviceManager.getFileWatcherService()
+        fileWatcherService.start()
         this.logger.info(
           '💡 提示: 修改笔记后会自动更新，无需手动执行 pnpm tn:update'
         )

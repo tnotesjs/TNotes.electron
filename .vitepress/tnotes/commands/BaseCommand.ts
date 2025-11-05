@@ -12,9 +12,17 @@ import { handleError } from '../utils/errorHandler'
  */
 export abstract class BaseCommand implements Command {
   protected logger: Logger
+  protected options: Record<string, any> = {}
 
   constructor(public name: CommandName, public description: string) {
     this.logger = logger.child(name)
+  }
+
+  /**
+   * 设置命令选项
+   */
+  setOptions(options: Record<string, any>): void {
+    this.options = { ...this.options, ...options }
   }
 
   /**

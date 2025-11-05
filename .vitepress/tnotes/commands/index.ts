@@ -11,6 +11,7 @@ import { BuildCommand, PreviewCommand } from './build'
 import { UpdateCommand } from './update'
 import { PushCommand, PullCommand, SyncCommand } from './git'
 import { NewCommand } from './note'
+import { TimestampFixCommand } from './TimestampFixCommand'
 
 // 旧命令（暂时保持向后兼容）
 import { PushAllCommand, PullAllCommand, SyncAllCommand } from './GitCommands'
@@ -36,6 +37,7 @@ export const commands: Record<CommandName, Command> = {
   merge: new MergeCommand(),
   distribute: new DistributeCommand(),
   tempSync: new TempSyncCommand(),
+  'timestamp-fix': new TimestampFixCommand(),
   help: new HelpCommand(),
 }
 
@@ -64,6 +66,7 @@ export * from './build'
 export * from './update'
 export * from './git'
 export * from './note'
+export * from './TimestampFixCommand'
 
 // 旧命令导出（向后兼容，仅导出不冲突的部分）
 export { PushAllCommand, PullAllCommand, SyncAllCommand } from './GitCommands'

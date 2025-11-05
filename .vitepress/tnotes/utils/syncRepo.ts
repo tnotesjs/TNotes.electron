@@ -96,19 +96,28 @@ interface BatchResult {
 export async function pushAllRepos(options?: {
   parallel?: boolean
   continueOnError?: boolean
+  force?: boolean
 }): Promise<void> {
-  const { parallel = true, continueOnError = true } = options || {}
+  const {
+    parallel = true,
+    continueOnError = true,
+    force = false,
+  } = options || {}
   const targetDirs = getTargetDirs(TNOTES_BASE_DIR, 'TNotes.', [EN_WORDS_DIR])
 
   logger.info(`正在推送 ${targetDirs.length} 个仓库...`)
+  if (force) {
+    logger.warn('使用强制推送模式')
+  }
 
   const results: BatchResult[] = []
+  const pushCmd = force ? 'pnpm tn:push --force' : 'pnpm tn:push'
 
   if (parallel) {
     // 并行执行
     const promises = targetDirs.map(async (dir, index) => {
       try {
-        await runCommand('pnpm tn:push', dir)
+        await runCommand(pushCmd, dir)
         // 显示进度（非精确，因为并发）
         process.stdout.write(`\r  进度: ~${index + 1}/${targetDirs.length}`)
         return { dir, success: true }
@@ -126,7 +135,7 @@ export async function pushAllRepos(options?: {
     for (let i = 0; i < targetDirs.length; i++) {
       const dir = targetDirs[i]
       try {
-        await runCommand('pnpm tn:push', dir)
+        await runCommand(pushCmd, dir)
         process.stdout.write(`\r  进度: ${i + 1}/${targetDirs.length}`)
         results.push({ dir, success: true })
       } catch (error) {

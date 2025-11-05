@@ -14,6 +14,7 @@ import { ROOT_DIR_PATH } from '../config/constants'
 export interface PushOptions {
   message?: string
   branch?: string
+  force?: boolean
 }
 
 /**
@@ -41,16 +42,16 @@ export class GitService {
    * @param options - 推送选项
    */
   async push(options: PushOptions = {}): Promise<void> {
-    const { message, branch } = options
+    const { message, branch, force = false } = options
 
     logger.info('Pushing to remote repository...')
 
     if (message) {
       // 有提交信息，先提交再推送
-      await this.gitManager.pushWithCommit(message)
+      await this.gitManager.pushWithCommit(message, { force })
     } else {
       // 直接推送
-      await this.gitManager.push({ setUpstream: !!branch })
+      await this.gitManager.push({ setUpstream: !!branch, force })
     }
 
     logger.info('Push completed successfully')
@@ -185,14 +186,14 @@ export class GitService {
   /**
    * 快速提交并推送（使用自动生成的提交信息）
    */
-  async quickPush(): Promise<void> {
+  async quickPush(options: { force?: boolean } = {}): Promise<void> {
     if (!(await this.hasChanges())) {
       logger.info('No changes to commit')
       return
     }
 
     const message = this.generateCommitMessage()
-    await this.push({ message })
+    await this.push({ message, force: options.force })
   }
 
   /**

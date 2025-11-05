@@ -7,7 +7,24 @@ import { v4 as uuidv4 } from 'uuid'
 import type { NoteConfig } from '../types'
 
 /**
- * 新增笔记 README.md 模板
+ * 生成笔记一级标题
+ * @param noteId - 笔记ID
+ * @param title - 笔记标题
+ * @param repoUrl - 仓库URL
+ * @returns 格式化的一级标题
+ */
+export function generateNoteTitle(
+  noteId: string,
+  title: string,
+  repoUrl: string
+): string {
+  const dirName = `${noteId}. ${title}`
+  const encodedDirName = encodeURIComponent(dirName)
+  return `# [${dirName}](${repoUrl}/${encodedDirName})`
+}
+
+/**
+ * 新增笔记 README.md 模板（不包含一级标题，由 createNote 动态生成）
  */
 export const NEW_NOTES_README_MD_TEMPLATE = `
 

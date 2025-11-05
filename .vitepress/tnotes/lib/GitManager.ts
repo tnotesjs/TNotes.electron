@@ -83,7 +83,11 @@ export class GitManager {
   async getStatus(): Promise<GitStatus> {
     await this.ensureValidRepo()
 
-    const statusOutput = await runCommand('git status --porcelain', this.dir)
+    // 使用 -c core.quotePath=false 禁用路径转义，正确显示中文文件名
+    const statusOutput = await runCommand(
+      'git -c core.quotePath=false status --porcelain',
+      this.dir
+    )
     const lines = statusOutput
       .trim()
       .split('\n')
@@ -92,7 +96,10 @@ export class GitManager {
     // 解析文件状态
     const files: GitFileStatus[] = lines.map((line) => {
       const statusCode = line.substring(0, 2)
-      const path = line.substring(3)
+      let path = line.substring(3)
+
+      // 移除 git 添加的引号（即使设置了 core.quotePath=false，某些情况下仍会加引号）
+      path = path.replace(/^"(.*)"$/, '$1')
 
       let status: GitFileStatus['status'] = 'modified'
       if (line.startsWith('??')) {
@@ -409,7 +416,7 @@ export class GitManager {
       const remoteInfo = await this.getRemoteInfo()
       if (remoteInfo) {
         this.logger.success(
-          `推送成功: ${status.changedFiles} 个文件 → ${remoteInfo.owner}/${remoteInfo.repo}`
+          `推送成功: ${status.changedFiles} 个文件 → https://github.com/${remoteInfo.owner}/${remoteInfo.repo}`
         )
       } else {
         this.logger.success(`推送成功: ${status.changedFiles} 个文件`)

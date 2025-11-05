@@ -53,12 +53,16 @@ export class PushAllCommand extends BaseCommand {
   protected async run(): Promise<void> {
     // 支持并行推送（通过环境变量控制）
     const parallel = process.env.PARALLEL_PUSH === 'true'
+    const force = this.options.force === true
 
     if (parallel) {
       this.logger.info('Parallel push mode enabled')
     }
+    if (force) {
+      this.logger.warn('使用强制推送模式 (--force)')
+    }
 
-    await pushAllRepos({ parallel })
+    await pushAllRepos({ parallel, force })
   }
 }
 

@@ -169,13 +169,64 @@ export class NoteManager {
   }
 
   /**
-   * 获取笔记信息（通过ID）
+   * 获取笔记信息（通过ID）- 优化版本，直接查找不扫描所有笔记
    * @param noteId - 笔记ID
    * @returns 笔记信息，未找到时返回 undefined
    */
   getNoteById(noteId: string): NoteInfo | undefined {
-    const notes = this.scanNotes()
-    return notes.find((note) => note.id === noteId)
+    if (!fs.existsSync(NOTES_PATH)) {
+      return undefined
+    }
+
+    // 直接遍历目录查找匹配的笔记，而不是扫描所有笔记
+    const noteDirs = fs.readdirSync(NOTES_PATH)
+
+    for (const dirName of noteDirs) {
+      const fullPath = path.join(NOTES_PATH, dirName)
+
+      // 跳过非目录和隐藏目录
+      if (!fs.statSync(fullPath).isDirectory() || dirName.startsWith('.')) {
+        continue
+      }
+
+      // 提取笔记 ID
+      const id = this.extractNoteId(dirName)
+
+      // 找到匹配的笔记
+      if (id === noteId) {
+        const notePath = fullPath
+        const readmePath = path.join(notePath, README_FILENAME)
+        const configPath = path.join(notePath, TNOTES_JSON_FILENAME)
+
+        if (!fs.existsSync(readmePath)) {
+          return undefined
+        }
+
+        let config: NoteConfig | undefined
+        if (fs.existsSync(configPath)) {
+          try {
+            config =
+              ConfigValidator.validateAndFix(configPath, notePath) || undefined
+          } catch (error) {
+            logger.error(
+              `Failed to validate config for note: ${dirName}`,
+              error
+            )
+          }
+        }
+
+        return {
+          id,
+          path: notePath,
+          dirName,
+          readmePath,
+          configPath,
+          config,
+        }
+      }
+    }
+
+    return undefined
   }
 
   /**

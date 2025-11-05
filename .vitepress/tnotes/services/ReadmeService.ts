@@ -106,18 +106,24 @@ export class ReadmeService {
   async updateNoteReadmesOnly(noteIds: string[]): Promise<void> {
     if (noteIds.length === 0) return
 
-    // 1. 扫描所有笔记
-    const allNotes = this.noteManager.scanNotes()
+    // 直接根据 ID 获取笔记信息，避免扫描所有笔记
+    const notesToUpdate: NoteInfo[] = []
 
-    // 2. 过滤出需要更新的笔记
-    const notesToUpdate = allNotes.filter((note) => noteIds.includes(note.id))
+    for (const noteId of noteIds) {
+      const note = this.noteManager.getNoteById(noteId)
+      if (note) {
+        notesToUpdate.push(note)
+      } else {
+        logger.warn(`笔记未找到: ${noteId}`)
+      }
+    }
 
     if (notesToUpdate.length === 0) {
       logger.warn('没有找到需要更新的笔记')
       return
     }
 
-    // 3. 只更新笔记的 README 内容（TOC 等）
+    // 只更新笔记的 README 内容（TOC 等）
     for (const note of notesToUpdate) {
       try {
         this.readmeGenerator.updateNoteReadme(note)

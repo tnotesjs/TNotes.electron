@@ -9,12 +9,16 @@ import { v4 as uuidv4 } from 'uuid'
 import type { NoteInfo, NoteConfig } from '../types'
 import { NoteManager } from '../core/NoteManager'
 import { ConfigManager } from '../config/ConfigManager'
-import { getNewNotesTnotesJsonTemplate } from '../config/templates'
+import {
+  getNewNotesTnotesJsonTemplate,
+  generateNoteTitle,
+} from '../config/templates'
 import {
   NOTES_PATH,
   README_FILENAME,
   TNOTES_JSON_FILENAME,
   CONSTANTS,
+  REPO_NOTES_URL,
 } from '../config/constants'
 import { NEW_NOTES_README_MD_TEMPLATE } from '../config/templates'
 import { logger } from '../utils/logger'
@@ -74,9 +78,11 @@ export class NoteService {
     // 确保目录存在
     await ensureDirectory(notePath)
 
-    // 创建 README.md
+    // 创建 README.md（包含一级标题）
     const readmePath = path.join(notePath, README_FILENAME)
-    fs.writeFileSync(readmePath, NEW_NOTES_README_MD_TEMPLATE, 'utf-8')
+    const noteTitle = generateNoteTitle(noteId, title, REPO_NOTES_URL)
+    const readmeContent = noteTitle + '\n' + NEW_NOTES_README_MD_TEMPLATE
+    fs.writeFileSync(readmePath, readmeContent, 'utf-8')
 
     // 创建 .tnotes.json
     const configPath = path.join(notePath, TNOTES_JSON_FILENAME)
@@ -88,8 +94,8 @@ export class NoteService {
       done: false,
       category,
       enableDiscussions,
-      created_at: Date.now(),
-      updated_at: Date.now(),
+      created_at: -1,
+      updated_at: -1,
     }
     fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf-8')
 
@@ -272,5 +278,79 @@ export class NoteService {
 
       return dirNameMatch || idMatch || categoryMatch
     })
+  }
+
+  /**
+   * 修正笔记标题
+   * @param noteInfo - 笔记信息
+   * @returns 是否进行了修正
+   */
+  async fixNoteTitle(noteInfo: NoteInfo): Promise<boolean> {
+    try {
+      const readmeContent = fs.readFileSync(noteInfo.readmePath, 'utf-8')
+      const lines = readmeContent.split('\n')
+
+      // 提取目录名中的标题（去掉编号）
+      const match = noteInfo.dirName.match(/^\d{4}\.\s+(.+)$/)
+      if (!match) {
+        logger.warn(`Invalid dir name format: ${noteInfo.dirName}`)
+        return false
+      }
+
+      const expectedTitle = match[1]
+      const expectedDirName = `${noteInfo.id}. ${expectedTitle}`
+      const expectedH1 = generateNoteTitle(
+        noteInfo.id,
+        expectedTitle,
+        REPO_NOTES_URL
+      )
+
+      // 检查第一行是否为一级标题
+      const firstLine = lines[0].trim()
+
+      if (!firstLine.startsWith('# ')) {
+        // 缺少一级标题，在第一行插入
+        lines.unshift(expectedH1)
+        fs.writeFileSync(noteInfo.readmePath, lines.join('\n'), 'utf-8')
+        logger.info(`Added title to: ${noteInfo.dirName}`)
+        return true
+      }
+
+      // 检查标题是否正确
+      if (firstLine !== expectedH1) {
+        // 标题不正确，替换第一行
+        lines[0] = expectedH1
+        fs.writeFileSync(noteInfo.readmePath, lines.join('\n'), 'utf-8')
+        logger.info(`Fixed title for: ${noteInfo.dirName}`)
+        return true
+      }
+
+      return false
+    } catch (error) {
+      logger.error(`Failed to fix title for: ${noteInfo.dirName}`, error)
+      return false
+    }
+  }
+
+  /**
+   * 修正所有笔记的标题
+   * @returns 修正的笔记数量
+   */
+  async fixAllNoteTitles(): Promise<number> {
+    const notes = this.getAllNotes()
+    let fixedCount = 0
+
+    for (const note of notes) {
+      const fixed = await this.fixNoteTitle(note)
+      if (fixed) {
+        fixedCount++
+      }
+    }
+
+    if (fixedCount > 0) {
+      logger.info(`Fixed ${fixedCount} note titles`)
+    }
+
+    return fixedCount
   }
 }

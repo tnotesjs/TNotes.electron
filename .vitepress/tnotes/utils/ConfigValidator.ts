@@ -4,7 +4,6 @@
  * 配置验证和修复工具 - 确保 .tnotes.json 配置完整性
  */
 import * as fs from 'fs'
-import { execSync } from 'child_process'
 import type { NoteConfig } from '../types'
 import { logger } from './logger'
 
@@ -89,28 +88,17 @@ export class ConfigValidator {
         }
       }
 
-      // 3. 获取或更新时间戳
-      const timestamps = this.getGitTimestamps(noteDirPath)
-      if (timestamps) {
-        if (!config.created_at || config.created_at !== timestamps.created_at) {
-          config.created_at = timestamps.created_at
-          needsUpdate = true
-        }
-        if (!config.updated_at || config.updated_at !== timestamps.updated_at) {
-          config.updated_at = timestamps.updated_at
-          needsUpdate = true
-        }
-      } else {
-        // 如果无法从 git 获取时间戳，使用当前时间
-        const now = Date.now()
-        if (!config.created_at) {
-          config.created_at = now
-          needsUpdate = true
-        }
-        if (!config.updated_at) {
-          config.updated_at = now
-          needsUpdate = true
-        }
+      // 3. 确保时间戳字段存在（但不自动更新，由 TimestampService 在 push 时处理）
+      const now = Date.now()
+      if (!config.created_at) {
+        config.created_at = now
+        needsUpdate = true
+        logger.info(`初始化创建时间（将在首次 push 时更新为正确的 git 时间）`)
+      }
+      if (!config.updated_at) {
+        config.updated_at = now
+        needsUpdate = true
+        logger.info(`初始化更新时间（将在首次 push 时更新为正确的 git 时间）`)
       }
 
       // 4. 按字段顺序排序
@@ -137,44 +125,6 @@ export class ConfigValidator {
       return sortedConfig
     } catch (error) {
       logger.error(`配置文件验证失败: ${configPath}`, error)
-      return null
-    }
-  }
-
-  /**
-   * 从 git 获取文件的创建时间和最后修改时间
-   * @param noteDirPath - 笔记目录路径
-   * @returns 时间戳对象，包含 created_at 和 updated_at
-   */
-  private static getGitTimestamps(noteDirPath: string): {
-    created_at: number
-    updated_at: number
-  } | null {
-    try {
-      // 获取首次提交时间（创建时间）
-      const createdAtCmd = `git log --diff-filter=A --follow --format=%ct -- "${noteDirPath}" | tail -1`
-      const createdAtOutput = execSync(createdAtCmd, {
-        encoding: 'utf-8',
-        stdio: ['pipe', 'pipe', 'ignore'],
-      }).trim()
-
-      // 获取最后修改时间
-      const updatedAtCmd = `git log -1 --format=%ct -- "${noteDirPath}"`
-      const updatedAtOutput = execSync(updatedAtCmd, {
-        encoding: 'utf-8',
-        stdio: ['pipe', 'pipe', 'ignore'],
-      }).trim()
-
-      if (!createdAtOutput || !updatedAtOutput) {
-        return null
-      }
-
-      return {
-        created_at: parseInt(createdAtOutput) * 1000, // 转换为毫秒
-        updated_at: parseInt(updatedAtOutput) * 1000,
-      }
-    } catch (error) {
-      // git 命令失败（可能是新文件未提交）
       return null
     }
   }

@@ -119,7 +119,7 @@ export class TocGenerator {
       if (noteConfig.tnotes && noteConfig.tnotes.length > 0) {
         // 生成相关知识库标题和链接列表
         tnotesTOCItems.push(
-          `- [📒 TNotes ➡️ 相关知识库](https://tnotesjs.github.io/TNotes/)`
+          `- [📒 TNotes（相关知识库）](https://tnotesjs.github.io/TNotes/)`
         )
         noteConfig.tnotes.forEach((repoName) => {
           tnotesTOCItems.push(
@@ -149,7 +149,7 @@ export class TocGenerator {
 
       if (bilibiliTOCItems.length > 0) {
         insertTocItems.push(
-          `- [📺 bilibili ➡️ TNotes 合集 ➡️ 视频资源](https://space.bilibili.com/407241004)`,
+          `- [📺 bilibili（笔记视频资源）](https://space.bilibili.com/407241004)`,
           ...bilibiliTOCItems
         )
       }
@@ -160,7 +160,7 @@ export class TocGenerator {
 
       if (yuqueTOCItems.length > 0) {
         insertTocItems.push(
-          `- [📂 TNotes.yuque ➡️ 附件资源](${TNOTES_YUQUE_BASE_URL})`,
+          `- [📂 TNotes.yuque（笔记附件资源）](${TNOTES_YUQUE_BASE_URL})`,
           ...yuqueTOCItems
         )
       }

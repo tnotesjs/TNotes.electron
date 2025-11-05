@@ -57,6 +57,14 @@ import { handleError, createError } from './utils/errorHandler'
       }
     }
 
+    // 处理 force 模式（适用于 push/pushAll 命令）
+    if ((commandName === 'push' || commandName === 'pushAll') && args.force) {
+      const baseCommand = command as any
+      if (typeof baseCommand.setOptions === 'function') {
+        baseCommand.setOptions({ force: true })
+      }
+    }
+
     // 执行命令
     await command.execute()
   } catch (error) {
