@@ -7,8 +7,12 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { execSync } from 'child_process'
 import { logger } from '../utils/logger'
-import { NOTES_DIR_PATH } from '../config/constants'
-import type { NoteConfig } from '../types'
+import {
+  NOTES_DIR_PATH,
+  ROOT_DIR_PATH,
+  ROOT_CONFIG_PATH,
+} from '../config/constants'
+import type { NoteConfig, TNotesConfig } from '../types'
 
 /**
  * 时间戳服务类
@@ -140,6 +144,84 @@ export class TimestampService {
   }
 
   /**
+   * 修复根配置文件的时间戳
+   * @param forceUpdate - 是否强制更新
+   * @returns 是否进行了修复
+   */
+  private fixRootConfigTimestamps(forceUpdate: boolean = false): boolean {
+    try {
+      // 读取根配置文件
+      const configContent = fs.readFileSync(ROOT_CONFIG_PATH, 'utf-8')
+      const config: TNotesConfig = JSON.parse(configContent)
+
+      // 获取首次提交时间（项目创建时间）
+      const createdAtOutput = execSync('git log --reverse --format=%ct', {
+        cwd: ROOT_DIR_PATH,
+        encoding: 'utf-8',
+        stdio: ['pipe', 'pipe', 'ignore'],
+      }).trim()
+
+      // 获取最后提交时间（项目最后更新时间）
+      const updatedAtOutput = execSync('git log -1 --format=%ct', {
+        cwd: ROOT_DIR_PATH,
+        encoding: 'utf-8',
+        stdio: ['pipe', 'pipe', 'ignore'],
+      }).trim()
+
+      if (!createdAtOutput || !updatedAtOutput) {
+        return false
+      }
+
+      const firstTimestamp = createdAtOutput.split('\n')[0]
+      const createdAt = parseInt(firstTimestamp) * 1000
+      const updatedAt = parseInt(updatedAtOutput) * 1000
+
+      let modified = false
+
+      // 修复 created_at
+      if (
+        forceUpdate ||
+        !config.root_item.created_at ||
+        config.root_item.created_at !== createdAt
+      ) {
+        config.root_item.created_at = createdAt
+        modified = true
+      }
+
+      // 修复 updated_at
+      if (
+        forceUpdate ||
+        !config.root_item.updated_at ||
+        config.root_item.updated_at !== updatedAt
+      ) {
+        config.root_item.updated_at = updatedAt
+        modified = true
+      }
+
+      // 重新计算天数
+      if (modified) {
+        const daysSinceBirth = Math.floor(
+          (updatedAt - createdAt) / (1000 * 60 * 60 * 24)
+        )
+        config.root_item.days_since_birth = daysSinceBirth
+
+        // 写回配置文件
+        fs.writeFileSync(
+          ROOT_CONFIG_PATH,
+          JSON.stringify(config, null, 2) + '\n',
+          'utf-8'
+        )
+        return true
+      }
+
+      return false
+    } catch (error) {
+      logger.error('修复根配置文件时间戳失败', error)
+      return false
+    }
+  }
+
+  /**
    * 修复所有笔记的时间戳
    * @param forceUpdate - 是否强制更新（忽略现有值，用于修复历史错误数据）
    * @returns 修复统计信息
@@ -148,6 +230,7 @@ export class TimestampService {
     fixed: number
     skipped: number
     total: number
+    rootConfigFixed: boolean
   }> {
     if (forceUpdate) {
       logger.info('正在强制修复笔记时间戳（使用 git 真实时间）...')
@@ -155,9 +238,16 @@ export class TimestampService {
       logger.info('正在修复笔记时间戳...')
     }
 
+    // 1. 修复根配置文件的时间戳
+    const rootConfigFixed = this.fixRootConfigTimestamps(forceUpdate)
+    if (rootConfigFixed) {
+      logger.success('✅ 根配置文件时间戳已修复')
+    }
+
+    // 2. 修复所有笔记的时间戳
     if (!fs.existsSync(NOTES_DIR_PATH)) {
       logger.error('notes 目录不存在')
-      return { fixed: 0, skipped: 0, total: 0 }
+      return { fixed: 0, skipped: 0, total: 0, rootConfigFixed }
     }
 
     const noteDirs = fs
@@ -190,6 +280,7 @@ export class TimestampService {
       fixed: fixedCount,
       skipped: skippedCount,
       total: noteDirs.length,
+      rootConfigFixed,
     }
   }
 

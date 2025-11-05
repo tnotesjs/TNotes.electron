@@ -2,8 +2,13 @@
 
 <!-- region:toc -->
 
-- [📺 bilibili 👉 TNotes 合集](https://space.bilibili.com/407241004)
+::: details 📚 相关资源
+
+- [📺 bilibili（笔记视频资源）](https://space.bilibili.com/407241004)
   - [bilibili.TNotes.electron.0001.1](https://www.bilibili.com/video/BV1kBFyeREXv)
+
+:::
+
 - [1. 📝 概述](#1--概述)
 - [2. 💻 demos.1 - Hello World 示例](#2--demos1---hello-world-示例)
   - [2.1. 安装 Node.js 和 npm](#21-安装-nodejs-和-npm)

@@ -24,16 +24,23 @@ export class TimestampFixCommand extends BaseCommand {
 
     this.logger.info('')
     this.logger.info('📊 修复统计:')
+    this.logger.info(
+      `  - 根配置文件: ${result.rootConfigFixed ? '已修复' : '无需修复'}`
+    )
     this.logger.info(`  - 总笔记数: ${result.total}`)
     this.logger.info(`  - 已修复: ${result.fixed}`)
     this.logger.info(`  - 跳过: ${result.skipped}`)
     this.logger.info('')
 
-    if (result.fixed > 0) {
-      this.logger.success(`✅ 成功修复 ${result.fixed} 个笔记的时间戳！`)
+    if (result.fixed > 0 || result.rootConfigFixed) {
+      this.logger.success(
+        `✅ 成功修复 ${result.fixed} 个笔记${
+          result.rootConfigFixed ? ' + 根配置文件' : ''
+        }的时间戳！`
+      )
       this.logger.info('💡 提示: 运行 pnpm tn:push 提交更改')
     } else {
-      this.logger.success('✅ 所有笔记时间戳均已正确！')
+      this.logger.success('✅ 所有时间戳均已正确！')
     }
   }
 }

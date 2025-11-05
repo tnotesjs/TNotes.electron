@@ -2,8 +2,13 @@
 
 <!-- region:toc -->
 
-- [📺 bilibili 👉 TNotes 合集](https://space.bilibili.com/407241004)
+::: details 📚 相关资源
+
+- [📺 bilibili（笔记视频资源）](https://space.bilibili.com/407241004)
   - [bilibili.TNotes.electron.0039.1](https://www.bilibili.com/video/BV1CBFyeREu6)
+
+:::
+
 - [1. 📝 概述](#1--概述)
 - [2. 💻 demos.1 - 使用 ipcRenderer.sendSync、ipcMain.on 实现主进程和渲染进程之间的双向 IPC 通信](#2--demos1---使用-ipcrenderersendsyncipcmainon-实现主进程和渲染进程之间的双向-ipc-通信)
 
