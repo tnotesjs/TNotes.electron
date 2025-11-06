@@ -31,6 +31,7 @@ export class NoteManager {
    */
   scanNotes(): NoteInfo[] {
     const notes: NoteInfo[] = []
+    const noteIdMap = new Map<string, string[]>() // 用于检测重复编号：ID -> [dirNames]
 
     if (!fs.existsSync(NOTES_PATH)) {
       logger.warn(`Notes directory not found: ${NOTES_PATH}`)
@@ -67,6 +68,13 @@ export class NoteManager {
       }
 
       const id = this.extractNoteId(dirName)
+
+      // 记录笔记编号，用于检测重复
+      if (!noteIdMap.has(id)) {
+        noteIdMap.set(id, [])
+      }
+      noteIdMap.get(id)!.push(dirName)
+
       notes.push({
         id,
         path: notePath,
@@ -77,8 +85,40 @@ export class NoteManager {
       })
     }
 
+    // 检测并报告重复的笔记编号
+    this.checkDuplicateNoteIds(noteIdMap)
+
     // 移除日志输出，由调用方决定是否输出
     return notes
+  }
+
+  /**
+   * 检测重复的笔记编号
+   * @param noteIdMap - 笔记编号映射表（ID -> [dirNames]）
+   */
+  private checkDuplicateNoteIds(noteIdMap: Map<string, string[]>): void {
+    const duplicates: Array<{ id: string; dirNames: string[] }> = []
+
+    for (const [id, dirNames] of noteIdMap.entries()) {
+      if (dirNames.length > 1) {
+        duplicates.push({ id, dirNames })
+      }
+    }
+
+    if (duplicates.length > 0) {
+      logger.error('⚠️  检测到重复的笔记编号！')
+      for (const { id, dirNames } of duplicates) {
+        logger.error(`   编号 ${id} 被以下笔记重复使用：`)
+        dirNames.forEach((dirName) => {
+          logger.error(`      - ${dirName}`)
+        })
+      }
+      logger.error(
+        '\n请检查并删除或重命名重复的笔记文件夹，确保每个笔记编号唯一！\n'
+      )
+      // 终止执行
+      process.exit(1)
+    }
   }
 
   /**

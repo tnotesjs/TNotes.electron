@@ -12,7 +12,6 @@ import {
   TNOTES_BASE_DIR,
 } from '../config/constants'
 import { logger } from '../utils/logger'
-import { runCommand } from '../utils/runCommand'
 
 /**
  * 需要同步的文件/目录列表（相对于项目根目录的路径）
@@ -93,19 +92,18 @@ export class SyncScriptsService {
    * @param targetDir - 目标仓库目录
    */
   private async syncSingleRepo(targetDir: string): Promise<SyncResult> {
+    const repoName = path.basename(targetDir)
     try {
-      // 1. 同步配置文件
+      // 同步配置文件
       for (const item of SYNC_LIST) {
         this.syncItem(item, ROOT_DIR_PATH, targetDir)
       }
-
-      // 2. 重新安装依赖
-      await runCommand('pnpm i', targetDir)
 
       return { dir: targetDir, success: true }
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error)
+      logger.error(`${repoName}: 同步失败 - ${errorMessage}`)
       return { dir: targetDir, success: false, error: errorMessage }
     }
   }
@@ -128,33 +126,41 @@ export class SyncScriptsService {
 
       logger.info(`正在同步配置到 ${targetDirs.length} 个仓库...`)
       logger.info(`同步列表: ${SYNC_LIST.length} 项`)
+      console.log()
 
-      // 并行同步所有仓库
-      const promises = targetDirs.map(async (dir, index) => {
+      // 顺序同步所有仓库
+      const results: SyncResult[] = []
+      for (let i = 0; i < targetDirs.length; i++) {
+        const dir = targetDirs[i]
+        const repoName = path.basename(dir)
+        logger.info(`[${i + 1}/${targetDirs.length}] 同步: ${repoName}`)
+
         const result = await this.syncSingleRepo(dir)
-        // 显示进度（非精确，因为并发）
-        process.stdout.write(`\r  进度: ~${index + 1}/${targetDirs.length}`)
-        return result
-      })
+        results.push(result)
 
-      const results = await Promise.all(promises)
-      console.log() // 换行
+        if (result.success) {
+          logger.success(`  ✓ 完成\n`)
+        } else {
+          logger.error(`  ✗ 失败: ${result.error}\n`)
+        }
+      }
 
       // 显示汇总
       const successCount = results.filter((r) => r.success).length
       const failCount = results.length - successCount
 
+      console.log('━'.repeat(50))
       if (failCount === 0) {
-        logger.success(`同步完成: ${successCount}/${results.length} 个仓库成功`)
+        logger.success(`✨ 同步完成: ${successCount}/${results.length} 个仓库`)
       } else {
         logger.warn(
-          `同步完成: ${successCount} 成功, ${failCount} 失败 (共 ${results.length} 个)`
+          `⚠️  同步完成: ${successCount} 成功, ${failCount} 失败 (共 ${results.length} 个)`
         )
         console.log('\n失败的仓库:')
         results
           .filter((r) => !r.success)
           .forEach((r, index) => {
-            const repoName = r.dir.split('\\').pop() || r.dir
+            const repoName = path.basename(r.dir)
             console.log(`  ${index + 1}. ${repoName}`)
             console.log(`     错误: ${r.error}`)
           })

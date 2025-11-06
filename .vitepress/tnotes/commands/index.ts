@@ -10,7 +10,11 @@ import { DevCommand } from './dev'
 import { BuildCommand, PreviewCommand } from './build'
 import { UpdateCommand } from './update'
 import { PushCommand, PullCommand, SyncCommand } from './git'
-import { CreateNoteCommand, MergeNotesCommand, SplitNotesCommand } from './note'
+import {
+  CreateNotesCommand,
+  MergeNotesCommand,
+  SplitNotesCommand,
+} from './note'
 import { SyncScriptsCommand, FixTimestampsCommand } from './maintenance'
 import { HelpCommand } from './misc'
 
@@ -25,7 +29,7 @@ export const commands: Record<CommandName, Command> = {
   push: new PushCommand(),
   pull: new PullCommand(),
   sync: new SyncCommand(),
-  'create-note': new CreateNoteCommand(),
+  'create-notes': new CreateNotesCommand(),
   'merge-notes': new MergeNotesCommand(),
   'split-notes': new SplitNotesCommand(),
   'sync-scripts': new SyncScriptsCommand(),

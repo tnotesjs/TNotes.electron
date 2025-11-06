@@ -9,7 +9,7 @@
  */
 export type CommandName =
   | 'build'
-  | 'create-note'
+  | 'create-notes'
   | 'dev'
   | 'fix-timestamps'
   | 'help'
@@ -30,7 +30,7 @@ export interface CommandArgs {
   [key: string]: any
   // cmds
   build?: boolean
-  'create-note'?: boolean
+  'create-notes'?: boolean
   dev?: boolean
   'fix-timestamps'?: boolean
   help?: boolean
@@ -71,7 +71,7 @@ export function isValidCommand(cmd: string): cmd is CommandName {
     'push',
     'pull',
     'sync',
-    'create-note',
+    'create-notes',
     'merge-notes',
     'split-notes',
     'sync-scripts',

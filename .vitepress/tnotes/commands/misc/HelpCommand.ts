@@ -25,7 +25,13 @@ export class HelpCommand extends BaseCommand {
     // 按类别组织命令
     const categories = {
       开发和构建: ['dev', 'build', 'preview'],
-      内容管理: ['update', 'create-note', 'merge-notes', 'split-notes'],
+      内容管理: [
+        'update',
+        'create-note',
+        'create-notes',
+        'merge-notes',
+        'split-notes',
+      ],
       'Git 操作': ['push', 'pull', 'sync'],
       其他: ['sync-scripts', 'fix-timestamps', 'help'],
     }
@@ -45,9 +51,10 @@ export class HelpCommand extends BaseCommand {
     this.logger.info('示例:')
     this.logger.info('  npx tsx ./.vitepress/tnotes/index.ts --dev')
     this.logger.info('  pnpm tn:build')
+    this.logger.info('  pnpm tn:create-notes     # 批量创建笔记')
     this.logger.info('  pnpm tn:update')
-    this.logger.info('  pnpm tn:update --all      # 更新所有知识库')
-    this.logger.info('  pnpm tn:push --all        # 推送所有知识库')
+    this.logger.info('  pnpm tn:update --all     # 更新所有知识库')
+    this.logger.info('  pnpm tn:push --all       # 推送所有知识库')
     this.logger.info('')
     this.logger.info('参数:')
     this.logger.info(

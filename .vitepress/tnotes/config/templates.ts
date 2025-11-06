@@ -27,7 +27,6 @@ export function generateNoteTitle(
  * 新增笔记 README.md 模板（不包含一级标题，由 createNote 动态生成）
  */
 export const NEW_NOTES_README_MD_TEMPLATE = `
-
 <!-- region:toc -->
 
 - [1. 🎯 本节内容](#1--本节内容)
@@ -42,7 +41,6 @@ export const NEW_NOTES_README_MD_TEMPLATE = `
 ## 2. 🫧 评价
 
 - todo
-
 `
 
 /**
@@ -60,6 +58,7 @@ export function getNewNotesTnotesJsonTemplate(
     tnotes: [],
     yuque: [],
     done: false,
+    deprecated: false, // 添加 deprecated 字段
     enableDiscussions: false,
     created_at: now,
     updated_at: now,

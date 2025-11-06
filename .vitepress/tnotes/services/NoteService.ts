@@ -31,6 +31,7 @@ export interface CreateNoteOptions {
   title?: string
   category?: string
   enableDiscussions?: boolean
+  configId?: string // 配置文件中的 UUID（跨所有知识库唯一）
 }
 
 /**
@@ -68,11 +69,16 @@ export class NoteService {
    * @returns 新创建的笔记信息
    */
   async createNote(options: CreateNoteOptions = {}): Promise<NoteInfo> {
-    const { title = 'New Note', category, enableDiscussions = false } = options
+    const {
+      title = 'new',
+      category,
+      enableDiscussions = false,
+      configId,
+    } = options
 
-    // 生成新笔记ID
-    const noteId = this.generateNextNoteId()
-    const dirName = `${noteId}. ${title}`
+    // 生成笔记编号 ID（填充空缺）
+    const noteNumberId = this.generateNextNoteId()
+    const dirName = `${noteNumberId}. ${title}`
     const notePath = path.join(NOTES_PATH, dirName)
 
     // 确保目录存在
@@ -80,29 +86,31 @@ export class NoteService {
 
     // 创建 README.md（包含一级标题）
     const readmePath = path.join(notePath, README_FILENAME)
-    const noteTitle = generateNoteTitle(noteId, title, REPO_NOTES_URL)
+    const noteTitle = generateNoteTitle(noteNumberId, title, REPO_NOTES_URL)
     const readmeContent = noteTitle + '\n' + NEW_NOTES_README_MD_TEMPLATE
     fs.writeFileSync(readmePath, readmeContent, 'utf-8')
 
-    // 创建 .tnotes.json
+    // 创建 .tnotes.json（使用 UUID 作为配置 ID）
     const configPath = path.join(notePath, TNOTES_JSON_FILENAME)
+    const now = Date.now()
     const config: NoteConfig = {
-      id: noteId,
+      id: configId || uuidv4(), // 配置 ID 使用 UUID（跨知识库唯一）
       bilibili: [],
       tnotes: [],
       yuque: [],
       done: false,
+      deprecated: false, // 添加 deprecated 字段，避免后续修复
       category,
       enableDiscussions,
-      created_at: -1,
-      updated_at: -1,
+      created_at: now,
+      updated_at: now,
     }
     fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf-8')
 
     logger.info(`Created new note: ${dirName}`)
 
     return {
-      id: noteId,
+      id: noteNumberId, // 返回的 id 是笔记编号 ID
       path: notePath,
       dirName,
       readmePath,
@@ -112,8 +120,8 @@ export class NoteService {
   }
 
   /**
-   * 生成下一个笔记ID
-   * @returns 新的笔记ID（4位数字字符串）
+   * 生成下一个笔记编号 ID（填充空缺）
+   * @returns 新的笔记编号 ID（4位数字字符串，从 0001 到 9999）
    */
   private generateNextNoteId(): string {
     const notes = this.getAllNotes()
@@ -122,14 +130,24 @@ export class NoteService {
       return '0001'
     }
 
-    // 找到最大的ID
-    const maxId = notes.reduce((max, note) => {
+    // 获取所有已使用的编号
+    const usedIds = new Set<number>()
+    for (const note of notes) {
       const id = parseInt(note.id, 10)
-      return isNaN(id) ? max : Math.max(max, id)
-    }, 0)
+      if (!isNaN(id) && id >= 1 && id <= 9999) {
+        usedIds.add(id)
+      }
+    }
 
-    const nextId = maxId + 1
-    return nextId.toString().padStart(CONSTANTS.NOTE_ID_LENGTH, '0')
+    // 从 1 开始查找第一个未使用的编号
+    for (let i = 1; i <= 9999; i++) {
+      if (!usedIds.has(i)) {
+        return i.toString().padStart(CONSTANTS.NOTE_ID_LENGTH, '0')
+      }
+    }
+
+    // 如果所有编号都被占用（极端情况）
+    throw new Error('所有笔记编号 (0001-9999) 已被占用，无法创建新笔记')
   }
 
   /**
