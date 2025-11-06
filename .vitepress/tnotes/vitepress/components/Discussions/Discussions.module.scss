@@ -1,0 +1,24 @@
+.idBox {
+  text-align: right;
+  font-style: italic;
+  font-size: 0.7rem;
+  padding: 1rem 0;
+  color: var(--vp-c-text-2);
+}
+
+/* #region:same as vitepress theme */
+/* .vp-doc h2 */
+.h2 {
+  margin: 48px 0 16px;
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 24px;
+  letter-spacing: -0.02em;
+  line-height: 32px;
+  font-size: 24px;
+}
+
+/* .vp-doc p */
+.p {
+  line-height: 28px;
+}
+/* #endregion:same as vitepress theme */

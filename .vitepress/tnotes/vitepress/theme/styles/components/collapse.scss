@@ -1,0 +1,174 @@
+/**
+ * Collapse（折叠/展开）组件全局样式
+ * 这些样式应用于文档内容中动态生成的折叠区域
+ * 
+ * 由 ContentCollapse.vue 组件使用，所有样式必须是全局的
+ */
+
+/* ===================================== */
+/* #region 折叠按钮基础样式              */
+/* ===================================== */
+
+.collapse-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin: 0;
+  transition: all 0.25s ease;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* 按钮本身不响应点击 */
+  transform-origin: center;
+
+  &.collapsed {
+    transform: rotate(0deg);
+  }
+}
+
+.collapse-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.25s ease;
+  transform: rotate(90deg); /* 默认向下（展开状态）*/
+  opacity: 0.3;
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region TOC 折叠区域                  */
+/* ===================================== */
+
+.toc-collapse-wrapper {
+  position: relative;
+  margin: 16px 0;
+}
+
+.toc-collapse-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background: transparent;
+
+  &:hover {
+    background: var(--vp-c-bg-soft);
+
+    .collapse-icon {
+      opacity: 1;
+    }
+  }
+
+  &.collapsed {
+    background: var(--vp-c-bg-soft);
+    border: 1px solid var(--vp-c-divider);
+
+    .toc-collapse-toggle img {
+      transform: rotate(0deg) !important; /* 折叠时向右 */
+    }
+
+    &:hover {
+      background: var(--vp-c-bg-mute);
+      border-color: var(--vp-c-brand-1);
+    }
+  }
+}
+
+.collapse-label {
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+  display: block;
+}
+
+.toc-collapse-toggle {
+  flex-shrink: 0;
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region H2 折叠区域                   */
+/* ===================================== */
+
+h2.collapsible-h2 {
+  position: relative !important;
+  cursor: pointer !important;
+  padding: 8px 40px 8px 12px !important; /* 右侧预留按钮空间 */
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+
+  &:hover {
+    background: var(--vp-c-bg-soft) !important;
+
+    .collapse-icon {
+      opacity: 1 !important;
+    }
+  }
+
+  &.collapsed {
+    background: var(--vp-c-bg-soft) !important;
+    border: 1px solid var(--vp-c-divider) !important;
+    margin-top: 1rem !important;
+
+    .collapse-icon {
+      transform: rotate(0deg) !important; /* 折叠时向右 */
+    }
+
+    &:hover {
+      background: var(--vp-c-bg-mute) !important;
+      border-color: var(--vp-c-brand-1) !important;
+    }
+  }
+
+  /* 修复 anchor 位置 */
+  .header-anchor {
+    top: 10px !important;
+  }
+}
+
+.h2-collapse-toggle {
+  position: absolute !important;
+  right: 8px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  flex-shrink: 0;
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region 折叠内容区域                  */
+/* ===================================== */
+
+.collapse-content {
+  overflow: hidden;
+  max-height: 10000px;
+  opacity: 1;
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+
+  &.collapsed {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* #endregion */

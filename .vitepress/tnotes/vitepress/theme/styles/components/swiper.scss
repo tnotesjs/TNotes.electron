@@ -1,0 +1,252 @@
+/**
+ * Swiper 组件全局样式
+ * 由于 Swiper 组件动态生成 DOM，所有样式都需要是全局的
+ */
+
+/* ===================================== */
+/* #region Swiper Tabs                   */
+/* ===================================== */
+
+.tn-swiper-tabs {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 0.5rem;
+  background: var(--vp-c-bg);
+  border-bottom: 1px solid var(--vp-c-divider);
+  border-radius: 8px 8px 0 0;
+  background-color: var(--vp-code-tab-bg);
+  box-shadow: inset 0 -1px var(--vp-code-tab-divider);
+}
+
+.tn-swiper-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.tn-swiper-tabs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tn-swiper-tabs::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+  border-radius: 2px;
+}
+
+.tn-swiper-tabs::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-3);
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region Tab 按钮                      */
+/* ===================================== */
+
+.tn-tab {
+  position: relative;
+  padding: 0.25rem 0.75rem;
+  line-height: 2rem;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  color: var(--vp-code-tab-text-color);
+  transition: color 0.25s ease, transform 0.2s ease;
+  border: none;
+}
+
+.tn-tab::after {
+  position: absolute;
+  right: 8px;
+  bottom: -1px;
+  left: 8px;
+  z-index: 1;
+  height: 2px;
+  border-radius: 2px;
+  content: '';
+  background-color: transparent;
+  transition: background-color 0.25s ease;
+}
+
+.tn-tab:hover {
+  color: var(--vp-code-tab-active-text-color);
+  transform: translateY(-1px);
+}
+
+.tn-tab.active {
+  color: var(--vp-code-tab-active-text-color);
+  font-weight: 500;
+}
+
+.tn-tab.active::after {
+  background-color: var(--vp-code-tab-active-bar-color);
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region Tab 导航按钮                  */
+/* ===================================== */
+
+.tn-tab-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: var(--vp-code-tab-text-color);
+  padding: 0 0.3rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.tn-tab-nav:hover {
+  color: var(--vp-code-tab-active-bar-color);
+  font-size: 1rem;
+  background: var(--vp-c-bg-soft);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.tn-tab-nav:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.tn-tab-prev {
+  left: 0.5rem;
+}
+
+.tab-tab-line {
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--vp-code-tab-active-bar-color);
+  user-select: none;
+  opacity: 0.5;
+}
+
+.tn-tab-next {
+  left: 1.5rem;
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region Swiper 容器                   */
+/* ===================================== */
+
+.swiper-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin: 1rem 0;
+  transition: height 0.3s ease;
+  border-radius: 0 0 8px 8px;
+  background: var(--vp-c-bg-soft);
+}
+
+.swiper-container img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  height: auto;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+.tn-swiper {
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.tn-swiper:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.swiper-slide {
+  animation: swiperFadeIn 0.3s ease-out;
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region 暗色模式                      */
+/* ===================================== */
+
+html.dark .tn-swiper {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .tn-swiper:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+html.dark .swiper-container {
+  background: var(--vp-c-bg);
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region 响应式                        */
+/* ===================================== */
+
+@media (max-width: 640px) {
+  .tn-swiper-tabs {
+    gap: 0.25rem;
+  }
+
+  .tn-tab {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    line-height: 1.8rem;
+  }
+
+  .tn-tab-nav {
+    font-size: 0.7rem;
+    padding: 0 0.2rem;
+  }
+
+  .tn-tab-nav:hover {
+    font-size: 0.85rem;
+  }
+
+  .tn-tab-prev {
+    left: 0.3rem;
+  }
+
+  .tab-tab-line {
+    left: 0.8rem;
+  }
+
+  .tn-tab-next {
+    left: 1.2rem;
+  }
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region 动画                          */
+/* ===================================== */
+
+@keyframes swiperFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* #endregion */

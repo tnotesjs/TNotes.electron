@@ -57,11 +57,36 @@ import { handleError, createError } from './utils/errorHandler'
       }
     }
 
-    // 处理 force 模式（适用于 push/pushAll 命令）
-    if ((commandName === 'push' || commandName === 'pushAll') && args.force) {
+    // 处理 force 模式（适用于 push 命令）
+    if (commandName === 'push' && args.force) {
       const baseCommand = command as any
       if (typeof baseCommand.setOptions === 'function') {
         baseCommand.setOptions({ force: true })
+      }
+    }
+
+    // 处理 --all 参数（适用于 update/push/pull/sync 命令）
+    if (args.all) {
+      if (commandName === 'update') {
+        const updateCommand = command as any
+        if (typeof updateCommand.setUpdateAll === 'function') {
+          updateCommand.setUpdateAll(true)
+        }
+      } else if (commandName === 'push') {
+        const pushCommand = command as any
+        if (typeof pushCommand.setPushAll === 'function') {
+          pushCommand.setPushAll(true)
+        }
+      } else if (commandName === 'pull') {
+        const pullCommand = command as any
+        if (typeof pullCommand.setPullAll === 'function') {
+          pullCommand.setPullAll(true)
+        }
+      } else if (commandName === 'sync') {
+        const syncCommand = command as any
+        if (typeof syncCommand.setSyncAll === 'function') {
+          syncCommand.setSyncAll(true)
+        }
       }
     }
 

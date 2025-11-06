@@ -35,9 +35,6 @@ export function getDefaultConfig(repoName?: string): TNotesConfig {
       'demos',
     ],
 
-    // 侧边栏目录（用于多仓库模式）
-    rootSidebarDir: '../TNotes/sidebars',
-
     // 根目录项配置
     root_item: {
       icon: {

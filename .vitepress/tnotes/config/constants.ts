@@ -17,7 +17,6 @@ export const {
   menuItems,
   port,
   repoName,
-  rootSidebarDir,
   sidebarShowNoteId,
   socialLinks,
   root_item,

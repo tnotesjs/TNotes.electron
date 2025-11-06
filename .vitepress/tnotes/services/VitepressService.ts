@@ -442,6 +442,33 @@ export class VitepressService {
     const processId = 'vitepress-preview'
     const command = 'pnpm'
     const args = ['vitepress', 'preview']
+    const previewPort = 4173 // VitePress 默认预览端口
+
+    // 检查端口是否被占用
+    const { isPortInUse, killPortProcess, waitForPort } = await import(
+      '../utils/portUtils'
+    )
+
+    if (isPortInUse(previewPort)) {
+      logger.warn(`端口 ${previewPort} 已被占用，正在尝试清理...`)
+      const killed = killPortProcess(previewPort)
+
+      if (killed) {
+        // 等待端口释放
+        const available = await waitForPort(previewPort, 3000)
+        if (!available) {
+          logger.error(`端口 ${previewPort} 释放超时，请手动清理`)
+          return undefined
+        }
+        logger.info(`端口 ${previewPort} 已释放`)
+      } else {
+        logger.error(
+          `无法清理端口 ${previewPort}，请手动执行: taskkill /F /PID <PID>`
+        )
+        return undefined
+      }
+    }
+
     logger.info(`执行命令：${command} ${args.join(' ')}`)
     logger.info('正在启动预览服务...')
 

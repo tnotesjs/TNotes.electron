@@ -26,6 +26,7 @@ export class UpdateCommand extends BaseCommand {
   private readmeService: ReadmeService
   private noteService: NoteService
   private quiet: boolean = false
+  private updateAll: boolean = false
 
   constructor() {
     super('update', '根据笔记内容更新知识库')
@@ -46,7 +47,25 @@ export class UpdateCommand extends BaseCommand {
     }
   }
 
+  /**
+   * 设置是否更新所有知识库
+   */
+  setUpdateAll(updateAll: boolean): void {
+    this.updateAll = updateAll
+  }
+
   protected async run(): Promise<void> {
+    if (this.updateAll) {
+      await this.updateAllRepos()
+    } else {
+      await this.updateCurrentRepo()
+    }
+  }
+
+  /**
+   * 更新当前知识库
+   */
+  private async updateCurrentRepo(): Promise<void> {
     const startTime = Date.now()
 
     // 先修正所有笔记的标题
@@ -67,9 +86,6 @@ export class UpdateCommand extends BaseCommand {
     // 更新 root_item 配置
     await this.updateRootItem()
 
-    // 拷贝 sidebar.json 到根 TNotes 项目
-    await this.copySidebarToRoot()
-
     const duration = Date.now() - startTime
 
     if (this.quiet) {
@@ -77,6 +93,77 @@ export class UpdateCommand extends BaseCommand {
       this.logger.success(`知识库更新完成 (${duration}ms)`)
     } else {
       this.logger.success('知识库更新完成')
+    }
+  }
+
+  /**
+   * 更新所有知识库
+   */
+  private async updateAllRepos(): Promise<void> {
+    const { getTargetDirs } = await import('../../utils')
+    const { EN_WORDS_DIR } = await import('../../config/constants')
+    const { runCommand } = await import('../../utils/runCommand')
+
+    try {
+      // 获取所有目标知识库
+      const targetDirs = getTargetDirs(TNOTES_BASE_DIR, 'TNotes.', [
+        ROOT_DIR_PATH,
+        EN_WORDS_DIR,
+      ])
+
+      if (targetDirs.length === 0) {
+        this.logger.warn('未找到符合条件的知识库')
+        return
+      }
+
+      this.logger.info(`正在更新 ${targetDirs.length} 个知识库...`)
+
+      // 依次更新每个知识库
+      let successCount = 0
+      let failCount = 0
+
+      for (let i = 0; i < targetDirs.length; i++) {
+        const dir = targetDirs[i]
+        const repoName = dir.split('/').pop() || dir
+
+        try {
+          process.stdout.write(
+            `\r  [${i + 1}/${targetDirs.length}] 正在更新: ${repoName}...`
+          )
+
+          // 执行更新命令
+          await runCommand('pnpm tn:update --quiet', dir)
+          successCount++
+        } catch (error) {
+          failCount++
+          console.log() // 换行
+          this.logger.error(
+            `更新失败: ${repoName} - ${
+              error instanceof Error ? error.message : String(error)
+            }`
+          )
+        }
+      }
+
+      console.log() // 换行
+
+      // 显示汇总
+      if (failCount === 0) {
+        this.logger.success(
+          `✅ 所有知识库更新完成: ${successCount}/${targetDirs.length}`
+        )
+      } else {
+        this.logger.warn(
+          `⚠️  更新完成: ${successCount} 成功, ${failCount} 失败 (共 ${targetDirs.length} 个)`
+        )
+      }
+    } catch (error) {
+      this.logger.error(
+        `批量更新失败: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      )
+      throw error
     }
   }
 
@@ -135,59 +222,6 @@ export class UpdateCommand extends BaseCommand {
     } catch (error) {
       this.logger.warn(`获取完成笔记数量失败: ${error}`)
       return 0
-    }
-  }
-
-  /**
-   * 拷贝 sidebar.json 到根 TNotes 项目
-   */
-  private async copySidebarToRoot(): Promise<void> {
-    try {
-      const config = getTnotesConfig()
-      const rootSidebarDir = config.rootSidebarDir
-
-      // 如果没有配置 rootSidebarDir，跳过
-      if (!rootSidebarDir) {
-        return
-      }
-
-      // 源文件路径：当前项目的 sidebar.json
-      const sourcePath = resolve(ROOT_DIR_PATH, 'sidebar.json')
-
-      // 检查源文件是否存在
-      if (!existsSync(sourcePath)) {
-        if (!this.quiet) {
-          this.logger.warn('sidebar.json 文件不存在，跳过拷贝')
-        }
-        return
-      }
-
-      // 目标目录：基于 TNOTES_BASE_DIR 和 rootSidebarDir 构建完整路径
-      const targetDir = resolve(TNOTES_BASE_DIR, rootSidebarDir)
-
-      // 确保目标目录存在
-      if (!existsSync(targetDir)) {
-        mkdirSync(targetDir, { recursive: true })
-      }
-
-      // 目标文件路径：使用仓库名作为文件名
-      const repoName = config.repoName
-      const targetPath = resolve(targetDir, `${repoName}.json`)
-
-      // 拷贝文件
-      copyFileSync(sourcePath, targetPath)
-
-      if (!this.quiet) {
-        this.logger.success(`已将 sidebar.json 拷贝到: ${targetPath}`)
-      }
-    } catch (error) {
-      if (!this.quiet) {
-        this.logger.error(
-          `拷贝 sidebar.json 失败: ${
-            error instanceof Error ? error.message : String(error)
-          }`
-        )
-      }
     }
   }
 }

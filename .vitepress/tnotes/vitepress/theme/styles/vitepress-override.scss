@@ -1,0 +1,25 @@
+/**
+ * VitePress 默认主题覆盖
+ * 用于修改 VitePress 内置组件的样式
+ */
+
+/* ===================================== */
+/* #region 隐藏默认的 last updated       */
+/* ===================================== */
+
+.last-updated {
+  display: none;
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region 修复 Discussions 边框问题     */
+/* ===================================== */
+
+.VPDoc.has-aside .content-container {
+  padding: 0 2px !important;
+  max-width: var(--tn-content-width, 688px) !important;
+}
+
+/* #endregion */

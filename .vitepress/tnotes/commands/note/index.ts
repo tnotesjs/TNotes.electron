@@ -3,4 +3,6 @@
  *
  * Note 命令统一导出
  */
-export { NewCommand } from './NewCommand'
+export { CreateNoteCommand } from './CreateNoteCommand'
+export { MergeNotesCommand } from './MergeNotesCommand'
+export { SplitNotesCommand } from './SplitNotesCommand'

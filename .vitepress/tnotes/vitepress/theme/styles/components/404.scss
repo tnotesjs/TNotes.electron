@@ -1,0 +1,28 @@
+/**
+ * 404 页面样式
+ */
+
+.not-found-container {
+  text-align: center;
+  padding: 2rem;
+  min-height: calc(100vh - var(--vp-nav-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.not-found-container h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-brand-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.not-found-container p {
+  font-size: 1.5rem;
+  color: var(--vp-c-text-2);
+}

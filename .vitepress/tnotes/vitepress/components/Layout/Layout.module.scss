@@ -1,0 +1,422 @@
+/* doc-before-container 主容器 */
+.docBeforeContainer {
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  animation: slideDown 0.3s ease-out;
+
+  .leftArea {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .rightArea {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-style: italic;
+    font-size: 0.7rem;
+    position: relative;
+  }
+}
+
+/* PC 端专用按钮（移动端隐藏） */
+.pcOnly {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .pcOnly {
+    display: none !important;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 默认隐藏，当屏幕宽度 >= 960px 时显示，因为当宽度小于 960px 时，侧边栏会自动隐藏 */
+.toggleSidebarBox,
+.contentToggleBox {
+  display: none;
+}
+
+@media (min-width: 960px) {
+  .toggleSidebarBox,
+  .contentToggleBox {
+    display: block;
+  }
+}
+
+.vscodeBox {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 3px;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--vp-c-bg-alt);
+    transform: scale(1.05);
+  }
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+/* 笔记的 GitHub 链接（移动端和 PC 端都显示） */
+.githubNoteBox {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 3px;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--vp-c-bg-alt);
+    transform: scale(1.05);
+  }
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+/* 知识库的 GitHub 链接（仅首页显示） */
+.githubRepoBox {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 3px;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--vp-c-bg-alt);
+    transform: scale(1.05);
+  }
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+.copyBox {
+  width: 1em;
+  height: 1em;
+  position: relative;
+
+  .tip {
+    position: absolute;
+    top: -1.5rem;
+    left: -1rem;
+    background: var(--vp-c-bg-soft);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .copyRawFile {
+    vertical-align: top;
+    height: 100%;
+    line-height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    .icon {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+}
+
+/* collapse all button */
+.collapseAllBtn {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.collapseAllButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--vp-c-bg-soft);
+  }
+
+  img {
+    width: 16px;
+    height: 16px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover img {
+    opacity: 1;
+  }
+}
+
+/* about icon button */
+.aboutBtn {
+  display: inline-block;
+}
+
+.aboutIconButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.15rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--vp-c-brand-1);
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    border: 2px solid var(--vp-c-brand-1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    font-size: 1.3rem;
+    background: var(--vp-c-brand-soft);
+    transform: rotate(180deg);
+
+    &::before {
+      opacity: 0.3;
+      animation: pulse 1s ease-in-out infinite;
+    }
+  }
+
+  &:active {
+    transform: rotate(180deg) scale(0.95);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+/* time-modal-content: 通用容器 */
+.timeModalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+/* 每一行：移动端默认纵向排列（标签在上，值在下），在宽屏时变成左右两栏 */
+.timeLine {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--vp-c-bg-soft);
+  }
+}
+
+/* 标签（左侧） */
+.timeLabel {
+  font-weight: 700;
+  color: var(--vp-c-text);
+  font-size: 0.98rem;
+
+  strong {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+}
+
+/* 值（右侧/下方） */
+.timeValue {
+  color: var(--vp-c-text-2);
+  font-size: 0.88rem;
+  line-height: 1.35;
+  word-break: break-word;
+  font-family: var(--vp-font-family-mono);
+}
+
+/* GitHub 链接样式 */
+.githubLink {
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  &:hover {
+    color: var(--vp-c-brand-2);
+    text-decoration: underline;
+  }
+}
+
+/* 宽屏样式：在 >=720px 时，改为左右两栏布局 */
+@media (min-width: 720px) {
+  .timeModalContent {
+    gap: 1rem;
+  }
+
+  .timeLine {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .timeLabel {
+    width: 9.5rem;
+    text-align: left;
+    font-size: 1rem;
+  }
+
+  .timeValue {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* 更明显的可触控目标（移动端） */
+@media (max-width: 520px) {
+  .timeModalContent {
+    gap: 0.9rem;
+  }
+
+  .timeLabel {
+    font-size: 1.02rem;
+  }
+
+  .timeValue {
+    font-size: 1rem;
+  }
+}
+
+/* 侧边栏控制按钮容器 */
+.sidebarControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--vp-c-divider);
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+
+    img {
+      width: 1rem;
+      height: 1rem;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      background: var(--vp-c-bg-alt);
+
+      img {
+        transform: scale(1.1);
+      }
+    }
+
+    &:active {
+      img {
+        transform: scale(0.95);
+      }
+    }
+
+    &.folded img {
+      // transform: rotate(180deg);
+    }
+
+    &.folded:hover img {
+      // transform: rotate(180deg) scale(1.1);
+    }
+  }
+}
+
+/* 
+  404 页面样式已移至 global-components.css
+  相关全局类名：.not-found-container
+*/

@@ -17,7 +17,6 @@ export interface TNotesConfig {
   menuItems: MenuItem[]
   sidebarShowNoteId: boolean
   port?: number
-  rootSidebarDir: string
   root_item: RootItem
 }
 

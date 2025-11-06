@@ -1,10 +1,10 @@
 /**
- * .vitepress/tnotes/commands/HelpCommand.ts
+ * .vitepress/tnotes/commands/misc/HelpCommand.ts
  *
  * 帮助命令
  */
-import { BaseCommand } from './BaseCommand'
-import { getAllCommands } from './index'
+import { BaseCommand } from '../BaseCommand'
+import { getAllCommands } from '../index'
 
 export class HelpCommand extends BaseCommand {
   constructor() {
@@ -25,9 +25,9 @@ export class HelpCommand extends BaseCommand {
     // 按类别组织命令
     const categories = {
       开发和构建: ['dev', 'build', 'preview'],
-      内容管理: ['update', 'new', 'merge', 'distribute'],
-      'Git 操作': ['push', 'pull', 'sync', 'pushAll', 'pullAll', 'syncAll'],
-      其他: ['tempSync', 'help'],
+      内容管理: ['update', 'create-note', 'merge-notes', 'split-notes'],
+      'Git 操作': ['push', 'pull', 'sync'],
+      其他: ['sync-scripts', 'fix-timestamps', 'help'],
     }
 
     for (const [category, cmdNames] of Object.entries(categories)) {
@@ -46,9 +46,19 @@ export class HelpCommand extends BaseCommand {
     this.logger.info('  npx tsx ./.vitepress/tnotes/index.ts --dev')
     this.logger.info('  pnpm tn:build')
     this.logger.info('  pnpm tn:update')
+    this.logger.info('  pnpm tn:update --all      # 更新所有知识库')
+    this.logger.info('  pnpm tn:push --all        # 推送所有知识库')
+    this.logger.info('')
+    this.logger.info('参数:')
+    this.logger.info(
+      '  --all          批量操作所有知识库 (适用于 update/push/pull/sync)'
+    )
+    this.logger.info('  --quiet        静默模式 (适用于 update)')
+    this.logger.info('  --force        强制推送 (适用于 push)')
+    this.logger.info('  --no-watch     禁用文件监听 (适用于 dev)')
     this.logger.info('')
     this.logger.info('环境变量:')
-    this.logger.info('  DEBUG=1        启用调试模式，显示详细日志')
+    this.logger.info('  DEBUG=1        启用调试模式,显示详细日志')
     this.logger.info('')
     this.logger.info('更多信息请查看: .vitepress/tnotes/README.md')
   }

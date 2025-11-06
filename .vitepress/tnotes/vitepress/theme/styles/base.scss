@@ -1,0 +1,43 @@
+/**
+ * 基础样式层
+ * - CSS 自定义属性（变量）
+ * - 全局样式重置
+ * - 通用样式规则
+ */
+
+/* ===================================== */
+/* #region CSS 变量定义                  */
+/* ===================================== */
+
+:root {
+  /* 品牌色 */
+  --vp-c-brand-1: #646cff;
+  --vp-c-brand-2: #747bff;
+
+  /* TNotes 自定义变量 */
+  --tn-content-width: 688px;
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region 全局样式重置                  */
+/* ===================================== */
+
+/* 移除所有链接的下划线 */
+a {
+  text-decoration: none !important;
+}
+
+/* 任务列表样式优化 */
+ul > li.task-list-item {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+ul > li.task-list-item > ul {
+  padding-left: 3rem;
+}
+
+/* #endregion */

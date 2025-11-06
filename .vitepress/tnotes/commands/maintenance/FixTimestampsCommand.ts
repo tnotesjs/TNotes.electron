@@ -1,16 +1,16 @@
 /**
- * .vitepress/tnotes/commands/TimestampFixCommand.ts
+ * .vitepress/tnotes/commands/maintenance/FixTimestampsCommand.ts
  *
- * 时间戳修复命令 - 独立修复所有笔记的时间戳
+ * 修复时间戳命令 - 修复所有笔记的时间戳（基于 git 历史）
  */
-import { BaseCommand } from './BaseCommand'
-import { TimestampService } from '../services'
+import { BaseCommand } from '../BaseCommand'
+import { TimestampService } from '../../services'
 
-export class TimestampFixCommand extends BaseCommand {
+export class FixTimestampsCommand extends BaseCommand {
   private timestampService: TimestampService
 
   constructor() {
-    super('timestamp-fix', '修复所有笔记的时间戳（基于 git 历史）')
+    super('fix-timestamps', '修复所有笔记的时间戳（基于 git 历史）')
     this.timestampService = new TimestampService()
   }
 

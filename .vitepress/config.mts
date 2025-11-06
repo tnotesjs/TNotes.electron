@@ -15,14 +15,13 @@
  */
 import { defineConfig } from 'vitepress'
 import { repoName } from '../.tnotes.json'
-// import TN_HMR_Plugin from './plugins/hmr' // 已废弃，改用 FileWatcherService
 import {
   IGNORE_LIST,
   GITHUB_PAGE_URL,
   getHeadConfig,
   getMarkdownConfig,
   getThemeConfig,
-} from './config/_index'
+} from './tnotes/vitepress/config/_index'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -61,7 +60,6 @@ export default defineConfig({
       //   clientFiles: ['./**/*.md'],
       // },
     },
-    // plugins: [TN_HMR_Plugin()], // 已废弃，改用 FileWatcherService
     css: {
       preprocessorOptions: {
         scss: {

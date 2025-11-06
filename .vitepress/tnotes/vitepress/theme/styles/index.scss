@@ -1,0 +1,25 @@
+/**
+ * 样式入口文件
+ * 按顺序导入所有样式，确保正确的层叠优先级
+ */
+
+/* 1. 基础层：CSS 变量和全局重置 */
+@use './base';
+
+/* 2. VitePress 覆盖层：覆盖默认主题样式 */
+@use './vitepress-override';
+
+/* 3. 布局层：全局布局样式 */
+@use './layout';
+
+/* 4. 组件全局层：跨组件共享的样式 */
+@use './components/swiper';
+@use './components/markmap';
+@use './components/collapse';
+/**
+ * !404 不是一个有效的 Sass 标识符（不能以数字开头），需要为它添加一个别名
+ */
+@use './components/404' as notfound;
+
+/* 5. 工具类和动画 */
+@use './utilities';

@@ -1,0 +1,62 @@
+/**
+ * 布局层样式
+ * - 全局布局控制
+ * - 响应式布局
+ * - 特殊布局模式（侧边栏隐藏、全屏等）
+ */
+
+/* ===================================== */
+/* #region 侧边栏隐藏模式                */
+/* ===================================== */
+
+.hide-sidebar .VPSidebar {
+  transform: translateX(-100%);
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.hide-sidebar .VPNavBar {
+  background-color: var(--vp-nav-bg-color) !important;
+}
+
+/* 主体内容往左补齐，与导航栏标题左对齐 */
+.hide-sidebar .VPContent {
+  margin-left: 0 !important;
+  padding-left: calc((100vw - var(--vp-layout-max-width)) / 2) !important;
+}
+
+.hide-sidebar .VPDoc .content-container {
+  max-width: calc(
+    var(--vp-sidebar-width) + var(--tn-content-width, 688px) +
+      var(--vp-sidebar-width)
+  ) !important;
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region 全屏内容模式                  */
+/* ===================================== */
+
+.content-fullscreen .VPSidebar,
+.content-fullscreen .VPNav,
+.content-fullscreen .VPDocFooter,
+.content-fullscreen .VPNavBar {
+  display: none !important;
+}
+
+.content-fullscreen .VPContent {
+  margin: 0 !important;
+  padding: 0 2rem !important;
+  max-width: 100% !important;
+}
+
+.content-fullscreen body {
+  overflow: auto;
+}
+
+.content-fullscreen .VPDoc .content-container {
+  max-width: none !important;
+}
+
+/* #endregion */

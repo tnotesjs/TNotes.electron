@@ -1,0 +1,101 @@
+/**
+ * MarkMap 组件全局样式
+ * Toolbar 由 markmap-toolbar 库动态生成，需要全局样式
+ */
+
+/* ===================================== */
+/* #region Toolbar 样式                  */
+/* ===================================== */
+
+.mm-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 6px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  color: var(--vp-c-tip-1);
+  font-weight: 700;
+}
+
+.mm-toolbar-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.mm-toolbar-item:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  transform: scale(1.1);
+}
+
+.mm-toolbar-item:active {
+  transform: scale(0.95);
+}
+
+.mm-toolbar-item svg {
+  color: var(--vp-c-tip-1);
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region SVG 动画                      */
+/* ===================================== */
+
+.markmap g {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region 暗色模式                      */
+/* ===================================== */
+
+.markmap-dark .mm-toolbar {
+  background: rgba(30, 30, 30, 0.9);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.markmap-dark .mm-toolbar-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* #endregion */
+
+/* ===================================== */
+/* #region 响应式                        */
+/* ===================================== */
+
+@media (max-width: 768px) {
+  .mm-toolbar {
+    scale: 0.9;
+    gap: 6px;
+    padding: 4px;
+  }
+
+  .mm-toolbar-item {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mm-toolbar {
+    scale: 0.8;
+  }
+}
+
+/* #endregion */

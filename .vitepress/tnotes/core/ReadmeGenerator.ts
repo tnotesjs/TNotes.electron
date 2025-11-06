@@ -175,16 +175,17 @@ export class ReadmeGenerator {
         if (noteConfig) {
           // 根据配置更新状态标记
           let newStatus = ' ' // 默认未完成
+          let deprecatedMark = '' // 弃用标记
+
           if (noteConfig.deprecated) {
-            newStatus = 'x' // 弃用也标记为 x (后续可以在标题中加 ❌)
+            newStatus = ' ' // 弃用的笔记，复选框不勾选
+            deprecatedMark = ' ❌' // 添加弃用标记
           } else if (noteConfig.done) {
             newStatus = 'x' // 已完成
           }
 
-          // 更新状态标记
-          if (oldStatus !== newStatus) {
-            lines[i] = `- [${newStatus}] [${text}](${url})`
-          }
+          // 更新状态标记和弃用标记
+          lines[i] = `- [${newStatus}] [${text}](${url})${deprecatedMark}`
         }
 
         currentNoteCount++
@@ -230,9 +231,18 @@ export class ReadmeGenerator {
       missingNotes.sort((a, b) => a.id.localeCompare(b.id))
 
       for (const note of missingNotes) {
-        const status = note.config?.done ? 'x' : ' '
+        let status = ' ' // 默认未完成
+        let deprecatedMark = '' // 弃用标记
+
+        if (note.config?.deprecated) {
+          status = ' ' // 弃用的笔记，复选框不勾选
+          deprecatedMark = ' ❌' // 添加弃用标记
+        } else if (note.config?.done) {
+          status = 'x' // 已完成
+        }
+
         const encodedDirName = encodeURIComponent(note.dirName)
-        const noteLine = `- [${status}] [${note.dirName}](https://github.com/tnotesjs/TNotes.introduction/tree/main/notes/${encodedDirName}/README.md)`
+        const noteLine = `- [${status}] [${note.dirName}](https://github.com/tnotesjs/TNotes.introduction/tree/main/notes/${encodedDirName}/README.md)${deprecatedMark}`
         lines.push(noteLine)
         currentNoteCount++
       }

@@ -1,5 +1,5 @@
 /**
- * .vitepress/tnotes/commands/note/NewCommand.ts
+ * .vitepress/tnotes/commands/note/CreateNoteCommand.ts
  *
  * 新建笔记命令 - 使用 NoteService
  */
@@ -7,12 +7,12 @@ import { BaseCommand } from '../BaseCommand'
 import { NoteService, ReadmeService } from '../../services'
 import * as readline from 'readline'
 
-export class NewCommand extends BaseCommand {
+export class CreateNoteCommand extends BaseCommand {
   private noteService: NoteService
   private readmeService: ReadmeService
 
   constructor() {
-    super('new', '新建一篇笔记')
+    super('create-note', '新建一篇笔记')
     this.noteService = new NoteService()
     this.readmeService = new ReadmeService()
   }
@@ -38,11 +38,7 @@ export class NewCommand extends BaseCommand {
 
     // 自动更新索引文件（home README、sidebar.json、TOC.md）
     this.logger.info('正在更新知识库索引...')
-    await this.readmeService.updateAllReadmes({
-      updateSidebar: true,
-      updateToc: true,
-      updateHome: true,
-    })
+    await this.readmeService.updateAllReadmes()
     this.logger.success('知识库索引更新完成')
   }
 
