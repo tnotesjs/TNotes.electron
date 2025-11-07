@@ -153,13 +153,14 @@ export class ReadmeGenerator {
         continue
       }
 
-      // 匹配笔记链接: - [x] [0001. xxx](https://github.com/...)
-      const noteMatch = line.match(
-        /^- \[(.)\] \[(.+?)\]\((https:\/\/github\.com\/.+?\/notes\/(.+?)\/README(?:\.md)?)\)/
-      )
+      // 匹配笔记链接:
+      // - [x] [0001. xxx]
+      // - [ ] [0001. xxx]
+      const noteMatch = line.match(/^- \[(.)\] \[(\d+)\.\s*(.+?)\]/)
       if (noteMatch) {
-        const [fullMatch, oldStatus, text, url, encodedPath] = noteMatch
-        const decodedPath = decodeURIComponent(encodedPath)
+        const [fullMatch, oldStatus, noteId, noteName] = noteMatch
+        // 根据 noteId 和 noteName 重建目录名
+        const decodedPath = `${noteId}. ${noteName}`
 
         // 检查笔记是否在真实目录中存在
         if (!noteDirNames.has(decodedPath)) {
@@ -184,8 +185,16 @@ export class ReadmeGenerator {
             newStatus = 'x' // 已完成
           }
 
+          // 动态生成 GitHub URL
+          const encodedDirName = encodeURIComponent(decodedPath)
+          const repoOwner = this.configManager.get('author')
+          const repoName = this.configManager.get('repoName')
+          const noteUrl = `https://github.com/${repoOwner}/${repoName}/tree/main/notes/${encodedDirName}/README.md`
+
           // 更新状态标记和弃用标记
-          lines[i] = `- [${newStatus}] [${text}](${url})${deprecatedMark}`
+          lines[
+            i
+          ] = `- [${newStatus}] [${noteId}. ${noteName}](${noteUrl})${deprecatedMark}`
         }
 
         currentNoteCount++
@@ -241,8 +250,13 @@ export class ReadmeGenerator {
           status = 'x' // 已完成
         }
 
+        // 动态生成 GitHub URL
         const encodedDirName = encodeURIComponent(note.dirName)
-        const noteLine = `- [${status}] [${note.dirName}](https://github.com/tnotesjs/TNotes.introduction/tree/main/notes/${encodedDirName}/README.md)${deprecatedMark}`
+        const repoOwner = this.configManager.get('author')
+        const repoName = this.configManager.get('repoName')
+        const noteUrl = `https://github.com/${repoOwner}/${repoName}/tree/main/notes/${encodedDirName}/README.md`
+
+        const noteLine = `- [${status}] [${note.dirName}](${noteUrl})${deprecatedMark}`
         lines.push(noteLine)
         currentNoteCount++
       }
