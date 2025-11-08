@@ -81,7 +81,8 @@ export function generateToc(
       const level = title.indexOf(' ')
       const text = title.slice(level).trim()
       const anchor = generateAnchor(text)
-      return ' '.repeat((level - baseLevel) * 2) + `- [${text}](#${anchor})`
+      const indent = Math.max(0, (level - baseLevel) * 2)
+      return ' '.repeat(indent) + `- [${text}](#${anchor})`
     })
     .join(eol)
 

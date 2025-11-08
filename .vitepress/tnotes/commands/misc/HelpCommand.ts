@@ -25,13 +25,7 @@ export class HelpCommand extends BaseCommand {
     // 按类别组织命令
     const categories = {
       开发和构建: ['dev', 'build', 'preview'],
-      内容管理: [
-        'update',
-        'create-note',
-        'create-notes',
-        'merge-notes',
-        'split-notes',
-      ],
+      内容管理: ['update', 'create-notes'],
       'Git 操作': ['push', 'pull', 'sync'],
       其他: ['sync-scripts', 'fix-timestamps', 'help'],
     }

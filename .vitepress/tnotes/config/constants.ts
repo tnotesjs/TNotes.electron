@@ -68,12 +68,6 @@ export const VSCODE_TASKS_PATH = path.resolve(
 
 // 文本常量
 export const EOL = '\n'
-export const MERGED_README_FILENAME = 'MERGED_README.md'
-export const MERGED_README_PATH = path.resolve(
-  ROOT_DIR_PATH,
-  MERGED_README_FILENAME
-)
-export const SEPARATOR = `<!-- !======> SEPARATOR <====== -->`
 
 export const NOTES_TOC_START_TAG = '<!-- region:toc -->'
 export const NOTES_TOC_END_TAG = '<!-- endregion:toc -->'

@@ -12,10 +12,10 @@
       "problemMatcher": ["$tsc"]
     },
     {
-      "label": "tn:new",
-      "detail": "新建一篇笔记",
+      "label": "tn:create-notes",
+      "detail": "新建笔记（支持批量创建）",
       "type": "shell",
-      "command": "pnpm tn:new",
+      "command": "pnpm tn:create-notes",
       "group": {
         "kind": "build"
       },
@@ -38,8 +38,16 @@
       "problemMatcher": ["$tsc"]
     },
     {
+      "label": "tn:update-all",
+      "detail": "更新所有知识库",
+      "type": "shell",
+      "command": "pnpm tn:update-all",
+      "group": "build",
+      "problemMatcher": ["$tsc"]
+    },
+    {
       "label": "tn:push",
-      "detail": "将知识库推送到 github",
+      "detail": "将知识库推送到 GitHub",
       "type": "shell",
       "command": "pnpm tn:push",
       "group": "build",
@@ -47,41 +55,33 @@
     },
     {
       "label": "tn:pull",
-      "detail": "将 github 的知识库拉下来",
+      "detail": "将 GitHub 的知识库拉下来",
       "type": "shell",
       "command": "pnpm tn:pull",
       "group": "build",
       "problemMatcher": ["$tsc"]
     },
     {
-      "label": "tn:merge",
-      "detail": "合并知识库中的所有笔记到一个文件 MERGED_README.md 中（所有笔记数据汇总到一个文件中进行批量编辑，常用于快速统一所有笔记格式等需要批量操作多篇笔记的场景）",
+      "label": "tn:sync",
+      "detail": "同步本地和远程的知识库状态",
       "type": "shell",
-      "command": "pnpm tn:merge",
+      "command": "pnpm tn:sync",
       "group": "build",
       "problemMatcher": ["$tsc"]
     },
     {
-      "label": "tn:distribute",
-      "detail": "分发 MERGED_README.md 文件中的内容到各笔记中（配合 tn:merge 使用）",
-      "type": "shell",
-      "command": "pnpm tn:distribute",
-      "group": "build",
-      "problemMatcher": ["$tsc"]
-    },
-    {
-      "label": "tn:tempSync",
+      "label": "tn:sync-scripts",
       "detail": "同步知识库脚本到其它 TNotes.xxx 知识库中",
       "type": "shell",
-      "command": "pnpm tn:tempSync",
+      "command": "pnpm tn:sync-scripts",
       "group": "build",
       "problemMatcher": ["$tsc"]
     },
     {
-      "label": "tn:pushAll",
-      "detail": "推送所有 TNotes.xxx 知识库到 GitHub",
+      "label": "tn:fix-timestamps",
+      "detail": "修复所有笔记的时间戳（基于 git 历史）",
       "type": "shell",
-      "command": "pnpm tn:pushAll",
+      "command": "pnpm tn:fix-timestamps",
       "group": "build",
       "problemMatcher": ["$tsc"]
     },
@@ -98,30 +98,6 @@
       "detail": "预览构建后的知识库",
       "type": "shell",
       "command": "pnpm tn:preview",
-      "group": "build",
-      "problemMatcher": ["$tsc"]
-    },
-    {
-      "label": "tn:pullAll",
-      "detail": "拉取所有 TNotes.xxx 知识库，确保本地的仓库是最新的",
-      "type": "shell",
-      "command": "pnpm tn:pullAll",
-      "group": "build",
-      "problemMatcher": ["$tsc"]
-    },
-    {
-      "label": "tn:sync",
-      "detail": "同步本地和远程的知识库状态",
-      "type": "shell",
-      "command": "pnpm tn:sync",
-      "group": "build",
-      "problemMatcher": ["$tsc"]
-    },
-    {
-      "label": "tn:syncAll",
-      "detail": "同步所有知识库",
-      "type": "shell",
-      "command": "pnpm tn:syncAll",
       "group": "build",
       "problemMatcher": ["$tsc"]
     }

@@ -9,6 +9,12 @@ import { ReadmeGenerator } from '../core/ReadmeGenerator'
 import { SidebarGenerator } from '../core/SidebarGenerator'
 import { ConfigManager } from '../config/ConfigManager'
 import { logger } from '../utils/logger'
+import { formatWithPrettier } from '../utils/prettier'
+import {
+  parseNoteLine,
+  buildNoteLineMarkdown,
+  processEmptyLines,
+} from '../utils/readmeHelpers'
 import { ROOT_README_PATH, VP_SIDEBAR_PATH } from '../config/constants'
 import * as fs from 'fs'
 
@@ -69,21 +75,21 @@ export class ReadmeService {
 
     logger.info(`更新了 ${notesToUpdate.length} 篇笔记 (耗时 ${updateTime}ms)`)
 
-    // 4. 更新侧边栏配置（始终更新，因为需要全局视图）
-    if (updateSidebar) {
-      await this.updateSidebar(notes)
-    }
-
-    // 5. 更新首页 README（始终更新）
+    // 4. 更新首页 README（必须先更新，因为 sidebar 依赖 README 的内容）
     if (updateHome) {
       await this.updateHomeReadme(notes)
+    }
+
+    // 5. 更新侧边栏配置（必须在 README 更新后执行）
+    if (updateSidebar) {
+      await this.updateSidebar(notes)
     }
 
     logger.info('知识库更新完成！')
   }
 
   /**
-   * 只更新指定笔记的 README（不更新 sidebar、TOC、home）
+   * 只更新指定笔记的 README（不更新 sidebar、home）
    * @param noteIds - 笔记 ID 数组
    */
   async updateNoteReadmesOnly(noteIds: string[]): Promise<void> {
@@ -118,25 +124,22 @@ export class ReadmeService {
 
   /**
    * 只更新全局文件（sidebar、README）
-   * 用于文件夹重命名等场景
+   * 用于文件夹重命名、删除等场景
    * @param notes - 所有笔记信息数组
    */
   async updateGlobalFiles(notes: NoteInfo[]): Promise<void> {
-    // 对于文件夹重命名，需要更新 README.md 中的链接
-    // 但 updateHomeReadme 只能检测"缺失"和"移除"，无法识别"重命名"
-    // 所以需要特殊处理：更新 README.md 中所有笔记链接的路径
-    await this.updateHomeReadmeForRename(notes)
+    await this.syncHomeReadmeWithNotes(notes)
 
-    // 2. 更新侧边栏配置（基于更新后的 README.md）
+    // 更新侧边栏配置（基于更新后的 README.md）
     await this.updateSidebar(notes)
   }
 
   /**
-   * 更新首页 README（专门用于文件夹重命名场景）
-   * 保持原有章节结构，只更新笔记链接的路径和文本
+   * 同步首页 README 与笔记状态
+   * 保持原有章节结构，只更新笔记链接的路径和文本，自动移除已删除的笔记
    * @param notes - 所有笔记信息数组
    */
-  private async updateHomeReadmeForRename(notes: NoteInfo[]): Promise<void> {
+  private async syncHomeReadmeWithNotes(notes: NoteInfo[]): Promise<void> {
     if (!fs.existsSync(ROOT_README_PATH)) {
       logger.error('未找到首页 README')
       return
@@ -150,6 +153,10 @@ export class ReadmeService {
     for (const note of notes) {
       noteByIdMap.set(note.id, note)
     }
+
+    // 获取仓库信息
+    const repoOwner = this.configManager.get('author')
+    const repoName = this.configManager.get('repoName')
 
     let inTocRegion = false
     const titles: string[] = []
@@ -172,46 +179,18 @@ export class ReadmeService {
         continue
       }
 
-      // 匹配笔记链接（可能带 ❌ 标记）
-      const noteMatch = line.match(
-        /^- \[(.)\] \[(.+?)\]\((https:\/\/github\.com\/.+?\/notes\/(.+?)\/README(?:\.md)?)\)(\s*❌)?/
-      )
-      if (noteMatch) {
-        const [, status, oldText, , encodedPath] = noteMatch
-        const decodedPath = decodeURIComponent(encodedPath)
+      // 使用公共方法解析笔记链接
+      const parsed = parseNoteLine(line)
+      if (parsed.isMatch && parsed.noteId) {
+        const note = noteByIdMap.get(parsed.noteId)
 
-        // 提取笔记 ID
-        const idMatch = decodedPath.match(/^(\d{4})\./)
-        if (idMatch) {
-          const noteId = idMatch[1]
-          const note = noteByIdMap.get(noteId)
-
-          if (note) {
-            // 找到对应的笔记，更新链接
-            const newEncodedPath = encodeURIComponent(note.dirName)
-            const newUrl = `https://github.com/tnotesjs/TNotes.introduction/tree/main/notes/${newEncodedPath}/README.md`
-
-            // 根据配置更新状态和标记
-            let newStatus = ' '
-            let deprecatedMark = ''
-
-            if (note.config) {
-              if (note.config.deprecated) {
-                newStatus = ' ' // 弃用的笔记，复选框不勾选
-                deprecatedMark = ' ❌' // 添加弃用标记
-              } else if (note.config.done) {
-                newStatus = 'x' // 完成的笔记，勾选复选框
-              }
-            }
-
-            lines[
-              i
-            ] = `- [${newStatus}] [${note.dirName}](${newUrl})${deprecatedMark}`
-            currentNoteCount++
-          } else {
-            // 笔记不存在，保持原样（后续会被移除）
-            logger.warn(`笔记不存在: ${noteId}`)
-          }
+        if (note) {
+          lines[i] = buildNoteLineMarkdown(note, repoOwner, repoName)
+          currentNoteCount++
+        } else {
+          // 笔记不存在，标记为删除
+          logger.warn(`笔记不存在: ${parsed.noteId}，将从 README 中移除`)
+          lines[i] = '' // 标记为空行
         }
         continue
       }
@@ -241,13 +220,22 @@ export class ReadmeService {
       if (lines[i].includes('<!-- endregion:toc -->')) endLineIdx = i
     }
     if (startLineIdx !== -1 && endLineIdx !== -1) {
-      const toc = generateToc(titles, 1)
+      const toc = generateToc(titles)
       const tocLines = toc.split('\n')
       lines.splice(startLineIdx + 1, endLineIdx - startLineIdx - 1, ...tocLines)
     }
 
-    const updatedContent = lines.join('\n')
+    const filteredLines = processEmptyLines(lines)
+
+    const updatedContent = filteredLines.join('\n')
     fs.writeFileSync(ROOT_README_PATH, updatedContent, 'utf-8')
+
+    // 使用 Prettier 格式化 README
+    await formatWithPrettier(ROOT_README_PATH, {
+      silent: true,
+      ignoreErrors: true,
+    })
+
     logger.info('已更新首页 README')
   }
 
@@ -270,7 +258,7 @@ export class ReadmeService {
    * @param notes - 笔记信息数组
    */
   private async updateNoteReadmesInParallel(notes: NoteInfo[]): Promise<void> {
-    const batchSize = 10 // 每批处理10个，避免过多并发
+    const batchSize = 10 // 每批处理 10 个，避免过多并发
     const batches: NoteInfo[][] = []
 
     for (let i = 0; i < notes.length; i += batchSize) {
@@ -359,16 +347,16 @@ export class ReadmeService {
       }
 
       // 匹配笔记链接: - [x] [0001. xxx](https://github.com/...)
-      const noteMatch = line.match(
-        /^- \[.\] \[(.+?)\]\(https:\/\/github\.com\/.+?\/notes\/(.+?)\/README(?:\.md)?\)/
-      )
-      if (noteMatch) {
-        const [, text, encodedPath] = noteMatch
-        // 解码路径，例如 0001.%20TNotes%20简介 -> 0001. TNotes 简介
-        const decodedPath = decodeURIComponent(encodedPath)
+      const parsed = parseNoteLine(line)
+      if (parsed.isMatch && parsed.noteId) {
+        // 通过笔记 ID 查找对应的笔记信息
+        const note = notes.find((n) => n.id === parsed.noteId)
+        if (!note) {
+          logger.warn(`未找到笔记 ID: ${parsed.noteId}`)
+          continue
+        }
 
         // 获取笔记配置，添加状态 emoji
-        const note = notes.find((n) => n.dirName === decodedPath)
         let statusEmoji = '⏰ ' // 默认未完成
         if (note?.config) {
           if (note.config.deprecated) {
@@ -380,15 +368,15 @@ export class ReadmeService {
 
         // 处理笔记 ID 显示
         const sidebarShowNoteId = this.configManager.get('sidebarShowNoteId')
-        let displayText = text
+        let displayText = note.dirName
         if (!sidebarShowNoteId) {
           // 移除笔记 ID (0001. )
-          displayText = text.replace(/^\d{4}\.\s/, '')
+          displayText = note.dirName.replace(/^\d{4}\.\s/, '')
         }
 
         itemList.push({
           text: statusEmoji + displayText,
-          link: `/notes/${decodedPath}/README`,
+          link: `/notes/${note.dirName}/README`,
         })
         currentNoteCount++
         continue

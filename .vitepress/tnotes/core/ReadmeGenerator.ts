@@ -8,6 +8,11 @@ import type { NoteInfo, NoteConfig } from '../types'
 import { TocGenerator } from './TocGenerator'
 import { ConfigManager } from '../config/ConfigManager'
 import { logger } from '../utils/logger'
+import {
+  parseNoteLine,
+  buildNoteLineMarkdown,
+  processEmptyLines,
+} from '../utils/readmeHelpers'
 import { EOL } from '../config/constants'
 
 /**
@@ -117,19 +122,19 @@ export class ReadmeGenerator {
     const content = fs.readFileSync(homeReadmePath, 'utf-8')
     const lines = content.split(EOL)
 
-    // 创建笔记配置映射，以目录名为键
-    const noteConfigMap = new Map<string, NoteConfig>()
-    const noteDirNames = new Set<string>()
+    // 创建笔记配置映射，以笔记 ID 为键
+    const noteByIdMap = new Map<string, NoteInfo>()
     for (const note of notes) {
-      noteDirNames.add(note.dirName)
-      if (note.config) {
-        noteConfigMap.set(note.dirName, note.config)
-      }
+      noteByIdMap.set(note.id, note)
     }
 
-    // 跟踪 home README 中已存在的笔记
-    const existingNotesInHome = new Set<string>()
-    const linesToRemove = new Set<number>() // 要移除的行索引
+    // 获取仓库信息
+    const repoOwner = this.configManager.get('author')
+    const repoName = this.configManager.get('repoName')
+
+    // 跟踪已存在的笔记 ID 和要移除的行
+    const existingNoteIds = new Set<string>()
+    const linesToRemove = new Set<number>()
 
     // 更新笔记链接的状态标记
     const titles: string[] = []
@@ -153,50 +158,20 @@ export class ReadmeGenerator {
         continue
       }
 
-      // 匹配笔记链接:
-      // - [x] [0001. xxx]
-      // - [ ] [0001. xxx]
-      const noteMatch = line.match(/^- \[(.)\] \[(\d+)\.\s*(.+?)\]/)
-      if (noteMatch) {
-        const [fullMatch, oldStatus, noteId, noteName] = noteMatch
-        // 根据 noteId 和 noteName 重建目录名
-        const decodedPath = `${noteId}. ${noteName}`
+      // 使用公共方法解析笔记链接
+      const parsed = parseNoteLine(line)
+      if (parsed.isMatch && parsed.noteId) {
+        const note = noteByIdMap.get(parsed.noteId)
 
-        // 检查笔记是否在真实目录中存在
-        if (!noteDirNames.has(decodedPath)) {
+        if (!note) {
           // 笔记不存在，标记为移除
           linesToRemove.add(i)
-          logger.warn(`移除不存在的笔记: ${decodedPath}`)
+          logger.warn(`移除不存在的笔记: ${parsed.noteId}`)
           continue
         }
 
-        existingNotesInHome.add(decodedPath)
-        const noteConfig = noteConfigMap.get(decodedPath)
-
-        if (noteConfig) {
-          // 根据配置更新状态标记
-          let newStatus = ' ' // 默认未完成
-          let deprecatedMark = '' // 弃用标记
-
-          if (noteConfig.deprecated) {
-            newStatus = ' ' // 弃用的笔记，复选框不勾选
-            deprecatedMark = ' ❌' // 添加弃用标记
-          } else if (noteConfig.done) {
-            newStatus = 'x' // 已完成
-          }
-
-          // 动态生成 GitHub URL
-          const encodedDirName = encodeURIComponent(decodedPath)
-          const repoOwner = this.configManager.get('author')
-          const repoName = this.configManager.get('repoName')
-          const noteUrl = `https://github.com/${repoOwner}/${repoName}/tree/main/notes/${encodedDirName}/README.md`
-
-          // 更新状态标记和弃用标记
-          lines[
-            i
-          ] = `- [${newStatus}] [${noteId}. ${noteName}](${noteUrl})${deprecatedMark}`
-        }
-
+        existingNoteIds.add(parsed.noteId)
+        lines[i] = buildNoteLineMarkdown(note, repoOwner, repoName)
         currentNoteCount++
         continue
       }
@@ -218,45 +193,28 @@ export class ReadmeGenerator {
     const sortedLinesToRemove = Array.from(linesToRemove).sort((a, b) => b - a)
     for (const lineIndex of sortedLinesToRemove) {
       lines.splice(lineIndex, 1)
-      // 调整当前笔记数量
       if (currentNoteCount > 0) {
         currentNoteCount--
       }
     }
 
-    // 查找缺失的笔记（在真实目录中存在但 home README 中不存在）
+    // 查找缺失的笔记（在真实目录中存在但 README 中不存在）
     const missingNotes: NoteInfo[] = []
     for (const note of notes) {
-      if (!existingNotesInHome.has(note.dirName)) {
+      if (!existingNoteIds.has(note.id)) {
         missingNotes.push(note)
       }
     }
 
     // 将缺失的笔记添加到结尾
     if (missingNotes.length > 0) {
-      logger.info(`添加 ${missingNotes.length} 篇缺失的笔记到 home README`)
+      logger.info(`添加 ${missingNotes.length} 篇缺失的笔记到 README`)
 
       // 按笔记ID排序
       missingNotes.sort((a, b) => a.id.localeCompare(b.id))
 
       for (const note of missingNotes) {
-        let status = ' ' // 默认未完成
-        let deprecatedMark = '' // 弃用标记
-
-        if (note.config?.deprecated) {
-          status = ' ' // 弃用的笔记，复选框不勾选
-          deprecatedMark = ' ❌' // 添加弃用标记
-        } else if (note.config?.done) {
-          status = 'x' // 已完成
-        }
-
-        // 动态生成 GitHub URL
-        const encodedDirName = encodeURIComponent(note.dirName)
-        const repoOwner = this.configManager.get('author')
-        const repoName = this.configManager.get('repoName')
-        const noteUrl = `https://github.com/${repoOwner}/${repoName}/tree/main/notes/${encodedDirName}/README.md`
-
-        const noteLine = `- [${status}] [${note.dirName}](${noteUrl})${deprecatedMark}`
+        const noteLine = buildNoteLineMarkdown(note, repoOwner, repoName)
         lines.push(noteLine)
         currentNoteCount++
       }
@@ -270,7 +228,9 @@ export class ReadmeGenerator {
     // 更新 TOC 区域
     this.tocGenerator.updateHomeToc(lines, titles, titlesNotesCount)
 
-    const updatedContent = lines.join(EOL)
+    const processedLines = processEmptyLines(lines)
+
+    const updatedContent = processedLines.join(EOL)
     fs.writeFileSync(homeReadmePath, updatedContent, 'utf-8')
 
     logger.info('已更新首页 README')

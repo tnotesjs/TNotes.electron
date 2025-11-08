@@ -15,6 +15,12 @@ import {
 import type { NoteConfig, TNotesConfig } from '../types'
 
 /**
+ * 出生日期（用于计算 days_since_birth）
+ * 1999-06-29 作为第 1 天
+ */
+const BIRTH_DATE = new Date('1999-06-29T00:00:00+08:00').getTime()
+
+/**
  * 时间戳服务类
  */
 export class TimestampService {
@@ -198,11 +204,13 @@ export class TimestampService {
         modified = true
       }
 
-      // 重新计算天数
+      // 重新计算天数（从 1999-06-29 作为第 1 天开始计算）
       if (modified) {
-        const daysSinceBirth = Math.floor(
-          (updatedAt - createdAt) / (1000 * 60 * 60 * 24)
-        )
+        // 计算从出生日期到当前更新时间的天数
+        // 公式：Math.floor((updatedAt - BIRTH_DATE) / (1000 * 60 * 60 * 24)) + 1
+        // +1 是因为 1999-06-29 作为第 1 天
+        const daysSinceBirth =
+          Math.floor((updatedAt - BIRTH_DATE) / (1000 * 60 * 60 * 24)) + 1
         config.root_item.days_since_birth = daysSinceBirth
 
         // 写回配置文件

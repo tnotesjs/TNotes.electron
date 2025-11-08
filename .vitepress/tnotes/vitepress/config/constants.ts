@@ -8,10 +8,7 @@ import { author, ignore_dirs, repoName } from '../../../../.tnotes.json'
 /**
  * 忽略的文件和目录列表
  */
-export const IGNORE_LIST = [
-  './MERGED_README.md',
-  ...ignore_dirs.map((dir) => `**/${dir}/**`),
-]
+export const IGNORE_LIST = [...ignore_dirs.map((dir) => `**/${dir}/**`)]
 
 /**
  * GitHub Pages URL

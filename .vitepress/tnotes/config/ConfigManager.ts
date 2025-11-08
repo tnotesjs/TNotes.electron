@@ -68,20 +68,6 @@ export class ConfigManager {
   }
 
   /**
-   * 验证配置（已废弃，功能移至 validateAndCompleteConfig）
-   * @deprecated 使用 validateAndCompleteConfig 替代
-   */
-  private validateConfig(config: any): TNotesConfig {
-    if (!config.author) {
-      throw new Error('配置文件缺少 author 字段')
-    }
-    if (!config.repoName) {
-      throw new Error('配置文件缺少 repoName 字段')
-    }
-    return config as TNotesConfig
-  }
-
-  /**
    * 获取配置项
    */
   get<K extends keyof TNotesConfig>(key: K): TNotesConfig[K] {

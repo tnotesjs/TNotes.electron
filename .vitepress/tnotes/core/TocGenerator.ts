@@ -101,7 +101,7 @@ export class TocGenerator {
       }
     }
 
-    const toc = generateTocUtil(titles, 2)
+    const toc = generateTocUtil(titles)
     const bilibiliTOCItems: string[] = []
     const tnotesTOCItems: string[] = []
     const yuqueTOCItems: string[] = []
@@ -196,7 +196,7 @@ export class TocGenerator {
     })
     if (startLineIdx === -1 || endLineIdx === -1) return
 
-    const toc = generateTocUtil(titles, 1)
+    const toc = generateTocUtil(titles)
 
     lines.splice(
       startLineIdx + 1,

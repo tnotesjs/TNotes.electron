@@ -13,41 +13,32 @@ export type CommandName =
   | 'dev'
   | 'fix-timestamps'
   | 'help'
-  | 'merge-notes'
   | 'preview'
   | 'pull'
   | 'push'
-  | 'split-notes'
   | 'sync-scripts'
   | 'sync'
   | 'update'
 
 /**
- * 命令参数接口
+ * 命令参数类型
  */
 export interface CommandArgs {
-  _: string[]
-  [key: string]: any
-  // cmds
-  build?: boolean
-  'create-notes'?: boolean
   dev?: boolean
+  build?: boolean
+  preview?: boolean
+  update?: boolean
+  push?: boolean
+  pull?: boolean
+  sync?: boolean
+  'create-notes'?: boolean
+  'sync-scripts'?: boolean
   'fix-timestamps'?: boolean
   help?: boolean
-  'merge-notes'?: boolean
-  preview?: boolean
-  pull?: boolean
-  push?: boolean
-  'split-notes'?: boolean
-  'sync-scripts'?: boolean
-  update?: boolean
-
-  // options
-  'no-watch'?: boolean
+  /**
+   * 是否包含所有仓库
+   */
   all?: boolean
-  force?: boolean
-  quiet?: boolean
-  sync?: boolean
 }
 
 /**
@@ -60,9 +51,9 @@ export interface Command {
 }
 
 /**
- * 类型守卫：检查是否为有效命令名称
+ * 检查是否为有效命令
  */
-export function isValidCommand(cmd: string): cmd is CommandName {
+export function isValidCommand(command: string): command is CommandName {
   return [
     'dev',
     'build',
@@ -72,10 +63,8 @@ export function isValidCommand(cmd: string): cmd is CommandName {
     'pull',
     'sync',
     'create-notes',
-    'merge-notes',
-    'split-notes',
     'sync-scripts',
     'fix-timestamps',
     'help',
-  ].includes(cmd)
+  ].includes(command)
 }

@@ -10,7 +10,6 @@ export { VitepressService } from './VitepressService'
 export { GitService } from './GitService'
 export { FileWatcherService } from './FileWatcherService'
 export { TimestampService } from './TimestampService'
-export { MergeDistributeService } from './MergeDistributeService'
 export { SyncScriptsService } from './SyncScriptsService'
 export { serviceManager } from './ServiceManager'
 

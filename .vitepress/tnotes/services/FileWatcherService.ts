@@ -328,7 +328,15 @@ export class FileWatcherService {
         }
 
         this.folderRenameTimer = setTimeout(() => {
-          // 超时后清除待处理的重命名
+          // 超时后，如果仍有待处理的重命名，说明是删除操作
+          if (this.pendingFolderRename) {
+            logger.warn(`检测到笔记删除: ${this.pendingFolderRename.oldName}`)
+
+            // 触发删除后的全局更新
+            this.handleFolderDeletion(this.pendingFolderRename.oldName)
+          }
+
+          // 清除待处理的重命名
           this.pendingFolderRename = null
           this.folderRenameTimer = null
         }, 500) // 500ms 内如果没有新文件夹出现，则认为是删除操作
@@ -372,6 +380,64 @@ export class FileWatcherService {
           this.noteDirCache.delete(this.pendingFolderRename.oldName)
         }
       }
+    }
+  }
+
+  /**
+   * 处理文件夹删除后的更新
+   */
+  private async handleFolderDeletion(deletedFolderName: string): Promise<void> {
+    if (this.isUpdating) {
+      logger.warn('正在更新中，跳过文件夹删除更新')
+      return
+    }
+
+    this.isUpdating = true
+
+    try {
+      const startTime = Date.now()
+      logger.info('正在更新全局文件（sidebar、README）...')
+
+      // 从缓存中删除已删除的文件夹
+      this.noteDirCache.delete(deletedFolderName)
+
+      // 清除已删除笔记的文件哈希缓存
+      const deletedReadmePath = path.join(
+        NOTES_DIR_PATH,
+        deletedFolderName,
+        'README.md'
+      )
+      const deletedConfigPath = path.join(
+        NOTES_DIR_PATH,
+        deletedFolderName,
+        '.tnotes.json'
+      )
+      this.fileHashes.delete(deletedReadmePath)
+      this.fileHashes.delete(deletedConfigPath)
+      this.configCache.delete(deletedConfigPath)
+
+      // 重新扫描所有笔记（因为笔记已被删除）
+      const allNotes = this.noteService.getAllNotes()
+
+      // 更新全局文件
+      await this.readmeService.updateGlobalFiles(allNotes)
+
+      const duration = Date.now() - startTime
+      logger.success(`全局文件更新完成 (耗时 ${duration}ms)`)
+      logger.info(`  - 已更新 sidebar.json`)
+      logger.info(`  - 已更新 README.md`)
+      logger.info(`  - 已从缓存中移除 ${deletedFolderName}`)
+
+      this.lastUpdateTime = Date.now()
+    } catch (error) {
+      logger.error('文件夹删除更新失败', error)
+    } finally {
+      // 延迟重置更新标志
+      setTimeout(() => {
+        this.isUpdating = false
+        // 重新初始化缓存
+        this.initializeFileHashes()
+      }, 1000)
     }
   }
 
