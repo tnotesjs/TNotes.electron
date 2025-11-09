@@ -9,6 +9,7 @@ import Discussions from '../components/Discussions/Discussions.vue'
 import EnWordList from '../components/EnWordList/EnWordList.vue'
 import Footprints from '../components/Footprints/Footprints.vue'
 import Layout from '../components/Layout/Layout.vue'
+import LoadingPage from '../components/LoadingPage/LoadingPage.vue'
 import MarkMap from '../components/MarkMap/MarkMap.vue'
 import Mermaid from '../components/Mermaid/Mermaid.vue'
 import Settings from '../components/Settings/Settings.vue'
@@ -32,6 +33,7 @@ export default {
     app.component('E', EnWordList)
     app.component('Footprints', Footprints)
     app.component('F', Footprints)
+    app.component('LoadingPage', LoadingPage)
     app.component('Settings', Settings)
     app.component('S', Settings)
     app.component('SidebarCard', SidebarCard)

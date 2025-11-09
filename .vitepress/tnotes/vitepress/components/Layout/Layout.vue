@@ -124,21 +124,126 @@
           role="group"
           :aria-label="isHomeReadme ? '知识库提交信息' : '笔记提交信息'"
         >
-          <!-- 完成进度（仅首页显示） -->
+          <!-- 笔记编号（仅笔记页显示） -->
           <div
             :class="$style.timeLine"
-            v-if="isHomeReadme && completionPercentage !== null"
-            title="笔记完成进度"
+            v-if="!isHomeReadme && currentNoteId"
+            title="笔记编号"
           >
             <div :class="$style.timeLabel">
-              <strong>📊 完成进度</strong>
+              <strong>🔢 笔记编号</strong>
+            </div>
+            <div :class="$style.timeValue">{{ currentNoteId }}</div>
+          </div>
+
+          <!-- 笔记标题（仅笔记页显示） -->
+          <div
+            :class="$style.timeLine"
+            v-if="!isHomeReadme && currentNoteId"
+            title="笔记标题"
+          >
+            <div :class="$style.timeLabel">
+              <strong>📝 笔记标题</strong>
             </div>
             <div :class="$style.timeValue">
-              {{ completionPercentage }}% ({{ doneNotesLen }} /
-              {{ totalNotesLen }})
+              <input
+                v-model="editableNoteTitle"
+                type="text"
+                :class="[$style.titleInput, { [$style.error]: titleError }]"
+                :disabled="!isDev"
+                @input="onTitleInput"
+                @blur="onTitleBlur"
+                placeholder="请输入笔记标题"
+              />
+              <div v-if="titleError" :class="$style.errorMessage">
+                {{ titleError }}
+              </div>
             </div>
           </div>
 
+          <!-- 笔记状态（仅笔记页显示且非开发环境只读） -->
+          <div
+            :class="$style.timeLine"
+            v-if="!isHomeReadme && currentNoteId"
+            title="笔记状态"
+          >
+            <div :class="$style.timeLabel">
+              <strong>📝 完成状态</strong>
+            </div>
+            <div :class="$style.timeValue">
+              <select
+                v-model="editableNoteStatus"
+                :class="$style.statusSelect"
+                :disabled="!isDev"
+                @change="onConfigChange"
+              >
+                <option :value="true">✅ 已完成</option>
+                <option :value="false">⏰ 待处理</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 评论状态（仅笔记页显示且非开发环境只读） -->
+          <div
+            :class="$style.timeLine"
+            v-if="!isHomeReadme && currentNoteId"
+            title="评论状态"
+          >
+            <div :class="$style.timeLabel">
+              <strong>🫧 评论状态</strong>
+            </div>
+            <div :class="$style.timeValue">
+              <select
+                v-model="editableDiscussionsEnabled"
+                :class="$style.statusSelect"
+                :disabled="!isDev"
+                @change="onConfigChange"
+              >
+                <option :value="true">✅ 开启</option>
+                <option :value="false">❌ 关闭</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 弃用状态（仅笔记页显示且非开发环境只读） -->
+          <div
+            :class="$style.timeLine"
+            v-if="!isHomeReadme && currentNoteId"
+            title="弃用状态"
+          >
+            <div :class="$style.timeLabel">
+              <strong>🗑 弃用状态</strong>
+            </div>
+            <div :class="$style.timeValue">
+              <select
+                v-model="editableDeprecated"
+                :class="$style.statusSelect"
+                :disabled="!isDev"
+                @change="onConfigChange"
+              >
+                <option :value="false">✅ 未弃用</option>
+                <option :value="true">❌ 已弃用</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 首次提交时间 -->
+          <div :class="$style.timeLine" title="首次提交时间">
+            <div :class="$style.timeLabel"><strong>⌛️ 首次提交</strong></div>
+            <div :class="$style.timeValue">
+              {{ formatDate(modalCreatedAt) }}
+            </div>
+          </div>
+
+          <!-- 最近提交时间 -->
+          <div :class="$style.timeLine" title="最近提交时间">
+            <div :class="$style.timeLabel"><strong>⌛️ 最近提交</strong></div>
+            <div :class="$style.timeValue">
+              {{ formatDate(modalUpdatedAt) }}
+            </div>
+          </div>
+
+          <!-- GitHub 链接 -->
           <div
             :class="$style.timeLine"
             v-if="modalGithubUrl"
@@ -167,20 +272,59 @@
             </div>
           </div>
 
-          <div :class="$style.timeLine" title="首次提交时间">
-            <div :class="$style.timeLabel"><strong>⌛️ 首次提交</strong></div>
-            <div :class="$style.timeValue">
-              {{ formatDate(modalCreatedAt) }}
+          <!-- 完成进度（仅首页显示） -->
+          <div
+            :class="$style.timeLine"
+            v-if="isHomeReadme && completionPercentage !== null"
+            title="笔记完成进度"
+          >
+            <div :class="$style.timeLabel">
+              <strong>📊 完成进度</strong>
             </div>
-          </div>
-
-          <div :class="$style.timeLine" title="最近提交时间">
-            <div :class="$style.timeLabel"><strong>⌛️ 最近提交</strong></div>
             <div :class="$style.timeValue">
-              {{ formatDate(modalUpdatedAt) }}
+              {{ completionPercentage }}% ({{ doneNotesLen }} /
+              {{ totalNotesLen }})
             </div>
           </div>
         </div>
+
+        <!-- 操作按钮（仅开发环境且非首页显示） -->
+        <template #footer v-if="isDev && !isHomeReadme">
+          <div :class="$style.actionBar">
+            <button
+              :class="[
+                $style.saveButton,
+                { [$style.disabled]: !hasConfigChanges },
+              ]"
+              @click="saveNoteConfig"
+              :disabled="!hasConfigChanges || isSaving"
+              type="button"
+            >
+              {{ saveButtonText }}
+            </button>
+            <button
+              v-if="hasConfigChanges"
+              @click="resetNoteConfig"
+              :class="$style.resetButton"
+              type="button"
+            >
+              重置
+            </button>
+          </div>
+
+          <!-- 保存进度提示 -->
+          <Transition name="toast">
+            <div v-if="isSaving && savingMessage" :class="$style.loadingToast">
+              <div :class="$style.loadingSpinner"></div>
+              <span>{{ savingMessage }}</span>
+            </div>
+          </Transition>
+
+          <!-- 保存成功提示 -->
+          <Transition name="toast">
+            <div v-if="showSuccessToast" :class="$style.toast">✓ 保存成功</div>
+          </Transition>
+        </template>
       </AboutModal>
     </template>
     <template #doc-footer-before>
@@ -266,7 +410,7 @@ import { formatDate, scrollToTop } from '../utils.ts'
 
 import { NOTES_DIR_KEY } from '../constants.ts'
 
-import AboutModal from './AboutModal.vue' // <- 新增 modal 组件导入
+import AboutModal from './AboutModal.vue'
 
 const { Layout } = DefaultTheme
 const vpData = useData()
@@ -279,6 +423,15 @@ const currentNoteId = computed(() => {
   return match ? match[1] : null
 })
 
+// 提取当前笔记的标题（从 relativePath）
+const currentNoteTitle = computed(() => {
+  // relativePath 格式: notes/0001. 标题/README.md
+  const match = vpData.page.value.relativePath.match(
+    /notes\/\d{4}\.\s+([^/]+)\//
+  )
+  return match ? match[1] : ''
+})
+
 // 根据当前笔记 ID 获取配置数据
 const currentNoteConfig = computed(() => {
   return currentNoteId.value && allNotesConfig[currentNoteId.value]
@@ -286,7 +439,7 @@ const currentNoteConfig = computed(() => {
     : {
         bilibili: [],
         done: false,
-        enableDiscussions: false, // 默认值
+        enableDiscussions: false,
       }
 })
 const isDiscussionsVisible = computed(
@@ -306,13 +459,70 @@ const updateVscodeNoteDir = () => {
   }
 }
 
+/**
+ * 拦截 home README 中的笔记链接，将 GitHub 链接转换为站点内跳转
+ */
+const interceptHomeReadmeLinks = () => {
+  if (typeof window === 'undefined') return
+
+  // 只在 home README 页面执行
+  if (!isHomeReadme.value) return
+
+  // 延迟执行，确保 DOM 已渲染
+  setTimeout(() => {
+    const content = document.querySelector('.vp-doc')
+    if (!content) return
+
+    // 查找所有指向 GitHub 的笔记链接
+    const links = content.querySelectorAll(
+      'a[href*="github.com"][href*="/notes/"]'
+    )
+
+    links.forEach((link) => {
+      const href = link.getAttribute('href')
+      if (!href) return
+
+      // 匹配 GitHub 链接格式：https://github.com/{owner}/{repo}/tree/main/notes/{noteDir}/README.md
+      const match = href.match(
+        /github\.com\/[^/]+\/[^/]+\/tree\/main\/notes\/([^/]+)\/README\.md/
+      )
+
+      if (match) {
+        const encodedNoteDir = match[1]
+        const noteDir = decodeURIComponent(encodedNoteDir)
+
+        // 构建站点内的相对路径
+        const base = vpData.site.value.base || '/'
+        const internalPath = `${base}notes/${noteDir}/README`
+
+        // 移除原有的点击事件监听器（如果有）
+        const newLink = link.cloneNode(true)
+
+        // 添加点击事件拦截
+        newLink.addEventListener('click', (e) => {
+          e.preventDefault()
+          router.go(internalPath)
+        })
+
+        // 更新 href 属性（用于悬停显示和右键菜单）
+        newLink.setAttribute('href', internalPath)
+
+        // 替换原链接
+        link.parentNode?.replaceChild(newLink, link)
+      }
+    })
+  }, 100)
+}
+
 onMounted(() => {
   updateVscodeNoteDir()
+  interceptHomeReadmeLinks()
 })
 watch(
   () => vpData.page.value.relativePath,
   () => {
     updateVscodeNoteDir()
+    interceptHomeReadmeLinks()
   }
 )
 
@@ -453,6 +663,305 @@ watch(
 const timeModalOpen = ref(false)
 const modalTitle = computed(() => {
   return isHomeReadme.value ? '关于这个知识库' : '关于这篇笔记'
+})
+
+// 判断是否为开发环境
+const isDev = computed(() => {
+  if (typeof window === 'undefined') return false
+  // 开发环境通常 location.hostname 为 localhost 或 127.0.0.1
+  return (
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1'
+  )
+})
+
+// 可编辑的配置项
+const editableNoteStatus = ref(false)
+const editableDiscussionsEnabled = ref(false)
+const editableDeprecated = ref(false)
+const editableNoteTitle = ref('')
+
+// 原始配置（用于检测是否有变更）
+const originalNoteStatus = ref(false)
+const originalDiscussionsEnabled = ref(false)
+const originalDeprecated = ref(false)
+const originalNoteTitle = ref('')
+
+// 标题验证错误信息
+const titleError = ref('')
+
+// 检测是否有配置变更
+const hasConfigChanges = computed(() => {
+  return (
+    editableNoteStatus.value !== originalNoteStatus.value ||
+    editableDiscussionsEnabled.value !== originalDiscussionsEnabled.value ||
+    editableDeprecated.value !== originalDeprecated.value ||
+    (editableNoteTitle.value.trim() !== originalNoteTitle.value &&
+      !titleError.value)
+  )
+})
+
+// 保存状态
+const isSaving = ref(false)
+const showSuccessToast = ref(false)
+const savingMessage = ref('') // 保存进度提示
+
+// 保存按钮文本
+const saveButtonText = computed(() => {
+  if (isSaving.value) return '保存中...'
+  if (!hasConfigChanges.value) return '无更改'
+  return '保存配置'
+})
+
+// 配置变更时的回调
+function onConfigChange() {
+  // 配置变更时不需要做额外操作，只需要触发 hasConfigChanges 计算
+}
+
+// 标题输入验证
+function validateTitle(title) {
+  // 非法字符正则
+  const invalidChars = /[<>:"/\\|?*\x00-\x1F]/
+  const windowsReservedNames = new Set([
+    'CON',
+    'PRN',
+    'AUX',
+    'NUL',
+    'COM1',
+    'COM2',
+    'COM3',
+    'COM4',
+    'COM5',
+    'COM6',
+    'COM7',
+    'COM8',
+    'COM9',
+    'LPT1',
+    'LPT2',
+    'LPT3',
+    'LPT4',
+    'LPT5',
+    'LPT6',
+    'LPT7',
+    'LPT8',
+    'LPT9',
+  ])
+
+  if (!title || title.trim().length === 0) {
+    return '标题不能为空'
+  }
+
+  const trimmedTitle = title.trim()
+
+  if (trimmedTitle.length > 200) {
+    return '标题过长(最多200个字符)'
+  }
+
+  if (invalidChars.test(trimmedTitle)) {
+    return '标题包含非法字符(不允许: < > : " / \\ | ? *)'
+  }
+
+  if (/^[.\s]|[.\s]$/.test(trimmedTitle)) {
+    return '标题不能以点或空格开头/结尾'
+  }
+
+  const upperTitle = trimmedTitle.toUpperCase()
+  if (windowsReservedNames.has(upperTitle)) {
+    return `"${trimmedTitle}" 是 Windows 系统保留名称`
+  }
+
+  const baseName = trimmedTitle.split('.')[0].toUpperCase()
+  if (windowsReservedNames.has(baseName)) {
+    return `"${trimmedTitle}" 包含 Windows 系统保留名称`
+  }
+
+  return null
+}
+
+// 标题输入事件
+function onTitleInput() {
+  const error = validateTitle(editableNoteTitle.value)
+  titleError.value = error || ''
+}
+
+// 标题失焦事件
+function onTitleBlur() {
+  // 去除首尾空格
+  editableNoteTitle.value = editableNoteTitle.value.trim()
+  onTitleInput()
+}
+
+// 初始化可编辑字段
+function initEditableFields() {
+  if (!currentNoteConfig.value) return
+
+  editableNoteStatus.value = currentNoteConfig.value.done || false
+  editableDiscussionsEnabled.value =
+    currentNoteConfig.value.enableDiscussions || false
+  editableDeprecated.value = currentNoteConfig.value.deprecated || false
+  editableNoteTitle.value = currentNoteTitle.value || ''
+
+  // 保存原始值
+  originalNoteStatus.value = editableNoteStatus.value
+  originalDiscussionsEnabled.value = editableDiscussionsEnabled.value
+  originalDeprecated.value = editableDeprecated.value
+  originalNoteTitle.value = editableNoteTitle.value
+
+  // 清除错误信息
+  titleError.value = ''
+}
+
+// 保存笔记配置
+async function saveNoteConfig() {
+  if (!currentNoteId.value || !isDev.value || !hasConfigChanges.value) return
+
+  // 验证标题
+  if (titleError.value) {
+    alert('❌ 请修正标题错误后再保存')
+    return
+  }
+
+  const titleChanged =
+    editableNoteTitle.value.trim() !== originalNoteTitle.value &&
+    editableNoteTitle.value.trim()
+
+  isSaving.value = true
+  savingMessage.value = '正在保存配置...'
+
+  try {
+    // 如果标题有变化,先重命名文件夹
+    if (titleChanged) {
+      savingMessage.value = '正在重命名文件夹...'
+
+      const renameResponse = await fetch('/__tnotes_rename_note', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          noteId: currentNoteId.value,
+          newTitle: editableNoteTitle.value.trim(),
+        }),
+      })
+
+      if (!renameResponse.ok) {
+        const error = await renameResponse.text()
+        throw new Error(`重命名失败: ${error}`)
+      }
+
+      // 后端已经完成所有更新,包括文件系统同步
+      const result = await renameResponse.json()
+      console.log('重命名完成:', result)
+
+      savingMessage.value = '文件已同步,准备跳转...'
+    }
+
+    // 只在标题未改变时更新配置
+    // (如果标题改变了,重命名操作已经更新了所有内容,无需再调用配置更新)
+    if (!titleChanged) {
+      const needConfigUpdate =
+        editableNoteStatus.value !== originalNoteStatus.value ||
+        editableDiscussionsEnabled.value !== originalDiscussionsEnabled.value ||
+        editableDeprecated.value !== originalDeprecated.value
+
+      if (needConfigUpdate) {
+        savingMessage.value = '正在更新笔记配置...'
+
+        const response = await fetch('/__tnotes_update_config', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            noteId: currentNoteId.value,
+            config: {
+              done: editableNoteStatus.value,
+              enableDiscussions: editableDiscussionsEnabled.value,
+              deprecated: editableDeprecated.value,
+            },
+          }),
+        })
+
+        if (!response.ok) {
+          const error = await response.text()
+          throw new Error(error || '保存失败')
+        }
+      }
+    }
+
+    // 更新原始值
+    originalNoteStatus.value = editableNoteStatus.value
+    originalDiscussionsEnabled.value = editableDiscussionsEnabled.value
+    originalDeprecated.value = editableDeprecated.value
+    originalNoteTitle.value = editableNoteTitle.value.trim()
+
+    // 更新本地配置（立即反映在页面上）
+    if (allNotesConfig[currentNoteId.value]) {
+      allNotesConfig[currentNoteId.value].done = editableNoteStatus.value
+      allNotesConfig[currentNoteId.value].enableDiscussions =
+        editableDiscussionsEnabled.value
+      allNotesConfig[currentNoteId.value].deprecated = editableDeprecated.value
+    }
+
+    savingMessage.value = '保存成功！'
+
+    // 显示成功提示
+    showSuccessToast.value = true
+    setTimeout(() => {
+      showSuccessToast.value = false
+    }, 3000)
+
+    // 如果标题改变了,先跳转到loading页,再由loading页跳转到新URL
+    if (titleChanged) {
+      // 构建新的目标 URL
+      const base = vpData.site.value.base || '/'
+      const newDirName = encodeURIComponent(
+        `${currentNoteId.value}. ${editableNoteTitle.value.trim()}`
+      )
+      const newUrl = `${base}notes/${newDirName}/README`
+
+      // 跳转到loading页,并传递目标URL
+      const loadingUrl = `${base}loading?target=${encodeURIComponent(newUrl)}`
+      window.location.href = loadingUrl
+    }
+  } catch (error) {
+    console.error('保存配置失败:', error)
+    savingMessage.value = ''
+
+    alert(
+      '❌ 保存失败: ' + (error instanceof Error ? error.message : String(error))
+    )
+  } finally {
+    if (!titleChanged) {
+      isSaving.value = false
+      savingMessage.value = ''
+    }
+  }
+}
+
+// 重置笔记配置
+function resetNoteConfig() {
+  editableNoteStatus.value = originalNoteStatus.value
+  editableDiscussionsEnabled.value = originalDiscussionsEnabled.value
+  editableDeprecated.value = originalDeprecated.value
+  editableNoteTitle.value = originalNoteTitle.value
+  titleError.value = ''
+}
+
+// 监听笔记配置变化，重新初始化字段
+watch(
+  () => currentNoteConfig.value,
+  () => {
+    initEditableFields()
+  },
+  { immediate: true }
+)
+
+// modal 打开时重新初始化（确保数据最新）
+watch(timeModalOpen, (isOpen) => {
+  if (isOpen) {
+    initEditableFields()
+  }
 })
 
 // modal 中显示的 GitHub 链接

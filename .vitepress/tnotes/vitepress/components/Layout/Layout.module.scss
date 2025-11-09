@@ -420,3 +420,210 @@
   404 页面样式已移至 global-components.css
   相关全局类名：.not-found-container
 */
+
+/* 状态选择框样式 */
+.statusSelect {
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  background-color: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  font-size: 0.875rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+
+  &:hover:not(:disabled) {
+    border-color: var(--vp-c-brand-1);
+    background-color: var(--vp-c-bg-soft);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--vp-c-brand-1);
+    box-shadow: 0 0 0 3px rgba(var(--vp-c-brand-rgb), 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  option {
+    padding: 0.5rem;
+    background-color: var(--vp-c-bg);
+    color: var(--vp-c-text-1);
+  }
+}
+
+/* 标题输入框样式 */
+.titleInput {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  background-color: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  font-size: 0.875rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    border-color: var(--vp-c-brand-1);
+    background-color: var(--vp-c-bg-soft);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--vp-c-brand-1);
+    box-shadow: 0 0 0 3px rgba(var(--vp-c-brand-rgb), 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: var(--vp-c-bg-soft);
+  }
+
+  &.error {
+    border-color: var(--vp-c-danger-1);
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+    }
+  }
+}
+
+/* 错误提示样式 */
+.errorMessage {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--vp-c-danger-1);
+  line-height: 1.4;
+}
+
+/* 操作栏样式 */
+.actionBar {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* 保存按钮样式 */
+.saveButton {
+  padding: 0.625rem 1.5rem;
+  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-brand-2));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(var(--vp-c-brand-rgb), 0.3);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--vp-c-brand-rgb), 0.4);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &.disabled,
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* 重置按钮样式 */
+.resetButton {
+  padding: 0.625rem 1.5rem;
+  background: transparent;
+  color: var(--vp-c-text-2);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--vp-c-text-1);
+    border-color: var(--vp-c-brand-1);
+    background: var(--vp-c-bg-soft);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Toast 提示样式 */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--vp-c-brand-1);
+  color: white;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+}
+
+/* Loading Toast 样式 */
+.loadingToast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Loading 旋转动画 */
+.loadingSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--vp-c-divider);
+  border-top-color: var(--vp-c-brand-1);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Toast 过渡动画 */
+:global(.toast-enter-active),
+:global(.toast-leave-active) {
+  transition: all 0.3s ease;
+}
+
+:global(.toast-enter-from),
+:global(.toast-leave-to) {
+  opacity: 0;
+  transform: translateY(20px);
+}

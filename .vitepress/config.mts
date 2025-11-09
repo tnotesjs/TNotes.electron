@@ -22,6 +22,8 @@ import {
   getMarkdownConfig,
   getThemeConfig,
 } from './tnotes/vitepress/config/_index'
+import { updateConfigPlugin } from './tnotes/vitepress/plugins/updateConfigPlugin'
+import { renameNotePlugin } from './tnotes/vitepress/plugins/renameNotePlugin'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -46,6 +48,8 @@ export default defineConfig({
   title: repoName,
   srcExclude: IGNORE_LIST,
   vite: {
+    // @ts-expect-error - Vite plugin type mismatch between different versions
+    plugins: [updateConfigPlugin(), renameNotePlugin()],
     server: {
       watch: {
         ignored: IGNORE_LIST,

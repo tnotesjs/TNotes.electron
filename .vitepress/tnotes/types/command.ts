@@ -16,9 +16,11 @@ export type CommandName =
   | 'preview'
   | 'pull'
   | 'push'
+  | 'rename-note'
   | 'sync-scripts'
   | 'sync'
   | 'update'
+  | 'update-note-config'
 
 /**
  * 命令参数类型
@@ -34,6 +36,8 @@ export interface CommandArgs {
   'create-notes'?: boolean
   'sync-scripts'?: boolean
   'fix-timestamps'?: boolean
+  'update-note-config'?: boolean
+  'rename-note'?: boolean
   help?: boolean
   /**
    * 是否包含所有仓库
@@ -65,6 +69,8 @@ export function isValidCommand(command: string): command is CommandName {
     'create-notes',
     'sync-scripts',
     'fix-timestamps',
+    'update-note-config',
+    'rename-note',
     'help',
   ].includes(command)
 }
