@@ -119,174 +119,27 @@
           {{ modalTitle }}
         </template>
 
-        <div
-          :class="$style.timeModalContent"
-          role="group"
-          :aria-label="isHomeReadme ? '知识库提交信息' : '笔记提交信息'"
-        >
-          <!-- 笔记编号（仅笔记页显示） -->
-          <div
-            :class="$style.timeLine"
-            v-if="!isHomeReadme && currentNoteId"
-            title="笔记编号"
-          >
-            <div :class="$style.timeLabel">
-              <strong>🔢 笔记编号</strong>
-            </div>
-            <div :class="$style.timeValue">{{ currentNoteId }}</div>
-          </div>
-
-          <!-- 笔记标题（仅笔记页显示） -->
-          <div
-            :class="$style.timeLine"
-            v-if="!isHomeReadme && currentNoteId"
-            title="笔记标题"
-          >
-            <div :class="$style.timeLabel">
-              <strong>📝 笔记标题</strong>
-            </div>
-            <div :class="$style.timeValue">
-              <input
-                v-model="editableNoteTitle"
-                type="text"
-                :class="[$style.titleInput, { [$style.error]: titleError }]"
-                :disabled="!isDev"
-                @input="onTitleInput"
-                @blur="onTitleBlur"
-                placeholder="请输入笔记标题"
-              />
-              <div v-if="titleError" :class="$style.errorMessage">
-                {{ titleError }}
-              </div>
-            </div>
-          </div>
-
-          <!-- 笔记状态（仅笔记页显示且非开发环境只读） -->
-          <div
-            :class="$style.timeLine"
-            v-if="!isHomeReadme && currentNoteId"
-            title="笔记状态"
-          >
-            <div :class="$style.timeLabel">
-              <strong>📝 完成状态</strong>
-            </div>
-            <div :class="$style.timeValue">
-              <select
-                v-model="editableNoteStatus"
-                :class="$style.statusSelect"
-                :disabled="!isDev"
-                @change="onConfigChange"
-              >
-                <option :value="true">✅ 已完成</option>
-                <option :value="false">⏰ 待处理</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- 评论状态（仅笔记页显示且非开发环境只读） -->
-          <div
-            :class="$style.timeLine"
-            v-if="!isHomeReadme && currentNoteId"
-            title="评论状态"
-          >
-            <div :class="$style.timeLabel">
-              <strong>🫧 评论状态</strong>
-            </div>
-            <div :class="$style.timeValue">
-              <select
-                v-model="editableDiscussionsEnabled"
-                :class="$style.statusSelect"
-                :disabled="!isDev"
-                @change="onConfigChange"
-              >
-                <option :value="true">✅ 开启</option>
-                <option :value="false">❌ 关闭</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- 弃用状态（仅笔记页显示且非开发环境只读） -->
-          <div
-            :class="$style.timeLine"
-            v-if="!isHomeReadme && currentNoteId"
-            title="弃用状态"
-          >
-            <div :class="$style.timeLabel">
-              <strong>🗑 弃用状态</strong>
-            </div>
-            <div :class="$style.timeValue">
-              <select
-                v-model="editableDeprecated"
-                :class="$style.statusSelect"
-                :disabled="!isDev"
-                @change="onConfigChange"
-              >
-                <option :value="false">✅ 未弃用</option>
-                <option :value="true">❌ 已弃用</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- 首次提交时间 -->
-          <div :class="$style.timeLine" title="首次提交时间">
-            <div :class="$style.timeLabel"><strong>⌛️ 首次提交</strong></div>
-            <div :class="$style.timeValue">
-              {{ formatDate(modalCreatedAt) }}
-            </div>
-          </div>
-
-          <!-- 最近提交时间 -->
-          <div :class="$style.timeLine" title="最近提交时间">
-            <div :class="$style.timeLabel"><strong>⌛️ 最近提交</strong></div>
-            <div :class="$style.timeValue">
-              {{ formatDate(modalUpdatedAt) }}
-            </div>
-          </div>
-
-          <!-- GitHub 链接 -->
-          <div
-            :class="$style.timeLine"
-            v-if="modalGithubUrl"
-            :title="
-              isHomeReadme
-                ? '在 GitHub 中打开知识库'
-                : '在 GitHub 中打开当前笔记'
-            "
-          >
-            <div :class="$style.timeLabel">
-              <strong>🔗 GitHub 链接</strong>
-            </div>
-            <div :class="$style.timeValue">
-              <a
-                :href="modalGithubUrl"
-                target="_blank"
-                rel="noopener"
-                :class="$style.githubLink"
-              >
-                {{
-                  isHomeReadme
-                    ? '在 GitHub 中打开知识库'
-                    : '在 GitHub 中打开当前笔记'
-                }}
-              </a>
-            </div>
-          </div>
-
-          <!-- 完成进度（仅首页显示） -->
-          <div
-            :class="$style.timeLine"
-            v-if="isHomeReadme && completionPercentage !== null"
-            title="笔记完成进度"
-          >
-            <div :class="$style.timeLabel">
-              <strong>📊 完成进度</strong>
-            </div>
-            <div :class="$style.timeValue">
-              {{ completionPercentage }}% ({{ doneNotesLen }} /
-              {{ totalNotesLen }})
-            </div>
-          </div>
-        </div>
+        <AboutPanel
+          :is-home-readme="isHomeReadme"
+          :current-note-id="currentNoteId"
+          :is-dev="isDev"
+          v-model:editable-note-title="editableNoteTitle"
+          v-model:editable-description="editableDescription"
+          v-model:editable-note-status="editableNoteStatus"
+          v-model:editable-discussions-enabled="editableDiscussionsEnabled"
+          v-model:editable-deprecated="editableDeprecated"
+          v-model:title-error="titleError"
+          :modal-created-at="modalCreatedAt"
+          :modal-updated-at="modalUpdatedAt"
+          :modal-github-url="modalGithubUrl"
+          :completion-percentage="completionPercentage"
+          :done-notes-len="doneNotesLen"
+          :total-notes-len="totalNotesLen"
+          @title-input="onTitleInput"
+          @title-blur="onTitleBlur"
+          @description-input="onDescriptionInput"
+          @config-change="onConfigChange"
+        />
 
         <!-- 操作按钮（仅开发环境且非首页显示） -->
         <template #footer v-if="isDev && !isHomeReadme">
@@ -392,6 +245,8 @@ import Swiper from './Swiper.vue'
 import ToggleFullContent from './ToggleFullContent.vue'
 import ToggleSidebar from './ToggleSidebar.vue'
 import ContentCollapse from './ContentCollapse.vue'
+import AboutModal from './AboutModal.vue'
+import AboutPanel from './AboutPanel.vue'
 
 import icon__github from '/icon__github.svg'
 import icon__totop from '/icon__totop.svg'
@@ -409,8 +264,6 @@ import { data as readmeData } from './homeReadme.data.ts'
 import { formatDate, scrollToTop } from '../utils.ts'
 
 import { NOTES_DIR_KEY } from '../constants.ts'
-
-import AboutModal from './AboutModal.vue'
 
 const { Layout } = DefaultTheme
 const vpData = useData()
@@ -680,12 +533,14 @@ const editableNoteStatus = ref(false)
 const editableDiscussionsEnabled = ref(false)
 const editableDeprecated = ref(false)
 const editableNoteTitle = ref('')
+const editableDescription = ref('')
 
 // 原始配置（用于检测是否有变更）
 const originalNoteStatus = ref(false)
 const originalDiscussionsEnabled = ref(false)
 const originalDeprecated = ref(false)
 const originalNoteTitle = ref('')
+const originalDescription = ref('')
 
 // 标题验证错误信息
 const titleError = ref('')
@@ -696,6 +551,7 @@ const hasConfigChanges = computed(() => {
     editableNoteStatus.value !== originalNoteStatus.value ||
     editableDiscussionsEnabled.value !== originalDiscussionsEnabled.value ||
     editableDeprecated.value !== originalDeprecated.value ||
+    editableDescription.value.trim() !== originalDescription.value ||
     (editableNoteTitle.value.trim() !== originalNoteTitle.value &&
       !titleError.value)
   )
@@ -791,6 +647,11 @@ function onTitleBlur() {
   onTitleInput()
 }
 
+// 简介输入事件
+function onDescriptionInput() {
+  // 简介没有特殊验证,只需要触发变更检测
+}
+
 // 初始化可编辑字段
 function initEditableFields() {
   if (!currentNoteConfig.value) return
@@ -800,12 +661,14 @@ function initEditableFields() {
     currentNoteConfig.value.enableDiscussions || false
   editableDeprecated.value = currentNoteConfig.value.deprecated || false
   editableNoteTitle.value = currentNoteTitle.value || ''
+  editableDescription.value = currentNoteConfig.value.description || ''
 
   // 保存原始值
   originalNoteStatus.value = editableNoteStatus.value
   originalDiscussionsEnabled.value = editableDiscussionsEnabled.value
   originalDeprecated.value = editableDeprecated.value
   originalNoteTitle.value = editableNoteTitle.value
+  originalDescription.value = editableDescription.value
 
   // 清除错误信息
   titleError.value = ''
@@ -856,36 +719,35 @@ async function saveNoteConfig() {
       savingMessage.value = '文件已同步,准备跳转...'
     }
 
-    // 只在标题未改变时更新配置
-    // (如果标题改变了,重命名操作已经更新了所有内容,无需再调用配置更新)
-    if (!titleChanged) {
-      const needConfigUpdate =
-        editableNoteStatus.value !== originalNoteStatus.value ||
-        editableDiscussionsEnabled.value !== originalDiscussionsEnabled.value ||
-        editableDeprecated.value !== originalDeprecated.value
+    // 检查是否需要更新配置（无论标题是否改变）
+    const needConfigUpdate =
+      editableNoteStatus.value !== originalNoteStatus.value ||
+      editableDiscussionsEnabled.value !== originalDiscussionsEnabled.value ||
+      editableDeprecated.value !== originalDeprecated.value ||
+      editableDescription.value.trim() !== originalDescription.value
 
-      if (needConfigUpdate) {
-        savingMessage.value = '正在更新笔记配置...'
+    if (needConfigUpdate) {
+      savingMessage.value = '正在更新笔记配置...'
 
-        const response = await fetch('/__tnotes_update_config', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+      const response = await fetch('/__tnotes_update_config', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          noteId: currentNoteId.value,
+          config: {
+            done: editableNoteStatus.value,
+            enableDiscussions: editableDiscussionsEnabled.value,
+            deprecated: editableDeprecated.value,
+            description: editableDescription.value.trim(),
           },
-          body: JSON.stringify({
-            noteId: currentNoteId.value,
-            config: {
-              done: editableNoteStatus.value,
-              enableDiscussions: editableDiscussionsEnabled.value,
-              deprecated: editableDeprecated.value,
-            },
-          }),
-        })
+        }),
+      })
 
-        if (!response.ok) {
-          const error = await response.text()
-          throw new Error(error || '保存失败')
-        }
+      if (!response.ok) {
+        const error = await response.text()
+        throw new Error(error || '保存失败')
       }
     }
 
@@ -894,6 +756,7 @@ async function saveNoteConfig() {
     originalDiscussionsEnabled.value = editableDiscussionsEnabled.value
     originalDeprecated.value = editableDeprecated.value
     originalNoteTitle.value = editableNoteTitle.value.trim()
+    originalDescription.value = editableDescription.value.trim()
 
     // 更新本地配置（立即反映在页面上）
     if (allNotesConfig[currentNoteId.value]) {
@@ -901,6 +764,8 @@ async function saveNoteConfig() {
       allNotesConfig[currentNoteId.value].enableDiscussions =
         editableDiscussionsEnabled.value
       allNotesConfig[currentNoteId.value].deprecated = editableDeprecated.value
+      allNotesConfig[currentNoteId.value].description =
+        editableDescription.value.trim()
     }
 
     savingMessage.value = '保存成功！'
@@ -911,17 +776,20 @@ async function saveNoteConfig() {
       showSuccessToast.value = false
     }, 3000)
 
-    // 如果标题改变了,先跳转到loading页,再由loading页跳转到新URL
+    // 如果标题改变了,先跳转到loading页,再由loading页根据configId查询目标URL
     if (titleChanged) {
-      // 构建新的目标 URL
-      const base = vpData.site.value.base || '/'
-      const newDirName = encodeURIComponent(
-        `${currentNoteId.value}. ${editableNoteTitle.value.trim()}`
-      )
-      const newUrl = `${base}notes/${newDirName}/README`
+      // 获取当前笔记的 configId (UUID)
+      const configId = allNotesConfig[currentNoteId.value]?.id
 
-      // 跳转到loading页,并传递目标URL
-      const loadingUrl = `${base}loading?target=${encodeURIComponent(newUrl)}`
+      if (!configId) {
+        throw new Error('无法获取笔记的 configId')
+      }
+
+      // 跳转到loading页,传递 configId 参数
+      const base = vpData.site.value.base || '/'
+      const loadingUrl = `${base}loading?configId=${encodeURIComponent(
+        configId
+      )}`
       window.location.href = loadingUrl
     }
   } catch (error) {
@@ -945,6 +813,7 @@ function resetNoteConfig() {
   editableDiscussionsEnabled.value = originalDiscussionsEnabled.value
   editableDeprecated.value = originalDeprecated.value
   editableNoteTitle.value = originalNoteTitle.value
+  editableDescription.value = originalDescription.value
   titleError.value = ''
 }
 

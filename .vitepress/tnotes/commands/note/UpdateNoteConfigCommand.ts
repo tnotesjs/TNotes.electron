@@ -9,7 +9,12 @@ import type { NoteConfig } from '../../types'
 
 interface UpdateConfigParams {
   noteId: string
-  config: Partial<Pick<NoteConfig, 'done' | 'enableDiscussions' | 'deprecated'>>
+  config: Partial<
+    Pick<
+      NoteConfig,
+      'done' | 'enableDiscussions' | 'deprecated' | 'description'
+    >
+  >
 }
 
 export class UpdateNoteConfigCommand extends BaseCommand {
@@ -26,6 +31,7 @@ export class UpdateNoteConfigCommand extends BaseCommand {
     const done = process.env.NOTE_DONE === 'true'
     const enableDiscussions = process.env.NOTE_DISCUSSIONS === 'true'
     const deprecated = process.env.NOTE_DEPRECATED === 'true'
+    const description = process.env.NOTE_DESCRIPTION || ''
 
     if (!noteId) {
       this.logger.error('缺少 NOTE_ID 参数')
@@ -39,6 +45,7 @@ export class UpdateNoteConfigCommand extends BaseCommand {
           done,
           enableDiscussions,
           deprecated,
+          description,
         },
       })
 
@@ -65,8 +72,13 @@ export class UpdateNoteConfigCommand extends BaseCommand {
     await this.noteService.updateNoteConfig(noteId, config)
 
     this.logger.info(`✅ 笔记 ${noteId} 配置已更新:`)
-    this.logger.info(`  - 完成状态: ${config.done}`)
-    this.logger.info(`  - 评论状态: ${config.enableDiscussions}`)
-    this.logger.info(`  - 弃用状态: ${config.deprecated}`)
+    if (config.done !== undefined)
+      this.logger.info(`  - 完成状态: ${config.done}`)
+    if (config.enableDiscussions !== undefined)
+      this.logger.info(`  - 评论状态: ${config.enableDiscussions}`)
+    if (config.deprecated !== undefined)
+      this.logger.info(`  - 弃用状态: ${config.deprecated}`)
+    if (config.description !== undefined)
+      this.logger.info(`  - 笔记简介: ${config.description || '(空)'}`)
   }
 }

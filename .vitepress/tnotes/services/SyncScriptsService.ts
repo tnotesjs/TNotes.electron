@@ -17,18 +17,28 @@ import { logger } from '../utils/logger'
  * 需要同步的文件/目录列表（相对于项目根目录的路径）
  */
 const SYNC_LIST = [
+  // 同步 VitePress 核心脚本
   '.vitepress/theme',
   '.vitepress/tnotes',
   '.vitepress/config.mts',
   '.vitepress/env.d.ts',
+  // 同步 TS 配置
   'tsconfig.json',
+  // 同步依赖和命令
   'package.json',
+  // 同步 Git 配置
   '.gitignore',
   '.gitattributes',
+  // 同步 VSCode 配置
   '.vscode/settings.json',
   '.vscode/tasks.json',
+  // 同步公共资源
   'public',
+  // 同步 GitHub Actions 部署配置
   '.github/workflows/deploy.yml',
+  // 同步共用页面
+  'Settings.md',
+  'Loading.md',
 ]
 
 /**
@@ -94,6 +104,13 @@ export class SyncScriptsService {
   private async syncSingleRepo(targetDir: string): Promise<SyncResult> {
     const repoName = path.basename(targetDir)
     try {
+      // 先清空目标仓库的 .vitepress 目录
+      const targetVitepressDir = path.join(targetDir, '.vitepress')
+      if (fs.existsSync(targetVitepressDir)) {
+        logger.info(`  清空 .vitepress 目录...`)
+        deleteDirectory(targetVitepressDir)
+      }
+
       // 同步配置文件
       for (const item of SYNC_LIST) {
         this.syncItem(item, ROOT_DIR_PATH, targetDir)

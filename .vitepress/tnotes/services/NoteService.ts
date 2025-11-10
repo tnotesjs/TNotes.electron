@@ -8,11 +8,9 @@ import * as path from 'path'
 import { v4 as uuidv4 } from 'uuid'
 import type { NoteInfo, NoteConfig } from '../types'
 import { NoteManager } from '../core/NoteManager'
+import { NoteIndexCache } from '../core/NoteIndexCache'
 import { ConfigManager } from '../config/ConfigManager'
-import {
-  getNewNotesTnotesJsonTemplate,
-  generateNoteTitle,
-} from '../config/templates'
+import { generateNoteTitle } from '../config/templates'
 import {
   NOTES_PATH,
   README_FILENAME,
@@ -40,10 +38,34 @@ export interface CreateNoteOptions {
 export class NoteService {
   private noteManager: NoteManager
   private configManager: ConfigManager
+  private noteIndexCache: NoteIndexCache
+  private ignoredConfigPaths: Set<string> = new Set()
 
   constructor() {
     this.noteManager = new NoteManager()
     this.configManager = ConfigManager.getInstance()
+    this.noteIndexCache = NoteIndexCache.getInstance()
+  }
+
+  /**
+   * 标记配置文件在下次变更时被忽略（防止 API 写入触发文件监听循环）
+   * @param configPath - 配置文件路径
+   */
+  ignoreNextConfigChange(configPath: string): void {
+    this.ignoredConfigPaths.add(configPath)
+  }
+
+  /**
+   * 检查配置文件是否应该被忽略
+   * @param configPath - 配置文件路径
+   * @returns 是否应该忽略
+   */
+  shouldIgnoreConfigChange(configPath: string): boolean {
+    if (this.ignoredConfigPaths.has(configPath)) {
+      this.ignoredConfigPaths.delete(configPath)
+      return true
+    }
+    return false
   }
 
   /**
@@ -179,13 +201,67 @@ export class NoteService {
       throw new Error(`Note not found or no config: ${noteId}`)
     }
 
+    const oldConfig = { ...note.config }
     const updatedConfig: NoteConfig = {
       ...note.config,
       ...updates,
       updated_at: Date.now(),
     }
 
+    // 标记配置文件为忽略（防止文件监听触发循环更新）
+    this.ignoreNextConfigChange(note.configPath)
+
+    // 更新笔记配置文件
     this.noteManager.updateNoteConfig(note, updatedConfig)
+
+    // 更新内存索引
+    this.noteIndexCache.updateConfig(noteId, updatedConfig)
+
+    // 检查是否需要更新全局文件
+    const needsGlobalUpdate = this.checkNeedsGlobalUpdate(
+      oldConfig,
+      updatedConfig
+    )
+
+    if (needsGlobalUpdate) {
+      logger.info(`检测到全局字段变更 (${noteId})，正在增量更新全局文件...`)
+
+      // 使用增量更新
+      const ReadmeService = require('./ReadmeService').ReadmeService
+      const readmeService = new ReadmeService()
+
+      // 增量更新 README.md 中的笔记
+      await readmeService.updateNoteInReadme(noteId, updates)
+
+      // 重新生成 sidebar.json（基于更新后的 README.md）
+      await readmeService.regenerateSidebar()
+
+      logger.info(`全局文件增量更新完成 (${noteId})`)
+    } else {
+      logger.debug(`配置更新不影响全局文件 (${noteId})`)
+    }
+  }
+
+  /**
+   * 检查配置更新是否需要触发全局更新
+   * @param oldConfig - 旧配置
+   * @param newConfig - 新配置
+   * @returns 是否需要全局更新
+   */
+  private checkNeedsGlobalUpdate(
+    oldConfig: NoteConfig,
+    newConfig: NoteConfig
+  ): boolean {
+    // 影响全局的字段：done、deprecated
+    const globalFields: (keyof NoteConfig)[] = ['done', 'deprecated']
+
+    for (const field of globalFields) {
+      if (oldConfig[field] !== newConfig[field]) {
+        return true
+      }
+    }
+
+    return false
   }
 
   /**

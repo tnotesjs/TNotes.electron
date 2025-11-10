@@ -43,6 +43,14 @@ export interface CommandArgs {
    * 是否包含所有仓库
    */
   all?: boolean
+  /**
+   * 静默模式 (用于 update 命令)
+   */
+  quiet?: boolean
+  /**
+   * 强制执行 (用于 push 命令)
+   */
+  force?: boolean
 }
 
 /**

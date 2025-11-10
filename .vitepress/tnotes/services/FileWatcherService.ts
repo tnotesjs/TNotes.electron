@@ -10,6 +10,7 @@ import { logger } from '../utils/logger'
 import { ConfigValidator } from '../utils/ConfigValidator'
 import { ReadmeService } from './ReadmeService'
 import { NoteService } from './NoteService'
+import { NoteIndexCache } from '../core/NoteIndexCache'
 import { NOTES_DIR_PATH } from '../config/constants'
 import type { NoteConfig } from '../types'
 
@@ -31,6 +32,7 @@ interface FileChange {
 export class FileWatcherService {
   private readmeService: ReadmeService
   private noteService: NoteService
+  private noteIndexCache: NoteIndexCache
   private watcher: fs.FSWatcher | null = null
   private updateTimer: NodeJS.Timeout | null = null
   private readonly debounceDelay = 1000 // 防抖延迟（毫秒）
@@ -53,6 +55,7 @@ export class FileWatcherService {
   constructor() {
     this.readmeService = new ReadmeService()
     this.noteService = new NoteService()
+    this.noteIndexCache = NoteIndexCache.getInstance()
   }
 
   /**
@@ -396,7 +399,17 @@ export class FileWatcherService {
 
     try {
       const startTime = Date.now()
-      logger.info('正在更新全局文件（sidebar、README）...')
+
+      // 从文件夹名称提取笔记 ID
+      const noteIdMatch = deletedFolderName.match(/^(\d{4})\./)
+      const noteId = noteIdMatch ? noteIdMatch[1] : null
+
+      if (!noteId) {
+        logger.warn(`无法从文件夹名称提取笔记 ID: ${deletedFolderName}`)
+        return
+      }
+
+      logger.info(`正在处理笔记删除: ${noteId} (${deletedFolderName})`)
 
       // 从缓存中删除已删除的文件夹
       this.noteDirCache.delete(deletedFolderName)
@@ -416,17 +429,18 @@ export class FileWatcherService {
       this.fileHashes.delete(deletedConfigPath)
       this.configCache.delete(deletedConfigPath)
 
-      // 重新扫描所有笔记（因为笔记已被删除）
-      const allNotes = this.noteService.getAllNotes()
+      // 从索引缓存中删除笔记
+      this.noteIndexCache.delete(noteId)
 
-      // 更新全局文件
-      await this.readmeService.updateGlobalFiles(allNotes)
+      // 使用增量删除
+      await this.readmeService.deleteNoteFromReadme(noteId)
+      await this.readmeService.regenerateSidebar()
 
       const duration = Date.now() - startTime
-      logger.success(`全局文件更新完成 (耗时 ${duration}ms)`)
-      logger.info(`  - 已更新 sidebar.json`)
-      logger.info(`  - 已更新 README.md`)
-      logger.info(`  - 已从缓存中移除 ${deletedFolderName}`)
+      logger.success(`笔记删除处理完成 (耗时 ${duration}ms)`)
+      logger.info(`  - 已从 README.md 中删除笔记: ${noteId}`)
+      logger.info(`  - 已重新生成 sidebar.json`)
+      logger.info(`  - 已从索引缓存中移除: ${noteId}`)
 
       this.lastUpdateTime = Date.now()
     } catch (error) {
@@ -458,18 +472,88 @@ export class FileWatcherService {
 
     try {
       const startTime = Date.now()
-      logger.info('正在更新全局文件（sidebar、README）...')
 
-      // 重新扫描所有笔记（因为文件夹名称已变更）
-      const allNotes = this.noteService.getAllNotes()
+      // 提取新旧的笔记 ID
+      const oldNoteIdMatch = oldName.match(/^(\d{4})\./)
+      const newNoteIdMatch = newName.match(/^(\d{4})\./)
 
-      // 更新全局文件
-      await this.readmeService.updateGlobalFiles(allNotes)
+      const oldNoteId = oldNoteIdMatch ? oldNoteIdMatch[1] : null
+      const newNoteId = newNoteIdMatch ? newNoteIdMatch[1] : null
+
+      if (!oldNoteId || !newNoteId) {
+        logger.error(`无效的文件夹重命名: ${oldName} → ${newName}`)
+        return
+      }
+
+      // 验证新 ID 的合法性
+      if (!/^\d{4}$/.test(newNoteId)) {
+        logger.error(`新笔记 ID 格式非法: ${newNoteId}，自动回退`)
+        await this.revertFolderRename(oldName, newName)
+        return
+      }
+
+      // 检查 ID 是否重复
+      if (oldNoteId !== newNoteId && this.noteIndexCache.has(newNoteId)) {
+        logger.error(`新笔记 ID ${newNoteId} 已存在，自动回退`)
+        await this.revertFolderRename(oldName, newName)
+        return
+      }
+
+      logger.info(`正在处理文件夹重命名: ${oldName} → ${newName}`)
+
+      if (oldNoteId === newNoteId) {
+        // ID 未变，只是标题变了 - 使用增量更新
+        logger.info(`笔记 ID 未变 (${newNoteId})，只更新标题`)
+
+        // 更新索引缓存中的文件夹名称
+        this.noteIndexCache.updateFolderName(newNoteId, newName)
+
+        // 更新 README.md 中的笔记
+        const item = this.noteIndexCache.getByNoteId(newNoteId)
+        if (item) {
+          await this.readmeService.updateNoteInReadme(
+            newNoteId,
+            item.noteConfig
+          )
+        }
+
+        // 重新生成 sidebar.json
+        await this.readmeService.regenerateSidebar()
+
+        logger.success(`标题更新完成`)
+      } else {
+        // ID 变了 - 删除旧记录 + 添加新记录
+        logger.info(`笔记 ID 变更: ${oldNoteId} → ${newNoteId}`)
+
+        // 从 README.md 中删除旧记录
+        await this.readmeService.deleteNoteFromReadme(oldNoteId)
+
+        // 重新扫描笔记信息（获取新的配置）
+        const allNotes = this.noteService.getAllNotes()
+        const newNote = allNotes.find((n) => n.id === newNoteId)
+
+        if (newNote) {
+          // 更新索引缓存
+          this.noteIndexCache.delete(oldNoteId)
+          this.noteIndexCache.add(newNote)
+
+          // 在 README.md 末尾添加新记录
+          await this.readmeService.appendNoteToReadme(newNoteId)
+
+          // 重新生成 sidebar.json
+          await this.readmeService.regenerateSidebar()
+
+          logger.success(`笔记 ID 变更处理完成`)
+        } else {
+          logger.error(`未找到新笔记: ${newNoteId}`)
+        }
+      }
 
       const duration = Date.now() - startTime
-      logger.success(`全局文件更新完成 (耗时 ${duration}ms)`)
-      logger.info(`  - 已更新 sidebar.json`)
+      logger.success(`文件夹重命名更新完成 (耗时 ${duration}ms)`)
       logger.info(`  - 已更新 README.md`)
+      logger.info(`  - 已重新生成 sidebar.json`)
+      logger.info(`  - 已更新索引缓存`)
 
       this.lastUpdateTime = Date.now()
     } catch (error) {
@@ -481,6 +565,36 @@ export class FileWatcherService {
         // 重新初始化缓存
         this.initializeFileHashes()
       }, 1000)
+    }
+  }
+
+  /**
+   * 回退文件夹重命名
+   * @param oldName - 旧文件夹名称
+   * @param newName - 新文件夹名称
+   */
+  private async revertFolderRename(
+    oldName: string,
+    newName: string
+  ): Promise<void> {
+    try {
+      const oldPath = path.join(NOTES_DIR_PATH, oldName)
+      const newPath = path.join(NOTES_DIR_PATH, newName)
+
+      if (fs.existsSync(newPath)) {
+        // 暂时忽略下一次文件变更事件（避免循环）
+        this.isUpdating = true
+
+        await fs.promises.rename(newPath, oldPath)
+        logger.warn(`文件夹已回退: ${newName} → ${oldName}`)
+
+        // 延迟恢复
+        setTimeout(() => {
+          this.isUpdating = false
+        }, 2000)
+      }
+    } catch (error) {
+      logger.error(`回退文件夹重命名失败: ${error}`)
     }
   }
 
@@ -562,22 +676,54 @@ export class FileWatcherService {
       let hasStatusChange = false
 
       for (const change of configChanges) {
+        // 检查 NoteService 是否应该忽略这个文件（API 写入的文件）
+        if (this.noteService.shouldIgnoreConfigChange(change.path)) {
+          logger.debug(`忽略 API 写入的配置文件: ${change.path}`)
+          continue
+        }
+
         if (this.hasConfigStatusChanged(change.path)) {
           hasStatusChange = true
           break
         }
       }
 
-      // 如果有状态变化，需要更新全局文件
+      // 如果有状态变化，使用增量更新
       if (hasStatusChange) {
-        logger.info('检测到笔记状态变化，更新全局文件...')
-        const allNotes = this.noteService.getAllNotes()
-        await this.readmeService.updateGlobalFiles(allNotes)
+        logger.info('检测到笔记状态变化，增量更新全局文件...')
+
+        // 获取发生状态变化的笔记 ID
+        const changedNoteIds: string[] = []
+        for (const change of configChanges) {
+          if (this.hasConfigStatusChanged(change.path)) {
+            changedNoteIds.push(change.noteId)
+          }
+        }
+
+        // 对每个变更的笔记进行增量更新
+        for (const noteId of changedNoteIds) {
+          try {
+            const item = this.noteIndexCache.getByNoteId(noteId)
+            if (item) {
+              // 更新 README.md 中的笔记
+              await this.readmeService.updateNoteInReadme(
+                noteId,
+                item.noteConfig
+              )
+              logger.info(`增量更新 README 中的笔记: ${noteId}`)
+            }
+          } catch (error) {
+            logger.error(`增量更新失败: ${noteId}`, error)
+          }
+        }
+
+        // 重新生成 sidebar.json
+        await this.readmeService.regenerateSidebar()
 
         const duration = Date.now() - startTime
-        logger.success(`全局文件更新完成 (耗时 ${duration}ms)`)
-        logger.info(`  - 已更新 sidebar.json`)
-        logger.info(`  - 已更新 README.md`)
+        logger.success(`增量更新完成 (耗时 ${duration}ms)`)
+        logger.info(`  - 已更新 ${changedNoteIds.length} 个笔记`)
+        logger.info(`  - 已重新生成 sidebar.json`)
       } else {
         // 没有状态变化，只更新笔记内容
         const noteIdsToUpdate = [...new Set(changes.map((c) => c.noteId))]

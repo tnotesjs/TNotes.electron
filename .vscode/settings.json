@@ -204,7 +204,7 @@
     "package.json": ".gitignore,package-lock.json,.gitattributes,tsconfig.json,pnpm-lock.yaml,.vitepress-pid",
     "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,cspell.json",
     "tailwind.config.mjs": "postcss.*",
-    ".tnotes.json": "Settings.md,sidebar.json,TOC.md,Words.md,References.md,Introduction.md,index.md"
+    ".tnotes.json": "Settings.md,sidebar.json,TOC.md,Words.md,References.md,Introduction.md,index.md,Loading.md"
   },
 
   // #endregion - Explorer（资源管理器相关配置）

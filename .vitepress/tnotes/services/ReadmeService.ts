@@ -3,11 +3,12 @@
  *
  * README 服务 - 封装 README 更新相关的业务逻辑
  */
-import type { NoteInfo } from '../types'
+import type { NoteInfo, NoteConfig } from '../types'
 import { NoteManager } from '../core/NoteManager'
 import { ReadmeGenerator } from '../core/ReadmeGenerator'
 import { SidebarGenerator } from '../core/SidebarGenerator'
 import { ConfigManager } from '../config/ConfigManager'
+import { NoteIndexCache } from '../core/NoteIndexCache'
 import { logger } from '../utils/logger'
 import { formatWithPrettier } from '../utils/prettier'
 import {
@@ -34,12 +35,14 @@ export class ReadmeService {
   private readmeGenerator: ReadmeGenerator
   private sidebarGenerator: SidebarGenerator
   private configManager: ConfigManager
+  private noteIndexCache: NoteIndexCache
 
   constructor() {
     this.noteManager = new NoteManager()
     this.readmeGenerator = new ReadmeGenerator()
     this.sidebarGenerator = new SidebarGenerator()
     this.configManager = ConfigManager.getInstance()
+    this.noteIndexCache = NoteIndexCache.getInstance()
   }
 
   /**
@@ -425,6 +428,131 @@ export class ReadmeService {
    */
   private async updateHomeReadme(notes: NoteInfo[]): Promise<void> {
     this.readmeGenerator.updateHomeReadme(notes, ROOT_README_PATH)
+  }
+
+  /**
+   * 增量更新首页 README 中的单个笔记
+   * @param noteId - 笔记 ID
+   * @param updates - 需要更新的配置字段
+   */
+  async updateNoteInReadme(
+    noteId: string,
+    updates: Partial<NoteConfig>
+  ): Promise<void> {
+    const item = this.noteIndexCache.getByNoteId(noteId)
+    if (!item) {
+      logger.warn(`尝试更新不存在的笔记: ${noteId}`)
+      return
+    }
+
+    // 读取 README.md
+    const content = await fs.promises.readFile(ROOT_README_PATH, 'utf-8')
+    const lines = content.split('\n')
+    const repoOwner = this.configManager.get('author')
+    const repoName = this.configManager.get('repoName')
+
+    // 构建一个临时的 NoteInfo 对象用于生成 markdown
+    const tempNoteInfo: NoteInfo = {
+      id: noteId,
+      dirName: item.folderName,
+      path: '',
+      readmePath: '',
+      configPath: '',
+      config: item.noteConfig,
+    }
+
+    let updated = false
+
+    // 遍历所有行，更新所有引用该笔记的地方
+    for (let i = 0; i < lines.length; i++) {
+      const parsed = parseNoteLine(lines[i])
+      if (parsed.noteId === noteId) {
+        lines[i] = buildNoteLineMarkdown(tempNoteInfo, repoOwner, repoName)
+        updated = true
+      }
+    }
+
+    if (updated) {
+      await fs.promises.writeFile(ROOT_README_PATH, lines.join('\n'), 'utf-8')
+      logger.info(`增量更新 README.md 中的笔记: ${noteId}`)
+    } else {
+      logger.warn(`README.md 中未找到笔记: ${noteId}`)
+    }
+  }
+
+  /**
+   * 从首页 README 中删除笔记
+   * @param noteId - 笔记 ID
+   */
+  async deleteNoteFromReadme(noteId: string): Promise<void> {
+    const content = await fs.promises.readFile(ROOT_README_PATH, 'utf-8')
+    const lines = content.split('\n')
+    const linesToRemove: number[] = []
+
+    // 查找所有引用该笔记的行
+    for (let i = 0; i < lines.length; i++) {
+      const parsed = parseNoteLine(lines[i])
+      if (parsed.noteId === noteId) {
+        linesToRemove.push(i)
+      }
+    }
+
+    if (linesToRemove.length > 0) {
+      // 从后往前删除，避免索引问题
+      for (let i = linesToRemove.length - 1; i >= 0; i--) {
+        lines.splice(linesToRemove[i], 1)
+      }
+
+      await fs.promises.writeFile(ROOT_README_PATH, lines.join('\n'), 'utf-8')
+      logger.info(
+        `从 README.md 中删除笔记: ${noteId} (${linesToRemove.length} 处引用)`
+      )
+    } else {
+      logger.warn(`README.md 中未找到笔记: ${noteId}`)
+    }
+  }
+
+  /**
+   * 在首页 README 末尾添加新笔记
+   * @param noteId - 笔记 ID
+   */
+  async appendNoteToReadme(noteId: string): Promise<void> {
+    const item = this.noteIndexCache.getByNoteId(noteId)
+    if (!item) {
+      logger.warn(`尝试添加不存在的笔记: ${noteId}`)
+      return
+    }
+
+    const content = await fs.promises.readFile(ROOT_README_PATH, 'utf-8')
+    const lines = content.split('\n')
+    const repoOwner = this.configManager.get('author')
+    const repoName = this.configManager.get('repoName')
+
+    // 构建临时 NoteInfo
+    const tempNoteInfo: NoteInfo = {
+      id: noteId,
+      dirName: item.folderName,
+      path: '',
+      readmePath: '',
+      configPath: '',
+      config: item.noteConfig,
+    }
+
+    // 在末尾添加笔记行
+    const noteLine = buildNoteLineMarkdown(tempNoteInfo, repoOwner, repoName)
+    lines.push(noteLine)
+
+    await fs.promises.writeFile(ROOT_README_PATH, lines.join('\n'), 'utf-8')
+    logger.info(`在 README.md 末尾添加笔记: ${noteId}`)
+  }
+
+  /**
+   * 重新生成 sidebar.json（基于当前 README.md）
+   */
+  async regenerateSidebar(): Promise<void> {
+    const notes = this.noteManager.scanNotes()
+    await this.updateSidebar(notes)
+    logger.info('重新生成 sidebar.json')
   }
 
   /**

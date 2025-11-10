@@ -5,14 +5,31 @@
  */
 import type { Plugin } from 'vite'
 import { UpdateNoteConfigCommand } from '../../commands/note/UpdateNoteConfigCommand'
+import { serviceManager } from '../../services/ServiceManager'
+import { logger } from '../../utils/logger'
 
 export function updateConfigPlugin(): Plugin {
   let updateCommand: UpdateNoteConfigCommand
+  let isInitialized = false
 
   return {
     name: 'tnotes-update-config',
 
-    configureServer(server) {
+    async configureServer(server) {
+      // 初始化 ServiceManager（包含笔记索引缓存）
+      if (!isInitialized) {
+        try {
+          logger.info('updateConfigPlugin: 正在初始化服务...')
+          await serviceManager.initialize()
+          isInitialized = true
+          logger.success('updateConfigPlugin: 服务初始化完成')
+        } catch (error) {
+          logger.error('updateConfigPlugin: 服务初始化失败，插件将无法正常工作')
+          logger.error(error)
+          // 不中断服务器启动，但记录错误
+        }
+      }
+
       // 初始化命令实例
       updateCommand = new UpdateNoteConfigCommand()
 
@@ -43,6 +60,7 @@ export function updateConfigPlugin(): Plugin {
                   done: config.done,
                   enableDiscussions: config.enableDiscussions,
                   deprecated: config.deprecated,
+                  description: config.description,
                 },
               })
 
