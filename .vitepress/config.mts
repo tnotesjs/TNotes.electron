@@ -49,12 +49,11 @@ export default defineConfig({
   title: repoName,
   srcExclude: IGNORE_LIST,
   vite: {
-    // @ts-expect-error - Vite plugin type mismatch between different versions
     plugins: [
-      updateConfigPlugin(),
-      renameNotePlugin(),
-      getNoteByConfigIdPlugin(),
-    ],
+      updateConfigPlugin() as any,
+      renameNotePlugin() as any,
+      getNoteByConfigIdPlugin() as any,
+    ], // 类型断言: VitePress 的 vite 5.4.20 与 vite 7.1.9 插件类型不兼容
     server: {
       watch: {
         ignored: IGNORE_LIST,

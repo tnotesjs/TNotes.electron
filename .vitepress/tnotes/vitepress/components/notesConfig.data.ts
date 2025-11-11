@@ -1,6 +1,6 @@
 // .vitepress/components/notesConfig.data.ts
 import fs from 'node:fs'
-import { IGNORE_DIRS } from './constants'
+import { IGNORE_DIRS, NOTES_DIR_KEY } from './constants'
 
 interface NoteConfig {
   [key: string]: any
@@ -8,8 +8,8 @@ interface NoteConfig {
 }
 
 export default {
-  // 监听笔记目录下的 .tnotes.json 文件变化
-  watch: ['../../../../notes/**/.tnotes.json'],
+  // 监听笔记目录下第一级的 .tnotes.json 文件变化
+  watch: ['../../../../notes/*/.tnotes.json'],
   load(watchedFiles: string[]): Record<string, NoteConfig> {
     // console.log('watchedFiles', watchedFiles)
 
