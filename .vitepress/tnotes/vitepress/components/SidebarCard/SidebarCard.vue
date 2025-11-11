@@ -3,6 +3,8 @@ import { useData } from 'vitepress'
 import { formatDate } from '../utils.ts'
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vitepress'
+// @ts-expect-error - VitePress Data Loader
+import { data as sidebarConfig } from '../sidebar.data'
 
 import {
   NOTES_DIR_KEY,
@@ -107,11 +109,18 @@ const folderViewData = computed(() => {
 // #endregion
 
 const router = useRouter()
-const { theme, site } = useData()
+const { site } = useData()
 const baseUrl = site.value.base.replace(/\/$/, '')
 
+// 使用 VitePress Data Loader 读取的 sidebar 数据
+const sidebarData = computed(() => {
+  return sidebarConfig && sidebarConfig['/notes/']
+    ? sidebarConfig['/notes/']
+    : []
+})
+
 const { articles, groups } = extractArticlesWithGroups(
-  theme.value.sidebar,
+  sidebarData.value,
   props.pending,
   props.done,
   props.deprecated

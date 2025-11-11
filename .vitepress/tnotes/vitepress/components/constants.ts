@@ -55,6 +55,12 @@ export const MARKMAP_EXPAND_LEVEL_KEY: string =
   'MARKMAP_EXPAND_LEVEL_KEY__' + repoName
 
 /**
+ * 侧边栏是否显示笔记编号配置
+ */
+export const SIDEBAR_SHOW_NOTE_ID_KEY: string =
+  'SIDEBAR_SHOW_NOTE_ID_KEY__' + repoName
+
+/**
  * VitePress HOME README 文件名
  * 该文件内容基于 HOME README 而生成，作为 github pages 中的 README 文件，主要用于展示笔记的目录结构。
  */

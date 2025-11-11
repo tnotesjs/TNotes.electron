@@ -5,7 +5,7 @@
  */
 import { DefaultTheme } from 'vitepress'
 import { menuItems, socialLinks } from '../../../../.tnotes.json'
-import sidebar from '../../../../sidebar.json'
+// import sidebar from '../../../../sidebar.json'
 
 export function getThemeConfig(): DefaultTheme.Config {
   const themeConfig: DefaultTheme.Config = {
@@ -92,7 +92,13 @@ export function getThemeConfig(): DefaultTheme.Config {
         },
       },
     },
-    sidebar: [...sidebar],
+    // sidebar: [...sidebar],
+    sidebar: [
+      {
+        text: '👀 README',
+        link: '/README',
+      },
+    ],
     socialLinks,
   }
 

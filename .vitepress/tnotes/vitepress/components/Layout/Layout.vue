@@ -136,16 +136,20 @@
       </span>
     </template> -->
 
+    <!-- 使用 sidebar-nav-before 插槽插入控制按钮 -->
     <template #sidebar-nav-before>
-      <div :class="$style.sidebarControls">
-        <span
-          @click="toggleAllSidebarSections"
-          :class="{ [$style.folded]: !allSidebarExpanded }"
-          :title="allSidebarExpanded ? '收起所有章节' : '展开所有章节'"
-        >
-          <img :src="icon__fold" alt="折叠/展开" />
-        </span>
-      </div>
+      <SidebarNavBefore
+        :is-expanded="allSidebarExpanded"
+        :show-note-id="showNoteId"
+        @toggle-expand="toggleSidebarSections"
+        @toggle-note-id="toggleNoteId"
+        @focus-current="focusCurrentNote"
+      />
+    </template>
+
+    <!-- 使用 sidebar-nav-after 插槽插入自定义 Sidebar -->
+    <template #sidebar-nav-after>
+      <CustomSidebar ref="customSidebarRef" />
     </template>
     <!-- <template #sidebar-nav-after>sidebar-nav-after</template> -->
 
@@ -174,8 +178,8 @@ import ContentCollapse from './ContentCollapse.vue'
 import AboutModal from './AboutModal.vue'
 import AboutPanel from './AboutPanel.vue'
 import DocBeforeControls from './DocBeforeControls.vue'
-
-import icon__fold from '/icon__fold.svg'
+import CustomSidebar from './CustomSidebar.vue'
+import SidebarNavBefore from './SidebarNavBefore.vue'
 
 import { useData, useRoute, useRouter } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
@@ -183,13 +187,13 @@ import { computed, onMounted, ref, watch } from 'vue'
 
 import { data as allNotesConfig } from '../notesConfig.data.ts'
 import { data as readmeData } from './homeReadme.data.ts'
+import { SIDEBAR_SHOW_NOTE_ID_KEY } from '../constants'
 
 // Composables
 import { useRedirect } from './composables/useRedirect'
 import { useNoteConfig } from './composables/useNoteConfig'
 import { useNoteValidation } from './composables/useNoteValidation'
 import { useNoteSave } from './composables/useNoteSave'
-import { useSidebarControl } from './composables/useSidebarControl'
 import { useCollapseControl } from './composables/useCollapseControl'
 import { useVSCodeIntegration } from './composables/useVSCodeIntegration'
 
@@ -197,6 +201,51 @@ const { Layout } = DefaultTheme
 const vpData = useData()
 const router = useRouter()
 const route = useRoute()
+
+// 自定义侧边栏引用
+const customSidebarRef = ref(null)
+const allSidebarExpanded = ref(false)
+const showNoteId = ref(false)
+
+// 初始化笔记编号显示状态
+if (typeof window !== 'undefined') {
+  const savedShowNoteId = localStorage.getItem(SIDEBAR_SHOW_NOTE_ID_KEY)
+  showNoteId.value = savedShowNoteId === 'true'
+}
+
+// 切换侧边栏展开/折叠状态
+function toggleSidebarSections() {
+  if (customSidebarRef.value) {
+    if (allSidebarExpanded.value) {
+      customSidebarRef.value.collapseAll()
+    } else {
+      customSidebarRef.value.expandAll()
+    }
+    allSidebarExpanded.value = !allSidebarExpanded.value
+  }
+}
+
+// 切换笔记编号显示状态
+function toggleNoteId() {
+  showNoteId.value = !showNoteId.value
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(SIDEBAR_SHOW_NOTE_ID_KEY, showNoteId.value.toString())
+    // 刷新页面以应用变化
+    window.location.reload()
+  }
+}
+
+// 聚焦到当前笔记
+function focusCurrentNote() {
+  console.log('🎯 [Layout] focusCurrentNote called')
+  console.log('🎯 [Layout] customSidebarRef:', customSidebarRef.value)
+  if (customSidebarRef.value) {
+    console.log('🎯 [Layout] Calling customSidebarRef.focusCurrentNote()')
+    customSidebarRef.value.focusCurrentNote()
+  } else {
+    console.log('❌ [Layout] customSidebarRef is null')
+  }
+}
 
 // 提取当前笔记的 ID（前 4 个数字）
 const currentNoteId = computed(() => {
@@ -323,9 +372,6 @@ const {
   allNotesConfig,
   updateOriginalValues
 )
-
-// 侧边栏控制
-const { allSidebarExpanded, toggleAllSidebarSections } = useSidebarControl()
 
 // 折叠控制
 const { allCollapsed, toggleAllCollapse } = useCollapseControl()

@@ -57,6 +57,36 @@
       </select>
     </div>
 
+    <!-- 侧边栏配置 -->
+    <div :class="$style.settingItem">
+      <div :class="$style.itemHeader">
+        <div :class="$style.itemTitle">
+          <span :class="$style.itemIcon">📑</span>
+          <span :class="$style.itemName">侧边栏配置</span>
+        </div>
+        <span :class="$style.statusBadge" v-if="showNoteId">显示编号</span>
+      </div>
+
+      <div :class="$style.helpText">
+        控制侧边栏中是否显示笔记编号（如 "0001. "）。
+      </div>
+
+      <div :class="$style.field">
+        <label :class="$style.checkboxLabel">
+          <input
+            v-model="showNoteId"
+            type="checkbox"
+            :class="$style.checkbox"
+          />
+          <span>显示笔记编号</span>
+        </label>
+        <div :class="$style.fieldHelp">
+          勾选后，侧边栏将显示完整的笔记标题（包含编号），例如 "0001. TNotes
+          简介"
+        </div>
+      </div>
+    </div>
+
     <!-- MarkMap 配置 -->
     <div :class="$style.settingItem">
       <div :class="$style.itemHeader">
@@ -127,7 +157,10 @@ import {
   NOTES_DIR_KEY,
   MARKMAP_THEME_KEY,
   MARKMAP_EXPAND_LEVEL_KEY,
+  SIDEBAR_SHOW_NOTE_ID_KEY,
 } from '../constants'
+// @ts-expect-error - VitePress Data Loader
+import { data as tnotesConfig } from '../tnotes-config.data'
 
 const CONTENT_WIDTH_KEY = 'tnotes-content-width'
 
@@ -141,6 +174,8 @@ const originalMarkmapTheme = ref('default')
 const markmapExpandLevel = ref(5)
 const originalMarkmapExpandLevel = ref(5)
 const contentWidth = ref('688px')
+const showNoteId = ref(false)
+const originalShowNoteId = ref(false)
 const showSuccessToast = ref(false)
 // #endregion
 
@@ -151,7 +186,8 @@ const hasChanges = computed(
   () =>
     path.value !== originalPath.value ||
     markmapTheme.value !== originalMarkmapTheme.value ||
-    markmapExpandLevel.value !== originalMarkmapExpandLevel.value
+    markmapExpandLevel.value !== originalMarkmapExpandLevel.value ||
+    showNoteId.value !== originalShowNoteId.value
 )
 
 const saveText = computed(() => {
@@ -180,6 +216,16 @@ onMounted(() => {
     const savedWidth = localStorage.getItem(CONTENT_WIDTH_KEY) || '688px'
     contentWidth.value = savedWidth
     applyContentWidth()
+
+    // 读取侧边栏显示笔记 ID 配置
+    // 优先使用 localStorage 中的用户自定义配置，否则使用配置文件中的默认值
+    const savedShowNoteId = localStorage.getItem(SIDEBAR_SHOW_NOTE_ID_KEY)
+    if (savedShowNoteId !== null) {
+      showNoteId.value = savedShowNoteId === 'true'
+    } else {
+      showNoteId.value = tnotesConfig?.sidebarShowNoteId ?? false
+    }
+    originalShowNoteId.value = showNoteId.value
   }
 })
 // #endregion
@@ -199,22 +245,39 @@ function save() {
   if (!hasChanges.value) return
 
   try {
+    // 保存前先记录是否需要刷新页面
+    const needReload = showNoteId.value !== originalShowNoteId.value
+
     localStorage.setItem(NOTES_DIR_KEY, path.value)
     localStorage.setItem(MARKMAP_THEME_KEY, markmapTheme.value)
     localStorage.setItem(
       MARKMAP_EXPAND_LEVEL_KEY,
       markmapExpandLevel.value.toString()
     )
+    localStorage.setItem(SIDEBAR_SHOW_NOTE_ID_KEY, showNoteId.value.toString())
+
+    console.log('💾 [Settings] Saved showNoteId:', showNoteId.value)
 
     originalPath.value = path.value
     originalMarkmapTheme.value = markmapTheme.value
     originalMarkmapExpandLevel.value = markmapExpandLevel.value
+    originalShowNoteId.value = showNoteId.value
 
     // 显示成功提示
     showSuccessToast.value = true
     setTimeout(() => {
       showSuccessToast.value = false
     }, 3000)
+
+    // 触发页面刷新以应用侧边栏配置变化
+    if (needReload) {
+      console.log(
+        '🔄 [Settings] Reloading page to apply sidebar config change...'
+      )
+      setTimeout(() => {
+        window.location.reload()
+      }, 500)
+    }
   } catch (error) {
     console.error('保存配置失败:', error)
     alert('保存失败，请检查浏览器设置')
@@ -225,6 +288,7 @@ function reset() {
   path.value = originalPath.value
   markmapTheme.value = originalMarkmapTheme.value
   markmapExpandLevel.value = originalMarkmapExpandLevel.value
+  showNoteId.value = originalShowNoteId.value
 }
 
 // 应用内容宽度（通过 CSS 变量）
