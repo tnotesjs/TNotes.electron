@@ -8,7 +8,7 @@
           <p>Current path: {{ decodedCurrentPath }}</p>
           <p>Matched ID: {{ matchedId }}</p>
           <p>Redirect path: {{ redirectPath }}</p>
-        </div> -->
+        </div> -->layout
       </div>
     </template>
     <template #doc-top>
@@ -36,6 +36,11 @@
         :all-collapsed="allCollapsed"
         @open-time-modal="openTimeModal"
         @toggle-all-collapse="toggleAllCollapse"
+      />
+      <!-- 笔记状态标题 -->
+      <NoteStatus
+        :note-config="currentNoteConfig"
+        :is-notes-page="isNotesPage"
       />
 
       <AboutModal
@@ -115,6 +120,8 @@
       </div> -->
     </template>
     <template #doc-after>
+      <!-- 自定义 DocFooter -->
+      <DocFooter />
       <!-- {{ REPO_NAME + '.' + currentNoteId }} -->
       <Discussions v-if="isDiscussionsVisible" :id="currentNoteConfig.id" />
     </template>
@@ -180,6 +187,8 @@ import AboutPanel from './AboutPanel.vue'
 import DocBeforeControls from './DocBeforeControls.vue'
 import CustomSidebar from './CustomSidebar.vue'
 import SidebarNavBefore from './SidebarNavBefore.vue'
+import DocFooter from './DocFooter.vue'
+import NoteStatus from './NoteStatus.vue'
 
 import { useData, useRoute, useRouter } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
@@ -196,16 +205,25 @@ import { useNoteValidation } from './composables/useNoteValidation'
 import { useNoteSave } from './composables/useNoteSave'
 import { useCollapseControl } from './composables/useCollapseControl'
 import { useVSCodeIntegration } from './composables/useVSCodeIntegration'
+import { useCodeBlockFullscreen } from '../CodeBlockFullscreen'
 
 const { Layout } = DefaultTheme
 const vpData = useData()
 const router = useRouter()
 const route = useRoute()
 
+// 启用代码块全屏功能
+useCodeBlockFullscreen()
+
 // 自定义侧边栏引用
 const customSidebarRef = ref(null)
-const allSidebarExpanded = ref(false)
 const showNoteId = ref(false)
+
+// 计算是否有展开的一级章节
+const allSidebarExpanded = computed(() => {
+  if (!customSidebarRef.value) return false
+  return customSidebarRef.value.hasAnyFirstLevelExpanded()
+})
 
 // 初始化笔记编号显示状态
 if (typeof window !== 'undefined') {
@@ -213,15 +231,10 @@ if (typeof window !== 'undefined') {
   showNoteId.value = savedShowNoteId === 'true'
 }
 
-// 切换侧边栏展开/折叠状态
+// 切换侧边栏展开/折叠状态（智能切换）
 function toggleSidebarSections() {
   if (customSidebarRef.value) {
-    if (allSidebarExpanded.value) {
-      customSidebarRef.value.collapseAll()
-    } else {
-      customSidebarRef.value.expandAll()
-    }
-    allSidebarExpanded.value = !allSidebarExpanded.value
+    customSidebarRef.value.toggleExpandCollapse()
   }
 }
 
@@ -251,6 +264,11 @@ function focusCurrentNote() {
 const currentNoteId = computed(() => {
   const match = vpData.page.value.relativePath.match(/notes\/(\d{4})\./)
   return match ? match[1] : null
+})
+
+// 判断是否是笔记页面（notes 目录下）
+const isNotesPage = computed(() => {
+  return vpData.page.value.relativePath.startsWith('notes/')
 })
 
 // 提取当前笔记的标题（从 relativePath）
@@ -499,5 +517,9 @@ watch(
   }
 )
 </script>
+
+<style>
+@import '../CodeBlockFullscreen/styles.css';
+</style>
 
 <style module src="./Layout.module.scss"></style>

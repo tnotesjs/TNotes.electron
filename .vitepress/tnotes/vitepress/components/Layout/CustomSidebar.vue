@@ -1,41 +1,15 @@
 <template>
   <div class="custom-sidebar-wrapper">
     <nav class="nav" ref="navRef">
-      <!-- 遍历侧边栏组 -->
-      <template v-for="group in sidebarGroups" :key="group.text">
-        <div class="group">
-          <button class="group-title" @click="toggleGroup(group.text)">
-            <span>{{ group.text }}</span>
-
-            <span class="arrow" :class="{ collapsed: group.collapsed }">
-              <img
-                :src="
-                  group.collapsed
-                    ? icon__sidebar_collapsed
-                    : icon__sidebar_opened
-                "
-                alt=""
-              />
-            </span>
-          </button>
-
-          <div v-show="!group.collapsed" class="group-items">
-            <a
-              v-for="item in group.items"
-              :key="item.link"
-              :href="getFullLink(item.link)"
-              :class="[
-                'nav-item',
-                { active: isActive(item.link) },
-                `nav-item-${extractNoteIdFromLink(item.link)}`,
-              ]"
-              :data-note-id="extractNoteIdFromLink(item.link)"
-            >
-              {{ getNoteDisplayText(item.text, item.link) }}
-            </a>
-          </div>
-        </div>
-      </template>
+      <!-- 使用递归组件渲染侧边栏，支持任意层级嵌套 -->
+      <SidebarItems
+        :items="sidebarGroups"
+        :depth="0"
+        :max-depth="maxDepth"
+        :show-note-id="showNoteId"
+        :base="base"
+        :current-path="route.path"
+      />
     </nav>
   </div>
 </template>
@@ -43,33 +17,42 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute, useData } from 'vitepress'
+import SidebarItems from './SidebarItems.vue'
 // @ts-expect-error - VitePress Data Loader
 import { data as sidebarConfig } from '../sidebar.data'
 // @ts-expect-error - VitePress Data Loader
 import { data as tnotesConfig } from '../tnotes-config.data'
-import { SIDEBAR_SHOW_NOTE_ID_KEY } from '../constants'
-import icon__sidebar_opened from '/icon__sidebar_opened.svg'
-import icon__sidebar_collapsed from '/icon__sidebar_collapsed.svg'
+import { SIDEBAR_SHOW_NOTE_ID_KEY, SIDEBAR_MAX_DEPTH_KEY } from '../constants'
 
+// 支持递归的侧边栏项类型
 interface SidebarItem {
   text: string
-  link: string
-}
-
-interface SidebarGroup {
-  text: string
-  collapsed: boolean
-  items: SidebarItem[]
+  link?: string
+  items?: SidebarItem[]
+  collapsed?: boolean
 }
 
 const route = useRoute()
 const { site } = useData()
-const sidebarGroups = ref<SidebarGroup[]>([])
+const sidebarGroups = ref<SidebarItem[]>([])
 const navRef = ref<HTMLElement | null>(null)
-const currentFocusIndex = ref(0) // 当前聚焦的笔记索引
+const currentFocusIndex = ref(0)
+
+// 最大解析层级（默认 3 层）
+const maxDepth = computed(() => {
+  if (typeof window === 'undefined') {
+    return tnotesConfig.sidebarMaxDepth ?? 3
+  }
+
+  const savedMaxDepth = localStorage.getItem(SIDEBAR_MAX_DEPTH_KEY)
+  if (savedMaxDepth !== null) {
+    return parseInt(savedMaxDepth, 10)
+  }
+
+  return tnotesConfig.sidebarMaxDepth ?? 3
+})
 
 // 获取配置：是否显示笔记 ID
-// 优先使用 localStorage 中的用户自定义配置，否则使用配置文件中的默认值
 const showNoteId = computed(() => {
   if (typeof window === 'undefined') {
     return tnotesConfig.sidebarShowNoteId ?? false
@@ -89,34 +72,85 @@ const base = computed(() => site.value.base || '/')
 // 加载 sidebar 数据
 function loadSidebar() {
   if (sidebarConfig && sidebarConfig['/notes/']) {
-    sidebarGroups.value = sidebarConfig['/notes/'].map((group: any) => ({
-      ...group,
-      collapsed: group.collapsed ?? true,
-    }))
+    sidebarGroups.value = processItems(sidebarConfig['/notes/'])
   }
-  // console.log('✅ [CustomSidebar] Sidebar loaded:', sidebarGroups.value[0])
 }
 
-// 切换组展开/折叠
-function toggleGroup(groupText: string) {
-  const group = sidebarGroups.value.find((g) => g.text === groupText)
-  if (group) {
-    group.collapsed = !group.collapsed
+// 递归处理侧边栏项，添加 collapsed 状态
+function processItems(items: any[]): SidebarItem[] {
+  return items.map((item) => ({
+    ...item,
+    collapsed: item.collapsed ?? true,
+    items: item.items ? processItems(item.items) : undefined,
+  }))
+}
+
+// 判断项是否有子项
+function hasChildren(item: SidebarItem): boolean {
+  return !!(item.items && item.items.length > 0)
+}
+
+// 获取项的唯一 key
+function getItemKey(item: SidebarItem): string {
+  return item.link || item.text
+}
+
+// 切换项的展开/折叠状态（支持递归）
+function toggleItem(item: SidebarItem) {
+  item.collapsed = !item.collapsed
+}
+
+// 递归查找并切换项
+function toggleItemRecursive(items: SidebarItem[], text: string): boolean {
+  for (const item of items) {
+    if (item.text === text) {
+      item.collapsed = !item.collapsed
+      return true
+    }
+    if (item.items && toggleItemRecursive(item.items, text)) {
+      return true
+    }
   }
+  return false
+}
+
+// 切换组展开/折叠（保留兼容性）
+function toggleGroup(groupText: string) {
+  toggleItemRecursive(sidebarGroups.value, groupText)
+}
+
+// 递归展开/折叠所有项
+function setAllCollapsed(items: SidebarItem[], collapsed: boolean) {
+  items.forEach((item) => {
+    if (item.items) {
+      item.collapsed = collapsed
+      setAllCollapsed(item.items, collapsed)
+    }
+  })
+}
+
+// 检查是否有任何一级章节处于展开状态
+function hasAnyFirstLevelExpanded(): boolean {
+  return sidebarGroups.value.some((group) => !group.collapsed)
 }
 
 // 展开全部
 function expandAll() {
-  sidebarGroups.value.forEach((group) => {
-    group.collapsed = false
-  })
+  setAllCollapsed(sidebarGroups.value, false)
 }
 
 // 折叠全部
 function collapseAll() {
-  sidebarGroups.value.forEach((group) => {
-    group.collapsed = true
-  })
+  setAllCollapsed(sidebarGroups.value, true)
+}
+
+// 智能切换：如果有展开的一级章节则折叠全部，否则展开全部
+function toggleExpandCollapse() {
+  if (hasAnyFirstLevelExpanded()) {
+    collapseAll()
+  } else {
+    expandAll()
+  }
 }
 
 // 获取当前笔记的所有出现位置
@@ -125,70 +159,170 @@ function getCurrentNotePositions(): HTMLElement[] {
   const elements: HTMLElement[] = []
 
   if (!navRef.value) {
-    // console.log('❌ [getCurrentNotePositions] navRef is null')
+    console.log('❌ [getCurrentNotePositions] navRef is null')
     return elements
   }
 
-  // console.log('🔍 [getCurrentNotePositions] Current route path:', currentPath)
-
-  // 查找所有 nav-item 元素
-  const allItems = navRef.value.querySelectorAll('.nav-item')
-  // console.log('🔍 [getCurrentNotePositions] Total nav-items:', allItems.length)
-
-  // 检查每个链接
-  // allItems.forEach((item, index) => {
-  //   const href = item.getAttribute('href')
-  //   const hasActiveClass = item.classList.contains('active')
-  //   console.log(`🔍 [${index}] href:`, href, 'hasActive:', hasActiveClass)
-  // })
+  console.log('🔍 [getCurrentNotePositions] Current route path:', currentPath)
 
   // 查找所有激活的笔记项
   const activeItems = navRef.value.querySelectorAll('.nav-item.active')
-  // console.log(
-  //   '🔍 [getCurrentNotePositions] Active nav-items:',
-  //   activeItems.length
-  // )
+  console.log(
+    '🔍 [getCurrentNotePositions] Active nav-items:',
+    activeItems.length
+  )
 
-  activeItems.forEach((item) => {
-    // const href = item.getAttribute('href')
-    // console.log('🔍 [getCurrentNotePositions] Active item href:', href)
+  activeItems.forEach((item, index) => {
+    const href = item.getAttribute('href')
+    console.log(`🔍 [${index}] Active item href:`, href)
     elements.push(item as HTMLElement)
   })
 
-  // console.log('🎯 [getCurrentNotePositions] Found positions:', elements.length)
+  console.log('🎯 [getCurrentNotePositions] Found positions:', elements.length)
   return elements
 }
 
 // 展开指定元素的父级分组
 function expandParentGroup(element: HTMLElement) {
-  // 查找父级 group
-  const groupElement = element.closest('.group')
-  if (!groupElement) {
-    // console.log('❌ [expandParentGroup] No group element found')
-    return
+  console.log('📂 [expandParentGroup] Starting to expand parent groups')
+
+  // 查找所有父级 group 元素（从最近的开始）
+  let currentElement: HTMLElement | null = element
+  const groupsToExpand: string[] = []
+
+  // 向上遍历，收集所有父级 group 的标题文本
+  while (currentElement) {
+    const groupElement = currentElement.closest('.group')
+    if (!groupElement) break
+
+    const groupTitle = groupElement.querySelector('.group-title span')
+    if (groupTitle) {
+      const groupText = groupTitle.textContent?.trim()
+      if (groupText) {
+        console.log('📌 [expandParentGroup] Found parent group:', groupText)
+        groupsToExpand.push(groupText)
+      }
+    }
+
+    // 继续向上查找
+    currentElement = groupElement.parentElement?.closest('.group') || null
   }
 
-  // 查找 group-title 的文本
-  const groupTitle = groupElement.querySelector('.group-title span')
-  if (!groupTitle) {
-    // console.log('❌ [expandParentGroup] No group title found')
-    return
+  console.log(
+    '📋 [expandParentGroup] Groups to expand (inner to outer):',
+    groupsToExpand
+  )
+
+  // 从最外层开始展开，逐层向内
+  // 但是搜索时要确保在正确的上下文中搜索
+  if (groupsToExpand.length === 0) return
+
+  // 反转数组，从最外层开始处理
+  const outerToInner = [...groupsToExpand].reverse()
+  console.log(
+    '📋 [expandParentGroup] Processing order (outer to inner):',
+    outerToInner
+  )
+
+  // 第一层必须从根开始搜索
+  let currentContext: SidebarItem[] | null = null
+
+  for (let i = 0; i < outerToInner.length; i++) {
+    const groupText = outerToInner[i]
+    console.log(`🔄 [expandParentGroup] [${i}] Expanding: "${groupText}"`)
+
+    if (i === 0) {
+      // 第一层从根搜索
+      console.log(`  🌳 Searching from root`)
+      const found = expandGroupRecursive(sidebarGroups.value, groupText)
+      if (found) {
+        // 找到后，获取这个分组的 items 作为下一层的搜索上下文
+        const foundGroup = findGroupByText(sidebarGroups.value, groupText)
+        if (foundGroup?.items) {
+          currentContext = foundGroup.items
+          console.log(
+            `  ✅ Found and set context for next level (${foundGroup.items.length} items)`
+          )
+        }
+      }
+    } else {
+      // 后续层从上一层的上下文中搜索
+      if (currentContext) {
+        console.log(
+          `  🔍 Searching in context (${currentContext.length} items)`
+        )
+        const found = expandGroupRecursive(currentContext, groupText)
+        if (found) {
+          const foundGroup = findGroupByText(currentContext, groupText)
+          if (foundGroup?.items) {
+            currentContext = foundGroup.items
+            console.log(
+              `  ✅ Found and set context for next level (${foundGroup.items.length} items)`
+            )
+          }
+        }
+      }
+    }
+  }
+}
+
+// 查找分组（不展开，只返回引用）
+function findGroupByText(
+  items: SidebarItem[],
+  targetText: string
+): SidebarItem | null {
+  for (const item of items) {
+    if (item.text === targetText) {
+      return item
+    }
+    if (item.items) {
+      const found = findGroupByText(item.items, targetText)
+      if (found) return found
+    }
+  }
+  return null
+}
+
+// 递归查找并展开分组
+function expandGroupRecursive(
+  items: SidebarItem[],
+  targetText: string,
+  depth: number = 0
+): boolean {
+  const indent = '  '.repeat(depth)
+  console.log(
+    `${indent}🔍 [expandGroupRecursive] Searching for "${targetText}" at depth ${depth}`
+  )
+
+  for (const item of items) {
+    console.log(`${indent}  📝 Checking item: "${item.text}"`)
+
+    if (item.text === targetText) {
+      console.log(`${indent}  ✅ Found target! Setting collapsed = false`)
+      item.collapsed = false
+      return true
+    }
+
+    if (item.items) {
+      console.log(
+        `${indent}  📂 Item has ${item.items.length} children, searching...`
+      )
+      const found = expandGroupRecursive(item.items, targetText, depth + 1)
+      if (found) {
+        console.log(
+          `${indent}  ✅ Target found in children, expanding current item "${item.text}"`
+        )
+        // 如果在子项中找到了，也展开当前项
+        item.collapsed = false
+        return true
+      }
+    }
   }
 
-  const groupText = groupTitle.textContent?.trim()
-  if (!groupText) {
-    // console.log('❌ [expandParentGroup] No group text found')
-    return
-  }
-
-  // console.log('📂 [expandParentGroup] Expanding group:', groupText)
-
-  // 展开该分组
-  const group = sidebarGroups.value.find((g) => g.text === groupText)
-  if (group) {
-    group.collapsed = false
-    // console.log('✅ [expandParentGroup] Group expanded:', groupText)
-  }
+  console.log(
+    `${indent}❌ [expandGroupRecursive] Target "${targetText}" not found at depth ${depth}`
+  )
+  return false
 }
 
 // 滚动到指定元素
@@ -232,11 +366,11 @@ function scrollToElement(element: HTMLElement) {
 
 // 聚焦到当前笔记（支持多个位置切换）
 function focusCurrentNote() {
-  // console.log('🎯 [focusCurrentNote] Called')
+  console.log('🎯 [focusCurrentNote] Called')
   const positions = getCurrentNotePositions()
 
   if (positions.length === 0) {
-    // console.log('❌ [focusCurrentNote] No positions found')
+    console.log('❌ [focusCurrentNote] No positions found')
     return
   }
 
@@ -244,11 +378,11 @@ function focusCurrentNote() {
   currentFocusIndex.value = (currentFocusIndex.value + 1) % positions.length
   const targetElement = positions[currentFocusIndex.value]
 
-  // console.log(
-  //   `🎯 [focusCurrentNote] Focusing position ${currentFocusIndex.value + 1}/${
-  //     positions.length
-  //   }`
-  // )
+  console.log(
+    `🎯 [focusCurrentNote] Focusing position ${currentFocusIndex.value + 1}/${
+      positions.length
+    }`
+  )
 
   // 展开该笔记所在的分组
   expandParentGroup(targetElement)
@@ -261,12 +395,42 @@ function focusCurrentNote() {
 
 // 展开当前激活笔记的所有父级分组
 function expandActiveItemParents() {
-  sidebarGroups.value.forEach((group) => {
-    const hasActiveItem = group.items.some((item) => isActive(item.link))
-    if (hasActiveItem) {
-      group.collapsed = false
+  expandActiveItemParentsRecursive(sidebarGroups.value)
+}
+
+// 递归展开包含激活项的父级
+function expandActiveItemParentsRecursive(items: SidebarItem[]): boolean {
+  let hasActive = false
+
+  for (const item of items) {
+    if (item.link) {
+      // 检查当前项是否激活
+      const fullLink = getFullLink(item.link)
+      const decodedRoutePath = decodeURIComponent(route.path)
+      const decodedFullLink = decodeURIComponent(fullLink)
+      const itemActive =
+        decodedRoutePath === decodedFullLink ||
+        decodedRoutePath === decodedFullLink + '.html'
+
+      if (itemActive) {
+        hasActive = true
+      }
+    } else if (item.items) {
+      const childHasActive = expandActiveItemParentsRecursive(item.items)
+      if (childHasActive) {
+        item.collapsed = false
+        hasActive = true
+      }
     }
-  })
+  }
+
+  return hasActive
+}
+
+// 获取完整链接（包含 base）
+function getFullLink(link: string) {
+  const cleanLink = link.startsWith('/') ? link.slice(1) : link
+  return base.value + cleanLink
 }
 
 // 滚动到当前激活的笔记
@@ -290,85 +454,10 @@ function scrollToActiveItem() {
 defineExpose({
   expandAll,
   collapseAll,
+  toggleExpandCollapse,
+  hasAnyFirstLevelExpanded,
   focusCurrentNote,
 })
-
-// 获取完整链接（包含 base）
-function getFullLink(link: string) {
-  // 移除开头的 /，然后拼接 base
-  const cleanLink = link.startsWith('/') ? link.slice(1) : link
-  return base.value + cleanLink
-}
-
-// 判断链接是否激活
-function isActive(link: string) {
-  const fullLink = getFullLink(link)
-
-  // 对路径进行解码，因为 route.path 可能包含 URL 编码（如 %20）
-  const decodedRoutePath = decodeURIComponent(route.path)
-  const decodedFullLink = decodeURIComponent(fullLink)
-
-  const isMatch =
-    decodedRoutePath === decodedFullLink ||
-    decodedRoutePath === decodedFullLink + '.html'
-
-  return isMatch
-}
-
-// 从链接中提取笔记 ID（从路径中提取 4 位数字）
-function extractNoteIdFromLink(link: string): string | null {
-  // 匹配 /notes/0001. 这样的模式
-  const match = link.match(/\/notes\/(\d{4})\./)
-  return match ? match[1] : null
-}
-
-// 提取文本开头的 emoji
-function extractEmoji(text: string): { emoji: string; rest: string } {
-  // 匹配开头的 emoji（包括常见的完成状态图标）
-  const emojiMatch = text.match(
-    /^([\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}✅❌⏰]+)\s*/u
-  )
-
-  if (emojiMatch) {
-    return {
-      emoji: emojiMatch[1],
-      rest: text.slice(emojiMatch[0].length),
-    }
-  }
-
-  return { emoji: '', rest: text }
-}
-
-// 获取笔记显示文本（根据配置决定是否包含 ID）
-function getNoteDisplayText(text: string, link: string): string {
-  const show = showNoteId.value
-
-  // 提取 emoji 和剩余文本
-  const { emoji, rest } = extractEmoji(text)
-
-  if (show) {
-    // 显示完整文本（包含 ID）
-    // 格式：emoji + ID + 剩余文本
-
-    // 先检查剩余文本是否已经有 ID（以 4 位数字开头）
-    if (/^\d{4}\./.test(rest)) {
-      return emoji ? `${emoji} ${rest}` : rest
-    }
-
-    // 如果文本没有 ID，尝试从链接中提取
-    const noteId = extractNoteIdFromLink(link)
-    if (noteId) {
-      return emoji ? `${emoji} ${noteId}. ${rest}` : `${noteId}. ${rest}`
-    }
-
-    return text
-  } else {
-    // 不显示 ID
-    // 移除 ID 部分（移除开头的 "0001. "）
-    const cleanRest = rest.replace(/^\d{4}\.\s*/, '')
-    return emoji ? `${emoji} ${cleanRest}` : cleanRest
-  }
-}
 
 onMounted(() => {
   loadSidebar()

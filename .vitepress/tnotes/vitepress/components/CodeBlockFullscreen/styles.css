@@ -1,0 +1,64 @@
+/* 代码块全屏按钮样式 */
+div[class*='language-'] {
+  position: relative;
+}
+
+.fullscreen-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background-color: var(--vp-code-block-bg);
+  color: var(--vp-c-text-2);
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+div[class*='language-']:hover .fullscreen-btn {
+  opacity: 1;
+}
+
+.fullscreen-btn:hover {
+  background-color: var(--vp-c-default-soft);
+  color: var(--vp-c-brand-1);
+  transform: scale(1.05);
+}
+
+.fullscreen-btn:active {
+  transform: scale(0.95);
+}
+
+.fullscreen-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* 移动端始终显示按钮 */
+@media (max-width: 768px) {
+  .fullscreen-btn {
+    opacity: 0.8;
+    top: 6px;
+    right: 6px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .fullscreen-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+div[class*='language-']:has(.copy) .fullscreen-btn {
+  /* 代码块已经有复制按钮，需要微调位置 */
+  right: 54px;
+}

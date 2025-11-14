@@ -61,6 +61,13 @@ export const SIDEBAR_SHOW_NOTE_ID_KEY: string =
   'SIDEBAR_SHOW_NOTE_ID_KEY__' + repoName
 
 /**
+ * 侧边栏最大解析层级配置
+ * 默认值为 3，表示支持 3 层嵌套（组 → 子组 → 笔记）
+ */
+export const SIDEBAR_MAX_DEPTH_KEY: string =
+  'SIDEBAR_MAX_DEPTH_KEY__' + repoName
+
+/**
  * VitePress HOME README 文件名
  * 该文件内容基于 HOME README 而生成，作为 github pages 中的 README 文件，主要用于展示笔记的目录结构。
  */

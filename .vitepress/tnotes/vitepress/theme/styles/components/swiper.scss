@@ -107,11 +107,12 @@
   line-height: 1;
 }
 
-.tn-tab-nav:hover {
+/* 只对翻页按钮（非分隔符）生效的 hover 样式 */
+.tn-tab-prev:hover,
+.tn-tab-next:hover {
   color: var(--vp-code-tab-active-bar-color);
   font-size: 1rem;
-  background: var(--vp-c-bg-soft);
-  transform: translateY(-50%) scale(1.1);
+  transform: translateY(-50%) scale(1.5);
 }
 
 .tn-tab-nav:active {
@@ -130,6 +131,8 @@
   color: var(--vp-code-tab-active-bar-color);
   user-select: none;
   opacity: 0.5;
+  /* 移除 cursor，表示不可交互 */
+  cursor: default;
 }
 
 .tn-tab-next {

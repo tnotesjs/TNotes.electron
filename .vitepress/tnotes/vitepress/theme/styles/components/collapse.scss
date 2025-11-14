@@ -115,7 +115,8 @@ h2.collapsible-h2 {
   &.collapsed {
     background: var(--vp-c-bg-soft) !important;
     border: 1px solid var(--vp-c-divider) !important;
-    margin-top: 1rem !important;
+    // margin-top: 1rem !important;
+    margin: 12px 0 0 0 !important;
 
     .collapse-icon {
       transform: rotate(0deg) !important; /* 折叠时向右 */

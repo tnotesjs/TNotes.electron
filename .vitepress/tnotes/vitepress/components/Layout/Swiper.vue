@@ -1,8 +1,8 @@
 <template></template>
 
 <script setup>
-import { useData } from 'vitepress'
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
+import { useData, onContentUpdated } from 'vitepress'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 import 'swiper/css'
 
@@ -160,10 +160,8 @@ onMounted(() => {
   initSwiper()
 })
 
-watch(
-  () => vpData.page.value.relativePath,
-  () => {
-    initSwiper()
-  }
-)
+// 监听内容更新（包括 HMR 和路由变化）
+onContentUpdated(() => {
+  initSwiper()
+})
 </script>
