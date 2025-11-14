@@ -11,28 +11,14 @@
 - [7. IPC 基础](#7-ipc-基础)
 - [8. IPC 进阶](#8-ipc-进阶)
 - [9. 窗口](#9-窗口)
-  - [9.1. 不同系统的窗口行为兼容适配](#91-不同系统的窗口行为兼容适配)
-  - [9.2. 窗口首次加载的白屏问题](#92-窗口首次加载的白屏问题)
-  - [9.3. 无边框窗口](#93-无边框窗口)
-  - [9.4. 窗口层级](#94-窗口层级)
 - [10. 菜单](#10-菜单)
-  - [10.1. 不同系统的菜单适配](#101-不同系统的菜单适配)
-  - [10.2. 页面右键菜单](#102-页面右键菜单)
-  - [10.3. Dock 菜单](#103-dock-菜单)
-  - [10.4. 自定义菜单](#104-自定义菜单)
-  - [10.5. Tray 菜单](#105-tray-菜单)
-- [11. app](#11-app)
-  - [11.1. 路径](#111-路径)
+- [11. app 模块](#11-app-模块)
 - [12. 快捷键](#12-快捷键)
-  - [12.1. 页面级别](#121-页面级别)
-  - [12.2. 全局级别](#122-全局级别)
 - [13. 剪切板](#13-剪切板)
 - [14. 系统通知](#14-系统通知)
 - [15. 桌面视频流](#15-桌面视频流)
 - [16. 插件化](#16-插件化)
-  - [16.1. 集成浏览器插件](#161-集成浏览器插件)
 - [17. 其它功能](#17-其它功能)
-  - [17.1. webContents startDrag 原生文件拖放](#171-webcontents-startdrag-原生文件拖放)
 - [18. electron-reload](#18-electron-reload)
 - [19. electron-icon-builder](#19-electron-icon-builder)
 - [20. 小练习：桌面时钟](#20-小练习桌面时钟)
@@ -93,61 +79,29 @@
 
 ## 9. 窗口
 
-### 9.1. 不同系统的窗口行为兼容适配
-
 - [ ] [0016. 适配 Windows 和 macOS 上的窗口交互行为](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0016.%20%E9%80%82%E9%85%8D%20Windows%20%E5%92%8C%20macOS%20%E4%B8%8A%E7%9A%84%E7%AA%97%E5%8F%A3%E4%BA%A4%E4%BA%92%E8%A1%8C%E4%B8%BA/README.md)
-
-### 9.2. 窗口首次加载的白屏问题
-
 - [ ] [0015. 等 ready-to-show 事件触发后再显示窗口以解决窗口白屏问题](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0015.%20%E7%AD%89%20ready-to-show%20%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E5%90%8E%E5%86%8D%E6%98%BE%E7%A4%BA%E7%AA%97%E5%8F%A3%E4%BB%A5%E8%A7%A3%E5%86%B3%E7%AA%97%E5%8F%A3%E7%99%BD%E5%B1%8F%E9%97%AE%E9%A2%98/README.md)
-
-### 9.3. 无边框窗口
-
 - [ ] [0048. 认识无边框窗口](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0048.%20%E8%AE%A4%E8%AF%86%E6%97%A0%E8%BE%B9%E6%A1%86%E7%AA%97%E5%8F%A3/README.md)
 - [ ] [0018. 创建一个无边框窗口](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0018.%20%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%97%A0%E8%BE%B9%E6%A1%86%E7%AA%97%E5%8F%A3/README.md)
 - [ ] [0019. 让无边框的窗口可以被拖拽](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0019.%20%E8%AE%A9%E6%97%A0%E8%BE%B9%E6%A1%86%E7%9A%84%E7%AA%97%E5%8F%A3%E5%8F%AF%E4%BB%A5%E8%A2%AB%E6%8B%96%E6%8B%BD/README.md)
 - [ ] [0020. macos 隐藏窗口标题栏但是不隐藏交通灯](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0020.%20macos%20%E9%9A%90%E8%97%8F%E7%AA%97%E5%8F%A3%E6%A0%87%E9%A2%98%E6%A0%8F%E4%BD%86%E6%98%AF%E4%B8%8D%E9%9A%90%E8%97%8F%E4%BA%A4%E9%80%9A%E7%81%AF/README.md)
-
-### 9.4. 窗口层级
-
 - [ ] [0017. 窗口置顶](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0017.%20%E7%AA%97%E5%8F%A3%E7%BD%AE%E9%A1%B6/README.md)
 
 ## 10. 菜单
 
-### 10.1. 不同系统的菜单适配
-
 - [ ] [0010. macos 应用菜单第一项的问题](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0010.%20macos%20%E5%BA%94%E7%94%A8%E8%8F%9C%E5%8D%95%E7%AC%AC%E4%B8%80%E9%A1%B9%E7%9A%84%E9%97%AE%E9%A2%98/README.md)
-
-### 10.2. 页面右键菜单
-
 - [ ] [0012. 使用 Menu 模块实现页面中的右键菜单](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0012.%20%E4%BD%BF%E7%94%A8%20Menu%20%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/README.md)
-
-### 10.3. Dock 菜单
-
 - [ ] [0009. 设置 macos 的 Dock 菜单](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0009.%20%E8%AE%BE%E7%BD%AE%20macos%20%E7%9A%84%20Dock%20%E8%8F%9C%E5%8D%95/README.md)
-
-### 10.4. 自定义菜单
-
 - [ ] [0011. 自定义系统菜单覆盖默认菜单问题](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0011.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E8%8F%9C%E5%8D%95%E9%97%AE%E9%A2%98/README.md)
-
-### 10.5. Tray 菜单
-
 - [ ] [0025. 创建 macos 应用托盘（Tray）](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0025.%20%E5%88%9B%E5%BB%BA%20macos%20%E5%BA%94%E7%94%A8%E6%89%98%E7%9B%98%EF%BC%88Tray%EF%BC%89/README.md)
 
-## 11. app
-
-### 11.1. 路径
+## 11. app 模块
 
 - [ ] [0024. 通过 app 模块获取应用相关路径](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0024.%20%E9%80%9A%E8%BF%87%20app%20%E6%A8%A1%E5%9D%97%E8%8E%B7%E5%8F%96%E5%BA%94%E7%94%A8%E7%9B%B8%E5%85%B3%E8%B7%AF%E5%BE%84/README.md)
 
 ## 12. 快捷键
 
-### 12.1. 页面级别
-
 - [ ] [0023. 页面级别的快捷键](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0023.%20%E9%A1%B5%E9%9D%A2%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/README.md)
-
-### 12.2. 全局级别
-
 - [ ] [0022. 全局级别的快捷键](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0022.%20%E5%85%A8%E5%B1%80%E7%BA%A7%E5%88%AB%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/README.md)
 
 ## 13. 剪切板
@@ -168,18 +122,12 @@
 
 - [ ] [0014. 使用 BrowserView 加载外部资源](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0014.%20%E4%BD%BF%E7%94%A8%20BrowserView%20%E5%8A%A0%E8%BD%BD%E5%A4%96%E9%83%A8%E8%B5%84%E6%BA%90/README.md)
 - [ ] [0013. 基于 BrowserView 实现插件化能力](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0013.%20%E5%9F%BA%E4%BA%8E%20BrowserView%20%E5%AE%9E%E7%8E%B0%E6%8F%92%E4%BB%B6%E5%8C%96%E8%83%BD%E5%8A%9B/README.md)
-
-### 16.1. 集成浏览器插件
-
-- 其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。
 - [ ] [0006. 使用 vue-remote-devtools](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0006.%20%E4%BD%BF%E7%94%A8%20vue-remote-devtools/README.md)
 - [ ] [0007. 使用手动安装的方式集成 vue-devtools](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0007.%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E7%9A%84%E6%96%B9%E5%BC%8F%E9%9B%86%E6%88%90%20vue-devtools/README.md)
 - [ ] [0005. 使用 electron-devtools-installer 安装 vue-devtools](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0005.%20%E4%BD%BF%E7%94%A8%20electron-devtools-installer%20%E5%AE%89%E8%A3%85%20vue-devtools/README.md)
 - [ ] [0008. 使用自动安装的方式集成 vue-devtools](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0008.%20%E4%BD%BF%E7%94%A8%E8%87%AA%E5%8A%A8%E5%AE%89%E8%A3%85%E7%9A%84%E6%96%B9%E5%BC%8F%E9%9B%86%E6%88%90%20vue-devtools/README.md)
 
 ## 17. 其它功能
-
-### 17.1. webContents startDrag 原生文件拖放
 
 - [ ] [0027. 原生文件拖 & 放](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE/README.md)
 
