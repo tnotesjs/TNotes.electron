@@ -522,4 +522,4 @@ watch(
 @import '../CodeBlockFullscreen/styles.css';
 </style>
 
-<style module src="./Layout.module.scss"></style>
+<style module src="./Layout.module.scss" scoped></style>
