@@ -49,12 +49,16 @@ export class Logger {
   }
 
   /**
-   * 获取当前时间戳
+   * 获取当前时间戳（精确到毫秒）
    */
   private getTimestamp(): string {
     if (!this.timestamp) return ''
     const now = new Date()
-    return `[${now.toLocaleTimeString()}] `
+    const hours = String(now.getHours()).padStart(2, '0')
+    const minutes = String(now.getMinutes()).padStart(2, '0')
+    const seconds = String(now.getSeconds()).padStart(2, '0')
+    const milliseconds = String(now.getMilliseconds()).padStart(3, '0')
+    return `[${hours}:${minutes}:${seconds}.${milliseconds}] `
   }
 
   /**
@@ -212,7 +216,7 @@ export class Logger {
  */
 export const logger = new Logger({
   level: process.env.DEBUG ? LogLevel.DEBUG : LogLevel.INFO,
-  timestamp: false,
+  timestamp: true, // 启用时间戳（精确到毫秒）
   colors: true,
 })
 
