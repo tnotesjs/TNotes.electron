@@ -5,99 +5,155 @@
 
   // #region - Workbench（工作台相关配置）
 
+  // 控制列表和树是否具有平滑滚动效果。
   "workbench.list.smoothScrolling": false,
+  // 控制树形视图的缩进像素值
   "workbench.tree.indent": 20,
+  // 高亮显示已修改但未保存的标签页
   "workbench.editor.highlightModifiedTabs": true,
+  // 当文件被删除时自动关闭对应的编辑器
   "workbench.editor.closeOnFileDelete": true,
+  // 启用打开编辑器数量限制
   "workbench.editor.limit.enabled": true,
+  // 每个编辑器组单独限制打开的编辑器数量
   "workbench.editor.limit.perEditorGroup": true,
   // "workbench.editor.limit.value": 5,
+  // 设置文件图标主题
   "workbench.iconTheme": "vscode-icons",
+  // 启动时不打开任何编辑器
   "workbench.startupEditor": "none",
+  // 设置颜色主题
   "workbench.colorTheme": "Default Dark Modern",
+  // 隐藏空编辑器的提示信息
   "workbench.editor.empty.hint": "hidden",
+  // 将固定的标签页显示在单独的行上
   "workbench.editor.pinnedTabsOnSeparateRow": true,
+  // 配置特定文件类型的默认编辑器
   "workbench.editorAssociations": {
     "*.copilotmd": "vscode.markdown.preview.editor",
     "*.svg": "default"
   },
+  // 当标签页过多时自动换行显示
   "workbench.editor.wrapTabs": true,
+  // 将面板默认显示在右侧
   "workbench.panel.defaultLocation": "right",
 
   // #endregion
 
   // #region - Editor（编辑器相关配置）
 
+  // 启用代码镜头功能，显示引用、实现等信息
   "editor.codeLens": true,
+  // 在输入触发字符时显示建议
   "editor.suggestOnTriggerCharacters": true,
+  // 配置快速建议的触发时机
   "editor.quickSuggestions": {
     "other": "on",
     "comments": "off",
     "strings": "off"
   },
+  // 设置编辑器字体大小
   "editor.fontSize": 14,
+  // 设置小地图中章节标题的字体大小
   "editor.minimap.sectionHeaderFontSize": 10,
+  // 设置制表符对应的空格数
   "editor.tabSize": 2,
+  // 设置编辑器字体系列
   "editor.fontFamily": "'Consolas', 'Fira Code', 'Menlo'",
+  // 禁用自动检测文件缩进方式
   "editor.detectIndentation": false,
+  // 设置光标闪烁动画为扩展式
   "editor.cursorBlinking": "expand",
+  // 禁用大文件优化，确保完整功能
   "editor.largeFileOptimizations": false,
+  // 关闭辅助功能支持
   "editor.accessibilitySupport": "off",
+  // 启用光标平滑移动动画
   "editor.cursorSmoothCaretAnimation": "on",
+  // 仅在活动括号对处显示括号对指南
   "editor.guides.bracketPairs": "active",
+  // 启用内联建议功能
   "editor.inlineSuggest.enabled": true,
+  // 根据前缀最近使用的项目选择建议
   "editor.suggestSelection": "recentlyUsedByPrefix",
+  // 智能模式下按回车键接受建议
   "editor.acceptSuggestionOnEnter": "smart",
+  // 允许代码片段与快速建议同时显示
   "editor.suggest.snippetsPreventQuickSuggestions": false,
+  // 启用粘性滚动，保持函数或类定义可见
   "editor.stickyScroll.enabled": true,
+  // 悬停提示保持粘性，鼠标移开后不立即消失
   "editor.hover.sticky": true,
+  // 建议插入模式为替换而非插入
   "editor.suggest.insertMode": "replace",
+  // 启用括号对颜色匹配
   "editor.bracketPairColorization.enabled": true,
+  // 仅在空白字符前自动闭合括号
   "editor.autoClosingBrackets": "beforeWhitespace",
+  // 删除时始终自动删除配对的括号或引号
   "editor.autoClosingDelete": "always",
+  // 输入时始终自动覆盖配对的括号或引号
   "editor.autoClosingOvertype": "always",
+  // 仅在空白字符前自动闭合引号
   "editor.autoClosingQuotes": "beforeWhitespace",
+  // 定义单词分隔符，用于双击选择等操作
   "editor.wordSeparators": "`~!@#%^&*()=+[{]}\\|;:'\",.<>/?",
+  // 配置保存时执行的代码操作
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
     "source.fixAll.stylelint": "explicit",
     "source.organizeImports": "never"
   },
+  // 设置默认代码格式化工具为 Prettier
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // 保存文件时自动格式化
   "editor.formatOnSave": true,
+  // 输入时自动格式化
   "editor.formatOnType": true,
+  // 小地图中不渲染实际字符，使用色块代替
   "editor.minimap.renderCharacters": false,
+  // 小地图滑块始终显示
   "editor.minimap.showSlider": "always",
 
+  // HTML 文件的编辑器配置
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "prettier.htmlWhitespaceSensitivity": "ignore"
   },
+  // CSS 文件的编辑器配置
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  // SCSS 文件的编辑器配置
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  // JavaScript 文件的编辑器配置
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  // TypeScript 文件的编辑器配置
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  // JSON 文件的编辑器配置
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  // Markdown 文件的编辑器配置
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "prettier.proseWrap": "never"
   },
+  // JSONC 文件的编辑器配置
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  // Vue 文件的编辑器配置
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  // SVG 文件的编辑器配置
   "[svg]": {
     "editor.defaultFormatter": "jock.svg",
     "editor.formatOnSave": false
@@ -107,19 +163,27 @@
 
   // #region - Extensions（扩展相关配置）
 
+  // 忽略扩展推荐提示
   "extensions.ignoreRecommendations": true,
 
   // #endregion - Extensions（扩展相关配置）
 
   // #region - Terminal（终端相关配置）
 
+  // 启用终端光标闪烁
   "terminal.integrated.cursorBlinking": true,
   // "editor.mouseWheelZoom": true,
+  // 禁用持久会话恢复进程
   "terminal.integrated.persistentSessionReviveProcess": "never",
+  // 启用终端标签页功能
   "terminal.integrated.tabs.enabled": true,
+  // 设置终端滚动缓冲区行数
   "terminal.integrated.scrollback": 10000,
+  // 启用终端粘性滚动
   "terminal.integrated.stickyScroll.enabled": true,
+  // 启用终端平滑滚动
   "terminal.integrated.smoothScrolling": true,
+  // 设置终端字体大小
   "terminal.integrated.fontSize": 14,
   // "terminal.integrated.cursorStyle": "underline",
 
@@ -127,19 +191,26 @@
 
   // #region - Files（文件相关配置）
 
+  // 禁用文件参与者超时限制
   "files.participants.timeout": 0,
+  // 设置文件行尾符为 LF
   "files.eol": "\n",
+  // 保存文件时在末尾插入空行
   "files.insertFinalNewline": true,
+  // 启用简单对话框模式
   "files.simpleDialog.enable": true,
+  // 配置文件类型关联
   "files.associations": {
     "*.ejs": "html",
     "*.art": "html",
     "**/tsconfig.json": "jsonc",
+    ".vscode/settings.json": "jsonc",
     "*.json": "jsonc",
     "package.json": "json",
     "*.md": "markdown"
   },
 
+  // 配置在资源管理器中隐藏的文件和文件夹
   "files.exclude": {
     "**/.eslintcache": true,
     "**/bower_components": true,
@@ -155,6 +226,7 @@
     "**/vite.config.mts.*": true,
     "**/tea.yaml": true
   },
+  // 配置文件监视器排除的文件和文件夹
   "files.watcherExclude": {
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
@@ -170,7 +242,9 @@
 
   // #region - Search（搜索相关配置）
 
+  // 搜索编辑器中单击结果时预览定义
   "search.searchEditor.singleClickBehaviour": "peekDefinition",
+  // 搜索时不跟踪符号链接
   "search.followSymlinks": false,
 
   // 在使用搜索功能时，将这些文件夹/文件排除在外
@@ -189,12 +263,16 @@
 
   // #region - Explorer（资源管理器相关配置）
 
+  // 删除文件时显示确认对话框
   "explorer.confirmDelete": true,
+  // 拖放文件时显示确认对话框
   "explorer.confirmDragAndDrop": true,
 
   // 控制相关文件嵌套展示
   "explorer.fileNesting.enabled": true,
+  // 默认不展开嵌套的文件
   "explorer.fileNesting.expand": false,
+  // 配置文件嵌套规则
   "explorer.fileNesting.patterns": {
     "*.ts": "$(capture).test.ts, $(capture).test.tsx, $(capture).spec.ts, $(capture).spec.tsx, $(capture).d.ts",
     "*.tsx": "$(capture).test.ts, $(capture).test.tsx, $(capture).spec.ts, $(capture).spec.tsx,$(capture).d.ts",
@@ -211,11 +289,13 @@
 
   // #region - breadcrumbs（面包屑导航）
 
+  // 面包屑导航中仅显示最后一个符号
   "breadcrumbs.symbolPath": "last",
 
   // #endregion - breadcrumbs（面包屑导航）
 
   // #region - markdown
+  // Markdown 语法检查配置
   "markdownlint.config": {
     "no-bare-urls": false,
     "no-inline-html": false,
@@ -231,24 +311,21 @@
 
   // #region - Others（其他相关配置）
 
+  // 任务出错时仍然继续调试
   "debug.onTaskErrors": "debugAnyway",
+  // 差异编辑器不忽略首尾空白字符
   "diffEditor.ignoreTrimWhitespace": false,
+  // 指定 npm 包管理器
   "npm.packageManager": "npm",
 
+  // 禁用 CSS 内置验证
   "css.validate": false,
+  // 禁用 Less 内置验证
   "less.validate": false,
-  "scss.validate": false,
+  // 禁用 SCSS 内置验证
+  "scss.validate": false
 
   // #endregion - Others（其他相关配置）
-
-  // #region - regionHighlighter 插件配置
-  // 基础配置
-  "regionHighlighter.ignoreFlag": "!",
-  "regionHighlighter.allowLanguageIDs": "*",
-  "regionHighlighter.borderStyle": "dashed",
-  "regionHighlighter.borderWidth": "0px",
-  "regionHighlighter.decorationStyle": "background"
-  // #endregion
 
   // -------------------------------------------
   // #endregion - TNotes 所使用的 VSCode 内置配置
