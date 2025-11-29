@@ -15,6 +15,7 @@ import Mermaid from '../components/Mermaid/Mermaid.vue'
 import NotesTable from '../components/NotesTable/NotesTable.vue'
 import Settings from '../components/Settings/Settings.vue'
 import SidebarCard from '../components/SidebarCard/SidebarCard.vue'
+import Tooltip from '../components/Tooltip/Tooltip.vue'
 import './styles/index.scss'
 
 export default {
@@ -42,5 +43,6 @@ export default {
     app.component('Mermaid', Mermaid)
     app.component('NotesTable', NotesTable)
     app.component('N', NotesTable)
+    app.component('Tooltip', Tooltip)
   },
 } satisfies Theme

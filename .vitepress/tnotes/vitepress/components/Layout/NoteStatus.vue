@@ -1,18 +1,16 @@
 <template>
   <h1 v-if="shouldShow" class="note-status-title">
     <span v-if="statusEmoji" class="status-emoji">{{ statusEmoji }}</span>
-    <a
-      v-if="githubLink"
-      :href="githubLink"
-      class="note-title-link"
-      target="_blank"
-      rel="noopener noreferrer"
-      @mouseenter="showTooltip = true"
-      @mouseleave="showTooltip = false"
-    >
-      <span class="note-title">{{ noteTitle }}</span>
-      <span v-if="showTooltip" class="tooltip">在 GitHub 中打开</span>
-    </a>
+    <Tooltip v-if="githubLink" text="在 GitHub 中打开">
+      <a
+        :href="githubLink"
+        class="note-title-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="note-title">{{ noteTitle }}</span>
+      </a>
+    </Tooltip>
     <span v-else class="note-title">{{ noteTitle }}</span>
   </h1>
 </template>
@@ -20,6 +18,7 @@
 <script setup lang="ts">
 import { computed, toRefs, ref, onMounted, nextTick } from 'vue'
 import { useData } from 'vitepress'
+import Tooltip from '../Tooltip/Tooltip.vue'
 
 const props = defineProps({
   noteConfig: {
@@ -37,8 +36,6 @@ const { page } = useData()
 
 // GitHub 链接（从原始 h1 中提取）
 const githubLink = ref('')
-// 控制 tooltip 显示
-const showTooltip = ref(false)
 
 // 是否应该显示组件
 const shouldShow = computed(() => {
@@ -129,45 +126,6 @@ onMounted(() => {
 
 .note-title {
   color: inherit;
-}
-
-.tooltip {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-8px);
-  background-color: var(--vp-c-bg-elv);
-  color: var(--vp-c-text-1);
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border: 1px solid var(--vp-c-divider);
-  z-index: 100;
-  animation: tooltipFadeIn 0.15s ease-out;
-}
-
-.tooltip::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-top-color: var(--vp-c-bg-elv);
-}
-
-@keyframes tooltipFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(-8px);
-  }
 }
 
 /* 响应式调整 */

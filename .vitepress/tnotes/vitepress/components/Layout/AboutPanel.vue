@@ -144,7 +144,7 @@
       </div>
     </div>
 
-    <!-- GitHub 链接 -->
+    <!-- GitHub -->
     <div
       :class="$style.timeLine"
       v-if="modalGithubUrl"
@@ -153,7 +153,7 @@
       "
     >
       <div :class="$style.timeLabel">
-        <strong>🔗 GitHub 链接</strong>
+        <strong>🔗 GitHub</strong>
       </div>
       <div :class="$style.timeValue">
         <a
@@ -164,6 +164,35 @@
         >
           {{
             isHomeReadme ? '在 GitHub 中打开知识库' : '在 GitHub 中打开当前笔记'
+          }}
+        </a>
+      </div>
+    </div>
+
+    <!-- GitHub Page -->
+    <div
+      :class="$style.timeLine"
+      v-if="modalGithubPageUrl"
+      :title="
+        isHomeReadme
+          ? '在 GitHub Page 中打开知识库'
+          : '在 GitHub Page 中打开当前笔记'
+      "
+    >
+      <div :class="$style.timeLabel">
+        <strong>🔗 GitHub Page</strong>
+      </div>
+      <div :class="$style.timeValue">
+        <a
+          :href="modalGithubPageUrl"
+          target="_blank"
+          rel="noopener"
+          :class="$style.githubLink"
+        >
+          {{
+            isHomeReadme
+              ? '在 GitHub Page 中打开知识库'
+              : '在 GitHub Page 中打开当前笔记'
           }}
         </a>
       </div>
@@ -202,6 +231,7 @@ const props = defineProps<{
   modalCreatedAt: number | undefined
   modalUpdatedAt: number | undefined
   modalGithubUrl: string
+  modalGithubPageUrl: string
   completionPercentage: number | null
   doneNotesLen: number
   totalNotesLen: number
