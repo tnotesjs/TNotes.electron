@@ -256,13 +256,8 @@ function toggleNoteId() {
 
 // 聚焦到当前笔记
 function focusCurrentNote() {
-  console.log('🎯 [Layout] focusCurrentNote called')
-  console.log('🎯 [Layout] customSidebarRef:', customSidebarRef.value)
   if (customSidebarRef.value) {
-    console.log('🎯 [Layout] Calling customSidebarRef.focusCurrentNote()')
     customSidebarRef.value.focusCurrentNote()
-  } else {
-    console.log('❌ [Layout] customSidebarRef is null')
   }
 }
 
@@ -272,13 +267,6 @@ const currentNoteId = computed(() => {
   // relativePath 格式: notes/0001. 标题/README.md
   const match = relativePath.match(/notes\/(\d{4})/)
   const id = match ? match[1] : null
-
-  if (relativePath.startsWith('notes/')) {
-    console.log('[Layout] 提取笔记 ID:', {
-      relativePath,
-      extractedId: id,
-    })
-  }
 
   return id
 })
@@ -294,13 +282,6 @@ const currentNoteTitle = computed(() => {
   // relativePath 格式: notes/0001. 标题/README.md
   const match = relativePath.match(/notes\/\d{4}\.\s+([^/]+)\//)
   const title = match ? match[1] : ''
-
-  if (relativePath.startsWith('notes/')) {
-    console.log('[Layout] 提取笔记标题:', {
-      relativePath,
-      extractedTitle: title,
-    })
-  }
 
   return title
 })

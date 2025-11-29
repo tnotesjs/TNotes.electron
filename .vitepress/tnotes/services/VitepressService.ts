@@ -7,7 +7,7 @@ import { ProcessManager } from '../lib/ProcessManager'
 import { ConfigManager } from '../config/ConfigManager'
 import { logger } from '../utils/logger'
 import { VITEPRESS_PID_FILENAME, ROOT_DIR_PATH } from '../config/constants'
-import { runCommand } from '../utils/command'
+import { runCommand, runCommandSpawn } from '../utils/command'
 import * as path from 'path'
 import * as fs from 'fs'
 
@@ -423,11 +423,11 @@ export class VitepressService {
    */
   async build(): Promise<void> {
     const command = 'pnpm vitepress build'
-    logger.info(`执行命令：${command}`)
+    logger.info(`执行命令:${command}`)
     logger.info('正在构建 VitePress 站点...')
 
     try {
-      await runCommand(command, ROOT_DIR_PATH)
+      await runCommandSpawn(command, ROOT_DIR_PATH)
       logger.info('构建完成')
     } catch (error) {
       logger.error('构建失败', error)
