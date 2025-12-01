@@ -51,7 +51,7 @@ export interface MenuItem {
 export interface RootItem {
   icon?: IconConfig
   title: string
-  completed_notes_count: number
+  completed_notes_count: Record<string, number>
   details: string
   link: string
   created_at: number

@@ -176,8 +176,9 @@ export class UpdateCommand extends BaseCommand {
       const configContent = readFileSync(ROOT_CONFIG_PATH, 'utf-8')
       const config: TNotesConfig = JSON.parse(configContent)
 
-      // 1. 计算完成的笔记数量（去重）
-      const completedNotesCount = await this.getCompletedNotesCount()
+      // 1. 计算每个月的完成笔记数量（全量计算）
+      const completedNotesCountHistory =
+        await this.getCompletedNotesCountHistory(config.root_item.created_at)
 
       // 2. 获取当前时间作为更新时间
       const updatedAt = Date.now()
@@ -185,16 +186,22 @@ export class UpdateCommand extends BaseCommand {
       // 更新 root_item（不更新 created_at，由 timestamp-fix 命令统一管理）
       config.root_item = {
         ...config.root_item,
-        completed_notes_count: completedNotesCount,
+        completed_notes_count: completedNotesCountHistory,
         updated_at: updatedAt,
       }
+
+      // 删除旧字段（向后兼容）
+      delete (config.root_item as any).completed_notes_count_last_month
 
       // 写入配置文件
       writeFileSync(ROOT_CONFIG_PATH, JSON.stringify(config, null, 2), 'utf-8')
 
       if (!this.quiet) {
+        const monthKeys = Object.keys(completedNotesCountHistory)
+        const currentKey = monthKeys[monthKeys.length - 1]
+        const currentCount = completedNotesCountHistory[currentKey] || 0
         this.logger.success(
-          `root_item 配置已更新: 完成 ${completedNotesCount} 篇笔记`
+          `root_item 配置已更新: 当前完成 ${currentCount} 篇笔记 (历史: ${monthKeys.length} 个月)`
         )
       }
     } catch (error) {
@@ -222,6 +229,122 @@ export class UpdateCommand extends BaseCommand {
     } catch (error) {
       this.logger.warn(`获取完成笔记数量失败: ${error}`)
       return 0
+    }
+  }
+
+  /**
+   * 获取历史每个月的 completed_notes_count
+   * 逻辑:
+   * 1. 基于 created_at 计算知识库存在了多少个月
+   * 2. 遍历每个月的最后一天,从 Git 提取该月的完成数
+   * 3. 返回对象 { '25.03': 0, '25.04': 1, ... }
+   */
+  private async getCompletedNotesCountHistory(
+    createdAt: number
+  ): Promise<Record<string, number>> {
+    try {
+      const { execSync } = await import('child_process')
+
+      // 1. 计算知识库创建月份和当前月份
+      const createdDate = new Date(createdAt)
+      const now = new Date()
+
+      const createdYear = createdDate.getFullYear()
+      const createdMonth = createdDate.getMonth() // 0-11
+      const currentYear = now.getFullYear()
+      const currentMonth = now.getMonth() // 0-11
+
+      // 计算总月数（包含创建月和当前月）
+      const totalMonths =
+        (currentYear - createdYear) * 12 + (currentMonth - createdMonth) + 1
+
+      const result: Record<string, number> = {}
+      let prevCount = 0
+
+      // 2. 遍历每个月,提取完成数
+      for (let i = 0; i < totalMonths; i++) {
+        const targetYear = createdYear + Math.floor((createdMonth + i) / 12)
+        const targetMonth = (createdMonth + i) % 12
+
+        // 生成键名 (如 '25.03', '25.11')
+        const yearShort = String(targetYear).slice(-2)
+        const monthStr = String(targetMonth + 1).padStart(2, '0')
+        const key = `${yearShort}.${monthStr}`
+
+        // 计算该月的最后一天
+        const lastDayOfMonth = new Date(
+          targetYear,
+          targetMonth + 1,
+          0,
+          23,
+          59,
+          59
+        )
+        const year = lastDayOfMonth.getFullYear()
+        const month = String(lastDayOfMonth.getMonth() + 1).padStart(2, '0')
+        const day = String(lastDayOfMonth.getDate()).padStart(2, '0')
+        const untilDate = `${year}-${month}-${day} 23:59:59 +0800`
+
+        try {
+          // 查找该月最后一次修改根目录 .tnotes.json 的提交
+          const commitHash = execSync(
+            `git log --until="${untilDate}" --format=%H -1 -- .tnotes.json`,
+            {
+              cwd: ROOT_DIR_PATH,
+              encoding: 'utf-8',
+            }
+          ).trim()
+
+          if (!commitHash) {
+            // 该月没有提交,使用上一个月的值或 0
+            result[key] = prevCount
+            continue
+          }
+
+          // 读取该提交中的 .tnotes.json 内容
+          const configContent = execSync(
+            `git show ${commitHash}:.tnotes.json`,
+            {
+              cwd: ROOT_DIR_PATH,
+              encoding: 'utf-8',
+            }
+          )
+
+          const config: TNotesConfig = JSON.parse(configContent)
+
+          // 处理新旧格式兼容
+          let count = 0
+          const completedNotesCount = config.root_item?.completed_notes_count
+
+          if (
+            typeof completedNotesCount === 'object' &&
+            completedNotesCount !== null
+          ) {
+            if (Array.isArray(completedNotesCount)) {
+              // 数组格式:取最后一个值
+              count = completedNotesCount[completedNotesCount.length - 1] || 0
+            } else {
+              // 对象格式:取所有值中的最大值(当前月应该是最新的)
+              const values = Object.values(completedNotesCount)
+              count = values.length > 0 ? Math.max(...values) : 0
+            }
+          } else if (typeof completedNotesCount === 'number') {
+            // 旧格式:直接使用数字
+            count = completedNotesCount
+          }
+
+          result[key] = count
+          prevCount = count
+        } catch (error) {
+          // Git 命令执行失败,使用上一个月的值或 0
+          result[key] = prevCount
+        }
+      }
+
+      return result
+    } catch (error) {
+      // 任何错误都返回空对象
+      return {}
     }
   }
 }

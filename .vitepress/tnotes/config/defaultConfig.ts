@@ -41,7 +41,7 @@ export function getDefaultConfig(repoName?: string): TNotesConfig {
         src: `https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/assets/icon--${cleanName}.svg`,
       },
       title: cleanName,
-      completed_notes_count: 0,
+      completed_notes_count: {},
       details: `${name} 知识库`,
       link: `https://tnotesjs.github.io/${name}/`,
       created_at: Date.now(),

@@ -479,11 +479,28 @@ function openVSCodeArticle(article) {
       <div class="stat-item">
         <span class="stat-label">✅ 完成进度</span>
         <span class="stat-value"
-          >{{ ROOT_ITEM.completed_notes_count }} / {{ articles.length }} ≈
+          >{{
+            (() => {
+              const keys = Object.keys(ROOT_ITEM.completed_notes_count)
+              if (keys.length === 0) return 0
+              // 找到年月最大的键 (如 '25.12' > '25.11' > '24.12')
+              const latestKey = keys.reduce((max, key) =>
+                key > max ? key : max
+              )
+              return ROOT_ITEM.completed_notes_count[latestKey] || 0
+            })()
+          }}
+          / {{ articles.length }} ≈
           {{
-            Math.floor(
-              (ROOT_ITEM.completed_notes_count / articles.length) * 100
-            )
+            (() => {
+              const keys = Object.keys(ROOT_ITEM.completed_notes_count)
+              if (keys.length === 0) return 0
+              const latestKey = keys.reduce((max, key) =>
+                key > max ? key : max
+              )
+              const count = ROOT_ITEM.completed_notes_count[latestKey] || 0
+              return Math.floor((count / articles.length) * 100)
+            })()
           }}%</span
         >
       </div>
