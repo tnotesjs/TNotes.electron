@@ -324,9 +324,13 @@ export class UpdateCommand extends BaseCommand {
               // 数组格式:取最后一个值
               count = completedNotesCount[completedNotesCount.length - 1] || 0
             } else {
-              // 对象格式:取所有值中的最大值(当前月应该是最新的)
-              const values = Object.values(completedNotesCount)
-              count = values.length > 0 ? Math.max(...values) : 0
+              // 对象格式:找到当前月或更早月份的最大值
+              // 只取 <= 当前计算月份的数据,避免读取到未来月份的错误数据
+              const validValues = Object.entries(completedNotesCount)
+                .filter(([k]) => k <= key)
+                .map(([, v]) => v)
+              count =
+                validValues.length > 0 ? Math.max(...validValues) : prevCount
             }
           } else if (typeof completedNotesCount === 'number') {
             // 旧格式:直接使用数字
