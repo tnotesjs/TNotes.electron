@@ -169,6 +169,7 @@ export class UpdateCommand extends BaseCommand {
 
   /**
    * 更新 root_item 配置
+   * 只更新当前月份的完成笔记数量
    */
   private async updateRootItem(): Promise<void> {
     try {
@@ -176,17 +177,37 @@ export class UpdateCommand extends BaseCommand {
       const configContent = readFileSync(ROOT_CONFIG_PATH, 'utf-8')
       const config: TNotesConfig = JSON.parse(configContent)
 
-      // 1. 计算每个月的完成笔记数量（全量计算）
-      const completedNotesCountHistory =
-        await this.getCompletedNotesCountHistory(config.root_item.created_at)
+      // 1. 读取根目录 README.md
+      const readmePath = resolve(ROOT_DIR_PATH, 'README.md')
+      if (!existsSync(readmePath)) {
+        throw new Error('根目录 README.md 不存在')
+      }
 
-      // 2. 获取当前时间作为更新时间
+      const readmeContent = readFileSync(readmePath, 'utf-8')
+
+      // 2. 解析完成笔记数量
+      const { parseReadmeCompletedNotes } = await import('../../utils')
+      const { completedCount } = parseReadmeCompletedNotes(readmeContent)
+
+      // 3. 生成当前月份的键名（如 '25.12'）
+      const now = new Date()
+      const yearShort = String(now.getFullYear()).slice(-2)
+      const monthStr = String(now.getMonth() + 1).padStart(2, '0')
+      const currentKey = `${yearShort}.${monthStr}`
+
+      // 4. 更新当前月份的完成数量
+      const completedNotesCount = {
+        ...(config.root_item.completed_notes_count || {}),
+        [currentKey]: completedCount,
+      }
+
+      // 5. 获取当前时间作为更新时间
       const updatedAt = Date.now()
 
       // 更新 root_item（不更新 created_at，由 timestamp-fix 命令统一管理）
       config.root_item = {
         ...config.root_item,
-        completed_notes_count: completedNotesCountHistory,
+        completed_notes_count: completedNotesCount,
         updated_at: updatedAt,
       }
 
@@ -197,11 +218,8 @@ export class UpdateCommand extends BaseCommand {
       writeFileSync(ROOT_CONFIG_PATH, JSON.stringify(config, null, 2), 'utf-8')
 
       if (!this.quiet) {
-        const monthKeys = Object.keys(completedNotesCountHistory)
-        const currentKey = monthKeys[monthKeys.length - 1]
-        const currentCount = completedNotesCountHistory[currentKey] || 0
         this.logger.success(
-          `root_item 配置已更新: 当前完成 ${currentCount} 篇笔记 (历史: ${monthKeys.length} 个月)`
+          `root_item 配置已更新: ${currentKey} 月完成 ${completedCount} 篇笔记`
         )
       }
     } catch (error) {
@@ -212,143 +230,7 @@ export class UpdateCommand extends BaseCommand {
           }`
         )
       }
-    }
-  }
-
-  /**
-   * 获取完成的笔记数量（去重）
-   */
-  private async getCompletedNotesCount(): Promise<number> {
-    try {
-      const allNotes = await this.noteService.getAllNotes()
-      // 筛选出 done 为 true 的笔记，使用 Set 去重（基于 id）
-      const completedNoteIds = new Set(
-        allNotes.filter((note) => note.config?.done).map((note) => note.id)
-      )
-      return completedNoteIds.size
-    } catch (error) {
-      this.logger.warn(`获取完成笔记数量失败: ${error}`)
-      return 0
-    }
-  }
-
-  /**
-   * 获取历史每个月的 completed_notes_count
-   * 逻辑:
-   * 1. 基于 created_at 计算知识库存在了多少个月
-   * 2. 遍历每个月的最后一天,从 Git 提取该月的完成数
-   * 3. 返回对象 { '25.03': 0, '25.04': 1, ... }
-   */
-  private async getCompletedNotesCountHistory(
-    createdAt: number
-  ): Promise<Record<string, number>> {
-    try {
-      const { execSync } = await import('child_process')
-
-      // 1. 计算知识库创建月份和当前月份
-      const createdDate = new Date(createdAt)
-      const now = new Date()
-
-      const createdYear = createdDate.getFullYear()
-      const createdMonth = createdDate.getMonth() // 0-11
-      const currentYear = now.getFullYear()
-      const currentMonth = now.getMonth() // 0-11
-
-      // 计算总月数（包含创建月和当前月）
-      const totalMonths =
-        (currentYear - createdYear) * 12 + (currentMonth - createdMonth) + 1
-
-      const result: Record<string, number> = {}
-      let prevCount = 0
-
-      // 2. 遍历每个月,提取完成数
-      for (let i = 0; i < totalMonths; i++) {
-        const targetYear = createdYear + Math.floor((createdMonth + i) / 12)
-        const targetMonth = (createdMonth + i) % 12
-
-        // 生成键名 (如 '25.03', '25.11')
-        const yearShort = String(targetYear).slice(-2)
-        const monthStr = String(targetMonth + 1).padStart(2, '0')
-        const key = `${yearShort}.${monthStr}`
-
-        // 计算该月的最后一天
-        const lastDayOfMonth = new Date(
-          targetYear,
-          targetMonth + 1,
-          0,
-          23,
-          59,
-          59
-        )
-        const year = lastDayOfMonth.getFullYear()
-        const month = String(lastDayOfMonth.getMonth() + 1).padStart(2, '0')
-        const day = String(lastDayOfMonth.getDate()).padStart(2, '0')
-        const untilDate = `${year}-${month}-${day} 23:59:59 +0800`
-
-        try {
-          // 查找该月最后一次修改根目录 .tnotes.json 的提交
-          const commitHash = execSync(
-            `git log --until="${untilDate}" --format=%H -1 -- .tnotes.json`,
-            {
-              cwd: ROOT_DIR_PATH,
-              encoding: 'utf-8',
-            }
-          ).trim()
-
-          if (!commitHash) {
-            // 该月没有提交,使用上一个月的值或 0
-            result[key] = prevCount
-            continue
-          }
-
-          // 读取该提交中的 .tnotes.json 内容
-          const configContent = execSync(
-            `git show ${commitHash}:.tnotes.json`,
-            {
-              cwd: ROOT_DIR_PATH,
-              encoding: 'utf-8',
-            }
-          )
-
-          const config: TNotesConfig = JSON.parse(configContent)
-
-          // 处理新旧格式兼容
-          let count = 0
-          const completedNotesCount = config.root_item?.completed_notes_count
-
-          if (
-            typeof completedNotesCount === 'object' &&
-            completedNotesCount !== null
-          ) {
-            if (Array.isArray(completedNotesCount)) {
-              // 数组格式:取最后一个值
-              count = completedNotesCount[completedNotesCount.length - 1] || 0
-            } else {
-              // 对象格式:找到当前月或更早月份的最大值
-              // 只取 <= 当前计算月份的数据,避免读取到未来月份的错误数据
-              const validValues = Object.entries(completedNotesCount)
-                .filter(([k]) => k <= key)
-                .map(([, v]) => v)
-              count =
-                validValues.length > 0 ? Math.max(...validValues) : prevCount
-            }
-          } else if (typeof completedNotesCount === 'number') {
-            // 旧格式:直接使用数字
-            count = completedNotesCount
-          }
-
-          result[key] = count
-          prevCount = count
-        } catch (error) {
-          // Git 命令执行失败,使用上一个月的值或 0
-          result[key] = prevCount
-        }
-      }
-
-      return result
-    } catch (error) {
-      // 任何错误都返回空对象
-      return {}
+      throw error
     }
   }
 }

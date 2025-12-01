@@ -20,6 +20,7 @@ export type CommandName =
   | 'sync-scripts'
   | 'sync'
   | 'update'
+  | 'update-completed-count'
   | 'update-note-config'
 
 /**
@@ -36,6 +37,7 @@ export interface CommandArgs {
   'create-notes'?: boolean
   'sync-scripts'?: boolean
   'fix-timestamps'?: boolean
+  'update-completed-count'?: boolean
   'update-note-config'?: boolean
   'rename-note'?: boolean
   help?: boolean
@@ -71,6 +73,7 @@ export function isValidCommand(command: string): command is CommandName {
     'build',
     'preview',
     'update',
+    'update-completed-count',
     'push',
     'pull',
     'sync',

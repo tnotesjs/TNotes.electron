@@ -25,7 +25,7 @@ export class HelpCommand extends BaseCommand {
     // 按类别组织命令
     const categories = {
       开发和构建: ['dev', 'build', 'preview'],
-      内容管理: ['update', 'create-notes'],
+      内容管理: ['update', 'update-completed-count', 'create-notes'],
       'Git 操作': ['push', 'pull', 'sync'],
       其他: ['sync-scripts', 'fix-timestamps', 'help'],
     }
@@ -35,7 +35,8 @@ export class HelpCommand extends BaseCommand {
       for (const cmdName of cmdNames) {
         const cmd = commands.find((c) => c.name === cmdName)
         if (cmd) {
-          const padding = ' '.repeat(15 - cmdName.length)
+          const paddingLength = Math.max(25 - cmdName.length, 1)
+          const padding = ' '.repeat(paddingLength)
           this.logger.info(`    --${cmdName}${padding}${cmd.description}`)
         }
       }
@@ -48,11 +49,17 @@ export class HelpCommand extends BaseCommand {
     this.logger.info('  pnpm tn:create-notes     # 批量创建笔记')
     this.logger.info('  pnpm tn:update')
     this.logger.info('  pnpm tn:update --all     # 更新所有知识库')
+    this.logger.info(
+      '  pnpm tn:update-completed-count           # 更新当前知识库历史数据'
+    )
+    this.logger.info(
+      '  pnpm tn:update-completed-count --all     # 更新所有知识库历史数据'
+    )
     this.logger.info('  pnpm tn:push --all       # 推送所有知识库')
     this.logger.info('')
     this.logger.info('参数:')
     this.logger.info(
-      '  --all          批量操作所有知识库 (适用于 update/push/pull/sync)'
+      '  --all          批量操作所有知识库 (适用于 update/update-completed-count/push/pull/sync)'
     )
     this.logger.info('  --quiet        静默模式 (适用于 update)')
     this.logger.info('  --force        强制推送 (适用于 push)')

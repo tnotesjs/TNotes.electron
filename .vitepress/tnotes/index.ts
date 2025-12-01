@@ -65,12 +65,17 @@ import { handleError, createError } from './utils/errorHandler'
       }
     }
 
-    // 处理 --all 参数（适用于 update/push/pull/sync 命令）
+    // 处理 --all 参数（适用于 update/update-completed-count/push/pull/sync 命令）
     if (args.all) {
       if (commandName === 'update') {
         const updateCommand = command as any
         if (typeof updateCommand.setUpdateAll === 'function') {
           updateCommand.setUpdateAll(true)
+        }
+      } else if (commandName === 'update-completed-count') {
+        const updateCompletedCountCommand = command as any
+        if (typeof updateCompletedCountCommand.setUpdateAll === 'function') {
+          updateCompletedCountCommand.setUpdateAll(true)
         }
       } else if (commandName === 'push') {
         const pushCommand = command as any

@@ -1,18 +1,20 @@
 {
   "type": "module",
   "scripts": {
-    "tn:build": "         tsx ./.vitepress/tnotes/index.ts --build",
-    "tn:create-notes": "  tsx ./.vitepress/tnotes/index.ts --create-notes",
-    "tn:dev": "           tsx ./.vitepress/tnotes/index.ts --dev",
-    "tn:fix-timestamps": "tsx ./.vitepress/tnotes/index.ts --fix-timestamps",
-    "tn:help": "          tsx ./.vitepress/tnotes/index.ts --help",
-    "tn:preview": "       tsx ./.vitepress/tnotes/index.ts --preview",
-    "tn:pull": "          tsx ./.vitepress/tnotes/index.ts --pull",
-    "tn:push": "          tsx ./.vitepress/tnotes/index.ts --push",
-    "tn:sync": "          tsx ./.vitepress/tnotes/index.ts --sync",
-    "tn:sync-scripts": "  tsx ./.vitepress/tnotes/index.ts --sync-scripts",
-    "tn:update": "        tsx ./.vitepress/tnotes/index.ts --update",
-    "tn:update-all": "    tsx ./.vitepress/tnotes/index.ts --update --all"
+    "tn:build": "                       tsx ./.vitepress/tnotes/index.ts --build",
+    "tn:create-notes": "                tsx ./.vitepress/tnotes/index.ts --create-notes",
+    "tn:dev": "                         tsx ./.vitepress/tnotes/index.ts --dev",
+    "tn:fix-timestamps": "              tsx ./.vitepress/tnotes/index.ts --fix-timestamps",
+    "tn:help": "                        tsx ./.vitepress/tnotes/index.ts --help",
+    "tn:preview": "                     tsx ./.vitepress/tnotes/index.ts --preview",
+    "tn:pull": "                        tsx ./.vitepress/tnotes/index.ts --pull",
+    "tn:push": "                        tsx ./.vitepress/tnotes/index.ts --push",
+    "tn:sync": "                        tsx ./.vitepress/tnotes/index.ts --sync",
+    "tn:sync-scripts": "                tsx ./.vitepress/tnotes/index.ts --sync-scripts",
+    "tn:update": "                      tsx ./.vitepress/tnotes/index.ts --update",
+    "tn:update-all": "                  tsx ./.vitepress/tnotes/index.ts --update --all",
+    "tn:update-completed-count": "      tsx ./.vitepress/tnotes/index.ts --update-completed-count",
+    "tn:update-completed-count-all": "  tsx ./.vitepress/tnotes/index.ts --update-completed-count --all"
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",

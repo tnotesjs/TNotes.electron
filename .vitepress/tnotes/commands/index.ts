@@ -9,6 +9,7 @@ import type { Command, CommandName } from '../types'
 import { DevCommand } from './dev'
 import { BuildCommand, PreviewCommand } from './build'
 import { UpdateCommand } from './update'
+import { UpdateCompletedCountCommand } from './update-completed-count'
 import { PushCommand, PullCommand, SyncCommand } from './git'
 import {
   CreateNotesCommand,
@@ -26,6 +27,7 @@ export const commands: Record<CommandName, Command> = {
   build: new BuildCommand(),
   preview: new PreviewCommand(),
   update: new UpdateCommand(),
+  'update-completed-count': new UpdateCompletedCountCommand(),
   push: new PushCommand(),
   pull: new PullCommand(),
   sync: new SyncCommand(),
@@ -60,6 +62,7 @@ export * from './BaseCommand'
 export * from './dev'
 export * from './build'
 export * from './update'
+export * from './update-completed-count'
 export * from './git'
 export * from './note'
 export * from './maintenance'
