@@ -78,7 +78,7 @@ export class NoteService {
 
   /**
    * 获取笔记（通过ID）
-   * @param noteId - 笔记ID
+   * @param noteId - 笔记 ID
    * @returns 笔记信息，未找到时返回 undefined
    */
   getNoteById(noteId: string): NoteInfo | undefined {
@@ -387,12 +387,11 @@ export class NoteService {
       // 提取目录名中的标题（去掉编号）
       const match = noteInfo.dirName.match(/^\d{4}\.\s+(.+)$/)
       if (!match) {
-        logger.warn(`Invalid dir name format: ${noteInfo.dirName}`)
+        logger.warn(`检测到错误的笔记目录名称：${noteInfo.dirName}`)
         return false
       }
 
       const expectedTitle = match[1]
-      const expectedDirName = `${noteInfo.id}. ${expectedTitle}`
       const expectedH1 = generateNoteTitle(
         noteInfo.id,
         expectedTitle,
@@ -432,6 +431,7 @@ export class NoteService {
    */
   async fixAllNoteTitles(): Promise<number> {
     const notes = this.getAllNotes()
+    // logger.debug('打印前 3 篇笔记信息：', notes.slice(0, 3))
     let fixedCount = 0
 
     for (const note of notes) {

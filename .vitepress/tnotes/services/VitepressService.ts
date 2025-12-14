@@ -306,70 +306,6 @@ export class VitepressService {
       isReady: () => serverReady,
     }
   }
-  /**
-   * 停止 VitePress 开发服务器
-   */
-  async stopServer(): Promise<void> {
-    const processId = 'vitepress-dev'
-
-    // 先尝试从 PID 文件读取
-    const pidFromFile = await this.readPidFile()
-    if (pidFromFile && this.isProcessRunning(pidFromFile)) {
-      logger.info(`正在停止 VitePress 服务 (PID: ${pidFromFile})...`)
-      try {
-        process.kill(pidFromFile, 'SIGTERM')
-        await this.removePidFile()
-        logger.info('VitePress 服务已成功停止')
-        return
-      } catch (error) {
-        logger.error('停止 VitePress 服务失败', error)
-      }
-    }
-
-    // 如果 PID 文件中没有，尝试从内存中的进程管理器
-    if (!this.processManager.has(processId)) {
-      // 清理可能残留的 PID 文件
-      await this.removePidFile()
-      logger.warn('没有正在运行的 VitePress 服务')
-      return
-    }
-
-    const processInfo = this.processManager.get(processId)
-    logger.info(`正在停止 VitePress 服务 (PID: ${processInfo?.pid})...`)
-
-    const killed = this.processManager.kill(processId)
-
-    if (killed) {
-      await this.removePidFile()
-      logger.info('VitePress 服务已成功停止')
-    } else {
-      logger.error('停止 VitePress 服务失败')
-    }
-  }
-
-  /**
-   * 重启 VitePress 开发服务器
-   */
-  async restartServer(): Promise<number | undefined> {
-    await this.stopServer()
-
-    // 等待一小段时间确保端口释放
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-
-    return await this.startServer()
-  }
-
-  /**
-   * 检查服务器是否正在运行
-   * @returns 是否运行中
-   */
-  isServerRunning(): boolean {
-    const processId = 'vitepress-dev'
-    return (
-      this.processManager.has(processId) &&
-      this.processManager.isRunning(processId)
-    )
-  }
 
   /**
    * 获取服务器状态
@@ -482,47 +418,6 @@ export class VitepressService {
   }
 
   /**
-   * 清理所有 VitePress 进程
-   */
-  async cleanup(): Promise<void> {
-    const processes = this.processManager.getAllProcesses()
-    const vitepressProcesses = processes.filter((p) =>
-      p.command.includes('vitepress')
-    )
-
-    if (vitepressProcesses.length === 0) {
-      logger.info('没有需要清理的 VitePress 进程')
-      return
-    }
-
-    logger.info(`正在清理 ${vitepressProcesses.length} 个 VitePress 进程...`)
-
-    for (const process of vitepressProcesses) {
-      this.processManager.kill(process.id)
-    }
-
-    logger.info('清理完成')
-  }
-
-  /**
-   * 显示服务器日志（占位方法，实际实现需要日志收集机制）
-   */
-  showLogs(): void {
-    const status = this.getServerStatus()
-
-    if (!status.running) {
-      logger.info('服务器未运行')
-      return
-    }
-
-    logger.info('服务器状态:')
-    logger.info(`  PID: ${status.pid}`)
-    logger.info(`  端口: ${status.port}`)
-    logger.info(`  运行时间: ${status.uptime}ms`)
-    logger.info(`  访问地址: http://localhost:${status.port}`)
-  }
-
-  /**
    * 读取 PID 文件
    * @returns PID 或 undefined
    */
@@ -576,4 +471,118 @@ export class VitepressService {
       return false
     }
   }
+
+  // ========================================
+  // #region 已弃用的方法
+  // ========================================
+
+  // /**
+  //  * 重启 VitePress 开发服务器
+  //  */
+  // async restartServer(): Promise<number | undefined> {
+  //   await this.stopServer()
+
+  //   // 等待一小段时间确保端口释放
+  //   await new Promise((resolve) => setTimeout(resolve, 1000))
+
+  //   return await this.startServer()
+  // }
+
+  // /**
+  //  * 停止 VitePress 开发服务器
+  //  */
+  // async stopServer(): Promise<void> {
+  //   const processId = 'vitepress-dev'
+
+  //   // 先尝试从 PID 文件读取
+  //   const pidFromFile = await this.readPidFile()
+  //   if (pidFromFile && this.isProcessRunning(pidFromFile)) {
+  //     logger.info(`正在停止 VitePress 服务 (PID: ${pidFromFile})...`)
+  //     try {
+  //       process.kill(pidFromFile, 'SIGTERM')
+  //       await this.removePidFile()
+  //       logger.info('VitePress 服务已成功停止')
+  //       return
+  //     } catch (error) {
+  //       logger.error('停止 VitePress 服务失败', error)
+  //     }
+  //   }
+
+  //   // 如果 PID 文件中没有，尝试从内存中的进程管理器
+  //   if (!this.processManager.has(processId)) {
+  //     // 清理可能残留的 PID 文件
+  //     await this.removePidFile()
+  //     logger.warn('没有正在运行的 VitePress 服务')
+  //     return
+  //   }
+
+  //   const processInfo = this.processManager.get(processId)
+  //   logger.info(`正在停止 VitePress 服务 (PID: ${processInfo?.pid})...`)
+
+  //   const killed = this.processManager.kill(processId)
+
+  //   if (killed) {
+  //     await this.removePidFile()
+  //     logger.info('VitePress 服务已成功停止')
+  //   } else {
+  //     logger.error('停止 VitePress 服务失败')
+  //   }
+  // }
+
+  // /**
+  //  * 检查服务器是否正在运行
+  //  * @returns 是否运行中
+  //  */
+  // isServerRunning(): boolean {
+  //   const processId = 'vitepress-dev'
+  //   return (
+  //     this.processManager.has(processId) &&
+  //     this.processManager.isRunning(processId)
+  //   )
+  // }
+
+  // /**
+  //  * 显示服务器日志（占位方法，实际实现需要日志收集机制）
+  //  */
+  // showLogs(): void {
+  //   const status = this.getServerStatus()
+
+  //   if (!status.running) {
+  //     logger.info('服务器未运行')
+  //     return
+  //   }
+
+  //   logger.info('服务器状态:')
+  //   logger.info(`  PID: ${status.pid}`)
+  //   logger.info(`  端口: ${status.port}`)
+  //   logger.info(`  运行时间: ${status.uptime}ms`)
+  //   logger.info(`  访问地址: http://localhost:${status.port}`)
+  // }
+
+  // /**
+  //  * 清理所有 VitePress 进程
+  //  */
+  // async cleanup(): Promise<void> {
+  //   const processes = this.processManager.getAllProcesses()
+  //   const vitepressProcesses = processes.filter((p) =>
+  //     p.command.includes('vitepress')
+  //   )
+
+  //   if (vitepressProcesses.length === 0) {
+  //     logger.info('没有需要清理的 VitePress 进程')
+  //     return
+  //   }
+
+  //   logger.info(`正在清理 ${vitepressProcesses.length} 个 VitePress 进程...`)
+
+  //   for (const process of vitepressProcesses) {
+  //     this.processManager.kill(process.id)
+  //   }
+
+  //   logger.info('清理完成')
+  // }
+
+  // ========================================
+  // #endregion 已弃用的方法
+  // ========================================
 }

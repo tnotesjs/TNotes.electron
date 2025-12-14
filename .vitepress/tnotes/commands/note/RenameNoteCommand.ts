@@ -139,10 +139,7 @@ export class RenameNoteCommand extends BaseCommand {
       const allNotes = this.noteService.getAllNotes()
 
       // 更新 README.md 和 sidebar.json
-      await this.readmeService.updateAllReadmes({
-        updateHome: true,
-        updateSidebar: true,
-      })
+      await this.readmeService.updateAllReadmes()
 
       this.logger.success('✅ 全局文件已更新')
     } catch (error) {

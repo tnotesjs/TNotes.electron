@@ -6,7 +6,6 @@
 import type { NoteInfo, NoteConfig } from '../types'
 import { NoteManager } from '../core/NoteManager'
 import { ReadmeGenerator } from '../core/ReadmeGenerator'
-import { SidebarGenerator } from '../core/SidebarGenerator'
 import { ConfigManager } from '../config/ConfigManager'
 import { NoteIndexCache } from '../core/NoteIndexCache'
 import { logger } from '../utils/logger'
@@ -33,14 +32,12 @@ export interface UpdateReadmeOptions {
 export class ReadmeService {
   private noteManager: NoteManager
   private readmeGenerator: ReadmeGenerator
-  private sidebarGenerator: SidebarGenerator
   private configManager: ConfigManager
   private noteIndexCache: NoteIndexCache
 
   constructor() {
     this.noteManager = new NoteManager()
     this.readmeGenerator = new ReadmeGenerator()
-    this.sidebarGenerator = new SidebarGenerator()
     this.configManager = ConfigManager.getInstance()
     this.noteIndexCache = NoteIndexCache.getInstance()
   }
@@ -54,11 +51,11 @@ export class ReadmeService {
 
     logger.info('开始更新知识库...')
 
-    // 1. 扫描所有笔记
+    // 扫描所有笔记
     const notes = this.noteManager.scanNotes()
     logger.info(`扫描到 ${notes.length} 篇笔记`)
 
-    // 2. 检测变更的笔记（增量更新优化）
+    // 检测变更的笔记（增量更新优化）
     const changedIds = await this.getChangedNoteIds()
     const shouldIncrementalUpdate =
       changedIds.size > 0 && changedIds.size < notes.length * 0.3 // 少于30%变更才增量更新
@@ -71,19 +68,19 @@ export class ReadmeService {
       logger.info('使用全量更新模式')
     }
 
-    // 3. 并行更新笔记的 README
+    // 并行更新笔记的 README
     const startTime = Date.now()
     await this.updateNoteReadmesInParallel(notesToUpdate)
     const updateTime = Date.now() - startTime
 
     logger.info(`更新了 ${notesToUpdate.length} 篇笔记 (耗时 ${updateTime}ms)`)
 
-    // 4. 更新首页 README（必须先更新，因为 sidebar 依赖 README 的内容）
+    // 更新首页 README（必须先更新，因为侧边目录 sidebar.json 数据是通过解析 README 中的内容来生成的）
     if (updateHome) {
       await this.updateHomeReadme(notes)
     }
 
-    // 5. 更新侧边栏配置（必须在 README 更新后执行）
+    // 更新侧边栏配置（必须在 README 更新后执行）
     if (updateSidebar) {
       await this.updateSidebar(notes)
     }
@@ -555,45 +552,53 @@ export class ReadmeService {
     logger.info('重新生成 sidebar.json')
   }
 
-  /**
-   * 生成 VitePress 文档
-   * @returns 生成的文件路径数组
-   */
-  async generateVitepressDocs(): Promise<string[]> {
-    const notes = this.noteManager.scanNotes()
-    const generatedFiles: string[] = []
+  // ============================================================
+  // #region - Deprecated
+  // ============================================================
 
-    // 更新侧边栏
-    await this.updateSidebar(notes)
-    generatedFiles.push(VP_SIDEBAR_PATH)
+  // /**
+  //  * 生成 VitePress 文档
+  //  * @returns 生成的文件路径数组
+  //  */
+  // async generateVitepressDocs(): Promise<string[]> {
+  //   const notes = this.noteManager.scanNotes()
+  //   const generatedFiles: string[] = []
 
-    // 更新首页
-    await this.updateHomeReadme(notes)
-    generatedFiles.push(ROOT_README_PATH)
+  //   // 更新侧边栏
+  //   await this.updateSidebar(notes)
+  //   generatedFiles.push(VP_SIDEBAR_PATH)
 
-    logger.info(`Generated ${generatedFiles.length} files`)
-    return generatedFiles
-  }
+  //   // 更新首页
+  //   await this.updateHomeReadme(notes)
+  //   generatedFiles.push(ROOT_README_PATH)
 
-  /**
-   * 验证所有 README 文件是否存在
-   * @returns 验证结果 { valid: 有效数量, missing: 缺失数量 }
-   */
-  validateReadmeFiles(): { valid: number; missing: number } {
-    const notes = this.noteManager.scanNotes()
-    let valid = 0
-    let missing = 0
+  //   logger.info(`Generated ${generatedFiles.length} files`)
+  //   return generatedFiles
+  // }
 
-    for (const note of notes) {
-      if (fs.existsSync(note.readmePath)) {
-        valid++
-      } else {
-        missing++
-        logger.warn(`README missing for note: ${note.dirName}`)
-      }
-    }
+  // /**
+  //  * 验证所有 README 文件是否存在
+  //  * @returns 验证结果 { valid: 有效数量, missing: 缺失数量 }
+  //  */
+  // validateReadmeFiles(): { valid: number; missing: number } {
+  //   const notes = this.noteManager.scanNotes()
+  //   let valid = 0
+  //   let missing = 0
 
-    logger.info(`Validation complete: ${valid} valid, ${missing} missing`)
-    return { valid, missing }
-  }
+  //   for (const note of notes) {
+  //     if (fs.existsSync(note.readmePath)) {
+  //       valid++
+  //     } else {
+  //       missing++
+  //       logger.warn(`README missing for note: ${note.dirName}`)
+  //     }
+  //   }
+
+  //   logger.info(`Validation complete: ${valid} valid, ${missing} missing`)
+  //   return { valid, missing }
+  // }
+
+  // ============================================================
+  // #endregion - Deprecated
+  // ============================================================
 }

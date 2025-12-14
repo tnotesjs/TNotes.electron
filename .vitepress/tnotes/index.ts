@@ -1,15 +1,23 @@
 /**
  * .vitepress/tnotes/index.ts
  *
- * TNotes 命令行入口
+ * TNotes 内置命令入口模块
  */
 import minimist from 'minimist'
 import { getCommand } from './commands'
 import { isValidCommand, type CommandArgs } from './types/command'
 import { handleError, createError } from './utils/errorHandler'
+import type {
+  UpdateCommand,
+  DevCommand,
+  UpdateCompletedCountCommand,
+  PushCommand,
+  PullCommand,
+  SyncCommand,
+} from './commands'
 
 /**
- * 主函数
+ * TNotes 内置命令入口函数
  */
 ;(async (): Promise<void> => {
   try {
@@ -43,23 +51,15 @@ import { handleError, createError } from './utils/errorHandler'
 
     // 处理 quiet 模式（适用于 update 命令）
     if (commandName === 'update' && args.quiet) {
-      const updateCommand = command as any
+      const updateCommand = command as UpdateCommand
       if (typeof updateCommand.setQuiet === 'function') {
         updateCommand.setQuiet(true)
       }
     }
 
-    // 处理 watch 模式（适用于 dev 命令）
-    if (commandName === 'dev' && args['no-watch']) {
-      const devCommand = command as any
-      if (typeof devCommand.setEnableWatch === 'function') {
-        devCommand.setEnableWatch(false)
-      }
-    }
-
     // 处理 force 模式（适用于 push 命令）
     if (commandName === 'push' && args.force) {
-      const baseCommand = command as any
+      const baseCommand = command as PushCommand
       if (typeof baseCommand.setOptions === 'function') {
         baseCommand.setOptions({ force: true })
       }
@@ -68,27 +68,28 @@ import { handleError, createError } from './utils/errorHandler'
     // 处理 --all 参数（适用于 update/update-completed-count/push/pull/sync 命令）
     if (args.all) {
       if (commandName === 'update') {
-        const updateCommand = command as any
+        const updateCommand = command as UpdateCommand
         if (typeof updateCommand.setUpdateAll === 'function') {
           updateCommand.setUpdateAll(true)
         }
       } else if (commandName === 'update-completed-count') {
-        const updateCompletedCountCommand = command as any
+        const updateCompletedCountCommand =
+          command as UpdateCompletedCountCommand
         if (typeof updateCompletedCountCommand.setUpdateAll === 'function') {
           updateCompletedCountCommand.setUpdateAll(true)
         }
       } else if (commandName === 'push') {
-        const pushCommand = command as any
+        const pushCommand = command as PushCommand
         if (typeof pushCommand.setPushAll === 'function') {
           pushCommand.setPushAll(true)
         }
       } else if (commandName === 'pull') {
-        const pullCommand = command as any
+        const pullCommand = command as PullCommand
         if (typeof pullCommand.setPullAll === 'function') {
           pullCommand.setPullAll(true)
         }
       } else if (commandName === 'sync') {
-        const syncCommand = command as any
+        const syncCommand = command as SyncCommand
         if (typeof syncCommand.setSyncAll === 'function') {
           syncCommand.setSyncAll(true)
         }

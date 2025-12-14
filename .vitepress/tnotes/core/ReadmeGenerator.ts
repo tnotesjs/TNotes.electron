@@ -4,7 +4,7 @@
  * README 生成器 - 负责生成各种 README 内容
  */
 import * as fs from 'fs'
-import type { NoteInfo, NoteConfig } from '../types'
+import type { NoteInfo } from '../types'
 import { TocGenerator } from './TocGenerator'
 import { ConfigManager } from '../config/ConfigManager'
 import { logger } from '../utils/logger'
@@ -13,6 +13,7 @@ import {
   buildNoteLineMarkdown,
   processEmptyLines,
 } from '../utils/readmeHelpers'
+import { createAddNumberToTitle } from '../utils/markdown'
 import { EOL } from '../config/constants'
 
 /**
@@ -115,7 +116,7 @@ export class ReadmeGenerator {
    */
   updateHomeReadme(notes: NoteInfo[], homeReadmePath: string): void {
     if (!fs.existsSync(homeReadmePath)) {
-      logger.error(`Home README not found: ${homeReadmePath}`)
+      logger.error(`根目录下的 README.md 文件未找到：${homeReadmePath}`)
       return
     }
 
@@ -141,6 +142,10 @@ export class ReadmeGenerator {
     const titlesNotesCount: number[] = []
     let inTocRegion = false
     let currentNoteCount = 0
+
+    // 标题编号器（用于自动更新二级和三级标题前边儿的编号）
+    const addNumberToTitle = createAddNumberToTitle()
+    const numberedHeaders = ['## ', '### ']
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i]
@@ -176,16 +181,36 @@ export class ReadmeGenerator {
         continue
       }
 
-      // 匹配标题: ## xxx
+      // 匹配标题: ## xxx 或 ### xxx
       const titleMatch = line.match(/^(#{2,})\s+(.+)$/)
       if (titleMatch) {
-        // 保存上一个标题的笔记数量
-        if (titles.length > 0) {
-          titlesNotesCount.push(currentNoteCount)
-        }
+        // 检查是否是需要编号的标题（2~3 级）
+        const isNumberedHeader = numberedHeaders.some((header) =>
+          line.startsWith(header)
+        )
 
-        titles.push(line)
-        currentNoteCount = 0
+        if (isNumberedHeader) {
+          // 自动添加编号
+          const [numberedTitle] = addNumberToTitle(line)
+          lines[i] = numberedTitle
+
+          // 保存上一个标题的笔记数量
+          if (titles.length > 0) {
+            titlesNotesCount.push(currentNoteCount)
+          }
+
+          titles.push(numberedTitle)
+          currentNoteCount = 0
+        } else {
+          // 其他级别的标题，不添加编号
+          // 保存上一个标题的笔记数量
+          if (titles.length > 0) {
+            titlesNotesCount.push(currentNoteCount)
+          }
+
+          titles.push(line)
+          currentNoteCount = 0
+        }
       }
     }
 
@@ -210,7 +235,7 @@ export class ReadmeGenerator {
     if (missingNotes.length > 0) {
       logger.info(`添加 ${missingNotes.length} 篇缺失的笔记到 README`)
 
-      // 按笔记ID排序
+      // 按笔记 ID 排序
       missingNotes.sort((a, b) => a.id.localeCompare(b.id))
 
       for (const note of missingNotes) {

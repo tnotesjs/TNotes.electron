@@ -337,13 +337,13 @@ export function getMarkdownConfig(): MarkdownOptions {
       // 添加 Mermaid 支持
       simpleMermaidMarkdown(md)
 
-      // 配置 MarkMap 容器
+      // 添加 MarkMap 支持
       configureMarkMapContainer(md)
 
-      // 配置任务列表
+      // 添加任务列表支持
       md.use(markdownItTaskLists)
 
-      // 配置链接属性
+      // 添加链接属性支持
       md.use(mila, {
         attrs: {
           target: '_self',
@@ -351,7 +351,7 @@ export function getMarkdownConfig(): MarkdownOptions {
         },
       })
 
-      // 配置 Swiper 容器
+      // 添加 Swiper 支持
       configureSwiperContainer(md)
     },
     anchor: {

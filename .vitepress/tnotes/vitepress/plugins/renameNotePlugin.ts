@@ -3,10 +3,10 @@
  *
  * Vite 插件 - 处理笔记重命名请求
  */
-import type { Plugin } from 'vite'
+import type { PluginOption } from 'vite'
 import { RenameNoteCommand } from '../../commands/note/RenameNoteCommand'
 
-export function renameNotePlugin(): Plugin {
+export function renameNotePlugin(): PluginOption {
   const renameCommand = new RenameNoteCommand()
 
   return {

@@ -5,7 +5,7 @@
  */
 
 /**
- * 命令名称类型
+ * TNotes 内置命令列表
  */
 export type CommandName =
   | 'build'

@@ -3,12 +3,12 @@
  *
  * VitePress 插件 - 处理笔记配置更新请求
  */
-import type { Plugin } from 'vite'
+import type { PluginOption } from 'vite'
 import { UpdateNoteConfigCommand } from '../../commands/note/UpdateNoteConfigCommand'
 import { serviceManager } from '../../services/ServiceManager'
 import { logger } from '../../utils/logger'
 
-export function updateConfigPlugin(): Plugin {
+export function updateConfigPlugin(): PluginOption {
   let updateCommand: UpdateNoteConfigCommand
   let isInitialized = false
 

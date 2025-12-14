@@ -64,23 +64,26 @@ export class TNotesError extends Error {
  */
 export function handleError(error: unknown, exitOnError = false): void {
   if (error instanceof TNotesError) {
-    console.error(`❌ [${error.code}] ${error.message}`)
+    console.error(`❌ TNotesError`)
+    console.error(`错误码：${error.code}`)
+    console.error(`错误信息：${error.message}`)
 
     if (error.context && Object.keys(error.context).length > 0) {
-      console.error('📋 Context:', error.context)
+      console.error('错误上下文信息：', error.context)
     }
 
     if (error.stack && process.env.DEBUG) {
-      console.error('Stack trace:', error.stack)
+      console.error('错误堆栈信息：', error.stack)
     }
   } else if (error instanceof Error) {
-    console.error(`❌ ${error.message}`)
+    console.error(`❌ Error`)
+    console.error(`错误信息：${error.message}`)
 
     if (error.stack && process.env.DEBUG) {
-      console.error('Stack trace:', error.stack)
+      console.error('错误堆栈信息：', error.stack)
     }
   } else {
-    console.error('❌ Unexpected error:', error)
+    console.error('❌ 未知错误：', error)
   }
 
   if (exitOnError) {
@@ -109,81 +112,77 @@ export function withErrorHandling<T extends any[], R>(
  */
 export const createError = {
   fileNotFound: (path: string) =>
-    new TNotesError(`File not found: ${path}`, ErrorCode.FILE_NOT_FOUND, {
+    new TNotesError(`文件未找到：${path}`, ErrorCode.FILE_NOT_FOUND, {
       path,
     }),
 
   fileReadError: (path: string, originalError?: Error) =>
-    new TNotesError(`Failed to read file: ${path}`, ErrorCode.FILE_READ_ERROR, {
+    new TNotesError(`读取文件失败：${path}`, ErrorCode.FILE_READ_ERROR, {
       path,
       originalError: originalError?.message,
     }),
 
   fileWriteError: (path: string, originalError?: Error) =>
-    new TNotesError(
-      `Failed to write file: ${path}`,
-      ErrorCode.FILE_WRITE_ERROR,
-      { path, originalError: originalError?.message }
-    ),
+    new TNotesError(`写入文件失败：${path}`, ErrorCode.FILE_WRITE_ERROR, {
+      path,
+      originalError: originalError?.message,
+    }),
 
   gitNotRepo: (dir: string) =>
-    new TNotesError(`Not a git repository: ${dir}`, ErrorCode.GIT_NOT_REPO, {
+    new TNotesError(`不是一个 Git 仓库：${dir}`, ErrorCode.GIT_NOT_REPO, {
       dir,
     }),
 
   gitCommandFailed: (command: string, dir: string, originalError?: Error) =>
-    new TNotesError(
-      `Git command failed: ${command}`,
-      ErrorCode.GIT_COMMAND_FAILED,
-      { command, dir, originalError: originalError?.message }
-    ),
+    new TNotesError(`Git 命令失败：${command}`, ErrorCode.GIT_COMMAND_FAILED, {
+      command,
+      dir,
+      originalError: originalError?.message,
+    }),
 
   noteIdInvalid: (id: string) =>
-    new TNotesError(`Invalid note ID: ${id}`, ErrorCode.NOTE_ID_INVALID, {
+    new TNotesError(`无效的笔记 ID：${id}`, ErrorCode.NOTE_ID_INVALID, {
       id,
     }),
 
   noteConfigInvalid: (notePath: string, reason?: string) =>
     new TNotesError(
-      `Invalid note config: ${notePath}`,
+      `无效的笔记配置：${notePath}`,
       ErrorCode.NOTE_CONFIG_INVALID,
       { notePath, reason }
     ),
 
   configInvalid: (field: string, reason: string) =>
-    new TNotesError(
-      `Invalid config field: ${field}`,
-      ErrorCode.CONFIG_INVALID,
-      { field, reason }
-    ),
+    new TNotesError(`无效的配置字段：${field}`, ErrorCode.CONFIG_INVALID, {
+      field,
+      reason,
+    }),
 
   commandNotFound: (commandName: string) =>
-    new TNotesError(
-      `Command not found: ${commandName}`,
-      ErrorCode.COMMAND_NOT_FOUND,
-      { commandName }
-    ),
+    new TNotesError(`未找到命令：${commandName}`, ErrorCode.COMMAND_NOT_FOUND, {
+      commandName,
+    }),
 
   commandFailed: (
     commandName: string,
     exitCode?: number,
     originalError?: Error
   ) =>
-    new TNotesError(
-      `Command failed: ${commandName}`,
-      ErrorCode.COMMAND_FAILED,
-      { commandName, exitCode, originalError: originalError?.message }
-    ),
+    new TNotesError(`命令执行失败：${commandName}`, ErrorCode.COMMAND_FAILED, {
+      commandName,
+      exitCode,
+      originalError: originalError?.message,
+    }),
 
   serverStartFailed: (port: number, originalError?: Error) =>
     new TNotesError(
-      `Failed to start server on port ${port}`,
+      `启动服务器失败：端口 ${port}`,
       ErrorCode.SERVER_START_FAILED,
       { port, originalError: originalError?.message }
     ),
 
   portInUse: (port: number) =>
-    new TNotesError(`Port ${port} is already in use`, ErrorCode.PORT_IN_USE, {
+    new TNotesError(`端口 ${port} 已被占用`, ErrorCode.PORT_IN_USE, {
       port,
     }),
 }

@@ -20,10 +20,6 @@
     },
     "title": "electron",
     "completed_notes_count": {
-      "24.09": 0,
-      "24.10": 0,
-      "24.11": 0,
-      "24.12": 1,
       "25.01": 2,
       "25.02": 21,
       "25.03": 21,
@@ -40,7 +36,7 @@
     "details": "Electron 笔记",
     "link": "https://tnotesjs.github.io/TNotes.electron/",
     "created_at": 1726304357000,
-    "updated_at": 1764578452562,
+    "updated_at": 1765719216790,
     "days_since_birth": 9210
   },
   "port": 9210,

@@ -1,7 +1,13 @@
-// doc
-// https://vitepress.dev/zh/guide/custom-theme
+/**
+ * .vitepress/tnotes/theme/index.ts
+ *
+ * 自定义主题
+ *
+ * doc:
+ * v1 - https://vuejs.github.io/vitepress/v1/zh/guide/custom-theme
+ * v2 - https://vitepress.dev/zh/guide/custom-theme
+ */
 
-// .vitepress/theme/index.ts
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import BilibiliOutsidePlayer from '../components/BilibiliOutsidePlayer/BilibiliOutsidePlayer.vue'
@@ -21,8 +27,11 @@ import './styles/index.scss'
 export default {
   extends: DefaultTheme,
 
-  // doc: https://vitepress.dev/zh/guide/extending-default-theme#layout-slots
-  // 使用注入插槽的包装组件覆盖 Layout
+  /**
+   * 使用注入插槽的包装组件覆盖 Layout
+   *
+   * doc: https://vitepress.dev/zh/guide/extending-default-theme#layout-slots
+   */
   Layout,
 
   // doc: https://vitepress.dev/zh/guide/extending-default-theme#registering-global-components

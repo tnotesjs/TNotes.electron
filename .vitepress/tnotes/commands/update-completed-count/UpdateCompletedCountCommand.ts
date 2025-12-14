@@ -5,8 +5,7 @@
  * 从知识库创建月份到当前月份，基于 Git 历史中的 README.md 统计每个月的完成笔记数量
  */
 import { BaseCommand } from '../BaseCommand'
-import { readFileSync, writeFileSync, existsSync } from 'fs'
-import { resolve } from 'path'
+import { readFileSync, writeFileSync } from 'fs'
 import { ROOT_DIR_PATH, ROOT_CONFIG_PATH } from '../../config'
 import type { TNotesConfig } from '../../types'
 import { execSync } from 'child_process'
@@ -155,77 +154,78 @@ export class UpdateCompletedCountCommand extends BaseCommand {
   }
 
   /**
-   * 获取历史每个月的 completed_notes_count
+   * 获取历史每个月的 completed_notes_count（最近12个月）
+   *
    * 逻辑:
-   * 1. 基于 created_at 计算知识库存在了多少个月
-   * 2. 遍历每个月的最后一天，从 Git 历史中读取 README.md
+   * 1. 计算最近12个月的范围（当前月份往前推11个月）
+   * 2. 遍历这12个月，从 Git 历史中读取 README.md
    * 3. 解析 README.md 获取完成笔记数量
-   * 4. 返回对象 { '25.03': 0, '25.04': 1, ... }
+   * 4. 如果知识库创建时间在这12个月内，之前的月份补0
+   * 5. 返回对象 { '25.01': 0, '25.02': 1, ..., '25.12': 15 }
    */
   private async getCompletedNotesCountHistory(
     createdAt: number
   ): Promise<Record<string, number>> {
     try {
-      const { parseReadmeCompletedNotes } = await import('../../utils')
-
-      // 1. 计算知识库创建月份和当前月份
-      const createdDate = new Date(createdAt)
+      // 1. 计算最近12个月的范围
       const now = new Date()
+      const currentYear = now.getFullYear()
+      const currentMonth = now.getMonth() // 0-11 (0=January, 11=December)
 
+      // 计算第一个月（当前月往前推11个月）
+      // 例如：当前是 2025年12月(11)，往前推11个月 => 2025年1月(0)
+      let firstYear = currentYear
+      let firstMonth = currentMonth - 11
+
+      // 处理跨年情况
+      if (firstMonth < 0) {
+        firstYear = currentYear - 1
+        firstMonth = 12 + firstMonth
+      }
+
+      const createdDate = new Date(createdAt)
       const createdYear = createdDate.getFullYear()
       const createdMonth = createdDate.getMonth() // 0-11
-      const currentYear = now.getFullYear()
-      const currentMonth = now.getMonth() // 0-11
-
-      // 计算总月数（包含创建月和当前月）
-      const totalMonths =
-        (currentYear - createdYear) * 12 + (currentMonth - createdMonth) + 1
 
       const result: Record<string, number> = {}
       let prevCount = 0
 
-      // 2. 先统计第一个月作为兜底值
-      const firstYearShort = String(createdYear).slice(-2)
-      const firstMonthStr = String(createdMonth + 1).padStart(2, '0')
-      const firstKey = `${firstYearShort}.${firstMonthStr}`
+      // 2. 遍历最近12个月
+      for (let i = 0; i < 12; i++) {
+        const targetYear = firstYear + Math.floor((firstMonth + i) / 12)
+        const targetMonth = (firstMonth + i) % 12
 
-      try {
-        const firstCount = await this.getMonthCompletedCount(
-          createdYear,
-          createdMonth
-        )
-        result[firstKey] = firstCount
-        prevCount = firstCount
-        this.logger.info(`✓ ${firstKey}: ${firstCount} 篇`)
-      } catch (error) {
-        this.logger.warn(`${firstKey}: 无数据，使用 0`)
-        result[firstKey] = 0
-        prevCount = 0
-      }
-
-      // 3. 遍历剩余月份
-      for (let i = 1; i < totalMonths; i++) {
-        const targetYear = createdYear + Math.floor((createdMonth + i) / 12)
-        const targetMonth = (createdMonth + i) % 12
-
-        // 生成键名 (如 '25.03', '25.11')
+        // 生成键名 (如 '25.01', '25.12')
         const yearShort = String(targetYear).slice(-2)
         const monthStr = String(targetMonth + 1).padStart(2, '0')
         const key = `${yearShort}.${monthStr}`
 
-        try {
-          const count = await this.getMonthCompletedCount(
-            targetYear,
-            targetMonth,
-            prevCount
-          )
-          result[key] = count
-          prevCount = count
-          this.logger.info(`✓ ${key}: ${count} 篇`)
-        } catch (error) {
-          // 该月没有提交或解析失败，使用上一个月的值
-          result[key] = prevCount
-          this.logger.warn(`${key}: 无数据，使用 ${prevCount}（上月值）`)
+        // 3. 检查是否早于知识库创建时间
+        const isBeforeCreation =
+          targetYear < createdYear ||
+          (targetYear === createdYear && targetMonth < createdMonth)
+
+        if (isBeforeCreation) {
+          // 早于创建时间，直接设为 0
+          result[key] = 0
+          prevCount = 0
+          this.logger.info(`✓ ${key}: 0 篇（早于创建时间）`)
+        } else {
+          // 尝试从 Git 历史获取
+          try {
+            const count = await this.getMonthCompletedCount(
+              targetYear,
+              targetMonth,
+              prevCount
+            )
+            result[key] = count
+            prevCount = count
+            this.logger.info(`✓ ${key}: ${count} 篇`)
+          } catch (error) {
+            // 该月没有提交或解析失败，使用上一个月的值
+            result[key] = prevCount
+            this.logger.warn(`${key}: 无数据，使用 ${prevCount}（上月值）`)
+          }
         }
       }
 

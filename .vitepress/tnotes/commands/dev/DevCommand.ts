@@ -8,18 +8,10 @@ import { VitepressService, serviceManager } from '../../services'
 
 export class DevCommand extends BaseCommand {
   private vitepressService: VitepressService
-  private enableWatch: boolean = true
 
   constructor() {
     super('dev', '启动知识库开发服务')
     this.vitepressService = new VitepressService()
-  }
-
-  /**
-   * 设置是否启用文件监听
-   */
-  setEnableWatch(enable: boolean): void {
-    this.enableWatch = enable
   }
 
   protected async run(): Promise<void> {
@@ -30,20 +22,19 @@ export class DevCommand extends BaseCommand {
 
     if (pid) {
       const newStatus = this.vitepressService.getServerStatus()
-      this.logger.success(`服务器已启动 (PID: ${pid})`)
+      this.logger.success(`服务器已启动 - PID: ${pid}`)
       if (newStatus.port) {
-        this.logger.info(`访问地址: http://localhost:${newStatus.port}`)
+        this.logger.info(`🔗 访问地址：`)
+        this.logger.info(`  http://localhost:${newStatus.port}`)
       }
 
-      // 启动文件监听（默认启用）
-      if (this.enableWatch) {
-        this.logger.info('启用自动更新模式...')
-        const fileWatcherService = serviceManager.getFileWatcherService()
-        fileWatcherService.start()
-        this.logger.info(
-          '💡 提示: 修改笔记后会自动更新，无需手动执行 pnpm tn:update'
-        )
-      }
+      this.logger.info('启用自动更新模式...')
+      const fileWatcherService = serviceManager.getFileWatcherService()
+      fileWatcherService.start()
+      this.logger.info('💡 提示: ')
+      this.logger.info(
+        `修改笔记后保存笔记文件（README.md），笔记的目录将会自动更新`
+      )
     } else {
       this.logger.error('启动服务器失败')
     }

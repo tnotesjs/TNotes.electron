@@ -2,6 +2,9 @@
  * .vitepress/config/theme.config.ts
  *
  * 主题配置
+ *
+ * doc:
+ * https://vitepress.dev/reference/default-theme-config
  */
 import { DefaultTheme } from 'vitepress'
 import { menuItems, socialLinks } from '../../../../.tnotes.json'
