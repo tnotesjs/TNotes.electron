@@ -32,12 +32,13 @@
       "25.10": 20,
       "25.11": 20,
       "25.12": 20,
-      "26.01": 20
+      "26.01": 20,
+      "26.02": 20
     },
     "details": "Electron 笔记",
     "link": "https://tnotesjs.github.io/TNotes.electron/",
     "created_at": 1726304357000,
-    "updated_at": 1767227720759,
+    "updated_at": 1769948358635,
     "days_since_birth": 9210
   },
   "port": 9210,
