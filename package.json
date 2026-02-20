@@ -10,7 +10,7 @@
     "tn:pull": "                        tsx ./.vitepress/tnotes/index.ts --pull",
     "tn:push": "                        tsx ./.vitepress/tnotes/index.ts --push",
     "tn:sync": "                        tsx ./.vitepress/tnotes/index.ts --sync",
-    "tn:sync-scripts": "                tsx ./.vitepress/tnotes/index.ts --sync-scripts",
+    "tn:sync-core": "                   tsx ./.vitepress/tnotes/index.ts --sync-core",
     "tn:update": "                      tsx ./.vitepress/tnotes/index.ts --update",
     "tn:update-all": "                  tsx ./.vitepress/tnotes/index.ts --update --all",
     "tn:update-completed-count": "      tsx ./.vitepress/tnotes/index.ts --update-completed-count",
