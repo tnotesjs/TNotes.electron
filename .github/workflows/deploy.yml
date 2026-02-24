@@ -69,3 +69,17 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # 通知根仓库收集元数据
+  notify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    name: Notify TNotes
+    steps:
+      - name: Trigger root repo collect
+        run: |
+          curl -s -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.TNOTES_DISPATCH_TOKEN }}" \
+            https://api.github.com/repos/tnotesjs/TNotes/dispatches \
+            -d '{"event_type":"sub_repo_updated","client_payload":{"repo":"${{ github.event.repository.name }}"}}'
