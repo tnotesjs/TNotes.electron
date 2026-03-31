@@ -1,45 +1,23 @@
 {
   "type": "module",
   "scripts": {
-    "tn:build": "                       tsx ./.vitepress/tnotes/index.ts --build",
-    "tn:create-notes": "                tsx ./.vitepress/tnotes/index.ts --create-notes",
-    "tn:dev": "                         tsx ./.vitepress/tnotes/index.ts --dev",
-    "tn:fix-timestamps": "              tsx ./.vitepress/tnotes/index.ts --fix-timestamps",
-    "tn:help": "                        tsx ./.vitepress/tnotes/index.ts --help",
-    "tn:preview": "                     tsx ./.vitepress/tnotes/index.ts --preview",
-    "tn:pull": "                        tsx ./.vitepress/tnotes/index.ts --pull",
-    "tn:push": "                        tsx ./.vitepress/tnotes/index.ts --push",
-    "tn:sync": "                        tsx ./.vitepress/tnotes/index.ts --sync",
-    "tn:sync-core": "                   tsx ./.vitepress/tnotes/index.ts --sync-core",
-    "tn:update": "                      tsx ./.vitepress/tnotes/index.ts --update",
-    "tn:update-all": "                  tsx ./.vitepress/tnotes/index.ts --update --all",
-    "tn:update-completed-count": "      tsx ./.vitepress/tnotes/index.ts --update-completed-count",
-    "tn:update-completed-count-all": "  tsx ./.vitepress/tnotes/index.ts --update-completed-count --all"
+    "tn:build": "                       tnotes --build",
+    "tn:create-notes": "                tnotes --create-notes",
+    "tn:dev": "                         tnotes --dev",
+    "tn:fix-timestamps": "              tnotes --fix-timestamps",
+    "tn:help": "                        tnotes --help",
+    "tn:preview": "                     tnotes --preview",
+    "tn:pull": "                        tnotes --pull",
+    "tn:push": "                        tnotes --push",
+    "tn:update": "                      tnotes --update",
+    "tn:update-completed-count": "      tnotes --update-completed-count"
   },
   "devDependencies": {
-    "@types/markdown-it": "^14.1.2",
-    "@types/node": "^24.6.2",
-    "markdown-it-task-lists": "^2.1.1",
-    "mermaid": "^11.5.0",
-    "sass-embedded": "^1.90.0",
-    "tsx": "^4.19.2",
     "vite": "^7.3.1",
     "vitepress": "^1.6.3",
     "vue": "^3.5.27"
   },
   "dependencies": {
-    "d3": "^7.9.0",
-    "echarts": "^6.0.0",
-    "github-slugger": "^2.0.0",
-    "markdown-it-container": "^4.0.0",
-    "markdown-it-link-attributes": "^4.0.1",
-    "markdown-it-mathjax3": "^4.3.2",
-    "marked": "^15.0.11",
-    "markmap-lib": "^0.18.12",
-    "markmap-toolbar": "^0.18.12",
-    "markmap-view": "^0.18.12",
-    "swiper": "^11.2.1",
-    "uuid": "^11.1.0",
-    "vue-echarts": "^8.0.1"
+    "@tnotesjs/core": "^0.1.12"
   }
 }

@@ -1,3 +1,0 @@
-[submodule ".vitepress/tnotes"]
-	path = .vitepress/tnotes
-	url = https://github.com/tnotesjs/TNotes.core.git
