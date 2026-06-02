@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@tnotesjs/core':
-        specifier: ^0.1.27
-        version: 0.1.27(markmap-common@0.18.9)(vite@7.3.5(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vitepress@1.6.4(@algolia/client-search@5.53.0)(markdown-it-mathjax3@4.3.2)(postcss@8.5.15)(sass-embedded@1.100.0)(sass@1.100.0)(search-insights@2.17.3))(vue@3.5.35)
+        specifier: ^0.1.28
+        version: 0.1.28(markmap-common@0.18.9)(vite@7.3.5(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vitepress@1.6.4(@algolia/client-search@5.53.0)(markdown-it-mathjax3@4.3.2)(postcss@8.5.15)(sass-embedded@1.100.0)(sass@1.100.0)(search-insights@2.17.3))(vue@3.5.35)
     devDependencies:
       vite:
         specifier: ^7.3.1
@@ -699,8 +699,8 @@ packages:
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
 
-  '@tnotesjs/core@0.1.27':
-    resolution: {integrity: sha512-MahkWh1d0iOltMajEI+iSy6/YwwdZHGAEwBJ9sJuWRWQ9TewW2eMm/sC52vcqAdTo/6XAO6vTvPLsmYlzVC/Aw==}
+  '@tnotesjs/core@0.1.28':
+    resolution: {integrity: sha512-lmuQT1Y+8j4h2ofITJbgjDjiTzAtSN3NeaLN+Bt/ufvRmac6PW32i5cE17yll5XlcBUfV44MkkRUqD9b0NZ9Hw==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     peerDependencies:
@@ -2485,7 +2485,7 @@ snapshots:
 
   '@shikijs/vscode-textmate@10.0.2': {}
 
-  '@tnotesjs/core@0.1.27(markmap-common@0.18.9)(vite@7.3.5(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vitepress@1.6.4(@algolia/client-search@5.53.0)(markdown-it-mathjax3@4.3.2)(postcss@8.5.15)(sass-embedded@1.100.0)(sass@1.100.0)(search-insights@2.17.3))(vue@3.5.35)':
+  '@tnotesjs/core@0.1.28(markmap-common@0.18.9)(vite@7.3.5(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vitepress@1.6.4(@algolia/client-search@5.53.0)(markdown-it-mathjax3@4.3.2)(postcss@8.5.15)(sass-embedded@1.100.0)(sass@1.100.0)(search-insights@2.17.3))(vue@3.5.35)':
     dependencies:
       d3: 7.9.0
       echarts: 6.1.0
