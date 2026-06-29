@@ -2,28 +2,28 @@
 
 <!-- region:toc -->
 
-- [1. 📝 概述](#1--概述)
-- [2. 💡 思维导图](#2--思维导图)
-- [3. 🔍 查看官方提供的 IPC 通信教程](#3--查看官方提供的-ipc-通信教程)
-- [4. 📒 send vs. sendSync](#4--send-vs-sendsync)
-- [5. 📒 send vs. invoke](#5--send-vs-invoke)
-- [6. 🤔 Q&A](#6--qa)
+- [1. 概述](#1-概述)
+- [2. 思维导图](#2-思维导图)
+- [3. 查看官方提供的 IPC 通信教程](#3-查看官方提供的-ipc-通信教程)
+- [4. send vs. sendSync](#4-send-vs-sendsync)
+- [5. send vs. invoke](#5-send-vs-invoke)
+- [6. Q&A](#6-qa)
   - [6.1. 🤔 问：使用 send 来实现单向通信能减少开销提高性能？](#61--问使用-send-来实现单向通信能减少开销提高性能)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 - 把官方教程中提到的 IPC 通信模式刷一遍
 - 认识用于实现 IPC 通信的模块 ipcMain、ipcRenderer
 - send 和 sendSync 之间的一些差异（这俩 API “已过时”）
 - invoke 比 send 好在哪
 
-## 2. 💡 思维导图
+## 2. 思维导图
 
 ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-36-41.png)
 
-## 3. 🔍 查看官方提供的 IPC 通信教程
+## 3. 查看官方提供的 IPC 通信教程
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/ipc
 - 这是官方提供的 IPC 通信教程，包含以下几个要点：
@@ -36,7 +36,7 @@
   - 对象序列化
 - ![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-36-52.png)
 
-## 4. 📒 send vs. sendSync
+## 4. send vs. sendSync
 
 | 对比项 | ipcRenderer.send | ipcRenderer.sendSync | 说明 |
 | --- | --- | --- | --- |
@@ -80,7 +80,7 @@
     - ![图 2](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-37-12.png)
     - 简言之就是，**如果我们开发的应用所使用的 Electron 的版本高于 v7，那么推荐使用新版的 API ipcRenderer.invoke 来实现渲染进程到主进程之间的通信。放弃使用传统的 ipcRenderer.send、ipcRenderer.sendSync。**
 
-## 5. 📒 send vs. invoke
+## 5. send vs. invoke
 
 | 对比项     | ipcRenderer.send       | ipcRenderer.invoke     |
 | ---------- | ---------------------- | ---------------------- |
@@ -118,7 +118,7 @@
   - 如果仅仅是渲染进程发起请求，不需要管主进程的响应，也就是单向通信，send 和 invoke 又有何区别呢？
   - 答案是 - **几乎没有区别**
 
-## 6. 🤔 Q&A
+## 6. Q&A
 
 ### 6.1. 🤔 问：使用 send 来实现单向通信能减少开销提高性能？
 

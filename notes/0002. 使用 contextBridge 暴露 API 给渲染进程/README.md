@@ -2,16 +2,16 @@
 
 <!-- region:toc -->
 
-- [1. 📝 概述](#1--概述)
-- [2. 💻 demos.1 - 使用 contextBridge 暴露 API 给渲染进程](#2--demos1---使用-contextbridge-暴露-api-给渲染进程)
+- [1. 概述](#1-概述)
+- [2. demos.1 - 使用 contextBridge 暴露 API 给渲染进程](#2-demos1---使用-contextbridge-暴露-api-给渲染进程)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 - 学会在开启 `contextIsolation` 的情况下，使用 `contextBridge` 来给渲染进程暴露 Electron API，使用系统的原生能力。
 
-## 2. 💻 demos.1 - 使用 contextBridge 暴露 API 给渲染进程
+## 2. demos.1 - 使用 contextBridge 暴露 API 给渲染进程
 
 ::: code-group
 

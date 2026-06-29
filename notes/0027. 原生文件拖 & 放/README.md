@@ -1,37 +1,37 @@
 # [0027. 原生文件拖 & 放](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0027.%20%E5%8E%9F%E7%94%9F%E6%96%87%E4%BB%B6%E6%8B%96%20%26%20%E6%94%BE)
 
-
 <!-- region:toc -->
 
-- [1. 📺 视频](#1--视频)
-- [2. 🔗 links](#2--links)
-- [3. 📒本文要实现一个什么样的效果](#3-本文要实现一个什么样的效果)
-- [4. 💻 demo](#4--demo)
+- [1. 视频](#1-视频)
+- [2. links](#2-links)
+- [3. 本文要实现一个什么样的效果](#3-本文要实现一个什么样的效果)
+- [4. demo](#4-demo)
 
 <!-- endregion:toc -->
+
 - 原生文件拖 & 放是什么
 - 如何实现原生文件拖 & 放效果
   - 从视频的 0:50～2:30 开始展示最终的效果，可以从这开始看，快速了解下本节要实现的效果。
 
-## 1. 📺 视频
+## 1. 视频
 
 <BilibiliOutsidePlayer id="BV1kBFyeREQy" />
 
-## 2. 🔗 links
+## 2. links
 
 - https://www.electronjs.org/zh/docs/latest/api/web-contents#contentsstartdragitem
   - 查看官方文档对于 API - contents.startDrag(item) 的介绍。
 - https://www.electronjs.org/zh/docs/latest/tutorial/native-file-drag-drop
   - 查看官方示例 - 原生文件拖 & 放。
 
-## 3. 📒本文要实现一个什么样的效果
+## 3. 本文要实现一个什么样的效果
 
 - ![](assets/2024-10-13-21-25-12.png)
   - 可以直接将窗口中的红框或蓝框中的内容，直接拖到系统桌面或者指定文件夹中。
   - 从视频的 `0:50～2:30` 开始展示最终的效果，可以从这开始看，快速了解下本节要实现的效果。
   - 这是一个很实用的一个功能点，在做一些效率工具的时候可以考虑加上这个功能点。
 
-## 4. 💻 demo
+## 4. demo
 
 ```bash
 # 目录结构
@@ -67,8 +67,10 @@ function createWindow() {
 app.whenReady().then(createWindow)
 
 ipcMain.on('ondragstart', (event, filePath) => {
-
-  console.log('event.sender === win.webContents =>', event.sender === win.webContents) // true
+  console.log(
+    'event.sender === win.webContents =>',
+    event.sender === win.webContents,
+  ) // true
   console.log('filePath =>', filePath)
   // event.sender === win.webContents => true
   // filePath => /Users/huyouda/Desktop/【demo】原生文件拖 & 放/drag-and-drop.md
@@ -99,7 +101,6 @@ const path = require('node:path')
 
 contextBridge.exposeInMainWorld('electron', {
   startDrag: (fileName) => {
-
     console.log('process.cwd() =>', process.cwd())
     // process.cwd() => /Users/huyouda/Desktop/【demo】原生文件拖 & 放
     // 返回值是 Node.js 进程的当前工作目录，也就是这个 demo 所在的文件夹的绝对路径。
@@ -117,7 +118,8 @@ contextBridge.exposeInMainWorld('electron', {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      #drag1, #drag2 {
+      #drag1,
+      #drag2 {
         border: 1px solid;
       }
 
@@ -134,7 +136,7 @@ contextBridge.exposeInMainWorld('electron', {
   <body>
     <h1>startDrag test</h1>
     <div draggable="true" id="drag1">drag-and-drop.md</div>
-    <img src="./drag-and-drop.png" alt="" draggable="true" id="drag2">
+    <img src="./drag-and-drop.png" alt="" draggable="true" id="drag2" />
     <script src="renderer.js"></script>
   </body>
 </html>

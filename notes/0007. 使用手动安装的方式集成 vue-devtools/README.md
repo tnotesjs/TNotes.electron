@@ -2,13 +2,14 @@
 
 <!-- region:toc -->
 
-- [1. 🔗 links](#1--links)
-- [2. 💻 demo](#2--demo)
+- [1. links](#1-links)
+- [2. demo](#2-demo)
 
 <!-- endregion:toc -->
+
 - 如何通过 session 模块在 Electron 工程中集成 vue-devtools
 
-## 1. 🔗 links
+## 1. links
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/devtools-extension
   - 查看 Electron 官方对于【开发者工具扩展】的相关说明，介绍了如何在 electron 中集成 chrome 插件及相关注意事项和问题，介绍了如何在 Electron 中管理开发者扩展工具。
@@ -21,7 +22,7 @@
 - https://github.com/vuejs/devtools
   - 这是 vue devtools 的 github 仓库，你可以从这里获取插件的源码。
 
-## 2. 💻 demo
+## 2. demo
 
 ```js
 // index.js
@@ -44,7 +45,7 @@ app.whenReady().then(async () => {
     await session.defaultSession.loadExtension(
       devToolsPath,
       // allowFileAccess is required to load the devtools extension on file:// URLs.
-      { allowFileAccess: true }
+      { allowFileAccess: true },
     )
     console.log('Vue DevTools loaded successfully.')
   } catch (err) {

@@ -2,18 +2,18 @@
 
 <!-- region:toc -->
 
-- [1. 📝 概述](#1--概述)
-- [2. 💻 demos.1](#2--demos1)
-- [3. 🤔 electron, electron-builder, 和 electron-icon-builder 应该安装为开发依赖还是生产依赖呢？](#3--electron-electron-builder-和-electron-icon-builder-应该安装为开发依赖还是生产依赖呢)
+- [1. 概述](#1-概述)
+- [2. demos.1](#2-demos1)
+- [3. electron, electron-builder, 和 electron-icon-builder 应该安装为开发依赖还是生产依赖呢？](#3-electron-electron-builder-和-electron-icon-builder-应该安装为开发依赖还是生产依赖呢)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 - 使用 electron-icon-builder 处理应用图标
 - 使用 electron-builder 出包
 
-## 2. 💻 demos.1
+## 2. demos.1
 
 ::: code-group
 
@@ -43,7 +43,7 @@
     - ![图 3](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-06-08-22-12-33.png)
 - 该 demo 的做法是直接使用命令的方式来走，并将其配置到了包体描述文件 package.json 中。这部分的逻辑，其实也可以视作 nodejs 脚本，丢到一个 .js 文件中以便管理。
 
-## 3. 🤔 electron, electron-builder, 和 electron-icon-builder 应该安装为开发依赖还是生产依赖呢？
+## 3. electron, electron-builder, 和 electron-icon-builder 应该安装为开发依赖还是生产依赖呢？
 
 - 答：开发依赖。
 - 因此，当你编写的应用如果需要出包的话，别忘了在安装的这些包的时候加上 --save-dev 参数，否则，出包的时候会报错。

@@ -2,19 +2,20 @@
 
 <!-- region:toc -->
 
-- [1. 🔗 links](#1--links)
-- [2. 💻 demo](#2--demo)
+- [1. links](#1-links)
+- [2. demo](#2-demo)
 
 <!-- endregion:toc -->
+
 - 按照官方提供的示例试了一下，最终结果是：**没能安装成功**。
 - 如果不是自己写的测试用例有误，那就是 electron-devtools-installer 这个包过时了。
 
-## 1. 🔗 links
+## 1. links
 
 - https://www.npmjs.com/package/electron-devtools-installer
   - npm，electron-devtools-installer
 
-## 2. 💻 demo
+## 2. demo
 
 ```js
 // index.js

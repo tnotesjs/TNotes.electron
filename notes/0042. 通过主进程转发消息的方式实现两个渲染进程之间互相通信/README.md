@@ -1,24 +1,24 @@
 # [0042. 通过主进程转发消息的方式实现两个渲染进程之间互相通信](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0042.%20%E9%80%9A%E8%BF%87%E4%B8%BB%E8%BF%9B%E7%A8%8B%E8%BD%AC%E5%8F%91%E6%B6%88%E6%81%AF%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E4%BA%92%E7%9B%B8%E9%80%9A%E4%BF%A1)
 
-
 <!-- region:toc -->
 
-- [1. 📺 视频 - demos.1](#1--视频---demos1)
-- [2. 💻 demos.1](#2--demos1)
-- [3. 📺 视频 - demos.2](#3--视频---demos2)
-- [4. 💻 demos.2](#4--demos2)
+- [1. 视频 - demos.1](#1-视频---demos1)
+- [2. demos.1](#2-demos1)
+- [3. 视频 - demos.2](#3-视频---demos2)
+- [4. demos.2](#4-demos2)
 
 <!-- endregion:toc -->
+
 - 本节一共有 2 个 demo
   - demos.1 的写法是存在一些问题的（需要理解 demos.1 的写法存在的问题）
   - demos.2 对 demos.1 的问题进行了修复（需要理解 demos.2 是如何解决 demos.1 遇到的问题的）
 - 类似于 demos.2 的效果，在工作中实践过，使用起来感觉没啥问题，还 OK。需要注意的是 channel 的语义化，如果 channel 的数量比较多，那么可以尝试通过一些特殊的自定义命名规则来区分哪些 channel 是用于在两个渲染进程之间互相通信的。当然，除了通过自定义命名规范来区分，还可以单独写一个全局对象来存储 channel，比如 `CHANNEL_LIST.r2r.xxx`、`CHANNEL_LIST.r2m.xxx`、`CHANNEL_LIST.m2r.xxx`。
 
-## 1. 📺 视频 - demos.1
+## 1. 视频 - demos.1
 
 <BilibiliOutsidePlayer id="BV1PBFyedEjE" />
 
-## 2. 💻 demos.1
+## 2. demos.1
 
 ::: code-group
 
@@ -47,7 +47,9 @@ function handleIPC() {
   ipcMain.handle('message-from-renderer1', async (_, ...args) => {
     console.log('main process received message from renderer1 with args:', args)
     win2.webContents.send('message-to-renderer2', ...args)
-    return new Promise((resolve) => ipcMain.on('message-from-renderer2', (_, result) => resolve(result)))
+    return new Promise((resolve) =>
+      ipcMain.on('message-from-renderer2', (_, result) => resolve(result)),
+    )
   })
 }
 
@@ -78,7 +80,10 @@ const { ipcRenderer } = require('electron')
 
 ipcRenderer.on('message-to-renderer2', (event, ...args) => {
   console.log('message-to-renderer2', ...args)
-  ipcRenderer.send('message-from-renderer2', args.reduce((a, b) => a + b, 0))
+  ipcRenderer.send(
+    'message-from-renderer2',
+    args.reduce((a, b) => a + b, 0),
+  )
 })
 ```
 
@@ -106,7 +111,10 @@ ipcRenderer.on('message-to-renderer2', (event, ...args) => {
 const { ipcRenderer } = require('electron')
 
 async function test() {
-  console.log('1 + 2 =', await ipcRenderer.invoke('message-from-renderer1', 1, 2))
+  console.log(
+    '1 + 2 =',
+    await ipcRenderer.invoke('message-from-renderer1', 1, 2),
+  )
 }
 
 test() // => 1 + 2 = 3
@@ -136,11 +144,17 @@ sequenceDiagram
 const { ipcRenderer } = require('electron')
 
 async function test1() {
-  console.log('1 + 2 =', await ipcRenderer.invoke('message-from-renderer1', 1, 2))
+  console.log(
+    '1 + 2 =',
+    await ipcRenderer.invoke('message-from-renderer1', 1, 2),
+  )
 }
 
 async function test2() {
-  console.log('1 + 2 + 3 =', await ipcRenderer.invoke('message-from-renderer1', 1, 2, 3))
+  console.log(
+    '1 + 2 + 3 =',
+    await ipcRenderer.invoke('message-from-renderer1', 1, 2, 3),
+  )
 }
 
 test1() // => 1 + 2 = 3
@@ -163,11 +177,11 @@ sequenceDiagram
 			main->>renderer1: 1 + 2 + 3 结果是 6
 ```
 
-## 3. 📺 视频 - demos.2
+## 3. 视频 - demos.2
 
 <BilibiliOutsidePlayer id="BV1kBFyeREX9" />
 
-## 4. 💻 demos.2
+## 4. demos.2
 
 - 就 demos.1 中的问题，我们针对性地处理一下，解决方案也非常简单，给每一个任务加上 id，区分开不同的任务即可。
 - 事先下载一个第三方包 uuid，用于生成任务的唯一 id。
@@ -247,17 +261,21 @@ app.whenReady().then(() => {
 })
 ```
 
-
-
 ```js [renderer1.js]
 const { ipcRenderer } = require('electron')
 
 async function test1() {
-  console.log('1 + 2 =', await ipcRenderer.invoke('message-from-renderer1', 1, 2))
+  console.log(
+    '1 + 2 =',
+    await ipcRenderer.invoke('message-from-renderer1', 1, 2),
+  )
 }
 
 async function test2() {
-  console.log('1 + 2 + 3 =', await ipcRenderer.invoke('message-from-renderer1', 1, 2, 3))
+  console.log(
+    '1 + 2 + 3 =',
+    await ipcRenderer.invoke('message-from-renderer1', 1, 2, 3),
+  )
 }
 
 test1() // => 1 + 2 = 3

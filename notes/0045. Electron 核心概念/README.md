@@ -2,16 +2,16 @@
 
 <!-- region:toc -->
 
-- [1. 📝 概述](#1--概述)
-- [2. 💡 思维导图](#2--思维导图)
-- [3. 📒 认识 Electron 基本架构](#3--认识-electron-基本架构)
-- [4. 📒 主进程 vs. 渲染进程](#4--主进程-vs-渲染进程)
+- [1. 概述](#1-概述)
+- [2. 思维导图](#2-思维导图)
+- [3. 认识 Electron 基本架构](#3-认识-electron-基本架构)
+- [4. 主进程 vs. 渲染进程](#4-主进程-vs-渲染进程)
   - [4.1. 数量差异](#41-数量差异)
   - [4.2. 作用差异](#42-作用差异)
   - [4.3. 模块差异](#43-模块差异)
-- [5. 📒 认识 contextIsolation 上下文隔离](#5--认识-contextisolation-上下文隔离)
-- [6. 📒 认识 contextBridge 上下文桥接](#6--认识-contextbridge-上下文桥接)
-- [7. 🤔 Q&A](#7--qa)
+- [5. 认识 contextIsolation 上下文隔离](#5-认识-contextisolation-上下文隔离)
+- [6. 认识 contextBridge 上下文桥接](#6-认识-contextbridge-上下文桥接)
+- [7. Q&A](#7-qa)
   - [7.1. 🤔 问：渲染进程中的 remote 模块是？](#71--问渲染进程中的-remote-模块是)
   - [7.2. 🤔 问：Electron 中的渲染进程也是网页，那么它和我们在浏览器中开发的网页有何区别？](#72--问electron-中的渲染进程也是网页那么它和我们在浏览器中开发的网页有何区别)
   - [7.3. 🤔 问：IPC 通信是什么？](#73--问ipc-通信是什么)
@@ -22,7 +22,7 @@
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 - 本节主要介绍 electron 中的部分核心概念 —— 主进程、渲染进程、上下文隔离、上下文桥接、remote 模块、IPC 通信等。
 - 主进程是什么
@@ -37,7 +37,7 @@
 - 如何使用 contextBridge API 来给渲染进程暴露方法
 - 需要对 Electron 中的主进程和渲染进程有个初步的认知，在后续的学习中，Electron 的主进程和渲染进程将会是学习的重点内容。“Electron 的主进程”、“Electron 的渲染进程”这两组字眼，在接下来的学习中，会不断地被提及。本文档中提及的内容，仅仅是做一个初步的简单介绍罢了，通过多撸代码，慢慢加深对它们的理解。
 
-## 2. 💡 思维导图
+## 2. 思维导图
 
 ![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-07-49-29.png)
 
@@ -48,7 +48,7 @@
 
 :::
 
-## 3. 📒 认识 Electron 基本架构
+## 3. 认识 Electron 基本架构
 
 - 在 Electron 中，进程模型主要包含两类进程：主进程、渲染进程。
   - ![图 2](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-07-50-59.png)
@@ -59,7 +59,7 @@
   - 每个 BrowserWindow 实例对应一个渲染进程，当 BrowserWindow 实例被销毁后，渲染进程也跟着终结。
   - 这些渲染进程独立运行，互不影响。
 
-## 4. 📒 主进程 vs. 渲染进程
+## 4. 主进程 vs. 渲染进程
 
 ### 4.1. 数量差异
 
@@ -120,7 +120,7 @@
   - 以上的分类并不是绝对的，某些模块可能在主进程和渲染进程中的功能并不完全相同，或者在不同的环境或版本中能够访问的 API 可能有所不同。
   - 在实际使用时，我们应该参考 Electron 的官方文档以获取最准确的信息。
 
-## 5. 📒 认识 contextIsolation 上下文隔离
+## 5. 认识 contextIsolation 上下文隔离
 
 - **`contextIsolation` 是什么**
   - `contextIsolation` 翻译过来的含义是“上下文 `context` 隔离 `isolation`”。
@@ -161,7 +161,7 @@ let win = new BrowserWindow({
 // 2. 指定预加载脚本路径可以确保预加载脚本和页面内容在隔离的环境中执行
 ```
 
-## 6. 📒 认识 contextBridge 上下文桥接
+## 6. 认识 contextBridge 上下文桥接
 
 - 对比 `contextIsolation`、`contextBridge`
   - `contextIsolation`、`contextBridge` 这俩玩意儿主要作用都是处理安全方面的问题。前者将环境给完全隔离，后者在完全隔离的环境中去接通一些 API 的访问权限。
@@ -186,7 +186,7 @@ contextBridge.exposeInMainWorld('myAPI', {
 // 然后，网页中的 JavaScript 代码就可以通过 window.myAPI.doSomething() 调用这个函数。
 ```
 
-## 7. 🤔 Q&A
+## 7. Q&A
 
 ### 7.1. 🤔 问：渲染进程中的 remote 模块是？
 

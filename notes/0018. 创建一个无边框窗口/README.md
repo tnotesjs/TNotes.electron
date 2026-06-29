@@ -1,28 +1,28 @@
 # [0018. 创建一个无边框窗口](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0018.%20%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%97%A0%E8%BE%B9%E6%A1%86%E7%AA%97%E5%8F%A3)
 
-
 <!-- region:toc -->
 
-- [1. 📺 视频](#1--视频)
-- [2. 🔗 links](#2--links)
-- [3. 💻 demo](#3--demo)
+- [1. 视频](#1-视频)
+- [2. links](#2-links)
+- [3. demo](#3-demo)
 
 <!-- endregion:toc -->
+
 - 创建无边框窗口 frame: false
 - 无边框窗口的特点
 
-## 1. 📺 视频
+## 1. 视频
 
 <BilibiliOutsidePlayer id="BV1YfFye3ERK" />
 
-## 2. 🔗 links
+## 2. links
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/window-customization
   - 官方文档，自定义窗口，查看官方文档中对于如何创建【自定义窗口】的描述。
 - https://www.electronjs.org/docs/latest/api/structures/browser-window-options
   - 官方文档，查看创建 BrowserWindow 实例的相关配置项 options。
 
-## 3. 💻 demo
+## 3. demo
 
 ```js
 // index.js
@@ -46,14 +46,14 @@ app.whenReady().then(createWindow)
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>窗口 1</title>
-</head>
-<body>
-  <h1>默认的有边框窗口</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>窗口 1</title>
+  </head>
+  <body>
+    <h1>默认的有边框窗口</h1>
+  </body>
 </html>
 ```
 
@@ -61,17 +61,17 @@ app.whenReady().then(createWindow)
 <!-- index_without_frame.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>无边框窗口</title>
-</head>
-<body>
-  <h1>通过 frame: false 配置创建一个无边框窗口</h1>
-  <ul>
-    <li>无边框窗口不支持拖拽</li>
-  </ul>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>无边框窗口</title>
+  </head>
+  <body>
+    <h1>通过 frame: false 配置创建一个无边框窗口</h1>
+    <ul>
+      <li>无边框窗口不支持拖拽</li>
+    </ul>
+  </body>
 </html>
 ```
 

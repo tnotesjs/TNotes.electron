@@ -2,18 +2,19 @@
 
 <!-- region:toc -->
 
-- [1. 🔗 links](#1--links)
-- [2. 📒菜单项冲突问题](#2-菜单项冲突问题)
-- [3. 📒如何解决冲突问题](#3-如何解决冲突问题)
-- [4. 💻 demo1 - 手写调试工具切换的触发逻辑](#4--demo1---手写调试工具切换的触发逻辑)
-- [5. 💻 demo2 - 使用预设的 role 来快速配置菜单项](#5--demo2---使用预设的-role-来快速配置菜单项)
-- [6. 🤔 问：role 是什么？](#6--问role-是什么)
+- [1. links](#1-links)
+- [2. 菜单项冲突问题](#2-菜单项冲突问题)
+- [3. 如何解决冲突问题](#3-如何解决冲突问题)
+- [4. demo1 - 手写调试工具切换的触发逻辑](#4-demo1---手写调试工具切换的触发逻辑)
+- [5. demo2 - 使用预设的 role 来快速配置菜单项](#5-demo2---使用预设的-role-来快速配置菜单项)
+- [6. 问：role 是什么？](#6-问role-是什么)
 
 <!-- endregion:toc -->
+
 - 自定义系统菜单和默认菜单的冲突问题是什么
 - 如何解决冲突问题
 
-## 1. 🔗 links
+## 1. links
 
 - https://www.electronjs.org/docs/latest/api/menu-item#roles
   - Electron 中内置了 role 字段，通过这个字段，你可以快速配置菜单项的功能。
@@ -21,7 +22,7 @@
 - https://www.electronjs.org/docs/latest/api/menu#examples
   - An example of creating the application menu with the simple template API
 
-## 2. 📒菜单项冲突问题
+## 2. 菜单项冲突问题
 
 - 通过查看这部分内容，可以快速了解本文档要介绍的问题。
 - 下面介绍一下这个 demo 的最终效果，需要解决的问题是什么。
@@ -47,7 +48,7 @@ function createMenu() {
 
 ![](assets/2024-10-06-01-33-22.png)
 
-## 3. 📒如何解决冲突问题
+## 3. 如何解决冲突问题
 
 - 原因很简单，因为系统自带的默认菜单被咱们指定的菜单给覆盖了。这其实就是该文档要介绍的点，如果咱们自定义的系统菜单覆盖了默认的菜单项，而默认的菜单项中的某些功能，恰好又正是我们需要的，要如何处理呢？
 - 这时候的解决办法也非常简单 —— **缺啥补啥**
@@ -64,7 +65,8 @@ function createMenu() {
       submenu: [
         {
           label: '切换开发者工具',
-          accelerator: process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
+          accelerator:
+            process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
           click: (_, focusedWindow) => {
             if (focusedWindow) {
               focusedWindow.webContents.toggleDevTools()
@@ -80,8 +82,7 @@ function createMenu() {
 }
 ```
 
-
-## 4. 💻 demo1 - 手写调试工具切换的触发逻辑
+## 4. demo1 - 手写调试工具切换的触发逻辑
 
 ```js
 // index.js
@@ -102,14 +103,15 @@ function createMenu() {
       submenu: [
         {
           label: '切换开发者工具',
-          accelerator: process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
+          accelerator:
+            process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
           click: (_, focusedWindow) => {
             if (focusedWindow) {
               focusedWindow.webContents.toggleDevTools()
             }
           },
         },
-      ]
+      ],
     },
   ]
 
@@ -141,7 +143,7 @@ app.on('ready', () => {
 })
 ```
 
-## 5. 💻 demo2 - 使用预设的 role 来快速配置菜单项
+## 5. demo2 - 使用预设的 role 来快速配置菜单项
 
 > from: https://www.electronjs.org/docs/latest/api/menu#examples
 >
@@ -263,7 +265,7 @@ app.on('ready', () => {
 })
 ```
 
-## 6. 🤔 问：role 是什么？
+## 6. 问：role 是什么？
 
 - 在 Electron 中，菜单项的 role 字段是一个特殊的属性，它允许开发者为菜单项指定一个 预定义 的行为或角色。通过使用 role，你可以轻松添加一些常见的功能到你的应用菜单中，而不需要手动实现这些功能。这些角色覆盖了很多标准的菜单项行为，比如复制、粘贴、全选等，以及窗口、应用程序管理功能等。
 - 使用 role 的优点

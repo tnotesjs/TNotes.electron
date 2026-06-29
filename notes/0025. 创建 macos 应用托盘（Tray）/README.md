@@ -2,34 +2,35 @@
 
 <!-- region:toc -->
 
-- [1. 🔗 links](#1--links)
-- [2. 📒核心模块概述](#2-核心模块概述)
-- [3. 📒托盘图标](#3-托盘图标)
-- [4. 💻 demo](#4--demo)
-- [5. 🤔 问：Tray 是 macOS 特有的吗？](#5--问tray-是-macos-特有的吗)
+- [1. links](#1-links)
+- [2. 核心模块概述](#2-核心模块概述)
+- [3. 托盘图标](#3-托盘图标)
+- [4. demo](#4-demo)
+- [5. 问：Tray 是 macOS 特有的吗？](#5-问tray-是-macos-特有的吗)
 
 <!-- endregion:toc -->
+
 - 如何创建托盘 Tray 菜单
 
-## 1. 🔗 links
+## 1. links
 
 - https://www.electronjs.org/zh/docs/latest/api/tray
   - Electron，查看系统托盘 Tray 模块的相关内容。
 - https://www.electronjs.org/zh/docs/latest/api/native-image
   - Electron，nativeImage 模块可以用于处理 Tray 的图标问题。
 
-## 2. 📒核心模块概述
+## 2. 核心模块概述
 
 - 本节 demo 涉及到的几个核心模块：
   - Tray（创建托盘）
   - Menu（托盘菜单项的创建）
   - nativeImage（处理 Tray 图标的问题）
 
-## 3. 📒托盘图标
+## 3. 托盘图标
 
 - 托盘的图标可以是任意尺寸的图片，不需要劳烦美工大大或者自己去找工具调节图片尺寸，可以使用本地的 nativeImage 模块来自定义尺寸。
 
-## 4. 💻 demo
+## 4. demo
 
 ```js
 // index.js
@@ -54,7 +55,12 @@ function createTrayMenu() {
   // 测试提示文案
 
   const trayMenu = Menu.buildFromTemplate([
-    { label: 'Quit', click() { app.quit() } },
+    {
+      label: 'Quit',
+      click() {
+        app.quit()
+      },
+    },
     { label: 'Foo' },
     { label: 'Bar' },
   ])
@@ -83,6 +89,6 @@ app.whenReady().then(() => {
 - 单击鼠标左键，会弹出托盘菜单。这是通过 `tray.setContextMenu(trayMenu)` 来设置的。
   - ![](assets/2024-10-06-01-43-04.png)
 
-## 5. 🤔 问：Tray 是 macOS 特有的吗？
+## 5. 问：Tray 是 macOS 特有的吗？
 
 - 答：Tray 菜单并非 macos 特有的，在 windows 上也有这玩意儿。

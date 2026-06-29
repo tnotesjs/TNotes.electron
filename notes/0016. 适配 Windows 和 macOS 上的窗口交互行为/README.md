@@ -2,13 +2,14 @@
 
 <!-- region:toc -->
 
-- [1. 🔍 官方文档 - 查看主进程的 app 模块上的 activate、window-all-closed 事件的相关描述](#1--官方文档---查看主进程的-app-模块上的-activatewindow-all-closed-事件的相关描述)
-- [2. 💻 demos.1 - 适配 Windows 和 macOS 上的窗口交互行为](#2--demos1---适配-windows-和-macos-上的窗口交互行为)
+- [1. 官方文档 - 查看主进程的 app 模块上的 activate、window-all-closed 事件的相关描述](#1-官方文档---查看主进程的-app-模块上的-activatewindow-all-closed-事件的相关描述)
+- [2. demos.1 - 适配 Windows 和 macOS 上的窗口交互行为](#2-demos1---适配-windows-和-macos-上的窗口交互行为)
 
 <!-- endregion:toc -->
+
 - 适配 Windows 和 macOS 上的窗口交互行为的处理逻辑很简单，重点在于理解两种系统中窗口交互的一些差异点。
 
-## 1. 🔍 官方文档 - 查看主进程的 app 模块上的 activate、window-all-closed 事件的相关描述
+## 1. 官方文档 - 查看主进程的 app 模块上的 activate、window-all-closed 事件的相关描述
 
 - https://www.electronjs.org/zh/docs/latest/api/app#%E4%BA%8B%E4%BB%B6-activate-macos
 - https://www.electronjs.org/zh/docs/latest/api/app#%E4%BA%8B%E4%BB%B6-window-all-closed
@@ -32,55 +33,55 @@ app.on('window-all-closed', () => {
   // 如果不是 macOS
   if (process.platform !== 'darwin') {
     // 应用退出
-    app.quit();
+    app.quit()
   }
-});
+})
 
 // macOS 特定行为：当没有窗口打开时点击应用图标打开新窗口
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
+    createWindow()
   }
-});
+})
 ```
 
 - 在 Windows/Linux 上关闭所有窗口时应用退出。
 - 在 macOS 上，应用会保持在后台运行，而不是完全退出。
   - 当用户点击应用图标时，即使没有窗口，应用也会创建一个新的窗口。
 
-## 2. 💻 demos.1 - 适配 Windows 和 macOS 上的窗口交互行为
+## 2. demos.1 - 适配 Windows 和 macOS 上的窗口交互行为
 
 ::: code-group
 
 ```js [index.js]
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow } = require('electron')
 
-let win;
+let win
 
 function createWindow() {
-  win = new BrowserWindow();
+  win = new BrowserWindow()
 
-  win.loadFile('./index.html');
+  win.loadFile('./index.html')
 
   // 当窗口关闭时清除 win 对象
-  win.on('closed', () => win = null);
+  win.on('closed', () => (win = null))
 }
 
 app.on('window-all-closed', () => {
   // macOS 的常规行为是应用及其菜单栏继续激活，直到用户使用 Cmd + Q 明确退出
   if (process.platform !== 'darwin') {
-    app.quit();
+    app.quit()
   }
-});
+})
 
-app.whenReady().then(createWindow);
+app.whenReady().then(createWindow)
 
 // macOS 特定行为：当没有窗口打开时点击应用图标打开新窗口
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
+    createWindow()
   }
-});
+})
 ```
 
 :::

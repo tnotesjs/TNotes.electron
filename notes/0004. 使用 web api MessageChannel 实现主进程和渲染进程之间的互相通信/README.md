@@ -2,11 +2,11 @@
 
 <!-- region:toc -->
 
-- [1. 💻 demos.1 - 使用 web api MessageChannel 实现主进程和渲染进程之间的互相通信](#1--demos1---使用-web-api-messagechannel-实现主进程和渲染进程之间的互相通信)
+- [1. demos.1 - 使用 web api MessageChannel 实现主进程和渲染进程之间的互相通信](#1-demos1---使用-web-api-messagechannel-实现主进程和渲染进程之间的互相通信)
 
 <!-- endregion:toc -->
 
-## 1. 💻 demos.1 - 使用 web api MessageChannel 实现主进程和渲染进程之间的互相通信
+## 1. demos.1 - 使用 web api MessageChannel 实现主进程和渲染进程之间的互相通信
 
 - 主进程有 MessageChannelMain 模块，渲染进程可以使用 Web API MessageChannel。
 - 用哪个模块都可以实现通信的目的，差异在于通信的端口是在主进程生产还是在渲染进程生产。
@@ -37,11 +37,13 @@ app.whenReady().then(() => {
   createWindow()
 })
 
-ipcMain.on('port', (event) => { // [!code highlight]
+ipcMain.on('port', (event) => {
+  // [!code highlight]
   // 拿到渲染进程给我传递过来的 port2
   const port = event.ports[0]
 
-  port.on('message', (event) => { // [!code highlight]
+  port.on('message', (event) => {
+    // [!code highlight]
     console.log('渲染进程给我传递过来的信息为：', event.data)
     port.postMessage('我收到你的消息了，周末出来玩呗～') // [!code highlight]
   })
@@ -52,7 +54,7 @@ ipcMain.on('port', (event) => { // [!code highlight]
 ```
 
 ```js [renderer.js]
-// 
+//
 const { ipcRenderer } = require('electron')
 const { port1, port2 } = new MessageChannel() // https://www.electronjs.org/zh/docs/latest/tutorial/message-ports/#messageports-in-the-main-process
 
@@ -65,7 +67,8 @@ const { port1, port2 } = new MessageChannel() // https://www.electronjs.org/zh/d
 ipcRenderer.postMessage('port', null, [port2]) // [!code highlight]
 
 // 监听 port1 的消息
-port1.onmessage = (event) => { // [!code highlight]
+port1.onmessage = (event) => {
+  // [!code highlight]
   console.log('主进程给我传递过来的信息为：', event.data)
 }
 

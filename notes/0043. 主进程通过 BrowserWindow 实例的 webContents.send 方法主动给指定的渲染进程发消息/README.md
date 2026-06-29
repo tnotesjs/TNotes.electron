@@ -2,18 +2,18 @@
 
 <!-- region:toc -->
 
-- [1. 📝 概述](#1--概述)
-- [2. 💻 demos.1 - 主进程通过 BrowserWindow 实例的 `webContents.send` 方法主动给指定的渲染进程发消息](#2--demos1---主进程通过-browserwindow-实例的-webcontentssend-方法主动给指定的渲染进程发消息)
+- [1. 概述](#1-概述)
+- [2. demos.1 - 主进程通过 BrowserWindow 实例的 `webContents.send` 方法主动给指定的渲染进程发消息](#2-demos1---主进程通过-browserwindow-实例的-webcontentssend-方法主动给指定的渲染进程发消息)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 - 主进程 -> 渲染进程
   - 主进程：`webContents.send`
   - 渲染进程：`ipcRenderer.on`
 
-## 2. 💻 demos.1 - 主进程通过 BrowserWindow 实例的 `webContents.send` 方法主动给指定的渲染进程发消息
+## 2. demos.1 - 主进程通过 BrowserWindow 实例的 `webContents.send` 方法主动给指定的渲染进程发消息
 
 ::: code-group
 

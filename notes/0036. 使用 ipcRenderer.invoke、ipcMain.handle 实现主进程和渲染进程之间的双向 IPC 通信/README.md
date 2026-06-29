@@ -2,18 +2,18 @@
 
 <!-- region:toc -->
 
-- [1. 📝 概述](#1--概述)
-- [2. 💻 demos.1 - 使用 ipcRenderer.invoke、ipcMain.handle 实现主进程和渲染进程之间的双向 IPC 通信](#2--demos1---使用-ipcrendererinvokeipcmainhandle-实现主进程和渲染进程之间的双向-ipc-通信)
+- [1. 概述](#1-概述)
+- [2. demos.1 - 使用 ipcRenderer.invoke、ipcMain.handle 实现主进程和渲染进程之间的双向 IPC 通信](#2-demos1---使用-ipcrendererinvokeipcmainhandle-实现主进程和渲染进程之间的双向-ipc-通信)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 - 本文介绍的这种通信方式，是官方推荐的做法，也是目前比较主流的写法。
 - 渲染进程通过 `ipcRenderer.invoke` 给主进程发送消息，可以通过 `await` 来等待主进程响应，并获取到主进程的处理结果。
 - 主进程通过 `ipcMain.handle` 来接受来自渲染进程的消息，通过 `return xxx` 的写法给渲染进程响应处理结果，以此来实现从渲染进程到主进程的双向通信。
 
-## 2. 💻 demos.1 - 使用 ipcRenderer.invoke、ipcMain.handle 实现主进程和渲染进程之间的双向 IPC 通信
+## 2. demos.1 - 使用 ipcRenderer.invoke、ipcMain.handle 实现主进程和渲染进程之间的双向 IPC 通信
 
 ::: code-group
 

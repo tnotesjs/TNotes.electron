@@ -9,18 +9,18 @@
 
 :::
 
-- [1. 📝 概述](#1--概述)
-- [2. 💻 demos.1 - 使用 `ipcRenderer.send`、`ipcMain.on` 实现从渲染进程到主进程的单向 IPC 通信](#2--demos1---使用-ipcrenderersendipcmainon-实现从渲染进程到主进程的单向-ipc-通信)
+- [1. 概述](#1-概述)
+- [2. demos.1 - 使用 `ipcRenderer.send`、`ipcMain.on` 实现从渲染进程到主进程的单向 IPC 通信](#2-demos1---使用-ipcrenderersendipcmainon-实现从渲染进程到主进程的单向-ipc-通信)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 <BilibiliOutsidePlayer id="BV1CBFyeRErb" />
 
 - 通过一个简单的 demo 来了解 `ipcRenderer.send`、`ipcMain.on` 的一种基本用法。
 
-## 2. 💻 demos.1 - 使用 `ipcRenderer.send`、`ipcMain.on` 实现从渲染进程到主进程的单向 IPC 通信
+## 2. demos.1 - 使用 `ipcRenderer.send`、`ipcMain.on` 实现从渲染进程到主进程的单向 IPC 通信
 
 ::: code-group
 
@@ -71,7 +71,7 @@ app.on('ready', () => {
       const { ipcRenderer } = require('electron')
       document.getElementById('btn').addEventListener('click', () => {
         console.log(
-          '按钮被点击了，向主进程发起 message-from-renderer 请求，并传入请求参数 1、2、3'
+          '按钮被点击了，向主进程发起 message-from-renderer 请求，并传入请求参数 1、2、3',
         )
         ipcRenderer.send('message-from-renderer', 1, 2, 3)
       })

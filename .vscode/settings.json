@@ -23,7 +23,7 @@
   // 启动时不打开任何编辑器
   "workbench.startupEditor": "none",
   // 设置颜色主题
-  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.colorTheme": "Dark Modern",
   // 隐藏空编辑器的提示信息
   "workbench.editor.empty.hint": "hidden",
   // 将固定的标签页显示在单独的行上

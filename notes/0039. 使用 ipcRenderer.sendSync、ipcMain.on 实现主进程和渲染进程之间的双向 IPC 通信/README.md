@@ -9,12 +9,12 @@
 
 :::
 
-- [1. 📝 概述](#1--概述)
-- [2. 💻 demos.1 - 使用 ipcRenderer.sendSync、ipcMain.on 实现主进程和渲染进程之间的双向 IPC 通信](#2--demos1---使用-ipcrenderersendsyncipcmainon-实现主进程和渲染进程之间的双向-ipc-通信)
+- [1. 概述](#1-概述)
+- [2. demos.1 - 使用 ipcRenderer.sendSync、ipcMain.on 实现主进程和渲染进程之间的双向 IPC 通信](#2-demos1---使用-ipcrenderersendsyncipcmainon-实现主进程和渲染进程之间的双向-ipc-通信)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 <BilibiliOutsidePlayer id="BV1CBFyeREu6" />
 
@@ -24,7 +24,7 @@
 - 注意：
   - `ipcRenderer.sendSync` 非必要，不建议使用。
 
-## 2. 💻 demos.1 - 使用 ipcRenderer.sendSync、ipcMain.on 实现主进程和渲染进程之间的双向 IPC 通信
+## 2. demos.1 - 使用 ipcRenderer.sendSync、ipcMain.on 实现主进程和渲染进程之间的双向 IPC 通信
 
 - **源码实现**
 
@@ -98,7 +98,7 @@ function handleIPC() {
 
     console.log(
       '主进程收到了来自渲染进程的 ipcRenderer.send 方法发送的消息',
-      ...args
+      ...args,
     )
 
     const sum = args.reduce((a, b) => a + b, 0)
@@ -112,7 +112,7 @@ function handleIPC() {
 
     console.log(
       '主进程收到了来自渲染进程的 ipcRenderer.sendSync 方法发送的消息',
-      ...args
+      ...args,
     )
 
     const sum = args.reduce((a, b) => a + b, 0)

@@ -2,12 +2,13 @@
 
 <!-- region:toc -->
 
-- [1. 💻 demo](#1--demo)
+- [1. demo](#1-demo)
 
 <!-- endregion:toc -->
+
 - 只需要调整 BrowserWindow 的配置即可实现在 macos 中隐藏窗口标题栏但是不隐藏交通灯，并且可以微调交通灯的位置。
 
-## 1. 💻 demo
+## 1. demo
 
 ```js
 // index.js
@@ -16,7 +17,8 @@ const { BrowserWindow, app } = require('electron')
 let win
 function createWindow() {
   win = new BrowserWindow({
-    width: 500, height: 300,
+    width: 500,
+    height: 300,
     titleBarStyle: 'hidden',
     trafficLightPosition: { x: 12, y: 12 },
   })

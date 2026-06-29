@@ -2,14 +2,15 @@
 
 <!-- region:toc -->
 
-- [1. 🔗 links](#1--links)
-- [2. 📒`navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题](#2-navigatormediadevicesgetusermedia-的-video-配置结构问题)
-- [3. 💻 demo](#3--demo)
+- [1. links](#1-links)
+- [2. `navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题](#2-navigatormediadevicesgetusermedia-的-video-配置结构问题)
+- [3. demo](#3-demo)
 
 <!-- endregion:toc -->
+
 - 这是参照官方示例实现一个屏幕实时监听的 demo。
 
-## 1. 🔗 links
+## 1. links
 
 - https://www.electronjs.org/docs/latest/api/desktop-capturer
   - Electron，查看主进程的 desktopCapturer API 的相关描述。
@@ -23,7 +24,7 @@
   - Electron Github Issues，mandatory property missing from MediaTrackConstraints #27139。
   - 主要讨论了在使用 Electron 的 desktopCapturer API 与 TypeScript 时，由于 mandatory 属性不在 MediaTrackConstraints 类型中而引起的类型错误问题。
 
-## 2. 📒`navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题
+## 2. `navigator.mediaDevices.getUserMedia()` 的 video 配置结构问题
 
 > - https://github.com/electron/electron/issues/27139
 > - Electron Github Issues，mandatory property missing from MediaTrackConstraints #27139。
@@ -39,38 +40,38 @@
 ```ts
 // lib.dom.d.ts
 interface MediaStreamConstraints {
-    audio?: boolean | MediaTrackConstraints;
-    peerIdentity?: string;
-    preferCurrentTab?: boolean;
-    video?: boolean | MediaTrackConstraints;
+  audio?: boolean | MediaTrackConstraints
+  peerIdentity?: string
+  preferCurrentTab?: boolean
+  video?: boolean | MediaTrackConstraints
 }
 
 interface MediaTrackConstraints extends MediaTrackConstraintSet {
-    advanced?: MediaTrackConstraintSet[];
+  advanced?: MediaTrackConstraintSet[]
 }
 
 interface MediaTrackConstraintSet {
-    aspectRatio?: ConstrainDouble;
-    autoGainControl?: ConstrainBoolean;
-    channelCount?: ConstrainULong;
-    deviceId?: ConstrainDOMString;
-    displaySurface?: ConstrainDOMString;
-    echoCancellation?: ConstrainBoolean;
-    facingMode?: ConstrainDOMString;
-    frameRate?: ConstrainDouble;
-    groupId?: ConstrainDOMString;
-    height?: ConstrainULong;
-    noiseSuppression?: ConstrainBoolean;
-    sampleRate?: ConstrainULong;
-    sampleSize?: ConstrainULong;
-    width?: ConstrainULong;
+  aspectRatio?: ConstrainDouble
+  autoGainControl?: ConstrainBoolean
+  channelCount?: ConstrainULong
+  deviceId?: ConstrainDOMString
+  displaySurface?: ConstrainDOMString
+  echoCancellation?: ConstrainBoolean
+  facingMode?: ConstrainDOMString
+  frameRate?: ConstrainDouble
+  groupId?: ConstrainDOMString
+  height?: ConstrainULong
+  noiseSuppression?: ConstrainBoolean
+  sampleRate?: ConstrainULong
+  sampleSize?: ConstrainULong
+  width?: ConstrainULong
 }
 // Electron 官方示例中 video 字段中的 mandatory 字段，在新版的类型描述信息中压根就不存在。
 // 可以理解为 mandatory 这种写法是 Electron 中特有的写法。
 // 如果是用 TS 写的项目，在打包时出现了类型错误，可以暴力处理 - 手动去改类型，或者直接断言类型。
 ```
 
-## 3. 💻 demo
+## 3. demo
 
 ```js
 // index.js
@@ -123,7 +124,7 @@ const { ipcRenderer, contextBridge } = require('electron')
 const TdahuyouAPI = {
   async getScreenStream() {
     return await ipcRenderer.invoke('desktop-capturer-get-screen-sources')
-  }
+  },
 }
 
 if (process.contextIsolated) {

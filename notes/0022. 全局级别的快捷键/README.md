@@ -2,22 +2,23 @@
 
 <!-- region:toc -->
 
-- [1. 🔗 globalShortcut](#1--globalshortcut)
-- [2. 💻 demo](#2--demo)
+- [1. globalShortcut](#1-globalshortcut)
+- [2. demo](#2-demo)
 
 <!-- endregion:toc -->
+
 - 学习如何注册全局（系统）级别的快捷方式
 - 全局级别的快捷键，也称系统级别的快捷键，这玩意儿在很多桌面应用程序中多多少少都会有一些。对于一些常用的操作和交互行为，绑定好快捷键，还是蛮必要的。
 - globalShortcut 是一个主进程中的模块，其作用是 在应用程序没有键盘焦点时，监听键盘事件。
 - Q：什么叫“应用程序没有键盘焦点”？
 - A：就是你当前鼠标点击的位置并非该应用，焦点不在这个应用身上。
 
-## 1. 🔗 globalShortcut
+## 1. globalShortcut
 
 - https://www.electronjs.org/zh/docs/latest/api/global-shortcut
   - Electron，查看 globalShortcut 模块的相关描述。
 
-## 2. 💻 demo
+## 2. demo
 
 ```js
 // index.js
@@ -45,7 +46,7 @@ app.on('ready', () => {
     // 通过 isRegistered 方法来判断是否注册成功
     globalShortcut.isRegistered('ctrl+e')
       ? '全局快捷键注册成功'
-      : '全局快捷键注册失败'
+      : '全局快捷键注册失败',
   )
 })
 

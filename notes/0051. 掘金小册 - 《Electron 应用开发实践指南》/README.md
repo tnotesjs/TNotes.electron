@@ -2,14 +2,14 @@
 
 <!-- region:toc -->
 
-- [1. 📝 概述](#1--概述)
-- [2. 📒 小册目录](#2--小册目录)
-- [3. 📒 rubick 简介](#3--rubick-简介)
-- [4. 🔗 References](#4--references)
+- [1. 概述](#1-概述)
+- [2. 小册目录](#2-小册目录)
+- [3. rubick 简介](#3-rubick-简介)
+- [4. References](#4-references)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 - 介绍了一个 Electron 在线教程 - 掘金小册 - 《Electron 应用开发实践指南》。
 - 该小册是一个付费内容。
@@ -18,7 +18,7 @@
   - 这是《Electron 应用开发实践指南》的个人推广链接。
   - 如果有需要的话，可以通过上述推广链接下单支持一下（有几块钱的推广费）。感谢 🙏 🙏 🙏
 
-## 2. 📒 小册目录
+## 2. 小册目录
 
 ```txt
 1. 开篇：Electron 带来的边界扩展
@@ -48,7 +48,7 @@
 25. 结语：我与 Electron &开源的那些事
 ```
 
-## 3. 📒 rubick 简介
+## 3. rubick 简介
 
 - 《Electron 应用开发实践指南》 这本小册的作者，是开源项目 [rubick](https://github.com/rubickCenter/rubick) 的作者。
 - rubick 是一款插件化的工具箱，可以把 rubick 类比成微信；插件就是微信小程序。rubick 就是一个运行插件的容器，插件由三方开发者开发维护，不属于 rubick 主程序部分。
@@ -59,7 +59,7 @@
     - 切换语言
 - 如果你用过类似 utools 这样的工具，会发现它们是非常类似的，不过 utools 貌似有些功能是需要付费的，而 rubick 是开源的。
 
-## 4. 🔗 References
+## 4. References
 
 ::: details
 

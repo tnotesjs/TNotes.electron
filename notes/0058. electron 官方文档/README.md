@@ -2,16 +2,16 @@
 
 <!-- region:toc -->
 
-- [1. 📝 概述](#1--概述)
-- [2. 🔗 Electron 官方文档链接](#2--electron-官方文档链接)
+- [1. 概述](#1-概述)
+- [2. Electron 官方文档链接](#2-electron-官方文档链接)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 - 记录了 Electron 的官方文档链接。
 
-## 2. 🔗 Electron 官方文档链接
+## 2. Electron 官方文档链接
 
 - https://www.electronjs.org/
   - 这是 Electron 的官网链接，可以说是除了源码之外最权威的 Electron 内容了。

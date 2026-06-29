@@ -2,18 +2,18 @@
 
 <!-- region:toc -->
 
-- [1. 📝 概述](#1--概述)
-- [2. 💻 demos.1 - 使用 `ipcRenderer.invoke`、`ipcMain.handle` 实现从渲染进程到主进程的单向 IPC 通信](#2--demos1---使用-ipcrendererinvokeipcmainhandle-实现从渲染进程到主进程的单向-ipc-通信)
+- [1. 概述](#1-概述)
+- [2. demos.1 - 使用 `ipcRenderer.invoke`、`ipcMain.handle` 实现从渲染进程到主进程的单向 IPC 通信](#2-demos1---使用-ipcrendererinvokeipcmainhandle-实现从渲染进程到主进程的单向-ipc-通信)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 <BilibiliOutsidePlayer id="BV1CBFyedE6q" />
 
 - 通过一个简单的 demo 介绍 `ipcRenderer.invoke`、`ipcMain.handle` 的基本使用。
 
-## 2. 💻 demos.1 - 使用 `ipcRenderer.invoke`、`ipcMain.handle` 实现从渲染进程到主进程的单向 IPC 通信
+## 2. demos.1 - 使用 `ipcRenderer.invoke`、`ipcMain.handle` 实现从渲染进程到主进程的单向 IPC 通信
 
 ::: code-group
 
@@ -30,7 +30,7 @@ const now = () =>
 btn.onclick = async () => {
   console.log(
     now(),
-    '按钮被点击了，向主进程发起 message-from-renderer 请求，并传入请求参数 1、2、3'
+    '按钮被点击了，向主进程发起 message-from-renderer 请求，并传入请求参数 1、2、3',
   )
 
   await ipcRenderer.invoke('message-from-renderer', 1, 2, 3)

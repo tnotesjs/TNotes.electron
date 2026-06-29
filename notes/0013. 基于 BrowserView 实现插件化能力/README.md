@@ -1,28 +1,28 @@
 # [0013. 基于 BrowserView 实现插件化能力](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0013.%20%E5%9F%BA%E4%BA%8E%20BrowserView%20%E5%AE%9E%E7%8E%B0%E6%8F%92%E4%BB%B6%E5%8C%96%E8%83%BD%E5%8A%9B)
 
-
 <!-- region:toc -->
 
-- [1. 📺 视频](#1--视频)
-- [2. 🔗 links](#2--links)
-- [3. 💻 demo - BrowserView 实现插件化](#3--demo---browserview-实现插件化)
+- [1. 视频](#1-视频)
+- [2. links](#2-links)
+- [3. demo - BrowserView 实现插件化](#3-demo---browserview-实现插件化)
 
 <!-- endregion:toc -->
+
 - 基于 BrowserView 实现插件化能力
 - 该 demo 模拟了使用 BrowserView 模块来加载第三方资源并注入 preload 脚本，使其具备原生能力。
 
-## 1. 📺 视频
+## 1. 视频
 
 <BilibiliOutsidePlayer id="BV1ABFyedEna" />
 
-## 2. 🔗 links
+## 2. links
 
 - https://www.electronjs.org/zh/docs/latest/api/browser-view
   - Electron，查看有关 BrowserView 模块的相关描述。
 - https://www.electronjs.org/zh/docs/latest/api/notification
   - Electron，查看主进程的 Notification 模块的相关说明。
 
-## 3. 💻 demo - BrowserView 实现插件化
+## 3. demo - BrowserView 实现插件化
 
 ```bash
 # 目录结构
@@ -40,7 +40,13 @@ $ tree -I node_modules
 
 ```js
 // index.js
-const { BrowserWindow, BrowserView, app, ipcMain, Notification } = require('electron')
+const {
+  BrowserWindow,
+  BrowserView,
+  app,
+  ipcMain,
+  Notification,
+} = require('electron')
 const { join } = require('path')
 
 let win, view
@@ -98,12 +104,16 @@ app.whenReady().then(() => {
 const { contextBridge, ipcRenderer } = require('electron')
 
 const TdahuyouAPI = {
-  showNotification: (opts) => { // { title: string, body: string, ... }
-    ipcRenderer.send('TdahuyouPlugin-showNotification', { body: opts.body, title: opts.title })
+  showNotification: (opts) => {
+    // { title: string, body: string, ... }
+    ipcRenderer.send('TdahuyouPlugin-showNotification', {
+      body: opts.body,
+      title: opts.title,
+    })
   },
   doSomething: () => {
-    console.log('doing something in BrowserView ...');
-  }
+    console.log('doing something in BrowserView ...')
+  },
   // other apis ...
 }
 
@@ -121,14 +131,14 @@ if (process.contextIsolated) {
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>app</title>
-</head>
-<body>
-  <h1>这是我们自己的应用</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>app</title>
+  </head>
+  <body>
+    <h1>这是我们自己的应用</h1>
+  </body>
 </html>
 ```
 
@@ -136,26 +146,29 @@ if (process.contextIsolated) {
 <!-- plugin/index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>插件</title>
-  <style>
-    body {
-      background-color: #ddd;
-    }
-  </style>
-</head>
-<body>
-  <h1>这是一个插件</h1>
-  <button id="btn">Show Notification</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>插件</title>
+    <style>
+      body {
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>这是一个插件</h1>
+    <button id="btn">Show Notification</button>
 
-  <script>
-    document.getElementById('btn').addEventListener('click', () => {
-      TdahuyouPlugin.showNotification({ title: '提示的标题', body: '提示的内容' })
-    })
-  </script>
-</body>
+    <script>
+      document.getElementById('btn').addEventListener('click', () => {
+        TdahuyouPlugin.showNotification({
+          title: '提示的标题',
+          body: '提示的内容',
+        })
+      })
+    </script>
+  </body>
 </html>
 ```
 

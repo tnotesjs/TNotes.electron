@@ -1,20 +1,20 @@
 # [0041. 通过主进程获取另一个渲染进程的 ID 来实现两个渲染进程之间的通信](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0041.%20%E9%80%9A%E8%BF%87%E4%B8%BB%E8%BF%9B%E7%A8%8B%E8%8E%B7%E5%8F%96%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E7%9A%84%20ID%20%E6%9D%A5%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1)
 
-
 <!-- region:toc -->
 
-- [1. 📺 视频](#1--视频)
-- [2. 🔍 查看 electron 官方文档 -> breaking-changes](#2--查看-electron-官方文档---breaking-changes)
-- [3. 💻 demos.1 - 通过主进程获取另一个渲染进程的 ID 来实现两个渲染进程之间的通信](#3--demos1---通过主进程获取另一个渲染进程的-id-来实现两个渲染进程之间的通信)
+- [1. 视频](#1-视频)
+- [2. 查看 electron 官方文档 -> breaking-changes](#2-查看-electron-官方文档---breaking-changes)
+- [3. demos.1 - 通过主进程获取另一个渲染进程的 ID 来实现两个渲染进程之间的通信](#3-demos1---通过主进程获取另一个渲染进程的-id-来实现两个渲染进程之间的通信)
 
 <!-- endregion:toc -->
+
 - 本文介绍了两个渲染进程之间实现互相通信的一种方式 —— 通过主进程获取另一个渲染进程的 ID 来实现两个渲染进程之间的通信。
 
-## 1. 📺 视频
+## 1. 视频
 
 <BilibiliOutsidePlayer id="BV1CBFyeREsn" />
 
-## 2. 🔍 查看 electron 官方文档 -> breaking-changes
+## 2. 查看 electron 官方文档 -> breaking-changes
 
 - https://www.electronjs.org/zh/docs/latest/breaking-changes#%E5%B7%B2%E7%A7%BB%E9%99%A4-ipcrenderersendto
   - Electron--文档--引用--重大变更。
@@ -24,7 +24,7 @@
   - 本文介绍的这种通信方式需要依赖 ipcRenderer 模块中的 `ipcRenderer.sendTo` 方法，这个方法在 Electron 的 v28 版本中已经被丢弃了，如果要使用这种通信方案的话，需要注意 Electron 的版本问题，这种方式在最新版的 Electron 中已经被淘汰了。
   - ![](assets/2025-02-04-10-25-21.png)
 
-## 3. 💻 demos.1 - 通过主进程获取另一个渲染进程的 ID 来实现两个渲染进程之间的通信
+## 3. demos.1 - 通过主进程获取另一个渲染进程的 ID 来实现两个渲染进程之间的通信
 
 ::: code-group
 
@@ -52,12 +52,13 @@ const { ipcMain, app, BrowserWindow } = require('electron')
 let win1, win2
 function createWindows() {
   win1 = new BrowserWindow({
-    webPreferences: { nodeIntegration: true, contextIsolation: false }
+    webPreferences: { nodeIntegration: true, contextIsolation: false },
   })
 
   win2 = new BrowserWindow({
-    y: 0, x: 0,
-    webPreferences: { nodeIntegration: true, contextIsolation: false }
+    y: 0,
+    x: 0,
+    webPreferences: { nodeIntegration: true, contextIsolation: false },
   })
 
   win1.webContents.openDevTools()
@@ -68,8 +69,8 @@ function createWindows() {
 }
 
 function handleIPC() {
-  ipcMain.handle('get-win2-id', _ => win2.webContents.id) // [!code highlight]
-  ipcMain.handle('get-win1-id', _ => win1.webContents.id) // [!code highlight]
+  ipcMain.handle('get-win2-id', (_) => win2.webContents.id) // [!code highlight]
+  ipcMain.handle('get-win1-id', (_) => win1.webContents.id) // [!code highlight]
 }
 
 app.on('ready', () => {

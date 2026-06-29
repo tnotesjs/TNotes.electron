@@ -2,24 +2,24 @@
 
 <!-- region:toc -->
 
-- [1. 📝 概述](#1--概述)
-- [2. 🔗 electron 笔记仓库](#2--electron-笔记仓库)
-- [3. 🔗 B 站视频](#3--b-站视频)
-- [4. 📂 TNotes.yuque](#4--tnotesyuque)
-- [5. 📒 视频内容及更新说明](#5--视频内容及更新说明)
+- [1. 概述](#1-概述)
+- [2. electron 笔记仓库](#2-electron-笔记仓库)
+- [3. B 站视频](#3-b-站视频)
+- [4. TNotes.yuque](#4-tnotesyuque)
+- [5. 视频内容及更新说明](#5-视频内容及更新说明)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 - 介绍 `TNotes.electron` 这个笔记仓库中的主要内容以及相关资源的入口。
 
-## 2. 🔗 electron 笔记仓库
+## 2. electron 笔记仓库
 
 - https://github.com/Tdahuyou/TNotes.electron
 - 该仓库存放的是个人的 electron 学习笔记，有需要的可自行 clone。
 
-## 3. 🔗 B 站视频
+## 3. B 站视频
 
 - https://space.bilibili.com/407241004
 - 如有需要查阅视频内容，建议二倍速食用……
@@ -32,7 +32,7 @@
 
 :::
 
-## 4. 📂 TNotes.yuque
+## 4. TNotes.yuque
 
 - [TNotes.yuque](https://www.yuque.com/tdahuyou/tnotes.yuque) 知识库用来存储一些 `TNotes` 中的大型静态资源。
   - 比如：思维导图的源数据以及 pdf 书籍等资源。
@@ -48,7 +48,7 @@
 
 :::
 
-## 5. 📒 视频内容及更新说明
+## 5. 视频内容及更新说明
 
 - **根据编号定位**：
   - B 站上仅录制了一小部分的视频，可以根据编号来定位笔记和视频。

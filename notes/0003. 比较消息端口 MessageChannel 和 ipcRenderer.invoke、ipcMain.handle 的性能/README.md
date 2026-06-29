@@ -2,17 +2,18 @@
 
 <!-- region:toc -->
 
-- [1. 📺 视频](#1--视频)
-- [2. 💻 demos.1 - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle](#2--demos1---messagechannel-vs-ipcrendererinvokeipcmainhandle)
+- [1. 视频](#1-视频)
+- [2. demos.1 - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle](#2-demos1---messagechannel-vs-ipcrendererinvokeipcmainhandle)
 
 <!-- endregion:toc -->
+
 - 本文通过一个 Electron 应用示例对比了 `MessageChannel` 和 `ipcRenderer.invoke`/`ipcMain.handle` 两种 IPC 通信方式的性能差异。
 
-## 1. 📺 视频
+## 1. 视频
 
 <BilibiliOutsidePlayer id="BV1CBFyeREWg" />
 
-## 2. 💻 demos.1 - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle
+## 2. demos.1 - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle
 
 - **先说结论**
   - 单向通信：两者差异不大
@@ -37,13 +38,13 @@ app.whenReady().then(() => {
   win.webContents.openDevTools()
   win.loadFile('./index.html')
 
-
-
   // #region 消息端口
   const { port1, port2 } = new MessageChannelMain()
 
   // 把其中一个端口丢给渲染进程
-  win.once('ready-to-show', () => win.webContents.postMessage('port', null, [port1]))
+  win.once('ready-to-show', () =>
+    win.webContents.postMessage('port', null, [port1]),
+  )
 
   port2.on('message', ({ data }) => {
     console.count(`主进程收到了 message port 消息${data}`)
@@ -53,8 +54,6 @@ app.whenReady().then(() => {
   port2.start()
   // #endregion 消息端口
 
-
-
   // #region invoke、handle
   ipcMain.handle('invoke', async (event, message) => {
     console.count(`主进程收到了 invoke 消息${message}`)
@@ -63,8 +62,6 @@ app.whenReady().then(() => {
   // #endregion invoke、handle
 })
 ```
-
-
 
 ```html [index.html]
 <!DOCTYPE html>
@@ -88,7 +85,6 @@ app.whenReady().then(() => {
 </html>
 ```
 
-
 ```js [renderer.js]
 const { ipcRenderer } = require('electron')
 
@@ -104,7 +100,10 @@ function testInvoke_1() {
     ipcRenderer.invoke('invoke', 'Message from renderer')
   }
   const endTime = Date.now()
-  console.log('测试用例 1：使用 ipcRenderer.invoke 和 ipcMain.handle【单向】', endTime - startTime)
+  console.log(
+    '测试用例 1：使用 ipcRenderer.invoke 和 ipcMain.handle【单向】',
+    endTime - startTime,
+  )
 }
 
 function testMessageChannel_1() {
@@ -123,7 +122,10 @@ async function testInvoke_2() {
     // console.log(res)
   }
   const endTime = Date.now()
-  console.log('测试用例 3：使用 ipcRenderer.invoke 和 ipcMain.handle【双向】', endTime - startTime)
+  console.log(
+    '测试用例 3：使用 ipcRenderer.invoke 和 ipcMain.handle【双向】',
+    endTime - startTime,
+  )
 }
 
 function testMessageChannel_2() {
@@ -134,13 +136,16 @@ function testMessageChannel_2() {
     port1.postMessage('Message from renderer')
   }
 
-  port1.onmessage = ({ data: { data }}) => {
+  port1.onmessage = ({ data: { data } }) => {
     // console.log(data)
     messagesReceived++
 
     if (messagesReceived === 10000) {
       const endTime = Date.now()
-      console.log('测试用例 4：使用 MessageChannel【双向】', endTime - startTime)
+      console.log(
+        '测试用例 4：使用 MessageChannel【双向】',
+        endTime - startTime,
+      )
     }
   }
 }

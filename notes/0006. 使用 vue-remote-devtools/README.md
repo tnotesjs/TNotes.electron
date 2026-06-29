@@ -2,9 +2,9 @@
 
 <!-- region:toc -->
 
-- [1. 📺 视频](#1--视频)
-- [2. 🔗 links](#2--links)
-- [3. 💻 demo](#3--demo)
+- [1. 视频](#1-视频)
+- [2. links](#2-links)
+- [3. demo](#3-demo)
 
 <!-- endregion:toc -->
 
@@ -14,11 +14,11 @@
 - 本文介绍如何让基于 Electron 搭建的 Vue 工程，能够远程地使用 Vue 调试工具。本节介绍的其实是一个通用的法子，那些在非浏览器环境下搭建的 Vue 工程，如果想要使用 vue-devtools 的能力，都可以参考文中提到的这种方式。
 - 其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。
 
-## 1. 📺 视频
+## 1. 视频
 
 <BilibiliOutsidePlayer id="BV1ABFyedEXu" />
 
-## 2. 🔗 links
+## 2. links
 
 - https://github.com/vuejs/devtools/tree/main/packages/shell-electron#vue-remote-devtools
   - 这是 vuejs 的 GitHub 仓库中的一篇文档，介绍了使用 vue-remote-devtools 来实现远程调试的方案。
@@ -27,7 +27,7 @@
 - https://github.com/vuejs/devtools-next
   - 这是 Vue DevTools Next 在 GitHub 上的仓库链接。
 
-## 3. 💻 demo
+## 3. demo
 
 ```json
 // package.json

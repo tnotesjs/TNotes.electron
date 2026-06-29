@@ -2,15 +2,16 @@
 
 <!-- region:toc -->
 
-- [1. 🔗 links](#1--links)
-- [2. 💻 demo](#2--demo)
+- [1. links](#1-links)
+- [2. demo](#2-demo)
 
 <!-- endregion:toc -->
+
 - 在页面上创建右键菜单，这是桌面端应用中很常见的一个功能点。本文的介绍了如何使用 Menu 模块来创建一个右键菜单。
 - 本节介绍如何如何使用 Menu 模块来创建一个右键菜单。这里提到的右键菜单，又称为上下文菜单，也就是你在一些应用程序的界面上，点击鼠标右键所弹出的内容。
 - ![](assets/2024-10-06-01-24-36.png)
 
-## 1. 🔗 links
+## 1. links
 
 - https://www.electronjs.org/zh/docs/latest/api/browser-window#browserwindowfromwebcontentswebcontents
   - Electron，在示例中用到了这个 `BrowserWindow.fromWebContents(webContents)` 这个 API。
@@ -19,22 +20,21 @@
 - https://www.electronjs.org/zh/docs/latest/api/menu-item
   - 查看【菜单项】MenuItem 类的相关说明。
 
-
-## 2. 💻 demo
+## 2. demo
 
 ```js
 // index.js
-const {app, BrowserWindow, ipcMain, Menu} = require('electron')
+const { app, BrowserWindow, ipcMain, Menu } = require('electron')
 
 let win
 function createWindow() {
   win = new BrowserWindow({
-    webPreferences: { nodeIntegration: true, contextIsolation: false }
+    webPreferences: { nodeIntegration: true, contextIsolation: false },
   })
 
   win.webContents.openDevTools()
 
-  win.loadFile("./index.html")
+  win.loadFile('./index.html')
 }
 
 function handleIPC() {
@@ -45,15 +45,15 @@ function handleIPC() {
         click: () => {
           // 发送点击菜单一事件到渲染进程
           event.sender.send('context-menu-command', 'menu-item-1')
-        }
+        },
       },
       // 表示菜单分割线。
       { type: 'separator' },
       {
         label: '菜单二',
         type: 'checkbox',
-        checked: true
-      }
+        checked: true,
+      },
     ]
 
     // 根据模板创建菜单
@@ -62,7 +62,7 @@ function handleIPC() {
     menu.popup({
       // BrowserWindow.fromWebContents 返回拥有给定 webContents 的窗口实例（BrowserWindow 类型）
       // 这里其实也可以不需要指定 window 参数，因为默认情况下 window 表示的是当前活动窗口（也就是你正在操作的窗口）。
-      window: BrowserWindow.fromWebContents(event.sender)
+      window: BrowserWindow.fromWebContents(event.sender),
     })
   })
 }

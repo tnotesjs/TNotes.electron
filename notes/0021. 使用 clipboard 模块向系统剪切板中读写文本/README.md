@@ -2,19 +2,20 @@
 
 <!-- region:toc -->
 
-- [1. 🔗 links](#1--links)
-- [2. 💻 demo](#2--demo)
+- [1. links](#1-links)
+- [2. demo](#2-demo)
 
 <!-- endregion:toc -->
+
 - 该笔记 clipboard 基本使用
 - clipboard 是一个很常用也狠使用的模块，用于读写系统的剪切板。这篇文档介绍它的基本使用，实现剪切板的读写操作。
 
-## 1. 🔗 links
+## 1. links
 
 - https://www.electronjs.org/zh/docs/latest/api/clipboard
   - 官方文档，查看主进程和渲染进程共享的 clipboard 模块的相关内容。
 
-## 2. 💻 demo
+## 2. demo
 
 ```js
 // index.js
@@ -31,9 +32,8 @@ function createWindow() {
 
 function handleIPC() {
   ipcMain.handle('write-text', (_, text) => clipboard.writeText(text))
-  ipcMain.handle('read-text', _ => clipboard.readText())
+  ipcMain.handle('read-text', (_) => clipboard.readText())
 }
-
 
 app.on('ready', () => {
   createWindow()
@@ -73,8 +73,10 @@ const btn1 = document.getElementById('btn1')
 const btn2 = document.getElementById('btn2')
 const textarea = document.getElementById('textarea')
 
-btn1.addEventListener('click', _ => ipcRenderer.invoke('write-text', 'hello world'))
-btn2.addEventListener('click', async _ => {
+btn1.addEventListener('click', (_) =>
+  ipcRenderer.invoke('write-text', 'hello world'),
+)
+btn2.addEventListener('click', async (_) => {
   textarea.value = await ipcRenderer.invoke('read-text')
 })
 ```

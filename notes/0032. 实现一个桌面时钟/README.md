@@ -2,29 +2,30 @@
 
 <!-- region:toc -->
 
-- [1. 🔗 links](#1--links)
-- [2. 📒](#2-)
-- [3. 💻 demo](#3--demo)
+- [1. links](#1-links)
+- [2.](#2)
+- [3. demo](#3-demo)
 
 <!-- endregion:toc -->
+
 - 手写一个简单的桌面时钟摆件
 - 最终效果：
   - ![](assets/2024-10-13-21-41-11.png)
 
-## 1. 🔗 links
+## 1. links
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/window-customization#%E5%88%9B%E5%BB%BA%E7%82%B9%E5%87%BB%E7%A9%BF%E9%80%8F%E7%AA%97%E5%8F%A3
   - Electron，示例，创建点击穿透窗口。
 - https://www.electronjs.org/zh/docs/latest/api/browser-window#winsetignoremouseeventsignore-options
   - win.setIgnoreMouseEvents
 
-## 2. 📒
+## 2. 
 
 - 这个 demo 主要用来练习不规则窗口的实现，有几点细节需要注意。
   - 窗口默认是矩形，如果用户点击的区域是矩形的非表盘区域，需要可以穿透下去点击到窗口后面的内容。鼠标穿透的效果，需要用到一个 API win.setIgnoreMouseEvents。
   - 窗口的拖动问题除了使用 JS 来解决，还可以考虑使用 JS + CSS 来解决。
 
-## 3. 💻 demo
+## 3. demo
 
 ```js
 // index.js
@@ -107,10 +108,14 @@ document.addEventListener('mouseup', () => {
 })
 
 // 在鼠标进入到时钟区域的时候，我们要解除鼠标穿透
-dom_clock.addEventListener('mouseenter', _ => ipcRenderer.send('setIgnoreMouseEvent', false))
+dom_clock.addEventListener('mouseenter', (_) =>
+  ipcRenderer.send('setIgnoreMouseEvent', false),
+)
 
 // 在鼠标离开时钟区域的时候，我们要重新开启鼠标穿透
-dom_clock.addEventListener('mouseleave', _ => ipcRenderer.send('setIgnoreMouseEvent', true, { forward: true }))
+dom_clock.addEventListener('mouseleave', (_) =>
+  ipcRenderer.send('setIgnoreMouseEvent', true, { forward: true }),
+)
 ```
 
 - `window.moveTo` 解决窗口的拖动问题。

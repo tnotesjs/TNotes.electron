@@ -1,25 +1,25 @@
 # [0019. 让无边框的窗口可以被拖拽](https://github.com/tnotesjs/TNotes.electron/tree/main/notes/0019.%20%E8%AE%A9%E6%97%A0%E8%BE%B9%E6%A1%86%E7%9A%84%E7%AA%97%E5%8F%A3%E5%8F%AF%E4%BB%A5%E8%A2%AB%E6%8B%96%E6%8B%BD)
 
-
 <!-- region:toc -->
 
-- [1. 📺 视频](#1--视频)
-- [2. 🔗 links](#2--links)
-- [3. 💻 demo](#3--demo)
+- [1. 视频](#1-视频)
+- [2. links](#2-links)
+- [3. demo](#3-demo)
 
 <!-- endregion:toc -->
+
 - 通过 css 来解决无边框的窗口的拖拽问题
 
-## 1. 📺 视频
+## 1. 视频
 
 <BilibiliOutsidePlayer id="BV1CBFyeREk5" />
 
-## 2. 🔗 links
+## 2. links
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/window-customization#%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%AF%E6%8B%96%E5%8A%A8%E5%8C%BA%E5%9F%9F
   - 官方文档，设置自定义可拖动区域，这是官方文档中对无边框窗口的一些介绍。
 
-## 3. 💻 demo
+## 3. demo
 
 ```js
 // index.js
@@ -33,7 +33,6 @@ function createWindow() {
 
 app.whenReady().then(createWindow)
 ```
-
 
 ```html
 <!-- index.html -->
@@ -53,7 +52,6 @@ app.whenReady().then(createWindow)
   </body>
 </html>
 ```
-
 
 ```css
 /* index.css */

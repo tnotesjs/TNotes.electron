@@ -2,27 +2,27 @@
 
 <!-- region:toc -->
 
-- [1. 🔍 官方文档 - 主进程模块 - BrowserWindow](#1--官方文档---主进程模块---browserwindow)
-- [2. 📒 白屏问题常见解决方案](#2--白屏问题常见解决方案)
-- [3. 💻 demos.1](#3--demos1)
+- [1. 官方文档 - 主进程模块 - BrowserWindow](#1-官方文档---主进程模块---browserwindow)
+- [2. 白屏问题常见解决方案](#2-白屏问题常见解决方案)
+- [3. demos.1](#3-demos1)
 
 <!-- endregion:toc -->
 
-## 1. 🔍 官方文档 - 主进程模块 - BrowserWindow
+## 1. 官方文档 - 主进程模块 - BrowserWindow
 
 - https://www.electronjs.org/zh/docs/latest/api/browser-window#%E4%BC%98%E9%9B%85%E5%9C%B0%E6%98%BE%E7%A4%BA%E7%AA%97%E5%8F%A3
   - 使用 ready-to-show 事件实现优雅地显示窗口，解决闪屏的问题。
 - https://www.electronjs.org/zh/docs/latest/api/browser-window#%E4%BA%8B%E4%BB%B6-ready-to-show
   - 查看有关 ready-to-show 事件的描述。
 
-## 2. 📒 白屏问题常见解决方案
+## 2. 白屏问题常见解决方案
 
 - 白屏问题是很经典的一个常见问题，常见的处理方案有：
   - 优先展示主题色的全屏背景
   - 使用骨架屏
   - 等一切就绪再 show【本文介绍的方法】
 
-## 3. 💻 demos.1
+## 3. demos.1
 
 ::: code-group
 
@@ -33,7 +33,13 @@ let win1
 let win2
 function createWindow() {
   win1 = new BrowserWindow({ x: 0, y: 0, height: 300, width: 500 })
-  win2 = new BrowserWindow({ x: 0, y: 300, height: 300, width: 500, show: false }) // [!code highlight]
+  win2 = new BrowserWindow({
+    x: 0,
+    y: 300,
+    height: 300,
+    width: 500,
+    show: false,
+  }) // [!code highlight]
 
   win1.loadURL('https://www.electronjs.org/')
   win2.loadURL('https://www.electronjs.org/')

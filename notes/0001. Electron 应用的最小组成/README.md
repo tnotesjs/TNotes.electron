@@ -9,21 +9,21 @@
 
 :::
 
-- [1. 📝 概述](#1--概述)
-- [2. 💻 demos.1 - Hello World 示例](#2--demos1---hello-world-示例)
+- [1. 概述](#1-概述)
+- [2. demos.1 - Hello World 示例](#2-demos1---hello-world-示例)
   - [2.1. 安装 Node.js 和 npm](#21-安装-nodejs-和-npm)
   - [2.2. 安装 Electron](#22-安装-electron)
   - [2.3. 准备入口文件（主进程）](#23-准备入口文件主进程)
   - [2.4. 准备页面（渲染进程，非必需）](#24-准备页面渲染进程非必需)
   - [2.5. 配置启动命令（非必需）](#25-配置启动命令非必需)
   - [2.6. 启动 Electron 应用](#26-启动-electron-应用)
-- [3. 🤔 Q&A](#3--qa)
+- [3. Q&A](#3-qa)
   - [3.1. 🤔 问：如何查看主进程加载的入口文件？](#31--问如何查看主进程加载的入口文件)
-- [4. 🔗 References](#4--references)
+- [4. References](#4-references)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 <BilibiliOutsidePlayer id="BV1kBFyeREXv" />
 
@@ -92,7 +92,7 @@ app.whenReady().then(() => {
   - 本节需要实现的 demo 效果非常简单 —— 启动 Electron 应用并在页面上渲染出 `Hello World`。
   - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-10-51.png)
 
-## 2. 💻 demos.1 - Hello World 示例
+## 2. demos.1 - Hello World 示例
 
 下面，我们来过一下具体的实现步骤。
 
@@ -280,14 +280,14 @@ touch index.html
 - 运行应用程序：`npm run dev`，这将启动 Electron 应用程序，并在窗口中显示“Hello, World!”消息。
   - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-08-10-51.png)
 
-## 3. 🤔 Q&A
+## 3. Q&A
 
 ### 3.1. 🤔 问：如何查看主进程加载的入口文件？
 
 - 主进程就是 `package.json` 中的 main 字段标识的文件，它是整个程序的入口，也是 Electron 的主进程。
 - 通过 `npm init -y` 生成的默认 `package.json` 文件中的 main 字段的值为 `index.js`。
 
-## 4. 🔗 References
+## 4. References
 
 ::: details
 

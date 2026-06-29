@@ -9,12 +9,12 @@
 
 :::
 
-- [1. 📝 概述](#1--概述)
-- [2. 💻 demos.1 - 使用 send、on 实现主进程和渲染进程之间的双向 IPC 通信](#2--demos1---使用-sendon-实现主进程和渲染进程之间的双向-ipc-通信)
+- [1. 概述](#1-概述)
+- [2. demos.1 - 使用 send、on 实现主进程和渲染进程之间的双向 IPC 通信](#2-demos1---使用-sendon-实现主进程和渲染进程之间的双向-ipc-通信)
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1. 概述
 
 <BilibiliOutsidePlayer id="BV1CBFyeRE5w" />
 
@@ -22,7 +22,7 @@
   - 使用 send、on 实现主进程和渲染进程之间的双向 IPC 通信
   - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-11-12-54.png)
 
-## 2. 💻 demos.1 - 使用 send、on 实现主进程和渲染进程之间的双向 IPC 通信
+## 2. demos.1 - 使用 send、on 实现主进程和渲染进程之间的双向 IPC 通信
 
 - **源码实现**
 

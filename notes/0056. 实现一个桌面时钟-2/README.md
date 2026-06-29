@@ -2,17 +2,18 @@
 
 <!-- region:toc -->
 
-- [1. 📒 demo 功能简介](#1--demo-功能简介)
-- [2. 📒 编写这个 demo 的初衷](#2--编写这个-demo-的初衷)
-- [3. 📒 启动 `npm start` 和出包 `npm run build`](#3--启动-npm-start-和出包-npm-run-build)
-- [4. 📒 图标背景色 `#9feaf9`](#4--图标背景色-9feaf9)
+- [1. demo 功能简介](#1-demo-功能简介)
+- [2. 编写这个 demo 的初衷](#2-编写这个-demo-的初衷)
+- [3. 启动 `npm start` 和出包 `npm run build`](#3-启动-npm-start-和出包-npm-run-build)
+- [4. 图标背景色 `#9feaf9`](#4-图标背景色-9feaf9)
 
 <!-- endregion:toc -->
+
 - 从 0 到 1 实现一个简易的桌面时钟应用。
 - 一共没几行代码，直接看 src 下边的源码即可。
 - 在 0032 也练习了一个桌面时钟的应用，0032 是一个桌面时钟摆件，展示效果是以钟表形式来呈现的。
 
-## 1. 📒 demo 功能简介
+## 1. demo 功能简介
 
 - 可自定义背景图（`src/week.jpeg` 目前放的是我家的猫）
 - 可自定义透明度（`src/main.js` 直接修改 `opacity: 0.88` 来自定义透明度）
@@ -21,11 +22,11 @@
 - 时间字体具备响应式 - 随着窗口尺寸变化而变化（`src/index.html` 更多和页面样式相关的内容，可以直接修改这里边的 style）
 - ……其他更多功能（可以学习更多的前端技术栈来扩展 demo 的功能）
 
-## 2. 📒 编写这个 demo 的初衷
+## 2. 编写这个 demo 的初衷
 
 - 录制一些分享视频的时候，开头习惯性地会读一些当前的时间，没找到在 macOS 上展示当前时间的好方案，于是使用 electron 写了一个建议版的桌面时钟 demo。
 
-## 3. 📒 启动 `npm start` 和出包 `npm run build`
+## 3. 启动 `npm start` 和出包 `npm run build`
 
 - 启动后看到的效果：
   - ![](assets/2024-11-11-15-08-32.png)
@@ -96,13 +97,13 @@ $ npm run build
 
 - 在 Windows 下最终生成的打包产物：
   - ![](assets/2024-11-11-14-57-50.png)
-    - `package.json` 中的 `"name": "display-cur-time"` 这一部分指定的是应用程序名称。比如可以将 `"name": "display-cur-time"` 改为  `"name": "time"`，那么生成的应用程序名称就为 `time`。
+    - `package.json` 中的 `"name": "display-cur-time"` 这一部分指定的是应用程序名称。比如可以将 `"name": "display-cur-time"` 改为 `"name": "time"`，那么生成的应用程序名称就为 `time`。
   - 双击运行这个安装程序。
   - ![](assets/2024-11-11-15-13-53.png)
   - 完成安装之后，会在桌面上自动生成该应用的快捷方式。
   - ![](assets/2024-11-11-15-14-06.png)
 
-## 4. 📒 图标背景色 `#9feaf9`
+## 4. 图标背景色 `#9feaf9`
 
 - `#9feaf9` 这个背景色是从当前（2024年11月11日15:15:26）的 Electron 官方文档中吸过来的主题色。
   - ![](assets/2024-11-11-15-16-34.png)

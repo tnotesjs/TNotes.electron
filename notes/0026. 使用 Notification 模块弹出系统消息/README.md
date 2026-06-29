@@ -2,27 +2,28 @@
 
 <!-- region:toc -->
 
-- [1. 🔗 links](#1--links)
-- [2. 💻 demo](#2--demo)
+- [1. links](#1-links)
+- [2. demo](#2-demo)
 
 <!-- endregion:toc -->
+
 - 如何使用 Notification 弹出系统通知
 - 这个 demo 使用 electron 的内置模块 Notification 实现了一个简单的 demo，最终效果仅仅是将系统消息给展示出来，没有加其它多余的交互逻辑。
 
-## 1. 🔗 links
+## 1. links
 
 - https://www.electronjs.org/zh/docs/latest/tutorial/notifications
   - Electron，查看通知（Notifications）示例。
 
-## 2. 💻 demo
+## 2. demo
 
 ```js
 // index.js
-const { BrowserWindow, app, ipcMain, Notification } = require('electron');
+const { BrowserWindow, app, ipcMain, Notification } = require('electron')
 
 app.whenReady().then(async () => {
   const win = new BrowserWindow({
-    webPreferences: { nodeIntegration: true, contextIsolation: false }
+    webPreferences: { nodeIntegration: true, contextIsolation: false },
   })
 
   win.webContents.openDevTools()

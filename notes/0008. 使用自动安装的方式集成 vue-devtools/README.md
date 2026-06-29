@@ -2,16 +2,17 @@
 
 <!-- region:toc -->
 
-- [1. 🔗 links](#1--links)
-- [2. 💻 demo](#2--demo)
-- [3. 📒 如何获取 VUE_DEVTOOLS_ID](#3--如何获取-vue_devtools_id)
+- [1. links](#1-links)
+- [2. demo](#2-demo)
+- [3. 如何获取 VUE_DEVTOOLS_ID](#3-如何获取-vue_devtools_id)
 
 <!-- endregion:toc -->
+
 - 如何根据插件 ID 自动下载 chrome 插件源码 `downloadChromeExtension.js`
 - 本文基于 electron-devtools-installer 中的下载 chrome 插件的逻辑，封装了一个 downloadChromeExtension.js 模块，在 electron.0007 的基础上，实现自动安装插件的功能。
 - 其它第三方插件的集成方案基本都类似，集成 vue 调试工具 vue-devtools 的示例可以作为一个参考。
 
-## 1. 🔗 links
+## 1. links
 
 - https://www.npmjs.com/package/electron-devtools-installer
   - electron-devtools-installer
@@ -23,7 +24,7 @@
 - https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd
   - chrome extension - vue.js devtools
 
-## 2. 💻 demo
+## 2. demo
 
 ```json
 // package.json
@@ -104,7 +105,7 @@ const changePermissions = (dir, mode) => {
 const downloadChromeExtension = (
   chromeStoreID,
   forceDownload = false,
-  attempts = 5
+  attempts = 5,
 ) => {
   const extensionsStore = getPath()
   if (!fs.existsSync(extensionsStore)) {
@@ -139,7 +140,7 @@ const downloadChromeExtension = (
         })
         .catch((err) => {
           console.log(
-            `Failed to fetch extension, trying ${attempts - 1} more times`
+            `Failed to fetch extension, trying ${attempts - 1} more times`,
           ) // eslint-disable-line
           if (attempts <= 1) {
             return reject(err)
@@ -198,23 +199,23 @@ function createWindow() {
 
 app.whenReady().then(async () => {
   try {
-    const devToolsPath = await downloadChromeExtension(VUE_DEVTOOLS_ID);
-    console.log(`Extension downloaded and installed at: ${devToolsPath}`);
+    const devToolsPath = await downloadChromeExtension(VUE_DEVTOOLS_ID)
+    console.log(`Extension downloaded and installed at: ${devToolsPath}`)
 
     await session.defaultSession.loadExtension(devToolsPath, {
       allowFileAccess: true,
-    });
-    console.log('Vue DevTools loaded successfully.');
+    })
+    console.log('Vue DevTools loaded successfully.')
   } catch (err) {
-    console.error('Failed to download and install extension:', err);
+    console.error('Failed to download and install extension:', err)
   }
 
-  createWindow();
+  createWindow()
 
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
-});
+    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
+})
 
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -228,7 +229,7 @@ app.on('window-all-closed', () => {
 - **最终效果**
   - ![](assets/2024-10-13-21-18-23.png)
 
-## 3. 📒 如何获取 VUE_DEVTOOLS_ID
+## 3. 如何获取 VUE_DEVTOOLS_ID
 
 去 **chrome 应用商店** 安装 **Vue.js devtools 插件**。假如你已经安装好了插件，可以在插件管理页面（`chrome://extensions/`）查看。
 
