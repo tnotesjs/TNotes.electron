@@ -12,7 +12,7 @@
 
 ## 1. 视频
 
-<BilibiliOutsidePlayer id="BV1CBFyeREk5" />
+<BilibiliVideo id="BV1CBFyeREk5" />
 
 ## 2. links
 

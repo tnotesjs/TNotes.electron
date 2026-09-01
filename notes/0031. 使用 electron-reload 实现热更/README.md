@@ -24,7 +24,7 @@
 
 ## 2. 视频
 
-<B id="BV1kBFyeREDD" />
+<BilibiliVideo id="BV1kBFyeREDD" />
 
 ## 3. links
 

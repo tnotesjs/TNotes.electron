@@ -12,7 +12,7 @@
 
 ## 1. 视频
 
-<BilibiliOutsidePlayer id="BV1CBFyeREuR" />
+<BilibiliVideo id="BV1CBFyeREuR" />
 
 ## 2. Electron 官方文档 - 如何在两个渲染进程之间建立 MessageChannel
 

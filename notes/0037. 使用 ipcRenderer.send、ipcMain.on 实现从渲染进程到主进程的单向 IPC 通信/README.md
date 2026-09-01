@@ -16,7 +16,7 @@
 
 ## 1. 概述
 
-<BilibiliOutsidePlayer id="BV1CBFyeRErb" />
+<BilibiliVideo id="BV1CBFyeRErb" />
 
 - 通过一个简单的 demo 来了解 `ipcRenderer.send`、`ipcMain.on` 的一种基本用法。
 

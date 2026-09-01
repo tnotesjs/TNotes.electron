@@ -11,7 +11,7 @@
 
 ## 1. 视频
 
-<BilibiliOutsidePlayer id="BV1CBFyeREWg" />
+<BilibiliVideo id="BV1CBFyeREWg" />
 
 ## 2. demos.1 - MessageChannel vs. ipcRenderer.invoke、ipcMain.handle
 

@@ -12,7 +12,7 @@
 
 ## 1. 视频
 
-<BilibiliOutsidePlayer id="BV1CBFyeREsn" />
+<BilibiliVideo id="BV1CBFyeREsn" />
 
 ## 2. 查看 electron 官方文档 -> breaking-changes
 

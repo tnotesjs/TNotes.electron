@@ -16,7 +16,7 @@
 
 ## 1. 视频 - demos.1
 
-<BilibiliOutsidePlayer id="BV1PBFyedEjE" />
+<BilibiliVideo id="BV1PBFyedEjE" />
 
 ## 2. demos.1
 
@@ -179,7 +179,7 @@ sequenceDiagram
 
 ## 3. 视频 - demos.2
 
-<BilibiliOutsidePlayer id="BV1kBFyeREX9" />
+<BilibiliVideo id="BV1kBFyeREX9" />
 
 ## 4. demos.2
 

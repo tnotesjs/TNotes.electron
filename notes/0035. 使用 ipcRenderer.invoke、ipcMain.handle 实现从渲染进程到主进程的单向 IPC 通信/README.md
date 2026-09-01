@@ -9,7 +9,7 @@
 
 ## 1. 概述
 
-<BilibiliOutsidePlayer id="BV1CBFyedE6q" />
+<BilibiliVideo id="BV1CBFyedE6q" />
 
 - 通过一个简单的 demo 介绍 `ipcRenderer.invoke`、`ipcMain.handle` 的基本使用。
 

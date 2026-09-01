@@ -17,6 +17,6 @@
     "vue": "^3.5.27"
   },
   "dependencies": {
-    "@tnotesjs/core": "^0.3.0"
+    "@tnotesjs/core": "^0.8.0"
   }
 }

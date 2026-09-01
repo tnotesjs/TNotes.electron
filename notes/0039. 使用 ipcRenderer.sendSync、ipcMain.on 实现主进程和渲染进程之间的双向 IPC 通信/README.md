@@ -16,7 +16,7 @@
 
 ## 1. 概述
 
-<BilibiliOutsidePlayer id="BV1CBFyeREu6" />
+<BilibiliVideo id="BV1CBFyeREu6" />
 
 - 主进程 <-> 渲染进程
   - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-11-18-08.png)

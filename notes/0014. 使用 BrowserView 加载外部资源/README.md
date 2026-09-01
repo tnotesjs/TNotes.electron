@@ -14,7 +14,7 @@
 
 ## 1. 视频
 
-<BilibiliOutsidePlayer id="BV1ABFyedEXi" />
+<BilibiliVideo id="BV1ABFyedEXi" />
 
 ## 2. TODO 为啥 BrowserView 被废弃掉了
 
