@@ -9,16 +9,16 @@
 
 :::
 
-- [1. 概述](#1-概述)
+- [1. 本节内容](#1-本节内容)
 - [2. demos.1 - 使用 `ipcRenderer.send`、`ipcMain.on` 实现从渲染进程到主进程的单向 IPC 通信](#2-demos1---使用-ipcrenderersendipcmainon-实现从渲染进程到主进程的单向-ipc-通信)
 
 <!-- endregion:toc -->
 
-## 1. 概述
+## 1. 本节内容
+
+这一节将通过一个简单的 demo 来了解 `ipcRenderer.send`、`ipcMain.on` 的一种基本用法。
 
 <BilibiliVideo id="BV1CBFyeRErb" />
-
-- 通过一个简单的 demo 来了解 `ipcRenderer.send`、`ipcMain.on` 的一种基本用法。
 
 ## 2. demos.1 - 使用 `ipcRenderer.send`、`ipcMain.on` 实现从渲染进程到主进程的单向 IPC 通信
 
@@ -82,6 +82,7 @@ app.on('ready', () => {
 
 :::
 
-- **最终效果**
-  - 渲染进程使用 ipcRenderer.send 发送消息给主进程，主进程通过 ipcMain.on 对渲染进程发送过来的消息进行监听，实现【渲染进程】到【主进程】的【单向 IPC 通信】。
-  - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-10-13-39.png)
+最终效果：渲染进程使用 ipcRenderer.send 发送消息给主进程，主进程通过 ipcMain.on 对渲染进程发送过来的消息进行监听，实现【渲染进程】到【主进程】的【单向 IPC 通信】。
+
+![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-05-03-10-13-39.png)
+
