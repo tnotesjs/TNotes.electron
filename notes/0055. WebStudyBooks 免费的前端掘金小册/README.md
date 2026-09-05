@@ -2,17 +2,18 @@
 
 <!-- region:toc -->
 
-- [1. 概述](#1-概述)
+- [1. 本节内容](#1-本节内容)
 - [2. 白嫖小册列表](#2-白嫖小册列表)
 - [3. WebStudyBooks 相关链接](#3-webstudybooks-相关链接)
 - [4. 注意一些可能存在的问题](#4-注意一些可能存在的问题)
 
 <!-- endregion:toc -->
 
-## 1. 概述
+## 1. 本节内容
 
-- 介绍了一个 github 仓库 [WebStudyBooks](https://github.com/zhaoxinkun/WebStudyBooks)，这里边存放了一些作者上传的掘金小册的压缩包，可以免费获取。
-- 介绍了阅读这些内容可能存在的一些问题。
+这一节介绍的是一个 github 仓库 [WebStudyBooks](https://github.com/zhaoxinkun/WebStudyBooks)，这里边存放了一些 `zhaoxinkun` 作者上传的掘金小册的压缩包，可以免费获取。
+
+在阅读这些内容的时候，需注意一个内容版本滞后的问题。
 
 ## 2. 白嫖小册列表
 
