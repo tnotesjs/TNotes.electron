@@ -1,65 +1,54 @@
-# doc => https://vitepress.dev/zh/guide/deploy
-# 构建 VitePress 站点并将其部署到 GitHub Pages 的示例工作流程
-name: Deploy VitePress site to Pages
+# 构建 TNotes SSG 站点并部署到 GitHub Pages
+name: Deploy TNotes site to Pages
 
 on:
-  # 在针对 `main` 分支的推送上运行。如果你
-  # 使用 `master` 分支作为默认分支，请将其更改为 `master`
   push:
     branches: [main]
-
-  # 允许你从 Actions 选项卡手动运行此工作流程
   workflow_dispatch:
-
   schedule:
-    - cron: '0 0 1 * *'   # 每月 1 号 UTC 00:00 自动触发 deploy
-# 设置 GITHUB_TOKEN 的权限，以允许部署到 GitHub Pages
+    - cron: "0 0 1 * *" # 每月 1 号 UTC 00:00 自动触发 deploy
+
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# 只允许同时进行一次部署，跳过正在运行和最新队列之间的运行队列
-# 但是，不要取消正在进行的运行，因为我们希望允许这些生产部署完成
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  # 构建工作
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 如果未启用 lastUpdated，则不需要
+          fetch-depth: 0
           submodules: true
-      - uses: pnpm/action-setup@v3 # 如果使用 pnpm，请取消此区域注释
+      - uses: pnpm/action-setup@v3
         with:
-          version: 10
-      # - uses: oven-sh/setup-bun@v1 # 如果使用 Bun，请取消注释
+          version: 11.10.0
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: pnpm # npm 或 pnpm / yarn
+          node-version: 22.22.0
+          cache: pnpm
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Install dependencies
-        run: pnpm install # npm ci 或 pnpm install / yarn install / bun install
-      - name: Gen Toc
+        run: pnpm install
+      - name: Update stats
         run: pnpm tn:update
-      - name: Build with VitePress
+      - name: Build with TNotes SSG
         env:
           NODE_OPTIONS: --max-old-space-size=8192
         run: pnpm tn:build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .vitepress/dist
+          path: .tnotes/dist
 
-  # 部署工作
   deploy:
     environment:
       name: github-pages
@@ -72,16 +61,18 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  # 通知根仓库收集元数据
-  notify:
-    needs: deploy
-    runs-on: ubuntu-latest
-    name: Notify TNotes
-    steps:
-      - name: Trigger root repo collect
-        run: |
-          curl -s -X POST \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token ${{ secrets.TNOTES_DISPATCH_TOKEN }}" \
-            https://api.github.com/repos/tnotesjs/TNotes/dispatches \
-            -d '{"event_type":"sub_repo_updated","client_payload":{"repo":"${{ github.event.repository.name }}"}}'
+  # 2026-09-07 暂时关闭：根仓 collect 仍读子库 .tnotes.json / sidebar.json。
+  # 新架构已改为 tnotes.json + TOC.md，notify 会让根站静默留下过期目录和死链。
+  # 根仓 collect 改完后再打开。
+  # notify:
+  #   needs: deploy
+  #   runs-on: ubuntu-latest
+  #   name: Notify TNotes
+  #   steps:
+  #     - name: Trigger root repo collect
+  #       run: |
+  #         curl -s -X POST \
+  #           -H "Accept: application/vnd.github.v3+json" \
+  #           -H "Authorization: token ${{ secrets.TNOTES_DISPATCH_TOKEN }}" \
+  #           https://api.github.com/repos/tnotesjs/TNotes/dispatches \
+  #           -d '{"event_type":"sub_repo_updated","client_payload":{"repo":"${{ github.event.repository.name }}"}}'

@@ -1,0 +1,43 @@
+{
+  "title": "electron",
+  "name": "TNotes.electron",
+  "description": "Electron 笔记",
+  "icon": {
+    "src": "https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/assets/icon--electron.svg"
+  },
+  "repositoryUrl": "https://github.com/tnotesjs/TNotes.electron",
+  "port": 9210,
+  "pageUrl": "https://tnotesjs.github.io/TNotes.electron/",
+  "base": "/TNotes.electron/",
+  "stats": {
+    "enabled": true,
+    "completedNotesCount": {
+      "24.09": 0,
+      "24.10": 0,
+      "24.11": 0,
+      "24.12": 0,
+      "25.01": 0,
+      "25.02": 0,
+      "25.03": 0,
+      "25.04": 0,
+      "25.05": 19,
+      "25.06": 20,
+      "25.07": 20,
+      "25.08": 20,
+      "25.09": 20,
+      "25.10": 20,
+      "25.11": 20,
+      "25.12": 20,
+      "26.01": 20,
+      "26.02": 20,
+      "26.03": 20,
+      "26.04": 20,
+      "26.05": 20,
+      "26.06": 20,
+      "26.07": 20,
+      "26.08": 20,
+      "26.09": 20
+    }
+  },
+  "discussions": true
+}
