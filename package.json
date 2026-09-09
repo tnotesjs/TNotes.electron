@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@tnotesjs/kb": "^0.2.1",
-    "@tnotesjs/ssg": "^0.1.2"
+    "@tnotesjs/ssg": "^0.1.8"
   },
   "packageManager": "pnpm@11.10.0",
   "engines": {

@@ -12,8 +12,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1
       '@tnotesjs/ssg':
-        specifier: ^0.1.2
-        version: 0.1.2(@types/markdown-it@14.2.0)(sass@1.100.0)(yaml@2.9.0)
+        specifier: ^0.1.8
+        version: 0.1.8(@types/markdown-it@14.2.0)(sass@1.100.0)(yaml@2.9.0)
 
 packages:
 
@@ -495,13 +495,13 @@ packages:
     resolution: {integrity: sha512-uDMllL2l7zq0d63K8i1cnzdBZfwnkXLw+t48cXIhYg3tvVCpb38YOy0QFAhHTg8xRreV+Jdh3jBaf+wo0FAEFg==}
     engines: {node: '>=18.0.0'}
 
-  '@tnotesjs/ssg@0.1.2':
-    resolution: {integrity: sha512-VrHMmPaD1NmuYU84FBNMST9vtElt4qWduS6WXp5y2hhDqYNO03dpLv7M6W9yzpke0nz5dr6zeBh7LUtkKp81KQ==}
+  '@tnotesjs/ssg@0.1.8':
+    resolution: {integrity: sha512-pzA8/M6QKJqU5mAJlv6vtCN+iy5YuWEaPfo0iweKAJHz0s2lnTlDsK2KoHvtLszTb/GDV6qggR25qYHNxOrqgQ==}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
-  '@tnotesjs/ui@0.1.4':
-    resolution: {integrity: sha512-up8nnkWZqSLfg0MYiBBTuj9PfKhCrbinb+iEw873Gkn9VWu7fPgpeAafRtBms0k3JuPrp1Fc6ivgaU1PCieFUw==}
+  '@tnotesjs/ui@0.1.5':
+    resolution: {integrity: sha512-cHNGo7Qxab7XPTB4poBcwAYUmKL7CJs+LwVo6iIKYDB2xrSGtpTUJyx1n0b96/TMIgDTRecrvlmnul+4WAArOQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       vue: ^3.5.0
@@ -1168,11 +1168,6 @@ packages:
   mj-context-menu@0.6.1:
     resolution: {integrity: sha512-7NO5s6n10TIV96d4g2uDpG7ZDpIhMh0QNfGdJw/W47JswFcosz457wqz/b5sAKvl12sxINGFCn80NZHKwxQEXA==}
 
-  nanoid@3.3.12:
-    resolution: {integrity: sha512-ZB9RH/39qpq5Vu6Y+NmUaFhQR6pp+M2Xt76XBnEwDaGcVAqhlvxrl3B2bKS5D3NH3QR76v3aSrKaF/Kiy7lEtQ==}
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
   nanoid@3.3.18:
     resolution: {integrity: sha512-DTg4MJbGMWkfi6VZFdNt2/caMbQy4Ou+Op/hJQvGEWcnVfoA1QA+xzRKAzw9jD6+GVOOeYr/mIcuDSdug6F6+w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -1223,10 +1218,6 @@ packages:
 
   points-on-path@0.2.1:
     resolution: {integrity: sha512-25ClnWWuw7JbWZcgqY/gJ4FQWadKxGWk+3kR/7kD0tCaDtPPMj7oHu2ToLaVhfpnHrZzYby2w6tUA0eOIuUg8g==}
-
-  postcss@8.5.15:
-    resolution: {integrity: sha512-FfR8sjd4em2T6fb3I2MwAJU7HWVMr9zba+enmQeeWFfCbm+UOC/0X4DS8XtpUTMwWMGbjKYP7xjfNekzyGmB3A==}
-    engines: {node: ^10 || ^12 || >=14}
 
   postcss@8.5.28:
     resolution: {integrity: sha512-RRuzqDtt5Y9h3quz5hWhK+TPnsmVs6WwSU6LkJMeY4HstUEDuYTG8UJSdawMRzmzAtV+KEoG8N3Qg2qLy5vM/A==}
@@ -1895,13 +1886,13 @@ snapshots:
 
   '@tnotesjs/mindmap-core@0.2.2': {}
 
-  '@tnotesjs/ssg@0.1.2(@types/markdown-it@14.2.0)(sass@1.100.0)(yaml@2.9.0)':
+  '@tnotesjs/ssg@0.1.8(@types/markdown-it@14.2.0)(sass@1.100.0)(yaml@2.9.0)':
     dependencies:
       '@mdit-vue/plugin-component': 2.1.4
       '@mdit-vue/plugin-frontmatter': 2.1.4
       '@mdit-vue/plugin-sfc': 2.1.4
       '@tnotesjs/kb': 0.2.1
-      '@tnotesjs/ui': 0.1.4(vue@3.5.41)
+      '@tnotesjs/ui': 0.1.5(vue@3.5.41)
       '@vitejs/plugin-vue': 6.0.8(vite@7.3.6(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vue@3.5.41)
       '@vue/server-renderer': 3.5.41
       github-slugger: 2.0.0
@@ -1932,7 +1923,7 @@ snapshots:
       - typescript
       - yaml
 
-  '@tnotesjs/ui@0.1.4(vue@3.5.41)':
+  '@tnotesjs/ui@0.1.5(vue@3.5.41)':
     dependencies:
       '@tnotesjs/mindmap-core': 0.2.2
       marked: 15.0.12
@@ -2729,8 +2720,6 @@ snapshots:
 
   mj-context-menu@0.6.1: {}
 
-  nanoid@3.3.12: {}
-
   nanoid@3.3.18: {}
 
   node-addon-api@7.1.1:
@@ -2772,12 +2761,6 @@ snapshots:
     dependencies:
       path-data-parser: 0.1.0
       points-on-curve: 0.2.0
-
-  postcss@8.5.15:
-    dependencies:
-      nanoid: 3.3.12
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
 
   postcss@8.5.28:
     dependencies:
@@ -3063,7 +3046,7 @@ snapshots:
       esbuild: 0.27.7
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
-      postcss: 8.5.15
+      postcss: 8.5.28
       rollup: 4.61.0
       tinyglobby: 0.2.17
     optionalDependencies:
