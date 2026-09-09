@@ -61,18 +61,18 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  # 2026-09-07 暂时关闭：根仓 collect 仍读子库 .tnotes.json / sidebar.json。
-  # 新架构已改为 tnotes.json + TOC.md，notify 会让根站静默留下过期目录和死链。
-  # 根仓 collect 改完后再打开。
-  # notify:
-  #   needs: deploy
-  #   runs-on: ubuntu-latest
-  #   name: Notify TNotes
-  #   steps:
-  #     - name: Trigger root repo collect
-  #       run: |
-  #         curl -s -X POST \
-  #           -H "Accept: application/vnd.github.v3+json" \
-  #           -H "Authorization: token ${{ secrets.TNOTES_DISPATCH_TOKEN }}" \
-  #           https://api.github.com/repos/tnotesjs/TNotes/dispatches \
-  #           -d '{"event_type":"sub_repo_updated","client_payload":{"repo":"${{ github.event.repository.name }}"}}'
+  # 部署完成后通知根仓重新收集（根站数据管道已迁新格式，2026-09-09 恢复）。
+  # payload 带 sha：根仓 collect 按 commit 精确拉取本库数据，绕过 raw CDN 缓存。
+  notify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    name: Notify TNotes
+    steps:
+      - name: Trigger root repo collect
+        run: |
+          curl -sf --max-time 15 -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -H "Authorization: Bearer ${{ secrets.TNOTES_DISPATCH_TOKEN }}" \
+            https://api.github.com/repos/tnotesjs/TNotes/dispatches \
+            -d '{"event_type":"sub_repo_updated","client_payload":{"repo":"${{ github.event.repository.name }}","sha":"${{ github.sha }}"}}'
