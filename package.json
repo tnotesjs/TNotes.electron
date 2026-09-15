@@ -8,8 +8,8 @@
     "tn:preview": "tnotes-ssg preview"
   },
   "devDependencies": {
-    "@tnotesjs/kb": "^0.2.1",
-    "@tnotesjs/ssg": "^0.2.0"
+    "@tnotesjs/kb": "^0.5.1",
+    "@tnotesjs/ssg": "^0.2.1"
   },
   "packageManager": "pnpm@11.10.0",
   "engines": {
