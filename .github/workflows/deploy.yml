@@ -74,5 +74,5 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             -H "Authorization: Bearer ${{ secrets.TNOTES_DISPATCH_TOKEN }}" \
-            https://api.github.com/repos/tnotesjs/TNotes/dispatches \
+            https://api.github.com/repos/tnotesjs/TNotes.root/dispatches \
             -d '{"event_type":"sub_repo_updated","client_payload":{"repo":"${{ github.event.repository.name }}","sha":"${{ github.sha }}"}}'
