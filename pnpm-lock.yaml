@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@tnotesjs/kb':
-        specifier: ^0.5.1
-        version: 0.5.1
+        specifier: ^0.5.2
+        version: 0.5.2
       '@tnotesjs/ssg':
         specifier: ^0.3.2
         version: 0.3.2(@types/markdown-it@14.2.0)(sass@1.104.1)(yaml@2.9.0)
@@ -827,11 +827,6 @@ packages:
 
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
-
-  '@tnotesjs/kb@0.5.1':
-    resolution: {integrity: sha512-QaOYNCkhNYrsQpcndYm/VPybFCaSjvf7uQEfb1otHhZ83u+DA0rPR3doq8IdBFgHAM9rpwDNsl09nqBC3jkSrQ==}
-    engines: {node: '>=22.0.0'}
-    hasBin: true
 
   '@tnotesjs/kb@0.5.2':
     resolution: {integrity: sha512-Rh4jpor4PFP9cnR5MFg8z7PTI1QI2fD96vPqYwaBCRuEMA9PGlONS6rDixzB0hGvpmYEixwNuAltX1PoxJyO+g==}
@@ -2937,10 +2932,6 @@ snapshots:
       '@types/hast': 3.0.5
 
   '@shikijs/vscode-textmate@10.0.2': {}
-
-  '@tnotesjs/kb@0.5.1':
-    dependencies:
-      gray-matter: 4.0.3
 
   '@tnotesjs/kb@0.5.2':
     dependencies:
