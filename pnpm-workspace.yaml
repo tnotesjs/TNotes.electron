@@ -5,3 +5,4 @@ minimumReleaseAgeExclude:
   - '@tnotesjs/ui'
   - '@tnotesjs/kb'
   - '@tnotesjs/ssg'
+  - '@tnotesjs/mindmap-core'
