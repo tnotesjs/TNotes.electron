@@ -9,11 +9,11 @@ importers:
   .:
     devDependencies:
       '@tnotesjs/kb':
-        specifier: ^0.5.5
-        version: 0.5.5
+        specifier: ^0.5.6
+        version: 0.5.6
       '@tnotesjs/ssg':
-        specifier: ^0.4.8
-        version: 0.4.8(@types/markdown-it@14.2.0)(sass@1.108.1)(yaml@2.9.0)
+        specifier: ^0.4.9
+        version: 0.4.9(@types/markdown-it@14.2.0)(sass@1.108.1)(yaml@2.9.0)
 
 packages:
 
@@ -828,8 +828,8 @@ packages:
   '@shikijs/vscode-textmate@10.1.0':
     resolution: {integrity: sha512-cVBuhDQjBZaNMTwBquYfPydrUP+E3hE6oYGasx8h6ZrODIM7/r+gxLDXdd66oszbrggZHEntdE6j+5gYIVyMWQ==}
 
-  '@tnotesjs/kb@0.5.5':
-    resolution: {integrity: sha512-GpjXKTyszaKq6wD+slpQ0VfFUo6TnKFTKC8aqKHTVjaGiuntOLsnZc74nn18qxjQPAeMMX/6NMAH4Oq1VVDSUA==}
+  '@tnotesjs/kb@0.5.6':
+    resolution: {integrity: sha512-ZLl6o+uyFEyko9aOFH2htnju53L8z7QRDkRM6ncNtd9sP4Thh3QmdxI5CaSDDVdf5JXda0zDsc7xVegQNgu1EA==}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
@@ -837,13 +837,13 @@ packages:
     resolution: {integrity: sha512-hIghNAuhW/c+4MsyhEQSXaGJN+AxZCfAPfs12fi8bskVaIJ+KOF3MM+vYBkmwo4ASTOICKaavOulQk72kg3nrw==}
     engines: {node: '>=18.0.0'}
 
-  '@tnotesjs/ssg@0.4.8':
-    resolution: {integrity: sha512-p5G1QqWdXSaKIvfvUnBlEq5RMQACAqsWRKG+BV5kmZP0WgljtGkOSG74fS9NhugxqFfiP2r3jvzAOGdE70/dFg==}
+  '@tnotesjs/ssg@0.4.9':
+    resolution: {integrity: sha512-LHiGRtdl53QdCYa2crZCe1CTu6mYwKP6sUB0EVbfjKtqr6Lisvh6LPJSN0OTa/KK9HHchy3xaRtdnDg5A5GpGQ==}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
-  '@tnotesjs/ui@0.4.6':
-    resolution: {integrity: sha512-4WMKlGUX2VU7B56sUC5hljDiAYtSOzpENdAhBCoq1x7Tf2VIxqh0cy/1jMENRgeY40p9Qd+qH6pfcSxGjimqpg==}
+  '@tnotesjs/ui@0.4.7':
+    resolution: {integrity: sha512-qewCGoqhAG4aik2bRLEWVHNze1UCfa4kX4KyMHg53JWgFP91Qe6VvzDoVDA8ys5YRNPET040Ba9iYQgX1bG5Ag==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       vue: ^3.5.0
@@ -1596,10 +1596,6 @@ packages:
   markdown-it-task-lists@2.1.1:
     resolution: {integrity: sha512-TxFAc76Jnhb2OUu+n3yz9RMu4CwGfaT788br6HhEDlvWfdeJcLUsxk1Hgw2yJio0OXsxv7pyIPmvECY7bMbluA==}
 
-  markdown-it@14.3.2:
-    resolution: {integrity: sha512-sHHjZ5fJKlgrG4qns2YwVcdNep35h5fERrfkD2YNsb9UFk0UIHarbiTaHKVMlPuWAoiilyK8Fv/jAm11slsY7Q==}
-    hasBin: true
-
   markdown-it@14.3.3:
     resolution: {integrity: sha512-L//tDAkjTjJCU6pBUSBTgs3Kg4InVaZuUZog/b6V12UKhcDQ7S78877ibbCanRExwPuYP1CZD7Gd2dxSy1GXRg==}
     hasBin: true
@@ -1661,11 +1657,6 @@ packages:
 
   multimath@2.0.0:
     resolution: {integrity: sha512-toRx66cAMJ+Ccz7pMIg38xSIrtnbozk0dchXezwQDMgQmbGpfxjtv68H+L00iFL8hxDaVjrmwAFSb3I6bg8Q2g==}
-
-  nanoid@3.3.19:
-    resolution: {integrity: sha512-Y2tUNy4ouw6tq5oDSKeQYGOyhkUBhNOcGV/02KC+6kd9eDGqdZd++mjMiIDilrBYvjEnCYvVtsuHCuP+okSfug==}
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
 
   nanoid@3.3.20:
     resolution: {integrity: sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==}
@@ -1770,10 +1761,6 @@ packages:
 
   points-on-path@0.2.1:
     resolution: {integrity: sha512-25ClnWWuw7JbWZcgqY/gJ4FQWadKxGWk+3kR/7kD0tCaDtPPMj7oHu2ToLaVhfpnHrZzYby2w6tUA0eOIuUg8g==}
-
-  postcss@8.5.28:
-    resolution: {integrity: sha512-RRuzqDtt5Y9h3quz5hWhK+TPnsmVs6WwSU6LkJMeY4HstUEDuYTG8UJSdawMRzmzAtV+KEoG8N3Qg2qLy5vM/A==}
-    engines: {node: ^10 || ^12 || >=14}
 
   postcss@8.5.32:
     resolution: {integrity: sha512-LJlKCCAUFKOuZxipUdYw1NzIITEsPcgyOG9LkvRJvuKj/bRzbuRY0ARXvL0pWGpsZvn8jku+LMep2eU0seHp8g==}
@@ -2486,20 +2473,20 @@ snapshots:
   '@mdit-vue/plugin-component@2.1.4':
     dependencies:
       '@types/markdown-it': 14.2.0
-      markdown-it: 14.3.2
+      markdown-it: 14.3.3
 
   '@mdit-vue/plugin-frontmatter@2.1.4':
     dependencies:
       '@mdit-vue/types': 2.1.4
       '@types/markdown-it': 14.2.0
       gray-matter: 4.0.3
-      markdown-it: 14.3.2
+      markdown-it: 14.3.3
 
   '@mdit-vue/plugin-sfc@2.1.4':
     dependencies:
       '@mdit-vue/types': 2.1.4
       '@types/markdown-it': 14.2.0
-      markdown-it: 14.3.2
+      markdown-it: 14.3.3
 
   '@mdit-vue/types@2.1.4': {}
 
@@ -2922,19 +2909,19 @@ snapshots:
 
   '@shikijs/vscode-textmate@10.1.0': {}
 
-  '@tnotesjs/kb@0.5.5':
+  '@tnotesjs/kb@0.5.6':
     dependencies:
       gray-matter: 4.0.3
 
   '@tnotesjs/mindmap-core@0.2.5': {}
 
-  '@tnotesjs/ssg@0.4.8(@types/markdown-it@14.2.0)(sass@1.108.1)(yaml@2.9.0)':
+  '@tnotesjs/ssg@0.4.9(@types/markdown-it@14.2.0)(sass@1.108.1)(yaml@2.9.0)':
     dependencies:
       '@mdit-vue/plugin-component': 2.1.4
       '@mdit-vue/plugin-frontmatter': 2.1.4
       '@mdit-vue/plugin-sfc': 2.1.4
-      '@tnotesjs/kb': 0.5.5
-      '@tnotesjs/ui': 0.4.6(vue@3.5.44)
+      '@tnotesjs/kb': 0.5.6
+      '@tnotesjs/ui': 0.4.7(vue@3.5.44)
       '@vitejs/plugin-vue': 6.0.10(vite@7.3.7(sass-embedded@1.107.1)(sass@1.108.1)(yaml@2.9.0))(vue@3.5.44)
       '@vue/server-renderer': 3.5.44
       github-slugger: 2.0.0
@@ -2968,7 +2955,7 @@ snapshots:
       - typescript
       - yaml
 
-  '@tnotesjs/ui@0.4.6(vue@3.5.44)':
+  '@tnotesjs/ui@0.4.7(vue@3.5.44)':
     dependencies:
       '@excalidraw/excalidraw': 0.18.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tnotesjs/mindmap-core': 0.2.5
@@ -3820,15 +3807,6 @@ snapshots:
 
   markdown-it-task-lists@2.1.1: {}
 
-  markdown-it@14.3.2:
-    dependencies:
-      argparse: 2.0.1
-      entities: 4.5.0
-      linkify-it: 5.0.2
-      mdurl: 2.1.0
-      punycode.js: 2.3.1
-      uc.micro: 2.1.0
-
   markdown-it@14.3.3:
     dependencies:
       argparse: 2.0.1
@@ -3920,8 +3898,6 @@ snapshots:
       glur: 1.1.2
       object-assign: 4.1.1
 
-  nanoid@3.3.19: {}
-
   nanoid@3.3.20: {}
 
   nanoid@3.3.3: {}
@@ -4009,12 +3985,6 @@ snapshots:
     dependencies:
       path-data-parser: 0.1.0
       points-on-curve: 0.2.0
-
-  postcss@8.5.28:
-    dependencies:
-      nanoid: 3.3.19
-      picocolors: 1.1.1
-      source-map-js: 1.2.2
 
   postcss@8.5.32:
     dependencies:
@@ -4395,7 +4365,7 @@ snapshots:
       esbuild: 0.28.2
       fdir: 6.5.0(picomatch@4.0.7)
       picomatch: 4.0.7
-      postcss: 8.5.28
+      postcss: 8.5.32
       rollup: 4.63.3
       tinyglobby: 0.2.17
     optionalDependencies:
